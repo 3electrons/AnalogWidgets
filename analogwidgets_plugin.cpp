@@ -4,8 +4,6 @@
 #include "wallclock/wallclock_plugin.h"
 #include "barmeter/barmeter_plugin.h"
 
-
-
 AnalogWidgetsPlugin::AnalogWidgetsPlugin()
 {
   m_pluginList.push_back(new WallClockPlugin(NULL));
