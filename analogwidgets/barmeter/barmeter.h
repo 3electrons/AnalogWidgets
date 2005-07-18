@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QFont>
+#include <QPixmap>
 
     class BarMeter : public QWidget
     {
@@ -12,26 +13,46 @@
 	Q_PROPERTY (int value   READ value   WRITE setValue )
 	Q_PROPERTY (QString prefix READ prefix WRITE setPrefix)
 	Q_PROPERTY (QString suffix READ suffix WRITE setSuffix)
-	Q_PROPERTY (bool simplified READ simplified  WRITE setSimplified)
 	Q_PROPERTY (QFont valueFont READ valueFont   WRITE setValueFont)
 	Q_PROPERTY (int valueOffset READ valueOffset WRITE setValueOffset)
+	Q_PROPERTY (QFont digitFont READ digitFont   WRITE setDigitFont)
+	Q_PROPERTY (int digitOffset READ digitOffset WRITE setDigitOffset)
+	Q_PROPERTY (int nominal READ nominal WRITE setNominal);
+	Q_PROPERTY (int critical READ critical WRITE setCritical);
+
 
     public:
     	BarMeter(QWidget *parent = 0);
-	int  minimum() const   { return m_minimum; }
-        void setMinimum(int i) { m_minimum = i; update(); }
+	virtual ~BarMeter();
 
+	int  minimum() const   { return m_minimum; }
+        void setMinimum(int i)
+	{
+	  if (m_minimum != i && i < m_maximum )
+	     {
+	       m_minimum = i;
+               calcMaxMin();
+               update();
+             }
+	}
         int  maximum() const   { return m_maximum; }
-        void setMaximum(int i) { m_maximum = i; update(); }
+
+        void setMaximum(int i)
+        {
+          if (m_maximum != i && i > m_minimum )
+             {
+                m_maximum = i;
+		calcMaxMin();
+                update();
+ 	     }
+
+        }
 
         QString prefix() const    { return m_prefix;  }
         void setPrefix(QString s) { m_prefix = s; update(); }
 
         QString suffix() const    { return m_suffix;  }
         void setSuffix(QString s) { m_suffix = s; update(); }
-
-	bool simplified() const	  { return m_simplified;        }
-        void setSimplified(bool s){ m_simplified = s; update(); }
 
         int value() const         { return m_value;}
 
@@ -41,8 +62,22 @@
 	int valueOffset() const   { return m_valueOffset;       }
 	void setValueOffset(int v){ m_valueOffset = v; update();}
 
+	int digitOffset() const   { return m_digitOffset;       }
+	void setDigitOffset(int v){ m_digitOffset = v; update();}
+
+	QFont digitFont() const   { return m_digitFont;         }
+	void setDigitFont(QFont f){ m_digitFont = f; update();  }
+
+	int nominal() const	  { return m_nominal; 		}
+	void setNominal(int i)    { m_nominal = i; 		}
+
+	int critical() const	  { return m_critical;		}
+	void setCritical(int i)   { m_critical = i;		}
+
+
     public slots:
        	void setValue(int val);
+
 
     signals:
     	void valueChanged(int val);
@@ -50,14 +85,28 @@
 
     protected:
         void paintEvent(QPaintEvent *event);
+	void paintBackground(QPainter & painter,const QBrush & background);
+	void initCoordinateSystem(QPainter & painter);
 
+	void calcMaxMin();
+	/** Starting value on barometer */
+	int m_min;
+	/** Endgind value on barometer */
+	int m_max;
 	int m_minimum;
 	int m_maximum;
 	int m_value;
 	int m_valueOffset;
+	int m_digitOffset;
+	int m_nominal;
+	int m_critical;
 	QString m_prefix;
 	QString m_suffix;
- 	bool m_simplified;
-	QFont m_valueFont;
+ 	QFont m_valueFont;
+	QFont m_digitFont;
+
+	/** Bufor malowania */
+	QPixmap * pixmap;
+
     };
 #endif // BARMETER_H

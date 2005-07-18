@@ -10,8 +10,6 @@
         connect(timer, SIGNAL(timeout()), this, SLOT(update()));
         timer->start(1000);
 
-        setWindowTitle(tr("Analog Clock"));
-        resize(220, 220);
 
         setDigitOffset(75);
 	setDateOffset(0);
@@ -30,7 +28,15 @@
 
 	// QWidget
         setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
+        setWindowTitle(tr("Analog Clock"));
+        resize(220, 220);
+	pixmap = new QPixmap(size());
 
+    }
+
+    WallClock::~WallClock()
+    {
+      delete pixmap;
     }
 
     void WallClock::initCoordinateSystem(QPainter & painter)
@@ -41,11 +47,14 @@
         painter.scale(side / 220.0, side / 220.0);
     }
 
-    void WallClock::paintBackground()
+    void WallClock::paintBackground(QPainter & painter,const QBrush & background)
     {
-	 // inicjalizacja paintera
-        QPainter painter(this);
-       	initCoordinateSystem(painter);
+	 // inicjalizacja paintera oraz odmalowanie t³a
+        painter.setBrush(background);
+	painter.setPen(Qt::NoPen);
+	painter.drawRect(0,0,width(),height());
+
+        initCoordinateSystem(painter);
         // Malowanie obwiedni tarczy.
 
         QLinearGradient linearGrad(QPointF(-100, -100), QPointF(0, 0));
@@ -53,19 +62,14 @@
         linearGrad.setColorAt(0, Qt::black);
         linearGrad.setColorAt(1, QColor(232,232,232));
 
-        QBrush Brush(linearGrad);
-        //Brush.setColor(Qt::white);
-        //Brush.setStyle(Qt::SolidPattern);
+        QPen Pen(Qt::black);
+        Pen.setWidth(1);
+        painter.setPen(Pen);
 
-        QPen Pen(Qt::black); Pen.setWidth(2);
-        painter.setPen(1);
-
-        painter.setBrush(Brush);
+	// Koperta zegark
+        painter.setBrush(QBrush(linearGrad));
         painter.drawEllipse(-109,-109,218,218);
-
-	Brush.setColor(Qt::white);
-        Brush.setStyle(Qt::SolidPattern);
-        painter.setBrush(Brush);
+        painter.setBrush(QBrush(Qt::white));
         painter.drawEllipse(-102,-102,204,204);
 
 
@@ -78,7 +82,7 @@
 
 
 	// rysowanie kresek  minut
-        painter.setPen(minuteColor);
+        painter.setPen(Qt::black);
 	Pen.setWidth(2);
 	painter.setPen(Pen);
         for (int j = 0; j < 60; ++j) {
@@ -113,14 +117,27 @@
         static const int hourHand[8] = { -2, 18, 2, 18, 2, -60, -2, -60 };
         static const int minuteHand[8] = { -2, 28, 2, 28, 2, -80, -2, -80 };
         static const int secondHand[12] = {-1, 0, -1, -90, 1,-90, 1, 0, 4, 35, -4, 35};
-        QColor hourColor(0, 0, 0);
-        QColor minuteColor(0, 0, 0);
-        QColor secondColor(255,0,0);
-        //QColor timeColor(0,131,255);
 
+	 // inicjalizacja paintera
+	QPainter painter(this);
+        if (pixmap->size() != size())
+	{
+		delete pixmap;
+	        pixmap = new QPixmap(size());
+		QPainter p(pixmap);
+		paintBackground(p,painter.background());
+        }
+
+
+        painter.drawPixmap(0,0,*pixmap);
+
+	 initCoordinateSystem(painter);
+
+        // Wyliczanie czasu i daty
         QTime time = QTime::currentTime();
         QDate date = QDate::currentDate();
-
+	QString Str;
+	QSize Size;
 
         if (timeOffset()!=0.0)
         {
@@ -153,14 +170,14 @@
 
         // rysowanie wskazówki godzin
         painter.setPen(Qt::NoPen);
-        painter.setBrush(hourColor);
+        painter.setBrush(Qt::black);
         painter.save();
         painter.rotate(30.0 * ((time.hour() + time.minute() / 60.0)));
         painter.drawConvexPolygon(QPolygon(4, hourHand));
         painter.restore();
 
         // rysowanie minutnika
-        painter.setBrush(minuteColor);
+        painter.setBrush(Qt::black);
         painter.save();
         painter.rotate(6.0 * (time.minute() + time.second() / 60.0));
         painter.drawConvexPolygon(QPolygon(4, minuteHand));
@@ -168,11 +185,12 @@
 
         // Malowanie wskazówki sekundnika
         painter.setPen(Qt::NoPen);
-        painter.setBrush(secondColor);
+        painter.setBrush(Qt::red);
         painter.save();
         painter.rotate(6.0 * ( time.second())); //  + time.msec() / 1000.0) );
         painter.drawConvexPolygon(QPolygon(6, secondHand));
         painter.restore();
+	// Kó³ko sekundnika
         painter.drawEllipse(-5,-5,10,10);
     }
 

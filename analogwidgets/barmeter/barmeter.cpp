@@ -25,7 +25,7 @@ BarMeter::BarMeter(QWidget *parent)
 	setWindowTitle(tr("Analog BarMeter"));
 	setNominal(80);
 	setCritical(220);
-        resize(300, 300);
+
 	setMaximum(300);
   	setMinimum(0);
 	setValue(0);
@@ -37,7 +37,14 @@ BarMeter::BarMeter(QWidget *parent)
 
 	// QWidget
         setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
+	resize(311, 311);
+	pixmap = new QPixmap(size());
 
+}
+
+BarMeter::~BarMeter()
+{
+  delete pixmap;
 }
 
 void BarMeter::setValue( int val )
@@ -50,32 +57,37 @@ void BarMeter::setValue( int val )
   }
 }
 
-void BarMeter::paintEvent(QPaintEvent * )
+void BarMeter::initCoordinateSystem(QPainter & painter)
 {
-	static const int scaleTriangle[6] = { -6,141,6,141,0,129 };
-
-
         int side = qMin(width(), height());
         // inicjalizacja paintera
-        QPainter painter(this);
         painter.setRenderHint(QPainter::Antialiasing);
         painter.translate(width() / 2, height() / 2);
-        painter.scale(side / 307.0, side / 307.0);
+        painter.scale(side / 311.0, side / 311.0);
+}
+
+void BarMeter::paintBackground(QPainter & painter,const QBrush & background)
+{
+	static const int scaleTriangle[6] = { -6,141,6,141,0,129 };
+        // inicjalizacja paintera oraz odmalowanie t³a
+        painter.setBrush(background);
+	painter.setPen(Qt::NoPen);
+	painter.drawRect(0,0,width(),height());
+
+	initCoordinateSystem(painter);
 
         // Malowanie obwiedni tarczy. Bia³a tarcza z czarn± skal±
-        QBrush Brush;
-        Brush.setColor(Qt::white);
-        Brush.setStyle(Qt::SolidPattern);
-        QPen Pen; Pen.setWidth(4); Pen.setColor(QColor(0,0,0));
+        QPen Pen(QColor(0,0,0)); Pen.setWidth(1);
         painter.setPen(Pen);
 
 
 
-        // zewnêtrzene ko³o
-        painter.setBrush(Brush);
-        painter.drawEllipse(-152,-152,304,304);
-	// wewnêtrzene ko³o
 	Pen.setWidth(4);
+        painter.setBrush(QBrush(Qt::white));
+        painter.drawEllipse(-154,-154,308,308);
+
+	// wewnêtrzene ko³o skali
+
 	painter.setPen(Pen);
 	painter.drawEllipse(-142,-142,284,284);
 
@@ -91,64 +103,77 @@ void BarMeter::paintEvent(QPaintEvent * )
 	  painter.drawEllipse(-129,-129,258,258);
 
         // Ustawienie siê na pocz±tku skali
-        painter.save();
+
         painter.rotate(60.0);
 
-	// Rysowanie skali
-	Brush.setColor(Qt::black);
-	painter.setBrush(Brush);
+ 	// Rysowanie skali kreski
 	painter.save();
+        painter.setBrush(QBrush(Qt::black));
   	int line_length=10;
 	for (int i=0;i<33;i++)
 	{
-
 	  painter.setPen(Pen);
 
-	  if (! (i % 4) )
-          {
+          if (i % 4) painter.drawLine(0,140,0,140-line_length);
+          else {
 	    painter.setPen(Qt::NoPen);
 	    painter.drawConvexPolygon(QPolygon(3, scaleTriangle));
 	  }
-	  else painter.drawLine(0,140,0,140-line_length);
 
 	  painter.rotate(7.5);
 
-		Pen.setWidth(3);
-		line_length=5;
- 		if (i % 2) { line_length=10; }
+	Pen.setWidth(3);
+
+ 	  if (i % 2)  line_length=10;
+	  else        line_length=5;
 	}
 	painter.restore();
-	// Rysowanie skali.
-	painter.save();
+
+        // Rysowanie skali liczby .
 	painter.rotate(-60.0);
-	   painter.setFont(digitFont());
-	   for (int i=0;i<9;i++)
-	   {
-	     	QString val = QString("%1").arg(m_min + i*(m_max - m_min)/8 );
-	     	QSize Size = painter.fontMetrics().size(Qt::TextSingleLine, val);
-             	painter.save();
-		painter.translate( digitOffset() * cos((5+i)*PI/6.0), digitOffset() * sin((5+i)*PI/6.0));
-		painter.drawText( Size.width()/ -2, Size.height() / 4, val);
-		painter.restore();
-	   }
-	painter.restore();
-        // --------------------------------------------- ///
+	painter.setFont(digitFont());
+	for (int i=0;i<9;i++)
+	{
+	  QString val = QString("%1").arg(m_min + i*(m_max - m_min)/8 );
+	  QSize Size = painter.fontMetrics().size(Qt::TextSingleLine, val);
+          painter.save();
+	  painter.translate( digitOffset() * cos((5+i)*PI/6.0), digitOffset() * sin((5+i)*PI/6.0));
+	  painter.drawText( Size.width()/ -2, Size.height() / 4, val);
+	  painter.restore();
+	}
+}// paintBackground
+
+void BarMeter::paintEvent(QPaintEvent * )
+{
+	QPainter painter(this);
+	if (pixmap->size() != size())
+	{
+		delete pixmap;
+	        pixmap = new QPixmap(size());
+		QPainter p(pixmap);
+		paintBackground(p,painter.background());
+        }
+
+
+        painter.drawPixmap(0,0,*pixmap);
+        initCoordinateSystem(painter);
+      // --------------------------------------------- ///
 	static const int hand[12] = {-4, 0, -1, 129, 1, 129, 4, 0, 8,-50, -8,-50};
 
         // Rysowanie wskazówki
-	painter.save() ;
-	Brush.setColor(Qt::red);
+	painter.save();
+	painter.rotate(60.0);
 	painter.setPen(Qt::NoPen);
-	painter.setBrush(Brush);
+	painter.setBrush(QBrush(Qt::red));
    	painter.rotate( (value() * 240.0) / (m_max - m_min) );
 	painter.drawConvexPolygon(QPolygon(6,hand));
 	painter.drawEllipse(-10,-10,20,20);
-	painter.restore();
 
 
-	painter.restore(); // Przywrocenie do wychylenia o 60 stopni
+        painter.restore();// Przywrocenie do wychylenia o 60 stopni
 
 	// Rysowanie wy¶wietlanej warto¶ci
+	if (value() >= critical() ) painter.setPen(Qt::red);
 	painter.setFont(valueFont());
         QString Str = prefix() + QString("%1").arg(value()) + suffix();
         QSize Size = painter.fontMetrics().size(Qt::TextSingleLine, Str);

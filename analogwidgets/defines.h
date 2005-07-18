@@ -1,1 +1,1 @@
-// #define SINGLEPLUGINS
+#undef SINGLEPLUGINS
