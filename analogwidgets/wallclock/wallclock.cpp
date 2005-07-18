@@ -33,60 +33,54 @@
 
     }
 
-    void WallClock::paintEvent(QPaintEvent *)
+    void WallClock::initCoordinateSystem(QPainter & painter)
     {
-        static const int hourHand[8] = { -2, 18, 2, 18, 2, -60, -2, -60 };
-        static const int minuteHand[8] = { -2, 28, 2, 28, 2, -80, -2, -80 };
-        static const int secondHand[12] = {-1, 0, -1, -90, 1,-90, 1, 0, 4, 35, -4, 35};
-        QColor hourColor(0, 0, 0);
-        QColor minuteColor(0, 0, 0);
-        QColor secondColor(255,0,0);
-        //QColor timeColor(0,131,255);
-
         int side = qMin(width(), height());
-        QTime time = QTime::currentTime();
-        QDate date = QDate::currentDate();
-
-        // inicjalizacja paintera
-        QPainter painter(this);
         painter.setRenderHint(QPainter::Antialiasing);
         painter.translate(width() / 2, height() / 2);
         painter.scale(side / 220.0, side / 220.0);
+    }
 
+    void WallClock::paintBackground()
+    {
+	 // inicjalizacja paintera
+        QPainter painter(this);
+       	initCoordinateSystem(painter);
         // Malowanie obwiedni tarczy.
 
         QLinearGradient linearGrad(QPointF(-100, -100), QPointF(0, 0));
-	linearGrad.setSpread(QGradient::ReflectSpread); 
+	linearGrad.setSpread(QGradient::ReflectSpread);
         linearGrad.setColorAt(0, Qt::black);
         linearGrad.setColorAt(1, QColor(232,232,232));
 
         QBrush Brush(linearGrad);
         //Brush.setColor(Qt::white);
         //Brush.setStyle(Qt::SolidPattern);
-        QPen Pen; Pen.setWidth(2); Pen.setColor(hourColor);
+
+        QPen Pen(Qt::black); Pen.setWidth(2);
         painter.setPen(1);
-	
+
         painter.setBrush(Brush);
         painter.drawEllipse(-109,-109,218,218);
-	
-	Brush.setColor(Qt::white); 
+
+	Brush.setColor(Qt::white);
         Brush.setStyle(Qt::SolidPattern);
         painter.setBrush(Brush);
         painter.drawEllipse(-102,-102,204,204);
-	
-        
-        painter.setBrush(hourColor);
+
+
+        painter.setBrush(Qt::black);
         // rysowanie kó³ek godzin i samych godzin
         for (int i = 0; i < 12; ++i) {
             painter.drawEllipse(94, -2, 4, 4);
             painter.rotate(30.0);
         }
 
-	
+
 	// rysowanie kresek  minut
         painter.setPen(minuteColor);
-	Pen.setWidth(2); 	
-	painter.setPen(Pen); 
+	Pen.setWidth(2);
+	painter.setPen(Pen);
         for (int j = 0; j < 60; ++j) {
             if ((j % 5) != 0)
                 painter.drawLine(94, 0, 97, 0);
@@ -110,6 +104,24 @@
             painter.restore();
           }
         }
+
+    }// paintBackground
+
+
+    void WallClock::paintEvent(QPaintEvent *)
+    {
+        static const int hourHand[8] = { -2, 18, 2, 18, 2, -60, -2, -60 };
+        static const int minuteHand[8] = { -2, 28, 2, 28, 2, -80, -2, -80 };
+        static const int secondHand[12] = {-1, 0, -1, -90, 1,-90, 1, 0, 4, 35, -4, 35};
+        QColor hourColor(0, 0, 0);
+        QColor minuteColor(0, 0, 0);
+        QColor secondColor(255,0,0);
+        //QColor timeColor(0,131,255);
+
+        QTime time = QTime::currentTime();
+        QDate date = QDate::currentDate();
+
+
         if (timeOffset()!=0.0)
         {
           // Rysowanie tekstów - godziny
