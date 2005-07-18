@@ -3,6 +3,11 @@
 #include "barmeter.h"
 #define PI 3.141592653589793238512808959406186204433
 
+void max_min(int & min, int & max)
+{
+ 
+
+} 
 
 BarMeter::BarMeter(QWidget *parent)
         : QWidget(parent)
@@ -106,5 +111,9 @@ void BarMeter::paintEvent(QPaintEvent * )
         QString Str = prefix() + QString("%1").arg(value()) + suffix();
         QSize Size = painter.fontMetrics().size(Qt::TextSingleLine, Str);
         painter.drawText( Size.width() / -2,static_cast<int>( 0 - valueOffset()) , Str);
+	
+
+	// Rysowanie skali. 
+	
 
 }

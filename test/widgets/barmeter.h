@@ -1,0 +1,1 @@
+../../analogwidgets/barmeter/barmeter.h

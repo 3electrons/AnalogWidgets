@@ -11,14 +11,12 @@
         timer->start(1000);
 
         setWindowTitle(tr("Analog Clock"));
-        resize(200, 200);
+        resize(220, 220);
 
         setDigitOffset(75);
 	setDateOffset(0);
 	setTimeOffset(-12);
 	setDayOffset(9);
-
-
 
         setDigitColor(QColor(0,0,0));
         setDateColor(QColor(0,0,0));
@@ -53,24 +51,30 @@
         QPainter painter(this);
         painter.setRenderHint(QPainter::Antialiasing);
         painter.translate(width() / 2, height() / 2);
-        painter.scale(side / 207.0, side / 207.0);
+        painter.scale(side / 220.0, side / 220.0);
 
         // Malowanie obwiedni tarczy.
 
-        QLinearGradient linearGrad(QPointF(-100, -100), QPointF(204, 204));
+        QLinearGradient linearGrad(QPointF(-100, -100), QPointF(0, 0));
+	linearGrad.setSpread(QGradient::ReflectSpread); 
         linearGrad.setColorAt(0, Qt::black);
-        linearGrad.setColorAt(1, Qt::white);
+        linearGrad.setColorAt(1, QColor(232,232,232));
 
         QBrush Brush(linearGrad);
         //Brush.setColor(Qt::white);
         //Brush.setStyle(Qt::SolidPattern);
         QPen Pen; Pen.setWidth(2); Pen.setColor(hourColor);
-        painter.setPen(Pen);
-
+        painter.setPen(1);
+	
+        painter.setBrush(Brush);
+        painter.drawEllipse(-109,-109,218,218);
+	
+	Brush.setColor(Qt::white); 
+        Brush.setStyle(Qt::SolidPattern);
         painter.setBrush(Brush);
         painter.drawEllipse(-102,-102,204,204);
-
-        painter.setPen(Qt::NoPen);
+	
+        
         painter.setBrush(hourColor);
         // rysowanie kó³ek godzin i samych godzin
         for (int i = 0; i < 12; ++i) {
@@ -78,11 +82,14 @@
             painter.rotate(30.0);
         }
 
-        // rysowanie kresek  minut
+	
+	// rysowanie kresek  minut
         painter.setPen(minuteColor);
+	Pen.setWidth(2); 	
+	painter.setPen(Pen); 
         for (int j = 0; j < 60; ++j) {
             if ((j % 5) != 0)
-                painter.drawLine(95, 0, 98, 0);
+                painter.drawLine(94, 0, 97, 0);
             painter.rotate(6.0);
         }
 
