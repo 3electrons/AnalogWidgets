@@ -1,9 +1,9 @@
     #include <QApplication>
-    #include <QObject> 
+    #include <QObject>
 
-    #include "test.h" 
-      
-    
+    #include "test.h"
+
+
     int main(int argc, char *argv[])
     {
         QApplication app(argc, argv);
