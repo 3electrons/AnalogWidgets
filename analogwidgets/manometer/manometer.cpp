@@ -1,7 +1,7 @@
 #include <QtGui>
 #include <math.h>
 #include <assert.h>
-#include "barmeter.h"
+#include "manometer.h"
 #define PI 3.141592653589793238512808959406186204433
 
 // @TODO Zmieñ nazwê ManoMeter na ManoMeter

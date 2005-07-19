@@ -1,18 +1,18 @@
-    #include "barmeter.h" 
-    #include "barmeter_plugin.h"     
+    #include "manometer.h" 
+    #include "manometer_plugin.h"     
     #include "../defines.h"  
     /*------------------------------------------------------------------------------------------------
-     *			     			BARMETER    
+     *			     			MANOMETER    
      *------------------------------------------------------------------------------------------------*/
     
     
-    BarMeterPlugin::BarMeterPlugin(QObject *parent)
+    ManoMeterPlugin::ManoMeterPlugin(QObject *parent)
         : QObject(parent)
     {
         initialized = false;
     }
 
-    void BarMeterPlugin::initialize(QDesignerFormEditorInterface * /*core*/)
+    void ManoMeterPlugin::initialize(QDesignerFormEditorInterface * /*core*/)
     {
         if (initialized)
             return;
@@ -20,49 +20,49 @@
         initialized = true;
     }
 
-    bool BarMeterPlugin::isInitialized() const
+    bool ManoMeterPlugin::isInitialized() const
     {
         return initialized;
     }
 
-    QWidget *BarMeterPlugin::createWidget(QWidget *parent)
+    QWidget *ManoMeterPlugin::createWidget(QWidget *parent)
     {
-        return new BarMeter(parent);
+        return new ManoMeter(parent);
     }
 
-    QString BarMeterPlugin::name() const
+    QString ManoMeterPlugin::name() const
     {
-        return QLatin1String("BarMeter");
+        return QLatin1String("ManoMeter");
     }
 
-    QString BarMeterPlugin::group() const
+    QString ManoMeterPlugin::group() const
     {
         return QLatin1String("Analog Widgets");
     }
 
-    QIcon BarMeterPlugin::icon() const
+    QIcon ManoMeterPlugin::icon() const
     {
         return QIcon();
     }
 
-    QString BarMeterPlugin::toolTip() const
+    QString ManoMeterPlugin::toolTip() const
     {
         return QString();
     }
 
-    QString BarMeterPlugin::whatsThis() const
+    QString ManoMeterPlugin::whatsThis() const
     {
         return QString();
     }
 
-    bool BarMeterPlugin::isContainer() const
+    bool ManoMeterPlugin::isContainer() const
     {
         return false;
     }
 
-    QString BarMeterPlugin::domXml() const
+    QString ManoMeterPlugin::domXml() const
     {
-        return QLatin1String("<widget class=\"BarMeter\" name=\"BarMeter\">\n"
+        return QLatin1String("<widget class=\"ManoMeter\" name=\"ManoMeter\">\n"
                              " <property name=\"geometry\">\n"
                              "  <rect>\n"
                              "   <x>0</x>\n"
@@ -81,16 +81,16 @@
                              "</widget>\n");
     }
 
-    QString BarMeterPlugin::includeFile() const
+    QString ManoMeterPlugin::includeFile() const
     {
-        return QLatin1String("BarMeter.h");
+        return QLatin1String("manometer.h");
     }
 
-    QString BarMeterPlugin::codeTemplate() const
+    QString ManoMeterPlugin::codeTemplate() const
     {
         return QString();
     }
 
 #ifdef SINGLEPLUGINS     
-    Q_EXPORT_PLUGIN(BarMeterPlugin)
+    Q_EXPORT_PLUGIN(ManoMeterPlugin)
 #endif 
