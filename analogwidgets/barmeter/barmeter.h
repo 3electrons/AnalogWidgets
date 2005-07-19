@@ -3,7 +3,7 @@
 
 #include "qmywidgetwithbackground.h"
 
-    class BarMeter : public QMyWidgetWithBackground
+    class ManoMeter : public QMyWidgetWithBackground
     {
         Q_OBJECT
 	Q_PROPERTY (int minimum READ minimum WRITE setMinimum )
@@ -20,12 +20,12 @@
 
 
     public:
-    	BarMeter(QWidget *parent = 0);
+    	ManoMeter(QWidget *parent = 0);
 
 	int  minimum() const   { return m_minimum; }
         void setMinimum(int i)
 	{
-	  if (m_minimum != i && i < m_maximum )
+	  if ((m_minimum != i) && (i < m_maximum) )
 	     {
 	       m_minimum = i;
                calcMaxMin();
@@ -36,7 +36,7 @@
 
         void setMaximum(int i)
         {
-          if (m_maximum != i && i > m_minimum )
+          if ((m_maximum != i) && (i > m_minimum) )
              {
                 m_maximum = i;
 		calcMaxMin();
@@ -66,10 +66,10 @@
 	void setDigitFont(QFont f){ m_digitFont = f; updateWithBackground();  }
 
 	int nominal() const	  { return m_nominal; 		}
-	void setNominal(int i)    { m_nominal = i; 		}
+	void setNominal(int i)    { m_nominal = i; updateWithBackground();}
 
 	int critical() const	  { return m_critical;		}
-	void setCritical(int i)   { m_critical = i;		}
+	void setCritical(int i)   { m_critical = i; updateWithBackground();}
 
 
     public slots:
@@ -101,6 +101,6 @@
 	QString m_suffix;
  	QFont m_valueFont;
 	QFont m_digitFont;
-	
+
     };
 #endif // BARMETER_H

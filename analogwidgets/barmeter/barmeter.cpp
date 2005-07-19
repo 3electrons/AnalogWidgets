@@ -1,17 +1,19 @@
 #include <QtGui>
 #include <math.h>
-#include <assert.h> 
+#include <assert.h>
 #include "barmeter.h"
 #define PI 3.141592653589793238512808959406186204433
 
-// @TODO Zmieñ nazwê BarMeter na ManoMeter 
+// @TODO Zmieñ nazwê ManoMeter na ManoMeter
+// @TODO Popraw calcMaxMin
+// @TODO Popraw rysowanie wskazówki gdy minimum jest mniejsze od zera - wskazówka nie jest na zerze.
 
-BarMeter::BarMeter(QWidget *parent)
+ManoMeter::ManoMeter(QWidget *parent)
         : QMyWidgetWithBackground(parent)
 {
         m_max=m_min=0;
 
-	setWindowTitle(tr("Analog BarMeter"));
+	setWindowTitle(tr("Analog ManoMeter"));
 
 	setMaximum(300);
   	setMinimum(0);
@@ -20,10 +22,10 @@ BarMeter::BarMeter(QWidget *parent)
 	setCritical(220);
 	setValueOffset(-100);
 	setDigitOffset(105);
-	setSuffix(QString(" [bar]")); 
+	setSuffix(QString(" [bar]"));
 	m_digitFont.setPointSize(20);
 	m_valueFont.setPointSize(25);
-	
+
 	// QWidget
         setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
         setWindowTitle(tr("Analog Barmeter"));
@@ -31,24 +33,33 @@ BarMeter::BarMeter(QWidget *parent)
 
 }
 
-void BarMeter::calcMaxMin()
+void ManoMeter::calcMaxMin()
 {
-  m_max=maximum();
-  m_min=minimum();
-  int diff = m_max - m_min;
-  int scale = 8;
-  int factor = 5;
-  while ( diff > scale ) { scale=8 * factor; factor+=5; }
-  int m_m_min = 0;
-  while (m_min > m_m_min ) m_m_min-=scale/8;
-  m_max = scale - m_m_min;
-  m_min = m_max - scale;
-  assert( m_max > m_min ); 
+  m_max=m_maximum-1;
+  m_min=m_minimum+1;
+
+  assert( m_max > m_min );
   assert( m_max - m_min >! 0 );
+
+  int rest;
+
+  do {
+       ++m_max;
+       rest = m_max % 8;
+     } while (!rest%5);
+
+
+
+   //int diff = abs(m_max - m_min);
+  //int scale = 0,inc = 5 , factor = 0 ;
+  //while ( diff > scale ) { factor+=inc; scale = 8 * factor;  }
+
+  //m_max = ( m_max/factor +1 ) * factor;
+  //m_min = m_max - scale - factor;
 }
 
 
-void BarMeter::setValue( int val )
+void ManoMeter::setValue( int val )
 {
   if ( m_value != val )
   {
@@ -58,7 +69,7 @@ void BarMeter::setValue( int val )
   }
 }
 
-void BarMeter::initCoordinateSystem(QPainter & painter)
+void ManoMeter::initCoordinateSystem(QPainter & painter)
 {
         int side = qMin(width(), height());
         // inicjalizacja paintera
@@ -67,10 +78,10 @@ void BarMeter::initCoordinateSystem(QPainter & painter)
         painter.scale(side / 311.0, side / 311.0);
 }
 
-void BarMeter::paintBackground(QPainter & painter)
+void ManoMeter::paintBackground(QPainter & painter)
 {
 	static const int scaleTriangle[6] = { -6,141,6,141,0,129 };
-        
+
 	initCoordinateSystem(painter);
 
         // Malowanie obwiedni tarczy. Bia³a tarcza z czarn± skal±
@@ -89,10 +100,10 @@ void BarMeter::paintBackground(QPainter & painter)
 	  painter.setPen(Qt::NoPen);
           // nominal
 	  painter.setBrush(QBrush(Qt::green));
-	  //painter.drawPie(QRect(-141,-141,282,282),-480,3840*( m_max - m_min -nominal() )/(m_max-m_min));
+	  painter.drawPie(QRect(-141,-141,282,282),-480,3840*( m_max - m_min -nominal() )/(m_max-m_min));
 	  // Critical
 	  painter.setBrush(QBrush(Qt::red));
-	  //painter.drawPie(QRect(-141,-141,282,282),-480,3840-critical()*3840/(m_max-m_min));
+	  painter.drawPie(QRect(-141,-141,282,282),-480,3840-critical()*3840/(m_max-m_min));
 	  // bia³a obwiednia
 	  painter.setBrush(QBrush(Qt::white));
 	  painter.drawEllipse(-129,-129,258,258);
@@ -127,7 +138,6 @@ void BarMeter::paintBackground(QPainter & painter)
         // Rysowanie skali liczby .
 	if (digitOffset())
         {
-	
           painter.rotate(-60.0);
 	  painter.setFont(digitFont());
 	  for (int i=0;i<9;i++)
@@ -140,12 +150,12 @@ void BarMeter::paintBackground(QPainter & painter)
 	    painter.restore();
 	  }
 	}
-   
+
 }// paintBackground
 
-void BarMeter::paintEvent(QPaintEvent * )
+void ManoMeter::paintEvent(QPaintEvent * )
 {
-	doUpdateBackground(); 
+	doUpdateBackground();
 	QPainter painter(this);
         initCoordinateSystem(painter);
       // --------------------------------------------- ///
@@ -166,11 +176,11 @@ void BarMeter::paintEvent(QPaintEvent * )
 	// Rysowanie wy¶wietlanej warto¶ci
         if (valueOffset())
         {
-	
+
 	  if (value() >= critical() ) painter.setPen(Qt::red);
 	  painter.setFont(valueFont());
           QString Str = prefix() + QString("%1").arg(value()) + suffix();
           QSize Size = painter.fontMetrics().size(Qt::TextSingleLine, Str);
           painter.drawText( Size.width() / -2,static_cast<int>( 0 - valueOffset()) , Str);
         }
-}// paintEvent 
+}// paintEvent

@@ -1,18 +1,18 @@
 #include <QtGui>
 #include "qmywidgetwithbackground.h"
 
-QMyWidgetWithBackground::QMyWidgetWithBackground(QWidget * parent) : QWidget(parent) 
+QMyWidgetWithBackground::QMyWidgetWithBackground(QWidget * parent) : QWidget(parent)
 {
-  m_pixmap = new QPixmap(size()); 
-  m_modified = false; 
+  m_pixmap = new QPixmap(size());
+  m_modified = false;
 }
 
 QMyWidgetWithBackground::~QMyWidgetWithBackground()
 {
-   if (m_pixmap) 
+   if (m_pixmap)
      {
 	delete m_pixmap;
-	m_pixmap = NULL; 
+	m_pixmap = NULL;
      }
 }
 
@@ -24,7 +24,7 @@ void QMyWidgetWithBackground::repaintBackground()
   painter.setBrush(backPainter.background());
   painter.setPen(Qt::NoPen);
   painter.drawRect(0,0,width(),height());
-  paintBackground(painter); 
+  paintBackground(painter);
 }
 
 void QMyWidgetWithBackground::doUpdateBackground()
@@ -33,15 +33,16 @@ void QMyWidgetWithBackground::doUpdateBackground()
     {
 	delete m_pixmap;
 	m_pixmap = new QPixmap(size());
-	repaintBackground(); 
+	repaintBackground();
+	m_modified=false;
     }
     QPainter painter(this);
-    painter.drawPixmap(0,0,*m_pixmap); 
+    painter.drawPixmap(0,0,*m_pixmap);
 }
 
 void QMyWidgetWithBackground::updateWithBackground()
 {
-  m_modified=true; 
-  update(); 
-  m_modified=false; 
+  m_modified=true;
+  update();
+
 }
