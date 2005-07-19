@@ -2,12 +2,12 @@
 #include "defines.h"
 
 #include "wallclock/wallclock_plugin.h"
-#include "barmeter/barmeter_plugin.h"
+#include "manometer/manometer_plugin.h"
 
 AnalogWidgetsPlugin::AnalogWidgetsPlugin()
 {
   m_pluginList.push_back(new WallClockPlugin(NULL));
-  m_pluginList.push_back(new BarMeterPlugin(NULL));
+  m_pluginList.push_back(new ManoMeterPlugin(NULL));
 }
 
 AnalogWidgetsPlugin::~AnalogWidgetsPlugin()
