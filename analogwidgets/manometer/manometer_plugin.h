@@ -3,12 +3,12 @@
     #include <QtCore/qplugin.h>
     #include <QtGui/QIcon>
    
-    class BarMeterPlugin : public QObject, public QDesignerCustomWidgetInterface
+    class ManoMeterPlugin : public QObject, public QDesignerCustomWidgetInterface
     {
         Q_OBJECT
         Q_INTERFACES(QDesignerCustomWidgetInterface)
     public:
-        BarMeterPlugin(QObject *parent = 0);
+        ManoMeterPlugin(QObject *parent = 0);
         bool isContainer() const;
         bool isInitialized() const;
         QIcon icon() const;

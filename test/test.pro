@@ -1,40 +1,22 @@
-<<<<<<< .mine
 # Plik utworzony przez menad?era projektów kdevelopa
-# ------------------------------------------- 
+# -------------------------------------------
 # Podkatalog wzgl?dem g?ównego katalogu projektu: .
-# Cel to program:  
+# Cel to program:
 
-QMAKE_CXXFLAGS_RELEASE += -g3 
+INCLUDEPATH += widgets
+UI_DIR = ui
+QMAKE_CXXFLAGS_RELEASE += -g3
 CONFIG += release \
-          warn_on 
-TEMPLATE = app 
-FORMS += testform.ui 
-HEADERS += test.h \
-           widgets\wallclock.h \
-           widgets\barmeter.h 
-SOURCES += main.cpp \
-           test.cpp \
-           widgets\wallclock.cpp \
-           widgets\barmeter.cpp 
-=======
-# Plik utworzony przez menad?era projektów kdevelopa
-# ------------------------------------------- 
-# Podkatalog wzgl?dem g?ównego katalogu projektu: .
-# Cel to program:  
-
-INCLUDEPATH += widgets 
-QMAKE_CXXFLAGS_RELEASE += -g3 
-CONFIG += release \
-          warn_on 
-TEMPLATE = app 
-FORMS += testform.ui 
+          warn_on
+TEMPLATE = app
+FORMS += testform.ui
 HEADERS += test.h \
            widgets\qmywidgetwithbackground.h \
            widgets\wallclock.h \
-           widgets\barmeter.h 
+           widgets\manometer.h
 SOURCES += main.cpp \
            test.cpp \
            widgets\qmywidgetwithbackground.cpp \
            widgets\wallclock.cpp \
-           widgets\barmeter.cpp 
->>>>>>> .r10
+           widgets\manometer.cpp
+=======
