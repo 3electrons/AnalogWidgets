@@ -8,8 +8,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>477</width>
-    <height>408</height>
+    <width>469</width>
+    <height>451</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -23,209 +23,201 @@
     <property name="spacing" >
      <number>6</number>
     </property>
-    <item row="0" column="0" >
-     <widget class="QSplitter" name="splitter" >
-      <property name="orientation" >
-       <enum>Qt::Horizontal</enum>
+    <item row="0" column="1" >
+     <widget class="QStackedWidget" name="stackedWidget" >
+      <property name="currentIndex" >
+       <number>1</number>
       </property>
-      <layout class="QHBoxLayout" >
-       <property name="margin" >
-        <number>8</number>
-       </property>
-       <property name="spacing" >
-        <number>6</number>
-       </property>
-      </layout>
-      <widget class="QListWidget" name="listWidget" >
-       <property name="sizePolicy" >
-        <sizepolicy>
-         <hsizetype>1</hsizetype>
-         <vsizetype>7</vsizetype>
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximumSize" >
-        <size>
-         <width>100</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <item>
-        <property name="text" >
-         <string>Zegar</string>
+      <widget class="QWidget" name="page" >
+       <widget class="QLabel" name="clock_lab" >
+        <property name="geometry" >
+         <rect>
+          <x>20</x>
+          <y>20</y>
+          <width>49</width>
+          <height>13</height>
+         </rect>
         </property>
-       </item>
-       <item>
         <property name="text" >
-         <string>Barometr</string>
+         <string>Tutaj będzie zegar</string>
         </property>
-       </item>
-       <item>
-        <property name="text" >
-         <string>Wykres</string>
-        </property>
-       </item>
+       </widget>
       </widget>
-      <widget class="QWidget" name="layoutWidget" >
-       <layout class="QVBoxLayout" >
-        <property name="margin" >
-         <number>0</number>
+      <widget class="QWidget" name="page" >
+       <widget class="QLabel" name="bar_label" >
+        <property name="geometry" >
+         <rect>
+          <x>20</x>
+          <y>20</y>
+          <width>108</width>
+          <height>16</height>
+         </rect>
         </property>
-        <property name="spacing" >
-         <number>6</number>
+        <property name="text" >
+         <string>Tutaj będzie barometr</string>
         </property>
-        <item>
-         <widget class="QStackedWidget" name="stackedWidget" >
-          <property name="sizePolicy" >
-           <sizepolicy>
-            <hsizetype>7</hsizetype>
-            <vsizetype>7</vsizetype>
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="currentIndex" >
-           <number>0</number>
-          </property>
-          <widget class="QWidget" name="page" >
-           <widget class="QLabel" name="clock_lab" >
-            <property name="geometry" >
-             <rect>
-              <x>10</x>
-              <y>10</y>
-              <width>111</width>
-              <height>16</height>
-             </rect>
-            </property>
-            <property name="sizePolicy" >
-             <sizepolicy>
-              <hsizetype>7</hsizetype>
-              <vsizetype>1</vsizetype>
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text" >
-             <string>Tutaj będzie zegar</string>
-            </property>
-           </widget>
-          </widget>
-          <widget class="QWidget" name="page" >
-           <widget class="QLabel" name="bar_label" >
-            <property name="geometry" >
-             <rect>
-              <x>10</x>
-              <y>10</y>
-              <width>161</width>
-              <height>16</height>
-             </rect>
-            </property>
-            <property name="sizePolicy" >
-             <sizepolicy>
-              <hsizetype>7</hsizetype>
-              <vsizetype>1</vsizetype>
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text" >
-             <string>Tutaj będzie barometr</string>
-            </property>
-           </widget>
-          </widget>
-          <widget class="QWidget" name="page" >
-           <widget class="QLabel" name="qraph_lab" >
-            <property name="geometry" >
-             <rect>
-              <x>10</x>
-              <y>10</y>
-              <width>131</width>
-              <height>16</height>
-             </rect>
-            </property>
-            <property name="sizePolicy" >
-             <sizepolicy>
-              <hsizetype>7</hsizetype>
-              <vsizetype>1</vsizetype>
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text" >
-             <string>Tutaj będzie wykres</string>
-            </property>
-           </widget>
-          </widget>
-          <widget class="QWidget" name="page" />
-          <widget class="QWidget" name="page" />
-         </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" >
-          <property name="margin" >
-           <number>0</number>
-          </property>
-          <property name="spacing" >
-           <number>6</number>
-          </property>
-          <item>
-           <widget class="QSlider" name="Hslider" >
-            <property name="sizePolicy" >
-             <sizepolicy>
-              <hsizetype>7</hsizetype>
-              <vsizetype>1</vsizetype>
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="orientation" >
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QSpinBox" name="spinBox" >
-            <property name="sizePolicy" >
-             <sizepolicy>
-              <hsizetype>1</hsizetype>
-              <vsizetype>1</vsizetype>
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
+       </widget>
+       <widget class="QFrame" name="frame" >
+        <property name="geometry" >
+         <rect>
+          <x>30</x>
+          <y>300</y>
+          <width>271</width>
+          <height>80</height>
+         </rect>
+        </property>
+        <property name="frameShape" >
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow" >
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QGridLayout" >
+         <property name="margin" >
+          <number>8</number>
+         </property>
+         <property name="spacing" >
+          <number>6</number>
+         </property>
+         <item row="0" column="0" >
+          <layout class="QVBoxLayout" >
+           <property name="margin" >
+            <number>0</number>
+           </property>
+           <property name="spacing" >
+            <number>6</number>
+           </property>
+           <item>
+            <widget class="QComboBox" name="comboBox" >
+             <item>
+              <property name="text" >
+               <string>value</string>
+              </property>
+             </item>
+             <item>
+              <property name="text" >
+               <string>minimum</string>
+              </property>
+             </item>
+             <item>
+              <property name="text" >
+               <string>maximum</string>
+              </property>
+             </item>
+             <item>
+              <property name="text" >
+               <string>nominal</string>
+              </property>
+             </item>
+             <item>
+              <property name="text" >
+               <string>critical</string>
+              </property>
+             </item>
+             <item>
+              <property name="text" >
+               <string>digitOffset</string>
+              </property>
+             </item>
+             <item>
+              <property name="text" >
+               <string>valueOffset</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" >
+             <property name="margin" >
+              <number>0</number>
+             </property>
+             <property name="spacing" >
+              <number>6</number>
+             </property>
+             <item>
+              <widget class="QSlider" name="HSlider" >
+               <property name="sizePolicy" >
+                <sizepolicy>
+                 <hsizetype>7</hsizetype>
+                 <vsizetype>1</vsizetype>
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="orientation" >
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="spinBox" >
+               <property name="sizePolicy" >
+                <sizepolicy>
+                 <hsizetype>1</hsizetype>
+                 <vsizetype>0</vsizetype>
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
       </widget>
+      <widget class="QWidget" name="page" />
+      <widget class="QWidget" name="page" />
+     </widget>
+    </item>
+    <item row="0" column="0" >
+     <widget class="QListWidget" name="listWidget" >
+      <property name="sizePolicy" >
+       <sizepolicy>
+        <hsizetype>1</hsizetype>
+        <vsizetype>7</vsizetype>
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="maximumSize" >
+       <size>
+        <width>100</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <item>
+       <property name="text" >
+        <string>Zegar</string>
+       </property>
+      </item>
+      <item>
+       <property name="text" >
+        <string>Barometr</string>
+       </property>
+      </item>
+      <item>
+       <property name="text" >
+        <string>Wykres</string>
+       </property>
+      </item>
      </widget>
     </item>
    </layout>
-   <widget class="QStackedWidget" name="stackedWidget_2" >
+   <widget class="QSplitter" name="splitter" >
     <property name="geometry" >
      <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>16</width>
-      <height>16</height>
+      <x>9</x>
+      <y>9</y>
+      <width>451</width>
+      <height>433</height>
      </rect>
     </property>
-    <property name="sizePolicy" >
-     <sizepolicy>
-      <hsizetype>7</hsizetype>
-      <vsizetype>7</vsizetype>
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
+    <property name="orientation" >
+     <enum>Qt::Horizontal</enum>
     </property>
-    <property name="currentIndex" >
-     <number>0</number>
-    </property>
-    <widget class="QWidget" name="page" />
-    <widget class="QWidget" name="page" />
-    <widget class="QWidget" name="page" />
    </widget>
   </widget>
  </widget>
@@ -233,50 +225,50 @@
  <resources/>
  <connections>
   <connection>
-   <sender>Hslider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>spinBox</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>293</x>
-     <y>381</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>442</x>
-     <y>388</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>spinBox</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>Hslider</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>436</x>
-     <y>379</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>251</x>
-     <y>385</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>listWidget</sender>
    <signal>currentRowChanged(int)</signal>
    <receiver>stackedWidget</receiver>
    <slot>setCurrentIndex(int)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>58</x>
-     <y>93</y>
+     <x>73</x>
+     <y>167</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>252</x>
-     <y>108</y>
+     <x>209</x>
+     <y>133</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>HSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>308</x>
+     <y>361</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>372</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>HSlider</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>372</x>
+     <y>369</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>204</x>
+     <y>361</y>
     </hint>
    </hints>
   </connection>

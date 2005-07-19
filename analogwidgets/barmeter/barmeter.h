@@ -1,11 +1,9 @@
 #ifndef BARMETER_H
 #define BARMETER_H
 
-#include <QWidget>
-#include <QFont>
-#include <QPixmap>
+#include "qmywidgetwithbackground.h"
 
-    class BarMeter : public QWidget
+    class BarMeter : public QMyWidgetWithBackground
     {
         Q_OBJECT
 	Q_PROPERTY (int minimum READ minimum WRITE setMinimum )
@@ -23,7 +21,6 @@
 
     public:
     	BarMeter(QWidget *parent = 0);
-	virtual ~BarMeter();
 
 	int  minimum() const   { return m_minimum; }
         void setMinimum(int i)
@@ -32,7 +29,7 @@
 	     {
 	       m_minimum = i;
                calcMaxMin();
-               update();
+               updateWithBackground();
              }
 	}
         int  maximum() const   { return m_maximum; }
@@ -43,30 +40,30 @@
              {
                 m_maximum = i;
 		calcMaxMin();
-                update();
+                updateWithBackground();
  	     }
 
         }
 
         QString prefix() const    { return m_prefix;  }
-        void setPrefix(QString s) { m_prefix = s; update(); }
+        void setPrefix(QString s) { m_prefix = s; updateWithBackground(); }
 
         QString suffix() const    { return m_suffix;  }
-        void setSuffix(QString s) { m_suffix = s; update(); }
+        void setSuffix(QString s) { m_suffix = s; updateWithBackground(); }
 
         int value() const         { return m_value;}
 
 	QFont valueFont() const   { return m_valueFont;        }
-	void setValueFont(QFont f){ m_valueFont = f; update(); }
+	void setValueFont(QFont f){ m_valueFont = f; updateWithBackground(); }
 
 	int valueOffset() const   { return m_valueOffset;       }
-	void setValueOffset(int v){ m_valueOffset = v; update();}
+	void setValueOffset(int v){ m_valueOffset = v; updateWithBackground();}
 
 	int digitOffset() const   { return m_digitOffset;       }
-	void setDigitOffset(int v){ m_digitOffset = v; update();}
+	void setDigitOffset(int v){ m_digitOffset = v; updateWithBackground();}
 
 	QFont digitFont() const   { return m_digitFont;         }
-	void setDigitFont(QFont f){ m_digitFont = f; update();  }
+	void setDigitFont(QFont f){ m_digitFont = f; updateWithBackground();  }
 
 	int nominal() const	  { return m_nominal; 		}
 	void setNominal(int i)    { m_nominal = i; 		}
@@ -85,7 +82,7 @@
 
     protected:
         void paintEvent(QPaintEvent *event);
-	void paintBackground(QPainter & painter,const QBrush & background);
+	void paintBackground(QPainter & painter);
 	void initCoordinateSystem(QPainter & painter);
 
 	void calcMaxMin();
@@ -104,9 +101,6 @@
 	QString m_suffix;
  	QFont m_valueFont;
 	QFont m_digitFont;
-
-	/** Bufor malowania */
-	QPixmap * pixmap;
-
+	
     };
 #endif // BARMETER_H

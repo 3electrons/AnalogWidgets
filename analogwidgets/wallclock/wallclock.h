@@ -1,12 +1,9 @@
 #ifndef WALLCLOCK_H
 #define WALLCLOCK_H
 
-#include <QWidget>
-#include <QFont>
-#include <QVariant>
-#include <QMetaProperty>
-
-    class WallClock : public QWidget
+#include "qmywidgetwithbackground.h"
+ 
+    class WallClock : public QMyWidgetWithBackground 
     {
         Q_OBJECT
 	Q_PROPERTY (QFont digitFont READ digitFont WRITE setDigitFont)
@@ -27,47 +24,46 @@
 
     public:
 	WallClock(QWidget *parent = 0);
-	~WallClock();
 
     	QFont digitFont() const    { return m_digitFont;}
   	QFont timeFont () const    { return m_timeFont; }
     	QFont dateFont () const    { return m_dateFont; }
     	QFont dayFont  () const    { return m_dayFont;  }
 
-    	void setDigitFont(QFont f) {        m_digitFont = f; update();}
-    	void setTimeFont (QFont f) {        m_timeFont  = f; update();}
-    	void setDateFont (QFont f) {        m_dateFont  = f; update();}
-	void setDayFont  (QFont f) {        m_dayFont   = f; update();}
+    	void setDigitFont(QFont f) {        m_digitFont = f; updateWithBackground();}
+    	void setTimeFont (QFont f) {        m_timeFont  = f; updateWithBackground();}
+    	void setDateFont (QFont f) {        m_dateFont  = f; updateWithBackground();}
+	void setDayFont  (QFont f) {        m_dayFont   = f; updateWithBackground();}
 
 	int     digitOffset () const { return m_digitOffset; }
 	int      dateOffset () const { return m_dateOffset;  }
 	int      timeOffset () const { return m_timeOffset;  }
 	int      dayOffset  () const { return m_dayOffset;   }
-	void  setDigitOffset(int i)  {        m_digitOffset = i; update();}
-	void  setDateOffset (int i)  {        m_dateOffset  = i; update();}
-	void  setTimeOffset (int i)  {        m_timeOffset  = i; update();}
-	void  setDayOffset  (int i)  {        m_dayOffset   = i; update();}
+	void  setDigitOffset(int i)  {        m_digitOffset = i; updateWithBackground();}
+	void  setDateOffset (int i)  {        m_dateOffset  = i; updateWithBackground();}
+	void  setTimeOffset (int i)  {        m_timeOffset  = i; updateWithBackground();}
+	void  setDayOffset  (int i)  {        m_dayOffset   = i; updateWithBackground();}
 
 	QColor    digitColor() const  { return m_digitColor;   }
 	QColor    dateColor() const   { return m_dateColor;    }
 	QColor    timeColor() const   { return m_timeColor;    }
 	QColor    dayColor()  const   { return m_dayColor;     }
 
-	void   setDigitColor(QColor c){        m_digitColor = c; update();}
-	void   setDateColor(QColor c) {        m_dateColor = c;  update();}
-	void   setTimeColor(QColor c) {        m_timeColor = c;  update();}
-	void   setDayColor (QColor c) {        m_dayColor  = c;  update();}
+	void   setDigitColor(QColor c){        m_digitColor = c; updateWithBackground();}
+	void   setDateColor(QColor c) {        m_dateColor = c;  updateWithBackground();}
+	void   setTimeColor(QColor c) {        m_timeColor = c;  updateWithBackground();}
+	void   setDayColor (QColor c) {        m_dayColor  = c;  updateWithBackground();}
 
 
 
     protected:
 
-
+	
         void paintEvent(QPaintEvent *event);
-	void paintBackground(QPainter & painter, const QBrush & background);
+	void paintBackground(QPainter & painter);
 	void initCoordinateSystem(QPainter & painter);
-
-
+	 
+	
 	int resetDigitOffset() const { return 75; }
 	int resetDateOffset()  const { return 0;  }
 	int resetTimeOffset()  const { return -12;}
@@ -88,6 +84,5 @@
         QColor m_dateColor;
         QColor m_timeColor;
         QColor m_dayColor;
-	QPixmap * pixmap;
     };
 #endif // WALLCLOCK_H

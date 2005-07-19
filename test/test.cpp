@@ -15,40 +15,71 @@
 
     void TestWidget::initialize()
     {
-        
 	setupUi(this); 
 	setWindowTitle(QString("Program testowy dla AnalogWidgets")); 
 	setWindowFlags(Qt::Window);	 
   	setGeometry(50,50,400, 320);
 
-
         // Ustawianie LayOut'ów 	
 	QWidget * widget = stackedWidget->widget(0); 
         // Layout of stack 0 widget 
 	WallClock * clock = new WallClock(); 
-	QVBoxLayout *v_layout = new QVBoxLayout;
+        QVBoxLayout *v_layout = new QVBoxLayout;
         v_layout->addWidget(clock_lab);
         v_layout->addWidget(clock);
 	widget->setLayout(v_layout); 
- 
-        // Layout of stack 1 widget 
-	widget = stackedWidget->widget(1); 
-	BarMeter * bar = new BarMeter(); 
-	v_layout = new QVBoxLayout;
-	v_layout->addWidget(bar_label); 
-        v_layout->addWidget(bar);
-	widget->setLayout(v_layout); 
 	
-	bar->setSuffix(QString(" [bar]")); 
+         // Layout of stack 1 widget 
+	widget = stackedWidget->widget(1); 
+	bar = new BarMeter(widget); 
+	bar->resize(120,120); 	
+	//QLayout * layout = new QVBoxLayout();
+	//layout->addWidget(bar_label); 
+        //layout->addWidget(bar);
+ 	////layout->addWidget(frame); 
+	//widget->setLayout(layout);	
 		
- 	connect(Hslider,SIGNAL(valueChanged(int)),bar,SLOT(setValue(int))); 
-        connect(spinBox,SIGNAL(valueChanged(int)),bar,SLOT(setValue(int))); 
-
-	Hslider->setMaximum(300); 
-	spinBox->setMaximum(400); 
-
-     
+ 	//connect(HSlider,SIGNAL(valueChanged(int)),bar,SLOT(setValue(int))); 
+        //connect(spinBox,SIGNAL(valueChanged(int)),bar,SLOT(setValue(int))); 
+	connect(spinBox,SIGNAL(valueChanged(int)),this,SLOT(SpinBoxValueChanged(int))); 
+	connect(comboBox,SIGNAL(activated(int)),this,SLOT(ComboBoxChoiceChanged(int))); 
+	
+	HSlider->setMaximum(1000);
+	HSlider->setMinimum(-1000); 
+	spinBox->setMaximum(1000); 
+	spinBox->setMinimum(-1000); 
+	//ComboBoxChoiceChanged(comboBox->currentIndex()); 
     } 	
+    
+    void TestWidget::ComboBoxChoiceChanged(int index)
+    {
+      int val=0; 
+      switch (index) 
+      {
+       case 0: val = bar->value(); break; 
+       case 1: val = bar->minimum(); break; 
+       case 2: val = bar->maximum(); break; 
+       case 3: val = bar->nominal(); break; 
+       case 4: val = bar->critical(); break; 
+       case 5: val = bar->digitOffset(); break; 
+       case 6: val = bar->valueOffset(); break; 
+      }
+       spinBox->setValue(val); 
+    }
+    
+    void TestWidget::SpinBoxValueChanged(int val)
+    {
+      switch (comboBox->currentIndex()) 
+      {
+        case 0:  bar->setValue(val); break; 
+        case 1:  bar->setMinimum(val); break; 
+        case 2:  bar->setMaximum(val); break; 
+        case 3:  bar->setNominal(val); break; 
+        case 4:  bar->setCritical(val); break; 
+        case 5:  bar->setDigitOffset(val); break; 
+        case 6:  bar->setValueOffset(val); break; 
+      }
+    }
     
     void TestWidget::connections()
     {
@@ -59,4 +90,4 @@
     void TestWidget::closeEvent ( QCloseEvent * /* event */)
     {
       qApp->quit();       
-    }
+    }	

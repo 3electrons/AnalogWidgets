@@ -4,7 +4,7 @@
     #define PI 3.141592653589793238512808959406186204433
 
     WallClock::WallClock(QWidget *parent)
-        : QWidget(parent)
+        : QMyWidgetWithBackground(parent)
     {
         QTimer *timer = new QTimer(this);
         connect(timer, SIGNAL(timeout()), this, SLOT(update()));
@@ -30,13 +30,6 @@
         setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
         setWindowTitle(tr("Analog Clock"));
         resize(220, 220);
-	pixmap = new QPixmap(size());
-
-    }
-
-    WallClock::~WallClock()
-    {
-      delete pixmap;
     }
 
     void WallClock::initCoordinateSystem(QPainter & painter)
@@ -47,12 +40,8 @@
         painter.scale(side / 220.0, side / 220.0);
     }
 
-    void WallClock::paintBackground(QPainter & painter,const QBrush & background)
+    void WallClock::paintBackground(QPainter & painter)
     {
-	 // inicjalizacja paintera oraz odmalowanie t³a
-        painter.setBrush(background);
-	painter.setPen(Qt::NoPen);
-	painter.drawRect(0,0,width(),height());
 
         initCoordinateSystem(painter);
         // Malowanie obwiedni tarczy.
@@ -117,22 +106,14 @@
         static const int hourHand[8] = { -2, 18, 2, 18, 2, -60, -2, -60 };
         static const int minuteHand[8] = { -2, 28, 2, 28, 2, -80, -2, -80 };
         static const int secondHand[12] = {-1, 0, -1, -90, 1,-90, 1, 0, 4, 35, -4, 35};
-
+        
+        // odmalowywuje t³o 
+        doUpdateBackground(); 
 	 // inicjalizacja paintera
+	
 	QPainter painter(this);
-        if (pixmap->size() != size())
-	{
-		delete pixmap;
-	        pixmap = new QPixmap(size());
-		QPainter p(pixmap);
-		paintBackground(p,painter.background());
-        }
-
-
-        painter.drawPixmap(0,0,*pixmap);
-
-	 initCoordinateSystem(painter);
-
+        initCoordinateSystem(painter);
+        
         // Wyliczanie czasu i daty
         QTime time = QTime::currentTime();
         QDate date = QDate::currentDate();
@@ -193,4 +174,5 @@
 	// Kó³ko sekundnika
         painter.drawEllipse(-5,-5,10,10);
     }
-
+    
+    

@@ -3,7 +3,8 @@
 #include "ui_testform.h" 
 
 #include <QMainWindow>
-        
+    class BarMeter; 
+          
     class TestWidget : public QMainWindow,  private Ui::TestForm
     {
     	Q_OBJECT 
@@ -13,9 +14,14 @@
         void initialize();
         /** Generuje p³±czenia pomiêdzy sygna³ami i slotami */ 
         void connections(); 
+    public slots: 
+    	void ComboBoxChoiceChanged(int index ); 
+        void SpinBoxValueChanged(int val); 
     private:
 	/** Gdy zamykane jest okno */ 
 	void closeEvent ( QCloseEvent * e );
+	// Potencjometr 
+	BarMeter * bar; 
     };
 
    
