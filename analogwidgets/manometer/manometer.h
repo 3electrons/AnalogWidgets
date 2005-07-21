@@ -23,27 +23,10 @@
     	ManoMeter(QWidget *parent = 0);
 
 	int  minimum() const   { return m_minimum; }
-        void setMinimum(int i)
-	{
-	  if ((m_minimum != i) && (i < m_maximum) )
-	     {
-	       m_minimum = i;
-               calcMaxMin();
-               updateWithBackground();
-             }
-	}
+        void setMinimum(int i);
         int  maximum() const   { return m_maximum; }
 
-        void setMaximum(int i)
-        {
-          if ((m_maximum != i) && (i > m_minimum) )
-             {
-                m_maximum = i;
-		calcMaxMin();
-                updateWithBackground();
- 	     }
-
-        }
+        void setMaximum(int i);
 
         QString prefix() const    { return m_prefix;  }
         void setPrefix(QString s) { m_prefix = s; updateWithBackground(); }
@@ -84,8 +67,12 @@
         void paintEvent(QPaintEvent *event);
 	void paintBackground(QPainter & painter);
 	void initCoordinateSystem(QPainter & painter);
-
-	void calcMaxMin();
+        /** 
+         * Oblicza warto¶ci m_max oraz m_min wy¶wietlane na skali 
+	 * @return Warto¶æ true je¿eli która¶ ze zmiennych m_max lub m_min 
+	 * zosta³a uaktualniona.
+	*/
+	bool calcMaxMin();
 	/** Starting value on barometer */
 	int m_min;
 	/** Endgind value on barometer */

@@ -4,18 +4,17 @@
 #include "manometer.h"
 #define PI 3.141592653589793238512808959406186204433
 
-// @TODO Zmieñ nazwê ManoMeter na ManoMeter
 // @TODO Popraw calcMaxMin
 // @TODO Popraw rysowanie wskazówki gdy minimum jest mniejsze od zera - wskazówka nie jest na zerze.
 
 ManoMeter::ManoMeter(QWidget *parent)
         : QMyWidgetWithBackground(parent)
 {
-        m_max=m_min=0;
+        m_max=300; 
+        m_min=0;
 
 	setWindowTitle(tr("Analog ManoMeter"));
-
-	setMaximum(300);
+	m_maximum=300; // najpierw rêcznie potem seterem by wywo³aæ calcMaxMin 
   	setMinimum(0);
 	setValue(0);
         setNominal(80);
@@ -33,29 +32,29 @@ ManoMeter::ManoMeter(QWidget *parent)
 
 }
 
-void ManoMeter::calcMaxMin()
+bool ManoMeter::calcMaxMin()
 {
-  m_max=m_maximum-1;
-  m_min=m_minimum+1;
+  
+  int max_tmp = m_max, min_tmp = m_min; 
+  m_max=m_maximum;
+  m_min=m_minimum;
 
   assert( m_max > m_min );
   assert( m_max - m_min >! 0 );
 
-  int rest;
-
-  do {
-       ++m_max;
-       rest = m_max % 8;
-     } while (!rest%5);
-
-
-
-   //int diff = abs(m_max - m_min);
-  //int scale = 0,inc = 5 , factor = 0 ;
-  //while ( diff > scale ) { factor+=inc; scale = 8 * factor;  }
-
-  //m_max = ( m_max/factor +1 ) * factor;
-  //m_min = m_max - scale - factor;
+  int diff = abs(m_max - m_min);
+  int scale = 0,inc = 5 , factor = 0 ;
+  bool done = false; 
+  while ( diff > scale ) { factor+=inc; scale = 8 * factor; }
+  while (!done)
+  {
+     m_max=0;  
+     while ( m_max < m_maximum ) m_max +=factor; 
+     m_min = m_max - scale;
+     if (m_min <= m_minimum ) done = true; 
+     else { factor+=inc; scale = 8*factor; } 
+  }
+ return (m_max =! max_tmp) | (m_min =! min_tmp);  
 }
 
 
@@ -68,6 +67,25 @@ void ManoMeter::setValue( int val )
     emit valueChanged(val);
   }
 }
+
+void ManoMeter::setMinimum(int i)
+{
+  if ((m_minimum != i) && (i < m_maximum - 7 ) )
+  {
+    m_minimum = i;
+    if (calcMaxMin()) updateWithBackground();
+  }
+}
+
+void ManoMeter::setMaximum(int i)
+{
+  if ((m_maximum != i) && (i > m_minimum + 7) )
+  {
+    m_maximum = i;
+    if (calcMaxMin()) updateWithBackground();
+  }
+}
+
 
 void ManoMeter::initCoordinateSystem(QPainter & painter)
 {
@@ -100,10 +118,16 @@ void ManoMeter::paintBackground(QPainter & painter)
 	  painter.setPen(Qt::NoPen);
           // nominal
 	  painter.setBrush(QBrush(Qt::green));
-	  painter.drawPie(QRect(-141,-141,282,282),-480,3840*( m_max - m_min -nominal() )/(m_max-m_min));
+
+	  int angle = (3840 * ( m_nominal - m_min ))/(m_max-m_min);
+	  if (m_min <= m_nominal && m_nominal < m_max ) 
+           painter.drawPie(QRect(-141,-141,282,282),-480,3840 - angle % 5760 ); 
 	  // Critical
+
 	  painter.setBrush(QBrush(Qt::red));
-	  painter.drawPie(QRect(-141,-141,282,282),-480,3840-critical()*3840/(m_max-m_min));
+	  angle = (3840 * ( m_critical - m_min ))/(m_max-m_min);
+	  if ( m_min <= m_critical && m_critical < m_max  ) 
+	  painter.drawPie(QRect(-141,-141,282,282),-480, 3840 - angle % 5760  ); //-480, 3840*( m_max-m_min - critical()-abs(m_min) )/static_cast<double>(m_max-m_min));
 	  // bia³a obwiednia
 	  painter.setBrush(QBrush(Qt::white));
 	  painter.drawEllipse(-129,-129,258,258);
@@ -142,7 +166,7 @@ void ManoMeter::paintBackground(QPainter & painter)
 	  painter.setFont(digitFont());
 	  for (int i=0;i<9;i++)
 	  {
-	    QString val = QString("%1").arg(m_min + i*(m_max - m_min)/8 );
+	    QString val = QString("%1").arg(m_min + i*(m_max - m_min)/8.0 );
 	    QSize Size = painter.fontMetrics().size(Qt::TextSingleLine, val);
             painter.save();
 	    painter.translate( digitOffset() * cos((5+i)*PI/6.0), digitOffset() * sin((5+i)*PI/6.0));
@@ -166,7 +190,7 @@ void ManoMeter::paintEvent(QPaintEvent * )
 	painter.rotate(60.0);
 	painter.setPen(Qt::NoPen);
 	painter.setBrush(QBrush(Qt::red));
-   	painter.rotate((value() * 240.0) / static_cast<double> (m_max - m_min) );
+   	painter.rotate(  (  (abs(m_min)+value()) * 240.0) / static_cast<double> (m_max - m_min) );
 	painter.drawConvexPolygon(QPolygon(6,hand));
 	painter.drawEllipse(-10,-10,20,20);
 
