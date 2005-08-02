@@ -4,9 +4,6 @@
 #include "manometer.h"
 #define PI 3.141592653589793238512808959406186204433
 
-// @TODO Popraw calcMaxMin
-// @TODO Popraw rysowanie wskazówki gdy minimum jest mniejsze od zera - wskazówka nie jest na zerze.
-
 ManoMeter::ManoMeter(QWidget *parent)
         : QMyWidgetWithBackground(parent)
 {
@@ -29,6 +26,7 @@ ManoMeter::ManoMeter(QWidget *parent)
         setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
         setWindowTitle(tr("Analog Barmeter"));
 	resize(311, 311);
+	assert(m_max-m_min != 0); 
 
 }
 
@@ -54,7 +52,7 @@ bool ManoMeter::calcMaxMin()
      if (m_min <= m_minimum ) done = true; 
      else { factor+=inc; scale = 8*factor; } 
   }
- return (m_max =! max_tmp) | (m_min =! min_tmp);  
+ return (m_max != max_tmp) | (m_min != min_tmp);  
 }
 
 
@@ -118,7 +116,7 @@ void ManoMeter::paintBackground(QPainter & painter)
 	  painter.setPen(Qt::NoPen);
           // nominal
 	  painter.setBrush(QBrush(Qt::green));
-
+	  assert(m_max-m_min != 0); 
 	  int angle = (3840 * ( m_nominal - m_min ))/(m_max-m_min);
 	  if (m_min <= m_nominal && m_nominal < m_max ) 
            painter.drawPie(QRect(-141,-141,282,282),-480,3840 - angle % 5760 ); 
