@@ -21,6 +21,7 @@
 
 
     public:
+
     	QMyAbstractMeter(QWidget *parent = 0);
 
 	int  minimum() const   { return m_minimum; }
@@ -64,6 +65,9 @@
     	void valueChanged(int val);
 
     protected:
+
+
+	virtual void propertyUpdated() = 0;
         /**
          * Oblicza warto¶ci m_max oraz m_min wy¶wietlane na skali
 	 * @return Warto¶æ true je¿eli która¶ ze zmiennych m_max lub m_min
