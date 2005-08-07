@@ -2,8 +2,9 @@
 #define THERMOMETER_H
 
 #include "qmywidgetwithbackground.h"
+#include "qmyabstractmeter.h"
 
-    class ThermoMeter : public QMyWidgetWithBackground
+    class ThermoMeter : public QMyWidgetWithBackground, QMyAbstractMeter
     {
         Q_OBJECT
 	Q_PROPERTY (int minimum READ minimum WRITE setMinimum )
@@ -64,12 +65,18 @@
 
 
     protected:
-        void paintEvent(QPaintEvent *event);
-	void paintBackground(QPainter & painter);
+	void propertyUpdated()  // metoda z QMyAbstractMeter
+	{
+	 updateWithBackground();
+	}
+
+        void paintEvent(QPaintEvent *event); // metoda z QMyWidgetWithBackground
+	void paintBackground(QPainter & painter); // metoda z QMyWidgetWithBackground
+
 	void initCoordinateSystem(QPainter & painter);
-        /** 
-         * Oblicza warto¶ci m_max oraz m_min wy¶wietlane na skali 
-	 * @return Warto¶æ true je¿eli która¶ ze zmiennych m_max lub m_min 
+        /**
+         * Oblicza warto¶ci m_max oraz m_min wy¶wietlane na skali
+	 * @return Warto¶æ true je¿eli która¶ ze zmiennych m_max lub m_min
 	 * zosta³a uaktualniona.
 	*/
 	bool calcMaxMin();
