@@ -4,6 +4,7 @@
 
 #include <QMainWindow>
     class ManoMeter;
+    class ThermoMeter; 
 
     class TestWidget : public QMainWindow,  private Ui::TestForm
     {
@@ -22,6 +23,8 @@
 	void closeEvent ( QCloseEvent * e );
 	// Potencjometr
 	ManoMeter * bar;
+	// Termometr  
+	ThermoMeter * thermo;
     };
 
 

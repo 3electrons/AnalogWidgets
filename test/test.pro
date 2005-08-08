@@ -13,10 +13,13 @@ FORMS += testform.ui
 HEADERS += test.h \
            widgets\qmywidgetwithbackground.h \
            widgets\wallclock.h \
-           widgets\manometer.h
+           widgets\manometer.h \
+	   widgets\thermometer.h
 SOURCES += main.cpp \
            test.cpp \
            widgets\qmywidgetwithbackground.cpp \
            widgets\wallclock.cpp \
-           widgets\manometer.cpp
+           widgets\manometer.cpp \
+	   widgets\thermometer.cpp
+	   
 =======

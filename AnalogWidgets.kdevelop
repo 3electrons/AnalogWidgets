@@ -76,7 +76,7 @@
   </kdevfilecreate>
   <kdevtrollproject>
     <general>
-      <activedir></activedir>
+      <activedir>test</activedir>
     </general>
     <run>
       <directoryradio>executable</directoryradio>

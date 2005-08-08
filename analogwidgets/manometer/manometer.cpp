@@ -9,8 +9,6 @@ ManoMeter::ManoMeter(QWidget *parent)
 {
         m_max=300; 
         m_min=0;
-
-	setWindowTitle(tr("Analog ManoMeter"));
 	m_maximum=300; // najpierw rêcznie potem seterem by wywo³aæ calcMaxMin 
   	setMinimum(0);
 	setValue(0);
@@ -27,7 +25,6 @@ ManoMeter::ManoMeter(QWidget *parent)
         setWindowTitle(tr("Analog Barmeter"));
 	resize(311, 311);
 	assert(m_max-m_min != 0); 
-
 }
 
 bool ManoMeter::calcMaxMin()
