@@ -41,7 +41,6 @@ class QMyWidgetWithBackground : public QWidget
      QPixmap * m_pixmap;
      /**
      * Ustawia t± zmienn± po zmianie w³a¶ciwo¶ci
-     *
      */
      bool m_modified;
 };

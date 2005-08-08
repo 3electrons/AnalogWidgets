@@ -1,10 +1,12 @@
+#include <assert.h>
 #include "qmyabstractmeter.h"
 
 
 QMyAbstractMeter::QMyAbstractMeter(QWidget * parent )
-	: QObject(parent)
+ : QMyWidgetWithBackground (parent)
 {
 }
+
 
 bool QMyAbstractMeter::calcMaxMin()
 {
@@ -30,13 +32,13 @@ bool QMyAbstractMeter::calcMaxMin()
  return (m_max != max_tmp) | (m_min != min_tmp);
 }
 
-
 void QMyAbstractMeter::setValue( int val )
 {
   if ( m_value != val )
   {
     m_value = val;
     update(); // Ciekawe czy tak jest lepiej ??
+    // to znaczy najpierw odmalowaæ a potem generowaæ sygna³ ? 
     emit valueChanged(val);
   }
 }

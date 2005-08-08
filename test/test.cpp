@@ -5,8 +5,8 @@
     #include <QString>
     #include "widgets/manometer.h"
     #include "widgets/wallclock.h"
-    #include "widgets/thermometer.h" 
-    
+    #include "widgets/thermometer.h"
+
 
     TestWidget::TestWidget(QMainWindow *parent)
         : QMainWindow(parent)
@@ -40,21 +40,22 @@
         layout->addWidget(bar);
  	layout->addWidget(frame);
 	widget->setLayout(layout);
-	
+
 	// Layout if stack 2 widget - thermometer
-	
-	widget = stackedWidget->widget(2); 
+
+	widget = stackedWidget->widget(2);
 	thermo = new ThermoMeter();
-	thermo->resize(10,100); 
+	thermo->resize(10,100);
 	QLayout * layout2 = new QVBoxLayout();
 	layout2->addWidget(thermo_lab);
 	layout2->addWidget(thermo);
-	widget->setLayout(layout2); 
-		
+	widget->setLayout(layout2);
+
  	//connect(HSlider,SIGNAL(valueChanged(int)),bar,SLOT(setValue(int)));
         //connect(spinBox,SIGNAL(valueChanged(int)),bar,SLOT(setValue(int)));
 	connect(spinBox,SIGNAL(valueChanged(int)),this,SLOT(SpinBoxValueChanged(int)));
 	connect(comboBox,SIGNAL(activated(int)),this,SLOT(ComboBoxChoiceChanged(int)));
+	connect(spinBox,SIGNAL(valueChanged(int)),thermo,SLOT(setValue(int)));
 
 	HSlider->setMaximum(1000);
 	HSlider->setMinimum(-1000);

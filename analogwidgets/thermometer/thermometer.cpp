@@ -4,7 +4,7 @@
 #include "thermometer.h"
 
 ThermoMeter::ThermoMeter(QWidget *parent)
-        : QMyWidgetWithBackground(parent), QMyAbstractMeter(parent)
+        : QMyAbstractMeter(parent)
 {
         m_max=100;
         m_min=0;
@@ -27,61 +27,6 @@ ThermoMeter::ThermoMeter(QWidget *parent)
 	assert(m_max-m_min != 0);
 
 }
-
-bool ThermoMeter::calcMaxMin()
-{
-
-  int max_tmp = m_max, min_tmp = m_min;
-  m_max=m_maximum;
-  m_min=m_minimum;
-
-  assert( m_max > m_min );
-  assert( m_max - m_min >! 0 );
-
-  int diff = abs(m_max - m_min);
-  int scale = 0,inc = 5 , factor = 0 ;
-  bool done = false;
-  while ( diff > scale ) { factor+=inc; scale = 8 * factor; }
-  while (!done)
-  {
-     m_max=0;
-     while ( m_max < m_maximum ) m_max +=factor;
-     m_min = m_max - scale;
-     if (m_min <= m_minimum ) done = true;
-     else { factor+=inc; scale = 8*factor; }
-  }
- return (m_max != max_tmp) | (m_min != min_tmp);
-}
-
-
-void ThermoMeter::setValue( int val )
-{
-  if ( m_value != val )
-  {
-    m_value = val;
-    update(); // Ciekawe czy tak jest lepiej ??
-    emit valueChanged(val);
-  }
-}
-
-void ThermoMeter::setMinimum(int i)
-{
-  if ((m_minimum != i) && (i < m_maximum - 7 ) )
-  {
-    m_minimum = i;
-    if (calcMaxMin()) updateWithBackground();
-  }
-}
-
-void ThermoMeter::setMaximum(int i)
-{
-  if ((m_maximum != i) && (i > m_minimum + 7) )
-  {
-    m_maximum = i;
-    if (calcMaxMin()) updateWithBackground();
-  }
-}
-
 
 void ThermoMeter::initCoordinateSystem(QPainter & painter)
 {
@@ -127,23 +72,30 @@ void ThermoMeter::paintBackground(QPainter & painter)
 	for (int i=0;i<=32;i++)
 	{
 	  length = 12;
-	  if (i%4) length = 8;
+	 	 if (i%4) length = 8;
 	  if (i%2) length = 5;
 	  painter.drawLine(-7,28+i*7, -7+length,28+i*7);
 	}
 
 	painter.setPen(Qt::red);
-	painter.drawLine(0,0,50,50);
+
 
 }// paintBackground
 
 void ThermoMeter::paintEvent(QPaintEvent * )
 {
-	doUpdateBackground();
+
 	QPainter painter(this);
         initCoordinateSystem(painter);
       // --------------------------------------------- ///
-	static const int hand[12] = {-4, 0, -1, 129, 1, 129, 4, 0, 8,-50, -8,-50};
-
-
+	QPen Pen;
+	Pen.setWidth(9);
+	Pen.setColor(Qt::blue);
+	painter.setPen(Pen);
+	double factor =  m_value - m_min;
+	       factor /= m_max - m_min;
+	int temp = static_cast<int> (238.0 * factor);
+	painter.drawLine(0,266,0,266 -temp);
+	doUpdateBackground();
+	//painter.drawLine(0,0,300,300);
 }// paintEvent

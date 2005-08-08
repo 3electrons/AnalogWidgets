@@ -5,7 +5,7 @@
 #define PI 3.141592653589793238512808959406186204433
 
 ManoMeter::ManoMeter(QWidget *parent)
-        : QMyWidgetWithBackground(parent), QMyAbstractMeter(parent)
+        : QMyAbstractMeter(parent)
 {
         m_max=300;
         m_min=0;

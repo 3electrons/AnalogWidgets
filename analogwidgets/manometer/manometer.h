@@ -1,23 +1,15 @@
 #ifndef BARMETER_H
 #define BARMETER_H
 
-#include "qmywidgetwithbackground.h"
 #include "qmyabstractmeter.h"
 
-    class ManoMeter : public QMyWidgetWithBackground, public QMyAbstractMeter
+    class ManoMeter : public QMyAbstractMeter
     {
-
-
-    public:
+      public:
     	ManoMeter(QWidget *parent = 0);
-
-    protected:
-	void propertyUpdated()
-	{
- 	  updateWithBackground();
-	}
-        void paintEvent(QPaintEvent *event);
-	void paintBackground(QPainter & painter);
+      protected:
+        void paintEvent(QPaintEvent *event); 	 // inherited from QMyWidgetWithBackground 
+	void paintBackground(QPainter & painter);// inherited form QMyWidgetWithBackground 
 	void initCoordinateSystem(QPainter & painter);
     };
 #endif // BARMETER_H

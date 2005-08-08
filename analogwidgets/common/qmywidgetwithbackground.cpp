@@ -19,11 +19,8 @@ QMyWidgetWithBackground::~QMyWidgetWithBackground()
 void QMyWidgetWithBackground::repaintBackground()
 {
   QPainter backPainter(this);
+  m_pixmap->fill(QColor(0,0,0,0));
   QPainter painter(m_pixmap);
-  // inicjalizacja paintera oraz odmalowanie t³a
-  painter.setBrush(backPainter.background());
-  painter.setPen(Qt::NoPen);
-  painter.drawRect(0,0,width(),height());
   paintBackground(painter);
 }
 

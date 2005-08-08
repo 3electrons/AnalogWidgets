@@ -19,7 +19,7 @@ HEADERS += test.h \
 SOURCES += main.cpp \
            test.cpp \
            widgets\qmywidgetwithbackground.cpp \
-	   widgets\qmyabstractmeter.h \
+	   widgets\qmyabstractmeter.cpp \
            widgets\wallclock.cpp \
            widgets\manometer.cpp \
 	   widgets\thermometer.cpp
