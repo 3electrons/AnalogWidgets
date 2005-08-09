@@ -9,7 +9,7 @@
     <x>0</x>
     <y>0</y>
     <width>469</width>
-    <height>451</height>
+    <height>448</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -23,98 +23,128 @@
     <property name="spacing" >
      <number>6</number>
     </property>
-    <item row="0" column="1" >
-     <widget class="QStackedWidget" name="stackedWidget" >
-      <property name="currentIndex" >
-       <number>0</number>
+    <item row="0" column="0" >
+     <widget class="QSplitter" name="splitter" >
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
       </property>
-      <widget class="QWidget" name="page" >
-       <widget class="QLabel" name="clock_lab" >
-        <property name="geometry" >
-         <rect>
-          <x>40</x>
-          <y>40</y>
-          <width>111</width>
-          <height>16</height>
-         </rect>
-        </property>
+      <layout class="QHBoxLayout" >
+       <property name="margin" >
+        <number>8</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+      </layout>
+      <widget class="QListWidget" name="listWidget" >
+       <property name="sizePolicy" >
+        <sizepolicy>
+         <hsizetype>1</hsizetype>
+         <vsizetype>7</vsizetype>
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximumSize" >
+        <size>
+         <width>100</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <item>
         <property name="text" >
-         <string>Tutaj będzie zegar</string>
+         <string>Zegar</string>
         </property>
-       </widget>
+       </item>
+       <item>
+        <property name="text" >
+         <string>Manometr</string>
+        </property>
+       </item>
+       <item>
+        <property name="text" >
+         <string>Termometr</string>
+        </property>
+       </item>
       </widget>
-      <widget class="QWidget" name="page" >
-       <widget class="QFrame" name="frame" >
-        <property name="geometry" >
-         <rect>
-          <x>30</x>
-          <y>300</y>
-          <width>271</width>
-          <height>80</height>
-         </rect>
+      <widget class="QWidget" name="widget" >
+       <layout class="QVBoxLayout" >
+        <property name="margin" >
+         <number>0</number>
         </property>
-        <property name="frameShape" >
-         <enum>QFrame::StyledPanel</enum>
+        <property name="spacing" >
+         <number>6</number>
         </property>
-        <property name="frameShadow" >
-         <enum>QFrame::Raised</enum>
-        </property>
-        <layout class="QGridLayout" >
-         <property name="margin" >
-          <number>8</number>
-         </property>
-         <property name="spacing" >
-          <number>6</number>
-         </property>
-         <item row="0" column="0" >
-          <layout class="QVBoxLayout" >
+        <item>
+         <widget class="QStackedWidget" name="stackedWidget" >
+          <property name="currentIndex" >
+           <number>2</number>
+          </property>
+          <widget class="QWidget" name="page" >
+           <widget class="QLabel" name="clock_lab" >
+            <property name="geometry" >
+             <rect>
+              <x>40</x>
+              <y>40</y>
+              <width>111</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text" >
+             <string>Tutaj będzie zegar</string>
+            </property>
+           </widget>
+          </widget>
+          <widget class="QWidget" name="page" >
+           <widget class="QLabel" name="bar_label" >
+            <property name="geometry" >
+             <rect>
+              <x>40</x>
+              <y>80</y>
+              <width>231</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="text" >
+             <string>Tutaj będzie manometr</string>
+            </property>
+           </widget>
+          </widget>
+          <widget class="QWidget" name="page" >
+           <widget class="QLabel" name="thermo_lab" >
+            <property name="geometry" >
+             <rect>
+              <x>30</x>
+              <y>30</y>
+              <width>115</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text" >
+             <string>Tutaj będzie termometr</string>
+            </property>
+           </widget>
+          </widget>
+          <widget class="QWidget" name="page" />
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="frame" >
+          <property name="frameShape" >
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow" >
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QGridLayout" >
            <property name="margin" >
-            <number>0</number>
+            <number>8</number>
            </property>
            <property name="spacing" >
             <number>6</number>
            </property>
-           <item>
-            <widget class="QComboBox" name="comboBox" >
-             <item>
-              <property name="text" >
-               <string>value</string>
-              </property>
-             </item>
-             <item>
-              <property name="text" >
-               <string>minimum</string>
-              </property>
-             </item>
-             <item>
-              <property name="text" >
-               <string>maximum</string>
-              </property>
-             </item>
-             <item>
-              <property name="text" >
-               <string>nominal</string>
-              </property>
-             </item>
-             <item>
-              <property name="text" >
-               <string>critical</string>
-              </property>
-             </item>
-             <item>
-              <property name="text" >
-               <string>digitOffset</string>
-              </property>
-             </item>
-             <item>
-              <property name="text" >
-               <string>valueOffset</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" >
+           <item row="0" column="0" >
+            <layout class="QVBoxLayout" >
              <property name="margin" >
               <number>0</number>
              </property>
@@ -122,117 +152,91 @@
               <number>6</number>
              </property>
              <item>
-              <widget class="QSlider" name="HSlider" >
-               <property name="sizePolicy" >
-                <sizepolicy>
-                 <hsizetype>7</hsizetype>
-                 <vsizetype>1</vsizetype>
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="orientation" >
-                <enum>Qt::Horizontal</enum>
-               </property>
+              <widget class="QComboBox" name="comboBox" >
+               <item>
+                <property name="text" >
+                 <string>value</string>
+                </property>
+               </item>
+               <item>
+                <property name="text" >
+                 <string>minimum</string>
+                </property>
+               </item>
+               <item>
+                <property name="text" >
+                 <string>maximum</string>
+                </property>
+               </item>
+               <item>
+                <property name="text" >
+                 <string>nominal</string>
+                </property>
+               </item>
+               <item>
+                <property name="text" >
+                 <string>critical</string>
+                </property>
+               </item>
+               <item>
+                <property name="text" >
+                 <string>digitOffset</string>
+                </property>
+               </item>
+               <item>
+                <property name="text" >
+                 <string>valueOffset</string>
+                </property>
+               </item>
               </widget>
              </item>
              <item>
-              <widget class="QSpinBox" name="spinBox" >
-               <property name="sizePolicy" >
-                <sizepolicy>
-                 <hsizetype>1</hsizetype>
-                 <vsizetype>0</vsizetype>
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
+              <layout class="QHBoxLayout" >
+               <property name="margin" >
+                <number>0</number>
                </property>
-              </widget>
+               <property name="spacing" >
+                <number>6</number>
+               </property>
+               <item>
+                <widget class="QSlider" name="HSlider" >
+                 <property name="sizePolicy" >
+                  <sizepolicy>
+                   <hsizetype>7</hsizetype>
+                   <vsizetype>1</vsizetype>
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="orientation" >
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSpinBox" name="spinBox" >
+                 <property name="sizePolicy" >
+                  <sizepolicy>
+                   <hsizetype>1</hsizetype>
+                   <vsizetype>0</vsizetype>
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </item>
             </layout>
            </item>
           </layout>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QLabel" name="bar_label" >
-        <property name="geometry" >
-         <rect>
-          <x>20</x>
-          <y>20</y>
-          <width>131</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text" >
-         <string>Tutaj będzie manometr</string>
-        </property>
-       </widget>
+         </widget>
+        </item>
+       </layout>
       </widget>
-      <widget class="QWidget" name="page" >
-       <widget class="QLabel" name="thermo_lab" >
-        <property name="geometry" >
-         <rect>
-          <x>30</x>
-          <y>30</y>
-          <width>115</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text" >
-         <string>Tutaj będzie termometr</string>
-        </property>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="page" />
-     </widget>
-    </item>
-    <item row="0" column="0" >
-     <widget class="QListWidget" name="listWidget" >
-      <property name="sizePolicy" >
-       <sizepolicy>
-        <hsizetype>1</hsizetype>
-        <vsizetype>7</vsizetype>
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="maximumSize" >
-       <size>
-        <width>100</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <item>
-       <property name="text" >
-        <string>Zegar</string>
-       </property>
-      </item>
-      <item>
-       <property name="text" >
-        <string>Manometr</string>
-       </property>
-      </item>
-      <item>
-       <property name="text" >
-        <string>Termometr</string>
-       </property>
-      </item>
      </widget>
     </item>
    </layout>
-   <widget class="QSplitter" name="splitter" >
-    <property name="geometry" >
-     <rect>
-      <x>9</x>
-      <y>9</y>
-      <width>451</width>
-      <height>433</height>
-     </rect>
-    </property>
-    <property name="orientation" >
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
   </widget>
  </widget>
  <pixmapfunction></pixmapfunction>
@@ -255,34 +259,34 @@
    </hints>
   </connection>
   <connection>
-   <sender>HSlider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>spinBox</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>308</x>
-     <y>361</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>372</x>
-     <y>361</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>spinBox</sender>
    <signal>valueChanged(int)</signal>
    <receiver>HSlider</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>372</x>
-     <y>369</y>
+     <x>405</x>
+     <y>523</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>204</x>
-     <y>361</y>
+     <x>319</x>
+     <y>529</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>HSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>223</x>
+     <y>534</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>420</x>
+     <y>518</y>
     </hint>
    </hints>
   </connection>

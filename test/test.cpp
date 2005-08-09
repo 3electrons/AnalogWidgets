@@ -38,8 +38,7 @@
 	QLayout * layout = new QVBoxLayout();
 	layout->addWidget(bar_label);
         layout->addWidget(bar);
- 	layout->addWidget(frame);
-	widget->setLayout(layout);
+ 	widget->setLayout(layout);
 
 	// Layout if stack 2 widget - thermometer
 
@@ -55,7 +54,7 @@
         //connect(spinBox,SIGNAL(valueChanged(int)),bar,SLOT(setValue(int)));
 	connect(spinBox,SIGNAL(valueChanged(int)),this,SLOT(SpinBoxValueChanged(int)));
 	connect(comboBox,SIGNAL(activated(int)),this,SLOT(ComboBoxChoiceChanged(int)));
-	connect(spinBox,SIGNAL(valueChanged(int)),thermo,SLOT(setValue(int)));
+	
 
 	HSlider->setMaximum(1000);
 	HSlider->setMinimum(-1000);
@@ -63,34 +62,41 @@
 	spinBox->setMinimum(-1000);
 	ComboBoxChoiceChanged(comboBox->currentIndex());
     }
+    
 
     void TestWidget::ComboBoxChoiceChanged(int index)
     {
       int val=0;
+      QMyAbstractMeter * meter = bar;
+      if (stackedWidget->currentIndex() == 2) meter = thermo;  
+      
       switch (index)
       {
-       case 0: val = bar->value(); break;
-       case 1: val = bar->minimum(); break;
-       case 2: val = bar->maximum(); break;
-       case 3: val = bar->nominal(); break;
-       case 4: val = bar->critical(); break;
-       case 5: val = bar->digitOffset(); break;
-       case 6: val = bar->valueOffset(); break;
+       case 0: val = meter->value(); break;
+       case 1: val = meter->minimum(); break;
+       case 2: val = meter->maximum(); break;
+       case 3: val = meter->nominal(); break;
+       case 4: val = meter->critical(); break;
+       case 5: val = meter->digitOffset(); break;
+       case 6: val = meter->valueOffset(); break;
       }
        spinBox->setValue(val);
     }
 
     void TestWidget::SpinBoxValueChanged(int val)
     {
+      QMyAbstractMeter * meter = bar; 
+      if (stackedWidget->currentIndex() == 2) meter = thermo;  
+      
       switch (comboBox->currentIndex())
       {
-        case 0:  bar->setValue(val); break;
-        case 1:  bar->setMinimum(val); break;
-        case 2:  bar->setMaximum(val); break;
-        case 3:  bar->setNominal(val); break;
-        case 4:  bar->setCritical(val); break;
-        case 5:  bar->setDigitOffset(val); break;
-        case 6:  bar->setValueOffset(val); break;
+        case 0:  meter->setValue(val); break;
+        case 1:  meter->setMinimum(val); break;
+        case 2:  meter->setMaximum(val); break;
+        case 3:  meter->setNominal(val); break;
+        case 4:  meter->setCritical(val); break;
+        case 5:  meter->setDigitOffset(val); break;
+        case 6:  meter->setValueOffset(val); break;
       }
     }
 

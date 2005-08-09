@@ -88,14 +88,24 @@ void ThermoMeter::paintEvent(QPaintEvent * )
 	QPainter painter(this);
         initCoordinateSystem(painter);
       // --------------------------------------------- ///
-	QPen Pen;
-	Pen.setWidth(9);
-	Pen.setColor(Qt::blue);
-	painter.setPen(Pen);
+	QBrush brush;
+	brush.setColor(Qt::blue);
+        if (m_value >= m_nominal )
+	    brush.setColor(Qt::green); 
+	
+	if (m_value >= m_critical)
+	   { 
+		brush.setColor(Qt::red); 
+	//	m_valueFont.setColor(Qt::red); 
+	   }
+	painter.setPen(Qt::NoPen); 
+	painter.setBrush(brush);
+
 	double factor =  m_value - m_min;
 	       factor /= m_max - m_min;
-	int temp = static_cast<int> (238.0 * factor);
-	painter.drawLine(0,266,0,266 -temp);
+	 
+	int temp = static_cast<int> (231.0 *  factor);
+	painter.drawRect(-5,259 ,10, 30);
 	doUpdateBackground();
 	//painter.drawLine(0,0,300,300);
 }// paintEvent
