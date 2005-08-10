@@ -7,19 +7,20 @@ using namespace std;
 ThermoMeter::ThermoMeter(QWidget *parent)
         : QMyAbstractMeter(parent)
 {
-        m_max=100;
+        m_max=80;
         m_min=0;
 
-	m_maximum=100; // najpierw rêcznie potem seterem by wywo³aæ calcMaxMin
+	m_maximum=80; // najpierw rêcznie potem seterem by wywo³aæ calcMaxMin
   	setMinimum(0);
 	setValue(0);
         setNominal(30);
+	calcMaxMin(); // bo nie wiemy czym s± zainicjowane limity
 	setCritical(60);
-	setValueOffset(-100);
-	setDigitOffset(105);
+	setValueOffset(270);
+	setDigitOffset(10);
 	setSuffix(QString(" [C]"));
-	m_digitFont.setPointSize(20);
-	m_valueFont.setPointSize(25);
+	m_digitFont.setPointSize(15);
+	m_valueFont.setPointSize(18);
 
 	// QWidget
         setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -35,7 +36,7 @@ void ThermoMeter::initCoordinateSystem(QPainter & painter)
         painter.setRenderHint(QPainter::Antialiasing);
         //painter.translate(width() / 2, height() / 2);
         painter.translate( width()/2.0,0.0);
-        painter.scale( height()/ 300.0, height()/300.0);
+        painter.scale( height()/ 300.0, height()/307.0);
 }
 
 void ThermoMeter::paintBackground(QPainter & painter)
@@ -47,38 +48,59 @@ void ThermoMeter::paintBackground(QPainter & painter)
 
 	// pocz±tek ³uku dolnego po lewej stronie
 	glass.moveTo(12.5,267.5);
-	glass.quadTo(12.5,263.0, 7.5,259.0);
+	glass.quadTo(12.5,263.0, 7.5,257.0);
 
 	glass.lineTo(7.5,25.0);
 
 	// ³uk górny zamykajac5y bañkê od góry.
 	glass.quadTo(7.5,12.5 , 0,12.5);
 	glass.quadTo(-7.5,12.5,-7.5,25.0);
-	glass.lineTo(-7.5,259.0);
+	glass.lineTo(-7.5,257.0);
 	// tutaj musi byæ ³uk dolny o promineniu 25
 	glass.quadTo(-12.5,263.0, -12.5,267.5);
-	glass.quadTo(-12.5,280.0,  0.0,280.0);
-	glass.quadTo( 12.5,280.0,  12.5,267.5);
+	glass.quadTo(-12.5,278.0,  0.0,280.0);
+	glass.quadTo( 12.5,278.0,  12.5,267.5);
 
-        QLinearGradient linearGrad(QPointF(-12.5, 0.0), QPointF(12.5, 0.0));
-	//linearGrad.setSpread(QGradient::ReflectSpread);
-        linearGrad.setColorAt(0, QColor(0,150,255,110));
-        linearGrad.setColorAt(1, QColor(255,255,255,0));
+        QLinearGradient linearGrad(QPointF(0.0, 0.0), QPointF(12.5, 0.0));
+	linearGrad.setSpread(QGradient::ReflectSpread);
+        linearGrad.setColorAt(1.0, QColor(0,150,255,170));
+        linearGrad.setColorAt(0.0, QColor(255,255,255,0));
 
 	painter.setBrush(QBrush(linearGrad));
 	painter.setPen(Qt::black);
 	painter.drawPath(glass);
 
+	/*
+	QRadialGradient radial(0.0,267.5,12.5,-10.0,263.0);
+	radial.setColorAt(1.0,QColor(0,150,255,110));
+	radial.setColorAt(1.0,QColor(255,255,255,0));
+	painter.setPen(Qt::NoPen);
+	painter.drawEllipse(QRectF(-12.5,255.0,25.0,25.0));
+	*/
+	QPen pen;
 	int length = 12;
 	for (int i=0;i<=32;i++)
 	{
+	  pen.setWidthF(1.0);
 	  length = 12;
-	 	 if (i%4) length = 8;
-	  if (i%2) length = 5;
+	  if (i%4) { length = 8; pen.setWidthF(0.75); }
+	  if (i%2) { length = 5; pen.setWidthF(0.5);  }
+	  painter.setPen(pen);
 	  painter.drawLine(-7,28+i*7, -7+length,28+i*7);
 	}
 
-	painter.setPen(Qt::red);
+	if (digitOffset())
+        {
+          painter.setFont(digitFont());
+	  for (int i=0;i<9;i++)
+	  {
+	    QString val = QString("%1").arg(m_min + i*(m_max - m_min)/8.0 );
+	    QSize Size = painter.fontMetrics().size(Qt::TextSingleLine, val);
+
+	    painter.drawText( digitOffset(),252 -  i * 28 +Size.width()/4 , val);
+
+	  }
+	}
 
 
 }// paintBackground
@@ -96,7 +118,7 @@ void ThermoMeter::paintEvent(QPaintEvent * )
        // Dobór colorów do rysowania
 	QColor color=Qt::blue;
 	if (m_value >= m_nominal )
-	    color=Qt::green;
+	    color=QColor(0,200,0);
 
 	if (m_value >= m_critical)
 	   {
@@ -104,10 +126,20 @@ void ThermoMeter::paintEvent(QPaintEvent * )
 	     	painter.setPen(color); // by potem temp podaæ na czerwono
 	   }
 
+	if (valueOffset())
+	{
+	  painter.setFont(valueFont());
+          QString Str = prefix() + QString("%1").arg(value()) + suffix();
+          QSize Size = painter.fontMetrics().size(Qt::TextSingleLine, Str);
+          painter.drawText( Size.width() / -2,valueOffset() + Size.height() , Str);
+	}
+
+
 	QLinearGradient slupek(0.0,0.0,5.0,0.0);
-	QRadialGradient zbiornik(0.0,0.0, 5.0,5.0);
+	QRadialGradient zbiornik(0.0,267.0,10.0,-5.0,262.0);
 
 	slupek.setSpread(QGradient::ReflectSpread);
+	zbiornik.setSpread(QGradient::ReflectSpread);
 
 	color.setHsv(color.hue(),color.saturation(),color.value());
 	slupek.setColorAt(1.0,color);
@@ -128,8 +160,7 @@ void ThermoMeter::paintEvent(QPaintEvent * )
 	painter.setBrush(slupek);
         painter.drawRect(-5,252+OFFSET - height ,10, height);
 	painter.setBrush(zbiornik);
-	painter.drawEllipse(-10,258,20,20);
-
+	painter.drawEllipse(QRectF(-10.0,257.5,20.0,20.0));
 	// Na³o¿enie szklanej bañki
 	doUpdateBackground();
 

@@ -9,8 +9,11 @@ ManoMeter::ManoMeter(QWidget *parent)
 {
         m_max=300;
         m_min=0;
+
 	m_maximum=300; // najpierw rêcznie potem seterem by wywo³aæ calcMaxMin
   	setMinimum(0);
+	calcMaxMin(); // bo nie wiemy czym s± zainicjowane limity
+
 	setValue(0);
         setNominal(80);
 	setCritical(220);
@@ -59,7 +62,7 @@ void ManoMeter::paintBackground(QPainter & painter)
 
 	  painter.setPen(Qt::NoPen);
           // nominal
-	  painter.setBrush(QBrush(Qt::green));
+	  painter.setBrush(QColor(0,200,0));
 	  assert(m_max-m_min != 0);
 	  int angle = (3840 * ( m_nominal - m_min ))/(m_max-m_min);
 	  if (m_min <= m_nominal && m_nominal < m_max )

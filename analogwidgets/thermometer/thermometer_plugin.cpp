@@ -1,11 +1,11 @@
-    #include "thermometer.h" 
-    #include "thermometer_plugin.h"     
-    #include "../defines.h"  
+    #include "thermometer.h"
+    #include "thermometer_plugin.h"
+    #include "../defines.h"
     /*------------------------------------------------------------------------------------------------
-     *			     			MANOMETER    
+     *			     			MANOMETER
      *------------------------------------------------------------------------------------------------*/
-    
-    
+
+
     ThermoMeterPlugin::ThermoMeterPlugin(QObject *parent)
         : QObject(parent)
     {
@@ -83,7 +83,7 @@
 
     QString ThermoMeterPlugin::includeFile() const
     {
-        return QLatin1String("manometer.h");
+        return QLatin1String("thermometer.h");
     }
 
     QString ThermoMeterPlugin::codeTemplate() const
@@ -91,6 +91,6 @@
         return QString();
     }
 
-#ifdef SINGLEPLUGINS     
+#ifdef SINGLEPLUGINS
     Q_EXPORT_PLUGIN(ThermoMeterPlugin)
-#endif 
+#endif

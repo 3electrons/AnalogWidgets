@@ -2,13 +2,13 @@
     #include <QtDesigner/QDesignerCustomWidgetInterface>
     #include <QtCore/qplugin.h>
     #include <QtGui/QIcon>
-   
-    class ManoMeterPlugin : public QObject, public QDesignerCustomWidgetInterface
+
+    class ThermoMeterPlugin : public QObject, public QDesignerCustomWidgetInterface
     {
         Q_OBJECT
         Q_INTERFACES(QDesignerCustomWidgetInterface)
     public:
-        ManoMeterPlugin(QObject *parent = 0);
+        ThermoMeterPlugin(QObject *parent = 0);
         bool isContainer() const;
         bool isInitialized() const;
         QIcon icon() const;

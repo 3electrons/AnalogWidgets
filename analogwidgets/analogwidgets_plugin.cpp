@@ -3,11 +3,13 @@
 
 #include "wallclock/wallclock_plugin.h"
 #include "manometer/manometer_plugin.h"
+#include "thermometer/thermometer_plugin.h" 
 
 AnalogWidgetsPlugin::AnalogWidgetsPlugin()
 {
   m_pluginList.push_back(new WallClockPlugin(NULL));
   m_pluginList.push_back(new ManoMeterPlugin(NULL));
+  m_pluginList.push_back(new ThermoMeterPlugin(NULL));
 }
 
 AnalogWidgetsPlugin::~AnalogWidgetsPlugin()
