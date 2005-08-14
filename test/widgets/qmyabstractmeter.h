@@ -1,0 +1,1 @@
+../../analogwidgets/common/qmyabstractmeter.h
