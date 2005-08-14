@@ -154,8 +154,8 @@ void ManoMeter::paintEvent(QPaintEvent * )
 //	hand_path.quadTo ( 9.0,-60.0, 0.0,-45.0);
 //	hand_path.cubicTo(0.0,-45.0, -9.0,-60.0, -8.0,-50.0);
 
-	hand_path.cubicTo ( 9.0,-60.0, 5.0,-45.0,   0.0,-45.0);
-	hand_path.cubicTo(  -5.0,-45.0, -9.0,-60.0, -8.0,-50.0);
+	hand_path.cubicTo ( 8.1,-51.0, 5.0,-48.0,   0.0,-48.0);
+	hand_path.cubicTo(  -5.0,-48.0, -8.1,-51.0, -8.0,-50.0);
 
 
 
