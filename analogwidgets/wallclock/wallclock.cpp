@@ -13,8 +13,8 @@
 
         setDigitOffset(75);
 	setDateOffset(0);
-	setTimeOffset(-12);
-	setDayOffset(9);
+        setTimeOffset(0); // -12
+	setDayOffset(0); // 9
 
         setDigitColor(QColor(0,0,0));
         setDateColor(QColor(0,0,0));
@@ -37,7 +37,7 @@
         int side = qMin(width(), height());
         painter.setRenderHint(QPainter::Antialiasing);
         painter.translate(width() / 2, height() / 2);
-        painter.scale(side / 220.0, side / 220.0);
+        painter.scale(side / 240.0, side / 240.0);
     }
 
     void WallClock::paintBackground(QPainter & painter)
@@ -45,20 +45,36 @@
 
         initCoordinateSystem(painter);
         // Malowanie obwiedni tarczy.
+	//QColor ramka(17,50,214);// ³adny niebieski
+	QColor ramka(215,0,0); // g³êboki czerwony
+	// Gradient  zewnêtrznego okrêgu
+        QRadialGradient back1(QPointF(0,0),135, QPointF(-27.5,110.0));
+	back1.setColorAt(0.0,QColor(255,255,255));
+	back1.setColorAt(1.0,ramka);
+	// Gradient wewnêtrznego okrêgu
+	QRadialGradient back2(QPoint(0,0),170, QPointF(57.5,100));
+	back2.setColorAt(0.0,ramka);
+	back2.setColorAt(1.0,QColor(255,255,255));
 
-        QLinearGradient linearGrad(QPointF(-100, -100), QPointF(0, 0));
-	linearGrad.setSpread(QGradient::ReflectSpread);
-        linearGrad.setColorAt(0, Qt::black);
-        linearGrad.setColorAt(1, QColor(232,232,232));
+	QRadialGradient shield(QPointF(0,0),122,QPointF(-12.0,-15.0));
+	shield.setColorAt(0.0,Qt::white);
+	shield.setColorAt(0.5,QColor(240,240,240));
+	shield.setColorAt(1.0,QColor(215,215,215));
 
         QPen Pen(Qt::black);
-        Pen.setWidth(1);
+        Pen.setWidth(2);
         painter.setPen(Pen);
 
 	// Koperta zegark
-        painter.setBrush(QBrush(linearGrad));
-        painter.drawEllipse(-109,-109,218,218);
-        painter.setBrush(QBrush(Qt::white));
+        painter.setBrush(QBrush(back1));
+        painter.drawEllipse(-116,-116,232,232);
+	painter.setBrush(QBrush(back2));
+
+	painter.setPen(Qt::NoPen);
+	painter.drawEllipse(-109,-109,218,218);
+
+	painter.setPen(Pen);
+        painter.setBrush(QBrush(shield));
         painter.drawEllipse(-102,-102,204,204);
 
 
@@ -106,14 +122,14 @@
         static const int hourHand[8] = { -2, 18, 2, 18, 2, -60, -2, -60 };
         static const int minuteHand[8] = { -2, 28, 2, 28, 2, -80, -2, -80 };
         static const int secondHand[12] = {-1, 0, -1, -90, 1,-90, 1, 0, 4, 35, -4, 35};
-        
-        // odmalowywuje t³o 
-        doUpdateBackground(); 
+
+        // odmalowywuje t³o
+        doUpdateBackground();
 	 // inicjalizacja paintera
-	
+
 	QPainter painter(this);
         initCoordinateSystem(painter);
-        
+
         // Wyliczanie czasu i daty
         QTime time = QTime::currentTime();
         QDate date = QDate::currentDate();
@@ -174,5 +190,5 @@
 	// Kó³ko sekundnika
         painter.drawEllipse(-5,-5,10,10);
     }
-    
-    
+
+

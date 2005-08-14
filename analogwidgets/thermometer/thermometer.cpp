@@ -61,7 +61,7 @@ void ThermoMeter::paintBackground(QPainter & painter)
 	glass.quadTo(-12.5,278.0,  0.0,280.0);
 	glass.quadTo( 12.5,278.0,  12.5,267.5);
 
-        QLinearGradient linearGrad(QPointF(0.0, 0.0), QPointF(12.5, 0.0));
+        QLinearGradient linearGrad(QPointF(-2.0, 0.0), QPointF(12.5, 0.0));
 	linearGrad.setSpread(QGradient::ReflectSpread);
         linearGrad.setColorAt(1.0, QColor(0,150,255,170));
         linearGrad.setColorAt(0.0, QColor(255,255,255,0));

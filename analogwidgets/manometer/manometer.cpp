@@ -38,25 +38,40 @@ void ManoMeter::initCoordinateSystem(QPainter & painter)
         // inicjalizacja paintera
         painter.setRenderHint(QPainter::Antialiasing);
         painter.translate(width() / 2, height() / 2);
-        painter.scale(side / 311.0, side / 311.0);
+        painter.scale(side / 335.0, side / 335.0);
 }
 
 void ManoMeter::paintBackground(QPainter & painter)
 {
 	static const int scaleTriangle[6] = { -6,141,6,141,0,129 };
-
 	initCoordinateSystem(painter);
 
         // Malowanie obwiedni tarczy. Bia³a tarcza z czarn± skal±
-        QPen Pen(QColor(0,0,0)); Pen.setWidth(1);
+        QPen Pen(QColor(0,0,0)); Pen.setWidth(4);
         painter.setPen(Pen);
 
-	Pen.setWidth(4);
-        painter.setBrush(QBrush(Qt::white));
-        painter.drawEllipse(-154,-154,308,308);
+        QRadialGradient back1(QPointF(0.0,0.0),180.0,QPointF(-35.0,145.0));
+	back1.setColorAt(0.0,QColor(250,250,250));
+	back1.setColorAt(1.0,QColor(20,20,20));
+
+	QRadialGradient back2(QPointF(0.0,0.0),225.0,QPointF(76.5,135.0));
+	back2.setColorAt(0.0,QColor(10,10,10));
+	back2.setColorAt(1.0,QColor(250,250,250));
+
+	painter.setBrush(QBrush(back1));
+	painter.drawEllipse(-162,-162,324,324);
+	painter.setPen(Qt::NoPen);
+        painter.setBrush(QBrush(back2));
+        painter.drawEllipse(-152,-152,304,304);
+
+        QRadialGradient shield(QPointF(0,0),182,QPointF(-12.0,-15.0));
+	shield.setColorAt(0.0,Qt::white);
+	shield.setColorAt(0.5,QColor(240,240,240));
+	shield.setColorAt(1.0,QColor(215,215,215));
+
 
 	// wewnêtrzene ko³o skali
-
+	painter.setBrush(QBrush(shield));
 	painter.setPen(Pen);
 	painter.drawEllipse(-142,-142,284,284);
 
@@ -74,7 +89,7 @@ void ManoMeter::paintBackground(QPainter & painter)
 	  if ( m_min <= m_critical && m_critical < m_max  )
 	  painter.drawPie(QRect(-141,-141,282,282),-480, 3840 - angle % 5760  ); //-480, 3840*( m_max-m_min - critical()-abs(m_min) )/static_cast<double>(m_max-m_min));
 	  // bia³a obwiednia
-	  painter.setBrush(QBrush(Qt::white));
+	  painter.setBrush(QBrush(shield));
 	  painter.drawEllipse(-129,-129,258,258);
 
         // Ustawienie siê na pocz±tku skali
@@ -120,6 +135,8 @@ void ManoMeter::paintBackground(QPainter & painter)
 	  }
 	}
 
+
+
 }// paintBackground
 
 void ManoMeter::paintEvent(QPaintEvent * )
@@ -130,13 +147,28 @@ void ManoMeter::paintEvent(QPaintEvent * )
       // --------------------------------------------- ///
 	static const int hand[12] = {-4, 0, -1, 129, 1, 129, 4, 0, 8,-50, -8,-50};
 
+	QPainterPath hand_path(QPointF(hand[0],hand[1]));
+	for (int i=2;i<10;i+=2)
+	hand_path.lineTo(hand[i],hand[i+1]);
+
+//	hand_path.quadTo ( 9.0,-60.0, 0.0,-45.0);
+//	hand_path.cubicTo(0.0,-45.0, -9.0,-60.0, -8.0,-50.0);
+
+	hand_path.cubicTo ( 9.0,-60.0, 5.0,-45.0,   0.0,-45.0);
+	hand_path.cubicTo(  -5.0,-45.0, -9.0,-60.0, -8.0,-50.0);
+
+
+
         // Rysowanie wskazówki
 	painter.save();
 	painter.rotate(60.0);
 	painter.setPen(Qt::NoPen);
-	painter.setBrush(QBrush(Qt::red));
+	painter.setBrush(QBrush(Qt::black));
    	painter.rotate(  (  (abs(m_min)+value()) * 240.0) / static_cast<double> (m_max - m_min) );
-	painter.drawConvexPolygon(QPolygon(6,hand));
+
+	//painter.drawConvexPolygon(QPolygon(6,hand));
+	painter.drawPath(hand_path);
+
 	painter.drawEllipse(-10,-10,20,20);
 
 
