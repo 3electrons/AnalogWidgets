@@ -1,0 +1,1 @@
+../../analogwidgets/thermometer/thermometer.h
