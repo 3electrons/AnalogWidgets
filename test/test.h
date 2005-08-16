@@ -3,8 +3,10 @@
 #include "ui_testform.h"
 
 #include <QMainWindow>
+
     class ManoMeter;
-    class ThermoMeter; 
+    class ThermoMeter;
+
 
     class TestWidget : public QMainWindow,  private Ui::TestForm
     {
@@ -18,12 +20,15 @@
     public slots:
     	void ComboBoxChoiceChanged(int index );
         void SpinBoxValueChanged(int val);
+	void WidgetTest();
+
+
     private:
 	/** Gdy zamykane jest okno */
 	void closeEvent ( QCloseEvent * e );
 	// Potencjometr
 	ManoMeter * bar;
-	// Termometr  
+	// Termometr
 	ThermoMeter * thermo;
     };
 

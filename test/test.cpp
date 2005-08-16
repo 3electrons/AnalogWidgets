@@ -3,10 +3,16 @@
     #include <QPushButton>
     #include <QSlider>
     #include <QString>
+    #include <QTimer>
     #include "widgets/manometer.h"
     #include "widgets/wallclock.h"
     #include "widgets/thermometer.h"
 
+    #include "widgettester.h"
+
+
+
+// ----------------------------------------------------------------------------------------
 
     TestWidget::TestWidget(QMainWindow *parent)
         : QMainWindow(parent)
@@ -32,6 +38,7 @@
 	widget->setLayout(v_layout);
 
          // Layout of stack 1 widget - manometer
+
 	widget = stackedWidget->widget(1);
 	bar = new ManoMeter(widget);
 	bar->resize(120,120);
@@ -54,7 +61,7 @@
         //connect(spinBox,SIGNAL(valueChanged(int)),bar,SLOT(setValue(int)));
 	connect(spinBox,SIGNAL(valueChanged(int)),this,SLOT(SpinBoxValueChanged(int)));
 	connect(comboBox,SIGNAL(activated(int)),this,SLOT(ComboBoxChoiceChanged(int)));
-	
+	connect(pushButton,SIGNAL(clicked(void)),this,SLOT(WidgetTest(void)));
 
 	HSlider->setMaximum(1000);
 	HSlider->setMinimum(-1000);
@@ -62,14 +69,14 @@
 	spinBox->setMinimum(-1000);
 	ComboBoxChoiceChanged(comboBox->currentIndex());
     }
-    
+
 
     void TestWidget::ComboBoxChoiceChanged(int index)
     {
       int val=0;
       QMyAbstractMeter * meter = bar;
-      if (stackedWidget->currentIndex() == 2) meter = thermo;  
-      
+      if (stackedWidget->currentIndex() == 2) meter = thermo;
+
       switch (index)
       {
        case 0: val = meter->value(); break;
@@ -85,9 +92,9 @@
 
     void TestWidget::SpinBoxValueChanged(int val)
     {
-      QMyAbstractMeter * meter = bar; 
-      if (stackedWidget->currentIndex() == 2) meter = thermo;  
-      
+      QMyAbstractMeter * meter = bar;
+      if (stackedWidget->currentIndex() == 2) meter = thermo;
+
       switch (comboBox->currentIndex())
       {
         case 0:  meter->setValue(val); break;
@@ -98,6 +105,18 @@
         case 5:  meter->setDigitOffset(val); break;
         case 6:  meter->setValueOffset(val); break;
       }
+    }
+    void TestWidget::WidgetTest()
+    {
+	QMyAbstractMeter * meter;
+	switch (stackedWidget->currentIndex())
+	{
+	  case 1: meter = bar; break;
+	  case 2: meter = thermo;break;
+	  default: meter = NULL ; return;
+        }
+	WidgetTester * tester = new WidgetTester(this,meter);
+	tester->start();
     }
 
     void TestWidget::connections()

@@ -8,8 +8,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>469</width>
-    <height>448</height>
+    <width>451</width>
+    <height>434</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -24,7 +24,7 @@
      <number>6</number>
     </property>
     <item row="0" column="0" >
-     <widget class="QSplitter" name="splitter" >
+     <widget class="QSplitter" name="" >
       <property name="orientation" >
        <enum>Qt::Horizontal</enum>
       </property>
@@ -67,7 +67,7 @@
         </property>
        </item>
       </widget>
-      <widget class="QWidget" name="widget" >
+      <widget class="QWidget" name="" >
        <layout class="QVBoxLayout" >
         <property name="margin" >
          <number>0</number>
@@ -78,16 +78,16 @@
         <item>
          <widget class="QStackedWidget" name="stackedWidget" >
           <property name="currentIndex" >
-           <number>2</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="page" >
            <widget class="QLabel" name="clock_lab" >
             <property name="geometry" >
              <rect>
               <x>40</x>
-              <y>40</y>
-              <width>111</width>
-              <height>16</height>
+              <y>140</y>
+              <width>191</width>
+              <height>101</height>
              </rect>
             </property>
             <property name="text" >
@@ -144,7 +144,7 @@
             <number>6</number>
            </property>
            <item row="0" column="0" >
-            <layout class="QVBoxLayout" >
+            <layout class="QHBoxLayout" >
              <property name="margin" >
               <number>0</number>
              </property>
@@ -191,41 +191,48 @@
               </widget>
              </item>
              <item>
-              <layout class="QHBoxLayout" >
-               <property name="margin" >
-                <number>0</number>
+              <widget class="QPushButton" name="pushButton" >
+               <property name="text" >
+                <string>Test component</string>
                </property>
-               <property name="spacing" >
-                <number>6</number>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="1" column="0" >
+            <layout class="QHBoxLayout" >
+             <property name="margin" >
+              <number>0</number>
+             </property>
+             <property name="spacing" >
+              <number>6</number>
+             </property>
+             <item>
+              <widget class="QSlider" name="HSlider" >
+               <property name="sizePolicy" >
+                <sizepolicy>
+                 <hsizetype>7</hsizetype>
+                 <vsizetype>1</vsizetype>
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
                </property>
-               <item>
-                <widget class="QSlider" name="HSlider" >
-                 <property name="sizePolicy" >
-                  <sizepolicy>
-                   <hsizetype>7</hsizetype>
-                   <vsizetype>1</vsizetype>
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="orientation" >
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QSpinBox" name="spinBox" >
-                 <property name="sizePolicy" >
-                  <sizepolicy>
-                   <hsizetype>1</hsizetype>
-                   <vsizetype>0</vsizetype>
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                </widget>
-               </item>
-              </layout>
+               <property name="orientation" >
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="spinBox" >
+               <property name="sizePolicy" >
+                <sizepolicy>
+                 <hsizetype>1</hsizetype>
+                 <vsizetype>0</vsizetype>
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -237,6 +244,19 @@
      </widget>
     </item>
    </layout>
+   <widget class="QSplitter" name="splitter_2" >
+    <property name="geometry" >
+     <rect>
+      <x>9</x>
+      <y>9</y>
+      <width>544</width>
+      <height>479</height>
+     </rect>
+    </property>
+    <property name="orientation" >
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
   </widget>
  </widget>
  <pixmapfunction></pixmapfunction>
@@ -259,22 +279,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>spinBox</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>HSlider</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>405</x>
-     <y>523</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>319</x>
-     <y>529</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>HSlider</sender>
    <signal>valueChanged(int)</signal>
    <receiver>spinBox</receiver>
@@ -287,6 +291,22 @@
     <hint type="destinationlabel" >
      <x>420</x>
      <y>518</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>HSlider</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>405</x>
+     <y>523</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>319</x>
+     <y>529</y>
     </hint>
    </hints>
   </connection>
