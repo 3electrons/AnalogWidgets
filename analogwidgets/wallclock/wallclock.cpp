@@ -124,7 +124,7 @@
         static const int secondHand[12] = {-1, 0, -1, -90, 1,-90, 1, 0, 4, 35, -4, 35};
 
         // odmalowywuje t³o
-        doUpdateBackground();
+        drawBackground();
 	 // inicjalizacja paintera
 
 	QPainter painter(this);

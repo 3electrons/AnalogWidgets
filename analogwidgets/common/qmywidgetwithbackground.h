@@ -20,7 +20,7 @@ class QMyWidgetWithBackground : public QWidget
       * wkleja bitmapê z t³em na kontrolkê -
       * generuj±æ j± wcze¶niej je¿eli zajdzie taka potrzeba.
       */
-     void  doUpdateBackground ();
+     void  drawBackground ();
 
      /** Odmalowywuje kontrolkê bezwarunkowo odmalowywuj±c t³o. */
      void  updateWithBackground ();

@@ -161,8 +161,10 @@ void ThermoMeter::paintEvent(QPaintEvent * )
         painter.drawRect(-5,252+OFFSET - height ,10, height);
 	painter.setBrush(zbiornik);
 	painter.drawEllipse(QRectF(-10.0,257.5,20.0,20.0));
+	painter.end(); // bardzo istotne - inaczej pod Xami jest b³±d 
+	// nie wiem czy to to powoduje krash pod win98 i brak bañki pod XP. 
 	// Na³o¿enie szklanej bañki
-	doUpdateBackground();
+	drawBackground();
 
 }// paintEvent
 #undef OFFSET

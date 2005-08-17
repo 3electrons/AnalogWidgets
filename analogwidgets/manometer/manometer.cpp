@@ -4,6 +4,7 @@
 #include "manometer.h"
 #define PI 3.141592653589793238512808959406186204433
 
+using namespace Qt; 
 ManoMeter::ManoMeter(QWidget *parent)
         : QMyAbstractMeter(parent)
 {
@@ -141,23 +142,21 @@ void ManoMeter::paintBackground(QPainter & painter)
 
 void ManoMeter::paintEvent(QPaintEvent * )
 {
-	doUpdateBackground();
+	drawBackground();
 	QPainter painter(this);
         initCoordinateSystem(painter);
       // --------------------------------------------- ///
 	static const int hand[12] = {-4, 0, -1, 129, 1, 129, 4, 0, 8,-50, -8,-50};
 
-	QPainterPath hand_path(QPointF(hand[0],hand[1]));
-	for (int i=2;i<10;i+=2)
-	hand_path.lineTo(hand[i],hand[i+1]);
 
-//	hand_path.quadTo ( 9.0,-60.0, 0.0,-45.0);
-//	hand_path.cubicTo(0.0,-45.0, -9.0,-60.0, -8.0,-50.0);
+        QPainterPath hand_path;
+        hand_path.moveTo(QPointF(hand[0],hand[1]));
+	
+        for (int i=2;i<10;i+=2)
+	 hand_path.lineTo(hand[i],hand[i+1]);
 
 	hand_path.cubicTo ( 8.1,-51.0, 5.0,-48.0,   0.0,-48.0);
 	hand_path.cubicTo(  -5.0,-48.0, -8.1,-51.0, -8.0,-50.0);
-
-
 
         // Rysowanie wskazówki
 	painter.save();

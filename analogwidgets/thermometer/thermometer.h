@@ -5,6 +5,7 @@
 
     class ThermoMeter : public QMyAbstractMeter
     {
+      Q_OBJECT 
       public:
     	ThermoMeter(QWidget *parent = 0);
       protected:
