@@ -97,7 +97,7 @@ void ThermoMeter::paintBackground(QPainter & painter)
 	    QString val = QString("%1").arg(m_min + i*(m_max - m_min)/8.0 );
 	    QSize Size = painter.fontMetrics().size(Qt::TextSingleLine, val);
 
-	    painter.drawText( digitOffset(),252 -  i * 28 +Size.width()/4 , val);
+	    painter.drawText( QPointF( digitOffset(),252 -  i * 28 +Size.width()/4.0) , val);
 
 	  }
 	}
@@ -131,7 +131,8 @@ void ThermoMeter::paintEvent(QPaintEvent * )
 	  painter.setFont(valueFont());
           QString Str = prefix() + QString("%1").arg(value()) + suffix();
           QSize Size = painter.fontMetrics().size(Qt::TextSingleLine, Str);
-          painter.drawText( Size.width() / -2,valueOffset() + Size.height() , Str);
+          // @TODO - Nie wiem czemu nie dzia³a to pod win98
+	  painter.drawText(QPointF (Size.width() / -2,valueOffset() + Size.height()) , Str);
 	}
 
 
@@ -161,8 +162,8 @@ void ThermoMeter::paintEvent(QPaintEvent * )
         painter.drawRect(-5,252+OFFSET - height ,10, height);
 	painter.setBrush(zbiornik);
 	painter.drawEllipse(QRectF(-10.0,257.5,20.0,20.0));
-	painter.end(); // bardzo istotne - inaczej pod Xami jest b³±d 
-	// nie wiem czy to to powoduje krash pod win98 i brak bañki pod XP. 
+	painter.end(); // bardzo istotne - inaczej pod Xami jest b³±d
+	// nie wiem czy to to powoduje krash pod win98 i brak bañki pod XP.
 	// Na³o¿enie szklanej bañki
 	drawBackground();
 

@@ -4,7 +4,7 @@
 #include "manometer.h"
 #define PI 3.141592653589793238512808959406186204433
 
-using namespace Qt; 
+using namespace Qt;
 ManoMeter::ManoMeter(QWidget *parent)
         : QMyAbstractMeter(parent)
 {
@@ -131,7 +131,7 @@ void ManoMeter::paintBackground(QPainter & painter)
 	    QSize Size = painter.fontMetrics().size(Qt::TextSingleLine, val);
             painter.save();
 	    painter.translate( digitOffset() * cos((5+i)*PI/6.0), digitOffset() * sin((5+i)*PI/6.0));
-	    painter.drawText( Size.width()/ -2, Size.height() / 4, val);
+	    painter.drawText( QPointF( Size.width()/ -2.0,  Size.height() / 4.0), val);
 	    painter.restore();
 	  }
 	}
@@ -151,7 +151,7 @@ void ManoMeter::paintEvent(QPaintEvent * )
 
         QPainterPath hand_path;
         hand_path.moveTo(QPointF(hand[0],hand[1]));
-	
+
         for (int i=2;i<10;i+=2)
 	 hand_path.lineTo(hand[i],hand[i+1]);
 
@@ -181,6 +181,6 @@ void ManoMeter::paintEvent(QPaintEvent * )
 	  painter.setFont(valueFont());
           QString Str = prefix() + QString("%1").arg(value()) + suffix();
           QSize Size = painter.fontMetrics().size(Qt::TextSingleLine, Str);
-          painter.drawText( Size.width() / -2,static_cast<int>( 0 - valueOffset()) , Str);
+          painter.drawText( QPointF( Size.width() / -2.0,static_cast<int>( 0 - valueOffset())) , Str);
         }
 }// paintEvent

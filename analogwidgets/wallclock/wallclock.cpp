@@ -109,7 +109,7 @@
             painter.save();
             painter.translate(digitOffset() * cos(PI*z/6.0-PI/2.0),digitOffset() * sin(PI*z/6.0-PI/2.0));
             painter.setPen(digitColor());
-            painter.drawText( Size.width()/ -2, Size.height() / 4, hour);
+            painter.drawText( QPointF ( Size.width()/ -2.0, Size.height() / 4.0), hour);
             painter.restore();
           }
         }
@@ -143,7 +143,7 @@
           painter.setPen(timeColor());
           Str = time.toString("hh:mm");
           Size = painter.fontMetrics().size(Qt::TextSingleLine, Str );
-          painter.drawText( Size.width() / -2, Size.height()+ timeOffset() ,Str);
+          painter.drawText( QPointF (Size.width() / -2.0, Size.height()+ timeOffset()) ,Str);
         }
 
         if (dateOffset()!=0.0)
@@ -153,7 +153,7 @@
           painter.setPen(dateColor());
           Str = date.toString("dd.MM.yyyy");
           Size = painter.fontMetrics().size(Qt::TextSingleLine, Str);
-          painter.drawText( Size.width() / -2,static_cast<int>(0 - dateOffset()), Str);
+          painter.drawText( QPointF(Size.width() / -2.0,static_cast<int>(0 - dateOffset())), Str);
         }
         if (dayOffset()!=0.0)
         {
@@ -162,7 +162,7 @@
           painter.setPen(dayColor());
           Str =  date.toString("dddd");
           Size = painter.fontMetrics().size(Qt::TextSingleLine, Str);
-          painter.drawText( Size.width() / -2,static_cast<int>( 0 - dayOffset()) , Str);
+          painter.drawText( QPointF (Size.width() / -2.0,static_cast<int>( 0 - dayOffset())) , Str);
         }
 
         // rysowanie wskazówki godzin
