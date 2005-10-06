@@ -1,11 +1,13 @@
 #ifndef TEST_H
 #define TEST_H
+
 #include "ui_testform.h"
 
 #include <QMainWindow>
 
     class ManoMeter;
     class ThermoMeter;
+    class Chart; 
 
 
     class TestWidget : public QMainWindow,  private Ui::TestForm
@@ -30,6 +32,8 @@
 	ManoMeter * bar;
 	// Termometr
 	ThermoMeter * thermo;
+	// Wykres 
+ 	Chart * chart; 
     };
 
 

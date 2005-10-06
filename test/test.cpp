@@ -1,3 +1,4 @@
+
     #include "test.h"
     #include <QFont>
     #include <QPushButton>
@@ -7,6 +8,8 @@
     #include "widgets/manometer.h"
     #include "widgets/wallclock.h"
     #include "widgets/thermometer.h"
+    #include "widgets/chart.h" 
+    
 
     #include "widgettester.h"
 
@@ -56,7 +59,16 @@
 	layout2->addWidget(thermo_lab);
 	layout2->addWidget(thermo);
 	widget->setLayout(layout2);
-
+	
+	// Layout of stack 3 widget - chart 
+	widget = stackedWidget->widget(3); 
+	chart = new Chart();
+	QLayout * layout3 = new QVBoxLayout(); 
+	layout3->addWidget(chart_lab); 
+	layout3->addWidget(chart); 
+	widget->setLayout(layout3); 
+	 
+// 	
  	//connect(HSlider,SIGNAL(valueChanged(int)),bar,SLOT(setValue(int)));
         //connect(spinBox,SIGNAL(valueChanged(int)),bar,SLOT(setValue(int)));
 	connect(spinBox,SIGNAL(valueChanged(int)),this,SLOT(SpinBoxValueChanged(int)));
