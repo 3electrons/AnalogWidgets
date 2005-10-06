@@ -9,7 +9,8 @@
                 manometer\manometer.h  manometer\manometer_plugin.h \
 		thermometer\thermometer.h thermometer\thermometer_plugin.h \
 		chart\chart.h chart\chart_plugin.h \
-		analogwidgets_plugin.h
+		analogwidgets_plugin.h \
+		functions.h 
 
   SOURCES     = common\qmywidgetwithbackground.cpp common\qmyabstractmeter.cpp \
 		wallclock\wallclock.cpp wallclock\wallclock_plugin.cpp \
