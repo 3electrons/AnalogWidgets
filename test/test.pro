@@ -11,12 +11,15 @@ CONFIG += release \
 TEMPLATE = app
 FORMS += testform.ui
 HEADERS += test.h \
-           widgettester.h \ 
+           widgettester.h \
+	   ui_testform.h \
+	   widgets\functions.h \ 
            widgets\qmywidgetwithbackground.h \
 	   widgets\qmyabstractmeter.h \
            widgets\wallclock.h \
            widgets\manometer.h \
-	   widgets\thermometer.h
+	   widgets\thermometer.h \
+	   widgets\chart.h
 SOURCES += main.cpp \
            test.cpp \
 	   widgettester.cpp \
@@ -24,6 +27,7 @@ SOURCES += main.cpp \
 	   widgets\qmyabstractmeter.cpp \
            widgets\wallclock.cpp \
            widgets\manometer.cpp \
-	   widgets\thermometer.cpp
+	   widgets\thermometer.cpp \
+	   widgets\chart.cpp 
 
 =======
