@@ -1,38 +1,42 @@
-#include <QtGui> 
-#include "chart.h" 
-    	
- 	
+#include <QtGui>
+#include "chart.h"
+#include "standard/scalesgriddecorator.h"
+#include "standard/glassdecorator.h"
+
+
 Chart::Chart(QWidget *parent)
-	: QMyWidgetWithBackground(parent) 
+	: QMyWidgetWithBackground(parent)
 {
   // QWidget
    setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
    setWindowTitle(tr("Chart diagram"));
-   m_Ychannels.push_back(Channel());
-   m_channel=0; 
-   m_xGrid=10; 
-   m_yGrid=10; 
+   m_channels.push_back(Channel());
+   m_channel=0;
+
+   InitDecorators();
+
 }
-     
+
+void Chart::InitDecorators()
+{
+	m_painterDecorator.reset
+	(
+           new Standard::ScalesGridDecorator
+          (
+           NULL// new Standard::GlassDecorator(NULL)
+          )
+        );
+
+}
+
 void Chart::paintEvent(QPaintEvent * /*event */)
 {
-  drawBackground(); 	
+  drawBackground();
 }
 
 void Chart::paintBackground(QPainter & painter)
 {
-  QLinearGradient background(0,0,0,height()); 
-  background.setColorAt(0.0,QColor(0,0,150)); 
-  background.setColorAt(1.0,Qt::black); 
-  painter.setBrush(QBrush(background)); 
-  painter.drawRect(0,0,width(),height()); 
-  
-  QFont Font= painter.font(); 
-  
-  
-  painter.setPen(QColor(255,255,255,180)); 
-  
-  	
+  if (m_painterDecorator.get()) m_painterDecorator->paint(painter,this);
 }
 
 void Chart::initCoordinateSystem(QPainter & painter)

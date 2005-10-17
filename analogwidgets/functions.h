@@ -24,7 +24,7 @@
 #include <math.h> 
 
 template <typename T> 
-bool range(T m_minimum,T m_maximum, T & m_min, T & m_max,unsigned int steps, bool left = false)
+bool range(T m_minimum,T m_maximum, T & m_min, T & m_max,unsigned int steps, bool left = false,double inc = 5.0)
 { 
   T max_tmp = m_max, min_tmp = m_min;
   m_max=m_maximum;
@@ -34,7 +34,7 @@ bool range(T m_minimum,T m_maximum, T & m_min, T & m_max,unsigned int steps, boo
   assert( m_max - m_min >! 0 );
 
   T diff = abs(m_max - m_min);
-  T scale = 0,inc = 5 , factor = 0 ;
+  T scale = 0, factor = 0 ;
   
   while (inc * steps > (m_maximum-m_minimum))
   if (inc/10 > 0 ) inc/=10;

@@ -2,16 +2,22 @@
 #define CHART_H
 
 #include <vector>
-#include <QPen>
+#include <memory> // auto_ptr
+
 #include "qmywidgetwithbackground.h"
+#include "channel.h"
+#include "scalegrid.h"
+#include "chartdecorator.h"
+
 
 using namespace std;
+using namespace chart;
 
     class Chart : public QMyWidgetWithBackground
     {
       Q_OBJECT
       Q_PROPERTY (unsigned int channel      READ channel      WRITE setChannel       )
-
+      /*
       Q_PROPERTY (double channelXMinimum    READ chXMinimum   WRITE setChXMinimum    )
       Q_PROPERTY (double channelXMaximum    READ chXMaximum   WRITE setChXMaximum    )
       Q_PROPERTY (bool   channelShowXScale  READ chShowXScale WRITE setChShowXScale  )
@@ -27,7 +33,7 @@ using namespace std;
       Q_PROPERTY (unsigned int xGrid        READ xGrid        WRITE setYGrid         )
       Q_PROPERTY (unsigned int yGrid        READ yGrid        WRITE setXGrid         )
       Q_PROPERTY (QFont font                READ font         WRITE setFont          )
-
+      */
 
       public:
     	Chart(QWidget *parent = 0);
@@ -38,15 +44,21 @@ using namespace std;
 	void paintBackground(QPainter & painter);// inherited form QMyWidgetWithBackground
 	void initCoordinateSystem(QPainter & painter);
 
-        // accesors and getters
+	/** Metoda ta ma za zadanie zainicjalizowaæ wszystkie dekoratory wykresu - normalnie powinna zbudowaæ
+        * ca³± strukturê dekoratorów na podstawie infomracji z pluginów lub innych ¼róde³ ...
+        */
+	void InitDecorators();
+
+	// accesors and getters
         unsigned int channel() const
         		{ return m_channel; }
         void setChannel(unsigned int i)
         		{ m_channel = i;
-        		  if (m_channel > m_Ychannels.size())
-        		       m_Ychannels.push_back(Channel());
+        		  if (m_channel > m_channels.size())
+        		       m_channels.push_back(Channel());
         		}
 
+	/*
       	unsigned int yGrid() const
       			{ return m_yGrid;}
    	void setYGrid(unsigned int i)
@@ -104,26 +116,18 @@ using namespace std;
 	void setFont(QFont i)
 			{ m_font = i; updateWithBackground(); }
 
-
+	*/
       	// Pola w³a¶ciwo¶ci.
       	protected:
-      	struct Channel
-      	{
- 	  double minimum;
-      	  double maximum;
-      	  double m_max;
-      	  double m_min;
-      	  bool showScale;
-      	  QColor color;
-      	  double lineWidth;
-      	  Channel():minimum(0),maximum(100),showScale(false) {}
-     	};
-      	// Wektor kana³ów na dane
-      	vector<Channel> m_Ychannels;
-      	Channel m_Xchannel;
-      	unsigned int m_xGrid,m_yGrid;
+	/** Informacje na temat skali oraz siatki wykresu */
+	ScaleGrid m_scalegrid;
+	/** Pointer do pierwszego dekoratora do malowania wykresu */
+	auto_ptr<ChartDecorator> m_painterDecorator;
+
+      	/** Wektor kana³ów na dane */
+      	vector<Channel> m_channels;
       	unsigned int m_channel;
-      	QFont m_font;
+
 
       	// Drawing data
       	//QMatrix baseMatrix;
