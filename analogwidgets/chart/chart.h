@@ -13,6 +13,8 @@
 using namespace std;
 using namespace chart;
 
+typedef  vector<Channel> Channels;
+
     class Chart : public QMyWidgetWithBackground
     {
       Q_OBJECT
@@ -38,6 +40,8 @@ using namespace chart;
       public:
     	Chart(QWidget *parent = 0);
 
+	 ScaleGrid & scaleGrid() { return m_scalegrid; }
+	 Channels & channels() { return m_channels; }
 
       protected:
         void paintEvent(QPaintEvent *event); 	 // inherited from QMyWidgetWithBackground
@@ -118,6 +122,7 @@ using namespace chart;
 
 	*/
       	// Pola w³a¶ciwo¶ci.
+
       	protected:
 	/** Informacje na temat skali oraz siatki wykresu */
 	ScaleGrid m_scalegrid;
@@ -125,7 +130,7 @@ using namespace chart;
 	auto_ptr<ChartDecorator> m_painterDecorator;
 
       	/** Wektor kana³ów na dane */
-      	vector<Channel> m_channels;
+      	Channels m_channels;
       	unsigned int m_channel;
 
 

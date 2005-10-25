@@ -29,11 +29,17 @@ public:
   void paint (QPainter & painter, Chart * chart);
 
 protected:
+
   void paintBackground(QPainter &painter, Chart * chart);
   void paintXScale(QPainter & painter, Chart * chart);
   void paintYScale(QPainter & painter, Chart * chart);
-  void paintGrid  (QPainter & painter, Chart * chart);
+  void paintXGrid  (QPainter & painter, Chart * chart);
 
+ //double YScaleHeight();
+ private:
+  double xScaleHeight;
+  double yScaleHeight;
+  double yScaleWidth;
 
 };
 } // chart

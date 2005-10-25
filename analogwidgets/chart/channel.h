@@ -14,7 +14,7 @@ namespace chart {
 class Channel  {
 
 public:
-   /** Iteratory wskazuj±cy na dane do odczytania */
+   /** Iteratory wskazuj±ce na dane do odczytania */
 
   // Iterator * m_iterator_begin,m_iterator_end;
 
@@ -36,11 +36,12 @@ public:
   /** Okre¶la czy kana³ ma mieæ pokazan± w³asn± o¶ z danymi*/
    bool showScale;
 
-  Channel ( )
+  Channel()
   {
     min=m_min=0;
-    max=m_max=500;
-    showScale=false;
+    max=m_max=450;
+    showScale=true;
+    m_pen.setColor(Qt::white);
    // m_iterator_begin=m_iterator_end=0; // wska¼nik na NULL
   }
 

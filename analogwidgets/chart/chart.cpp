@@ -36,10 +36,13 @@ void Chart::paintEvent(QPaintEvent * /*event */)
 
 void Chart::paintBackground(QPainter & painter)
 {
-  if (m_painterDecorator.get()) m_painterDecorator->paint(painter,this);
+    initCoordinateSystem(painter);
+ if (m_painterDecorator.get()) m_painterDecorator->paint(painter,this);
 }
 
 void Chart::initCoordinateSystem(QPainter & painter)
 {
-
+   	//painter.translate(0.0,0.0);
+	//double ratio = height()/100.0;
+	//painter.scale(ratio,ratio);
 }
