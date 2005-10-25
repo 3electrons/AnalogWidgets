@@ -19,6 +19,7 @@ void ScalesGridDecorator::paint (QPainter & painter, Chart * chart)
 
   paintYScale(painter,chart);
   paintXGrid(painter,chart);
+  paintYGrid(painter,chart);
 
 
   ChartDecorator::paint(painter,chart);
@@ -86,6 +87,68 @@ void ScalesGridDecorator::paintXScale(QPainter & painter, Chart * chart)
 
 void ScalesGridDecorator::paintYScale(QPainter & painter, Chart * chart)
 {
+   int xMesh = chart->scaleGrid().m_xMesh;
+   double m_min,m_max,min = chart->scaleGrid().min,max = chart->scaleGrid().max;
+   double minimal_step = 0.5;
+   range(min,max,m_min,m_max,xMesh,true,minimal_step);
+   double scale_step = (m_max - m_min) / (xMesh +1 );
+   double start_pos = m_min + scale_step - min;
+   double factor = (chart->width() - yScaleWidth )/ (max - min );
+   double scale_pos = yScaleWidth + start_pos * factor;
+
+
+ painter.setFont(chart->scaleGrid().m_font);
+ painter.setPen(chart->channels()[0].m_pen); // kolor siatki
+
+ double scale_number_step = ( m_max - m_min ) / xMesh;
+ double scale_number= m_min + scale_number_step;
+
+   do
+   {
+    int y = (chart->height()- yScaleHeight);
+  //  painter.drawLine(QPointF(scale_pos,yScaleHeight + y*0.25 ),QPointF(scale_pos,yScaleHeight));
+
+    QString Str = QString("%1").arg(scale_number);
+    int tw = painter.fontMetrics().size(Qt::TextSingleLine, Str ).width();
+    painter.drawText(QPointF(scale_pos - tw/2 ,yScaleHeight+y*0.6+YFONT_DISTANCE),Str);
+
+    scale_pos+=scale_step * factor;
+    scale_number+=scale_number_step;
+
+
+    start_pos += scale_step;
+   }while (scale_pos < chart->width() ) ;
+
+}
+
+void ScalesGridDecorator::paintYGrid(QPainter & painter, Chart * chart)
+{
+   int xMesh = chart->scaleGrid().m_xMesh;
+   double m_min,m_max,min = chart->scaleGrid().min,max = chart->scaleGrid().max;
+   double minimal_step = 1.0;
+   range(min,max,m_min,m_max,xMesh,true,minimal_step);
+   double scale_step = (m_max - m_min) / (xMesh +1 );
+   double start_pos = m_min + scale_step - min;
+   double factor = (chart->width() - yScaleWidth )/ (max - min );
+   double scale_pos = yScaleWidth + start_pos * factor;
+   painter.setPen(QColor(40,40,180)); // kolor siatki
+
+   int xSubMesh = chart->scaleGrid().m_xSubMesh +1;
+   do
+   {
+    painter.drawLine(QPointF(scale_pos,0),QPointF(scale_pos,yScaleHeight));
+
+    int y = (chart->height()- yScaleHeight);
+    painter.drawLine(QPointF(scale_pos,yScaleHeight + y*0.25 ),QPointF(scale_pos,yScaleHeight));
+    for (int i=-xSubMesh;i<xSubMesh;i++)
+    {
+       double scale_sub_step = scale_step / xSubMesh;
+       double x = scale_pos+scale_sub_step*i*factor;
+       if (x>yScaleWidth) painter.drawLine(QPointF(x,0),QPointF(x,yScaleHeight));
+    }
+
+    scale_pos+=scale_step * factor;
+   }while (scale_pos <= chart->width() ) ;
 
 
 }

@@ -29,19 +29,21 @@ public:
    double min;
   /** Maksymalna warto¶æ na skali*/
    double max;
-   /** minimalna wy¶wietlana warto¶æ na skali */
-   double m_min;
-   /** Maksymalna wy¶wietlana warto¶æ na skali */
-   double m_max;
+
+	//   /** minimalna wy¶wietlana warto¶æ na skali */
+   	//   	double m_min;
+	//   /** Maksymalna wy¶wietlana warto¶æ na skali */
+   	//	double m_max;
 
   /** Czy ma byæ narysowana siatka dla ca³ej skali */
    bool m_showGrid;
   /** Konstruktor domy¶lny */
   ScaleGrid ( )
   {
-    m_xMesh=7; m_xSubMesh=4;
-    m_yMesh=7;  m_ySubMesh=3;
-    min=0; max=1000; m_min=min; m_max=max;
+    m_xMesh=7; m_xSubMesh=1;
+    m_yMesh=7;  m_ySubMesh=1;
+    min=15; max=1015;
+    //m_min=min; m_max=max;
     m_showGrid=true;
     m_font.setPointSize(10);
   }

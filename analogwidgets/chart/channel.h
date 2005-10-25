@@ -36,16 +36,13 @@ public:
   /** Okre¶la czy kana³ ma mieæ pokazan± w³asn± o¶ z danymi*/
    bool showScale;
 
-  Channel()
-  {
-    min=m_min=0;
-    max=m_max=450;
-    showScale=true;
-    m_pen.setColor(Qt::white);
-   // m_iterator_begin=m_iterator_end=0; // wska¼nik na NULL
-  }
+  /** Konstruktor domy¶lny */ 
+  Channel();
+  
+  /** Konstruktor kopiuj±cy */
+  //Channel (const Channel & ch); 
+  
 
 }; //  class channel
 } // namespace chart
 #endif //CHANNEL_H
-

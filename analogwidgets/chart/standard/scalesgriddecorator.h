@@ -34,6 +34,7 @@ protected:
   void paintXScale(QPainter & painter, Chart * chart);
   void paintYScale(QPainter & painter, Chart * chart);
   void paintXGrid  (QPainter & painter, Chart * chart);
+  void paintYGrid  (QPainter & painter, Chart * chart);
 
  //double YScaleHeight();
  private:
