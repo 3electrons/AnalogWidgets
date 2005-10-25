@@ -20,6 +20,7 @@ HEADERS += test.h \
            widgets\manometer.h \
 	   widgets\thermometer.h \
 	   widgets\chart.h \
+	   widgets\channel.h \
 	widgets\standard\channeldecorator.h \
 	widgets\standard\glassdecorator.h \
 	widgets\standard\labelsdecorator.h \
@@ -35,6 +36,7 @@ SOURCES += main.cpp \
            widgets\manometer.cpp \
 	   widgets\thermometer.cpp \
 	   widgets\chart.cpp \
+	   widgets\channel.cpp \ 
 	widgets\standard\channeldecorator.cpp \
 	widgets\standard\glassdecorator.cpp \
 	widgets\standard\labelsdecorator.cpp \
