@@ -35,13 +35,18 @@ public:
 
   /** Okre¶la czy kana³ ma mieæ pokazan± w³asn± o¶ z danymi*/
    bool showScale;
-
   /** Konstruktor domy¶lny */ 
   Channel();
   
-  /** Konstruktor kopiuj±cy */
-  //Channel (const Channel & ch); 
-  
+  /** 
+  * Konstruktor parametryzowany 
+  * Pozwala na okre¶lenie warto¶ci minimalnych oraz maksymalnych 
+  * @param min - minimalna warto¶æ na skali jak± chcemy mieæ 
+  * @param max - maksymalna warto¶æ na skali jak± chcemy mieæ. 
+  * @param name - nazwa kana³u danych 
+  * @param pen  - rodzaj pióra jakim ma byæ malowany dany wykres 
+  */   
+  Channel(double min,double max, QString name,QPen pen );
 
 }; //  class channel
 } // namespace chart

@@ -23,6 +23,7 @@
     	void ComboBoxChoiceChanged(int index );
         void SpinBoxValueChanged(int val);
 	void WidgetTest();
+	void movePosition(int val); 
 
 
     private:

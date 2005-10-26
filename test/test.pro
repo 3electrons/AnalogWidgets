@@ -3,9 +3,10 @@
 # Podkatalog wzgl?dem g?ównego katalogu projektu: .
 # Cel to program:
 
+CXXFLAGS     = -pg
 INCLUDEPATH += widgets
 UI_DIR = ui
-QMAKE_CXXFLAGS_RELEASE += -g3
+QMAKE_CXXFLAGS_RELEASE = -g3 -pg  
 CONFIG += release \
           warn_on
 TEMPLATE = app
@@ -21,6 +22,7 @@ HEADERS += test.h \
 	   widgets\thermometer.h \
 	   widgets\chart.h \
 	   widgets\channel.h \
+	   widgets\scalegrid.h \
 	widgets\standard\channeldecorator.h \
 	widgets\standard\glassdecorator.h \
 	widgets\standard\labelsdecorator.h \
@@ -36,7 +38,8 @@ SOURCES += main.cpp \
            widgets\manometer.cpp \
 	   widgets\thermometer.cpp \
 	   widgets\chart.cpp \
-	   widgets\channel.cpp \ 
+	   widgets\channel.cpp \
+	   widgets\scalegrid.cpp \
 	widgets\standard\channeldecorator.cpp \
 	widgets\standard\glassdecorator.cpp \
 	widgets\standard\labelsdecorator.cpp \

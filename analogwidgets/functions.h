@@ -42,14 +42,16 @@ bool range(T m_minimum,T m_maximum, T & m_min, T & m_max,unsigned int steps, boo
   else break;
 
   bool done = false;
-  while ( diff > scale ) { factor+=inc; scale = steps * factor; }
+  while ( diff > scale ) 
+   { factor+=static_cast<T>(inc);  scale = factor * steps;  }
+   
   while (!done)
   {
      m_max=0;
      while ( m_max < m_maximum ) m_max +=factor;
      m_min = m_max - scale;
      if (m_min <= m_minimum ) done = true;
-     else { factor+=inc; scale = steps*factor; }
+     else { factor+=static_cast<T>(inc); scale = factor * steps; }
   }
   // Wprowadzenie koretkty by skala nie przesuwa³a siê w lewo na osi X
   if (left)

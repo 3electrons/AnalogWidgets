@@ -152,6 +152,30 @@
              <string>Tutaj będzie wykres</string>
             </property>
            </widget>
+           <widget class="QScrollBar" name="chartPosition" >
+            <property name="geometry" >
+             <rect>
+              <x>0</x>
+              <y>310</y>
+              <width>160</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="sizePolicy" >
+             <sizepolicy>
+              <hsizetype>7</hsizetype>
+              <vsizetype>1</vsizetype>
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximum" >
+             <number>5000</number>
+            </property>
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
           </widget>
          </widget>
         </item>

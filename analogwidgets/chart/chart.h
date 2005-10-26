@@ -18,7 +18,10 @@ typedef  vector<Channel> Channels;
     class Chart : public QMyWidgetWithBackground
     {
       Q_OBJECT
-      Q_PROPERTY (unsigned int channel      READ channel      WRITE setChannel       )
+      Q_PROPERTY (unsigned int channel      	READ channel      WRITE setChannel   )
+      Q_PROPERTY (double position 		READ position     WRITE setPosition  ) 
+      Q_PROPERTY (double size     		READ size         WRITE setSize      ) 
+      
       /*
       Q_PROPERTY (double channelXMinimum    READ chXMinimum   WRITE setChXMinimum    )
       Q_PROPERTY (double channelXMaximum    READ chXMaximum   WRITE setChXMaximum    )
@@ -54,14 +57,16 @@ typedef  vector<Channel> Channels;
 	void InitDecorators();
 
 	// accesors and getters
-        unsigned int channel() const
-        		{ return m_channel; }
-        void setChannel(unsigned int i)
-        		{ m_channel = i;
-        		  if (m_channel > m_channels.size())
-        		       m_channels.push_back(Channel());
-        		}
-
+        unsigned int channel()  const     { return m_channel; }
+        void setChannel(unsigned int i); 
+        
+        double position() const 	  { return m_scalegrid.pos;   } 
+        
+             
+	
+	double size() const		  { return m_scalegrid.size; }
+	void setSize(double i); 
+	
 	/*
       	unsigned int yGrid() const
       			{ return m_yGrid;}
@@ -72,7 +77,7 @@ typedef  vector<Channel> Channels;
        			{ return m_xGrid;}
       	void setXGrid(unsigned int i)
       			{ m_xGrid = i; updateWithBackground(); }
-
+	/** 
         // Channel Y
       	double chYMinimum() const
       			{ return m_Ychannels[m_channel].minimum;}
@@ -122,7 +127,22 @@ typedef  vector<Channel> Channels;
 
 	*/
       	// Pola w³a¶ciwo¶ci.
-
+      	
+      	public slots: 
+      	/** 
+      	* Powieksza/pomniejsza widok na osi x  
+      	* @param factor Wspó³czynnik powiêkszenia 
+      	*/ 
+      	void zoom(double factor); 
+      	/** 
+      	* Ustawia pozycje na wykresie na osi X 
+      	* param i Nowa pozycja na wykresie pozycja to najmnijesza wartosc 
+      	* wskazywana na wykresie 
+      	*/ 
+      	void setPosition(double i); 
+      	
+        
+        
       	protected:
 	/** Informacje na temat skali oraz siatki wykresu */
 	ScaleGrid m_scalegrid;

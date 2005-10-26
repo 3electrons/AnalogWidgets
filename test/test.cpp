@@ -12,9 +12,9 @@
     
 
     #include "widgettester.h"
-
-
-
+    #include <iostream> 
+    	
+    using namespace std; 
 // ----------------------------------------------------------------------------------------
 
     TestWidget::TestWidget(QMainWindow *parent)
@@ -66,6 +66,7 @@
 	QLayout * layout3 = new QVBoxLayout(); 
 	layout3->addWidget(chart_lab); 
 	layout3->addWidget(chart); 
+	layout3->addWidget(chartPosition); 
 	widget->setLayout(layout3); 
 	 
 // 	
@@ -74,6 +75,7 @@
 	connect(spinBox,SIGNAL(valueChanged(int)),this,SLOT(SpinBoxValueChanged(int)));
 	connect(comboBox,SIGNAL(activated(int)),this,SLOT(ComboBoxChoiceChanged(int)));
 	connect(pushButton,SIGNAL(clicked(void)),this,SLOT(WidgetTest(void)));
+	connect(chartPosition,SIGNAL(valueChanged(int)),this,SLOT(movePosition(int))); 
 
 	HSlider->setMaximum(1000);
 	HSlider->setMinimum(-1000);
@@ -82,7 +84,11 @@
 	ComboBoxChoiceChanged(comboBox->currentIndex());
     }
 
-
+    void TestWidget::movePosition(int val) 
+    {
+     // cout<<"Position:"<<val<<endl; 
+      chart->setPosition(val);     
+    }
     void TestWidget::ComboBoxChoiceChanged(int index)
     {
       int val=0;

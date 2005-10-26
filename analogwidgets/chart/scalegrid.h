@@ -5,7 +5,8 @@
 #ifndef SCALEGRIDPROPERTIES_H
 #define SCALEGRIDPROPERTIES_H
 
-class QPen;
+#include <QPen> 
+#include <QFont> 
 
 namespace chart {
 /** Struktura zawieraj±ca dane na temat skali oraz siatki */
@@ -26,9 +27,9 @@ public:
    /** Ilo¶æ poziomych "pod-drutów" w siatce wykresu */
    unsigned int m_ySubMesh;
   /** Minimalna warto¶æ na skali */
-   double min;
+   double pos;
   /** Maksymalna warto¶æ na skali*/
-   double max;
+   double size;
 
 	//   /** minimalna wy¶wietlana warto¶æ na skali */
    	//   	double m_min;
@@ -38,16 +39,8 @@ public:
   /** Czy ma byæ narysowana siatka dla ca³ej skali */
    bool m_showGrid;
   /** Konstruktor domy¶lny */
-  ScaleGrid ( )
-  {
-    m_xMesh=7; m_xSubMesh=1;
-    m_yMesh=7;  m_ySubMesh=1;
-    min=15; max=1015;
-    //m_min=min; m_max=max;
-    m_showGrid=true;
-    m_font.setPointSize(10);
-  }
-
+  ScaleGrid ( );
+  
 };
 } // namespace chart
 #endif //SCALEGRIDPROPERTIES_H

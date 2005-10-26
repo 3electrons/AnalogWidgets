@@ -51,3 +51,41 @@ void Chart::initCoordinateSystem(QPainter & painter)
 	//double ratio = height()/100.0;
 	//painter.scale(ratio,ratio);
 }
+
+// 
+//	 Setters and getters 
+//
+void Chart::setChannel(unsigned int i)
+{ 
+	m_channel = i;
+        if (m_channel > m_channels.size())
+        { 
+          m_channels.push_back(Channel());
+          updateWithBackground(); 
+        }
+}
+
+void Chart::setSize(double i) 
+{
+      	m_scalegrid.size=i;
+	updateWithBackground(); 
+}
+
+void Chart::setPosition(double i)
+{ 
+	m_scalegrid.pos=i; 
+        updateWithBackground(); 
+}
+
+//
+//  	Slots 
+//
+void Chart::zoom(double factor) 
+{
+  if (abs(factor)>0.001)
+  {
+    m_scalegrid.size *= factor; 
+    updateWithBackground(); 
+  }
+}
+
