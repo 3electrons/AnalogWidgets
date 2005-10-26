@@ -7,9 +7,11 @@ CXXFLAGS     = -pg
 INCLUDEPATH += widgets
 UI_DIR = ui
 QMAKE_CXXFLAGS_RELEASE = -g3 -pg  
+QMAKE_LFLAGS_RELEASE = -pg 
 CONFIG += release \
           warn_on
 TEMPLATE = app
+LINK     = g++ -pg 
 FORMS += testform.ui
 HEADERS += test.h \
            widgettester.h \

@@ -2,7 +2,7 @@
   			scalesgriddecorator.cpp - Copyright coder
 **************************************************************************/
 #include <QtGui>
-#include "scalesgriddecorator.h"
+#include "scalegriddecorator.h"
 #include "chart.h"
 #include "functions.h"
 
@@ -31,7 +31,7 @@ void ScalesGridDecorator::paintBackground(QPainter &painter, Chart * chart)
   //background.setColorAt(0.0,QColor(0,0,150));
   //background.setColorAt(1.0,Qt::black);
   //painter.setBrush(QBrush(background));
-  painter.setBrush(Qt::black); 
+  painter.setBrush(Qt::black);
   painter.drawRect(0,0,chart->width(),chart->height());
 
 
