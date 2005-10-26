@@ -27,7 +27,7 @@ HEADERS += test.h \
 	widgets\standard\glassdecorator.h \
 	widgets\standard\labelsdecorator.h \
 	widgets\standard\legenddecorator.h \
-	widgets\standard\scalesgriddecorator.h
+	widgets\standard\scalegriddecorator.h
 
 SOURCES += main.cpp \
            test.cpp \
@@ -44,7 +44,7 @@ SOURCES += main.cpp \
 	widgets\standard\glassdecorator.cpp \
 	widgets\standard\labelsdecorator.cpp \
 	widgets\standard\legenddecorator.cpp \
-	widgets\standard\scalesgriddecorator.cpp
+	widgets\standard\scalegriddecorator.cpp
 
 =======
 
