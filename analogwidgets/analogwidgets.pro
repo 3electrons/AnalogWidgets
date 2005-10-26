@@ -21,7 +21,7 @@
 		chart\standard\glassdecorator.h \
 		chart\standard\labelsdecorator.h \
 		chart\standard\legenddecorator.h \
-		chart\standard\scalesgriddecorator.h \ 
+		chart\standard\scalegriddecorator.h \ 
 		analogwidgets_plugin.h \
 		defines.h \
 		functions.h 
@@ -42,6 +42,6 @@
 		chart\standard\glassdecorator.cpp \
 		chart\standard\labelsdecorator.cpp \
 		chart\standard\legenddecorator.cpp \
-		chart\standard\scalesgriddecorator.cpp \ 
+		chart\standard\scalegriddecorator.cpp \ 
 		analogwidgets_plugin.cpp
 		
