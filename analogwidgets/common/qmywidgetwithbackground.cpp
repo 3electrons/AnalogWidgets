@@ -22,6 +22,7 @@ void QMyWidgetWithBackground::drawBackground()
     {
 	delete m_pixmap;
 	m_pixmap = new QPixmap(size());
+	m_modified=true; // by wiadomo bylo ¿e jest przemalowywane tlo
 	repaintBackground();
 	m_modified=false;
     }
@@ -35,9 +36,9 @@ void QMyWidgetWithBackground::updateWithBackground()
   update();
 }
 
-bool QMyWidgetWithBackground::doRepaintBackground() 
+bool QMyWidgetWithBackground::doRepaintBackground()
 {
-  return m_modified; 
+  return m_modified;
 }
 
 void QMyWidgetWithBackground::repaintBackground()

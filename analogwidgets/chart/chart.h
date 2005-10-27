@@ -19,9 +19,15 @@ typedef  vector<Channel> Channels;
     {
       Q_OBJECT
       Q_PROPERTY (unsigned int channel      	READ channel      WRITE setChannel   )
-      Q_PROPERTY (double position 		READ position     WRITE setPosition  ) 
-      Q_PROPERTY (double size     		READ size         WRITE setSize      ) 
-      
+      Q_PROPERTY (double position 		READ position     WRITE setPosition  )
+      Q_PROPERTY (double size     		READ size         WRITE setSize      )
+
+      Q_PROPERTY (unsigned int xMesh        READ xMesh        WRITE setYMesh         )
+      Q_PROPERTY (unsigned int yMesh        READ yMesh        WRITE setXMesh         )
+      Q_PROPERTY (unsigned int xSubMesh     READ xSubMesh     WRITE setYSubMesh      )
+      Q_PROPERTY (unsigned int ySubMesh     READ ySubMesh     WRITE setXSubMesh      )
+
+
       /*
       Q_PROPERTY (double channelXMinimum    READ chXMinimum   WRITE setChXMinimum    )
       Q_PROPERTY (double channelXMaximum    READ chXMaximum   WRITE setChXMaximum    )
@@ -35,8 +41,8 @@ typedef  vector<Channel> Channels;
       Q_PROPERTY (QColor  channelColor 	    READ chColor        WRITE setChColor     )
       Q_PROPERTY (double  channelLineWidth  READ chLineWidth    WRITE setChLineWidth )
 
-      Q_PROPERTY (unsigned int xGrid        READ xGrid        WRITE setYGrid         )
-      Q_PROPERTY (unsigned int yGrid        READ yGrid        WRITE setXGrid         )
+      Q_PROPERTY (unsigned int xMesh        READ xMesh        WRITE setYMesh         )
+      Q_PROPERTY (unsigned int yMesh        READ yMesh        WRITE setXMesh         )
       Q_PROPERTY (QFont font                READ font         WRITE setFont          )
       */
 
@@ -58,26 +64,19 @@ typedef  vector<Channel> Channels;
 
 	// accesors and getters
         unsigned int channel()  const     { return m_channel; }
-        void setChannel(unsigned int i); 
-        
-        double position() const 	  { return m_scalegrid.pos;   } 
-        
-             
-	
-	double size() const		  { return m_scalegrid.size; }
-	void setSize(double i); 
-	
-	/*
-      	unsigned int yGrid() const
-      			{ return m_yGrid;}
-   	void setYGrid(unsigned int i)
-   			{ m_yGrid = i;updateWithBackground(); }
+        void setChannel(unsigned int i);
 
-       	unsigned int xGrid() const
-       			{ return m_xGrid;}
-      	void setXGrid(unsigned int i)
-      			{ m_xGrid = i; updateWithBackground(); }
-	/** 
+        double position() const 	  { return m_scalegrid.pos;   }
+
+	double size() const		  { return m_scalegrid.size; }
+	void setSize(double i);
+
+      	unsigned int yMesh() const       { return m_scalegrid.m_yMesh;}
+       	unsigned int xMesh() const       { return m_scalegrid.m_xMesh;}
+      	unsigned int ySubMesh() const    { return m_scalegrid.m_ySubMesh;}
+       	unsigned int xSubMesh() const    { return m_scalegrid.m_xMesh;}
+
+	/**
         // Channel Y
       	double chYMinimum() const
       			{ return m_Ychannels[m_channel].minimum;}
@@ -127,22 +126,26 @@ typedef  vector<Channel> Channels;
 
 	*/
       	// Pola w³a¶ciwo¶ci.
-      	
-      	public slots: 
-      	/** 
-      	* Powieksza/pomniejsza widok na osi x  
-      	* @param factor Wspó³czynnik powiêkszenia 
-      	*/ 
-      	void zoom(double factor); 
-      	/** 
-      	* Ustawia pozycje na wykresie na osi X 
-      	* param i Nowa pozycja na wykresie pozycja to najmnijesza wartosc 
-      	* wskazywana na wykresie 
-      	*/ 
-      	void setPosition(double i); 
-      	
-        
-        
+
+      	public slots:
+      	/**
+      	* Powieksza/pomniejsza widok na osi x
+      	* @param factor Wspó³czynnik powiêkszenia
+      	*/
+      	void zoom(double factor);
+      	/**
+      	* Ustawia pozycje na wykresie na osi X
+      	* param i Nowa pozycja na wykresie pozycja to najmnijesza wartosc
+      	* wskazywana na wykresie
+      	*/
+      	void setPosition(double i);
+
+  	void setYMesh(unsigned int i)    { m_scalegrid.m_yMesh = i;updateWithBackground(); }
+     	void setXMesh(unsigned int i)    { m_scalegrid.m_xMesh = i; updateWithBackground(); }
+   	void setYSubMesh(unsigned int i) { m_scalegrid.m_ySubMesh = i;updateWithBackground(); }
+      	void setXSubMesh(unsigned int i) { m_scalegrid.m_xSubMesh = i; updateWithBackground(); }
+
+
       	protected:
 	/** Informacje na temat skali oraz siatki wykresu */
 	ScaleGrid m_scalegrid;

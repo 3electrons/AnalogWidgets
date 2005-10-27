@@ -1,10 +1,12 @@
 #include <QtGui>
 #include <cmath>
 
+
 #include "chart.h"
 #include "standard/scalegriddecorator.h"
 #include "standard/glassdecorator.h"
 
+using namespace std;
 
 Chart::Chart(QWidget *parent)
 	: QMyWidgetWithBackground(parent)
@@ -39,15 +41,15 @@ void Chart::InitDecorators()
 void Chart::paintEvent(QPaintEvent * /*event */)
 {
    drawBackground();
-   QPainter painter(this); 
-   initCoordinateSystem(painter); 
-   if (m_painterDecorator.get()) m_painterDecorator->paint(painter,this); 
+   QPainter painter(this);
+   initCoordinateSystem(painter);
+   if (m_painterDecorator.get()) m_painterDecorator->paint(painter,this);
 }
 
 void Chart::paintBackground(QPainter & painter)
 {
-    initCoordinateSystem(painter);
- if (m_painterDecorator.get()) m_painterDecorator->paint(painter,this);
+  initCoordinateSystem(painter);
+  if (m_painterDecorator.get()) m_painterDecorator->paint(painter,this);
 }
 
 void Chart::initCoordinateSystem(QPainter & painter)
@@ -73,13 +75,13 @@ void Chart::setChannel(unsigned int i)
 void Chart::setSize(double i)
 {
       	m_scalegrid.size=i;
-	updateWithBackground();
+	update();
 }
 
 void Chart::setPosition(double i)
 {
 	m_scalegrid.pos=i;
-        updateWithBackground();
+        update();
 }
 
 //
@@ -90,7 +92,7 @@ void Chart::zoom(double factor)
   if (fabs(factor)>0.001)
   {
     m_scalegrid.size *= factor;
-    updateWithBackground();
+    update();
   }
 }
 
