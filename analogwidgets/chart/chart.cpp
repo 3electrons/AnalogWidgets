@@ -38,7 +38,10 @@ void Chart::InitDecorators()
 
 void Chart::paintEvent(QPaintEvent * /*event */)
 {
-  drawBackground();
+   drawBackground();
+   QPainter painter(this); 
+   initCoordinateSystem(painter); 
+   if (m_painterDecorator.get()) m_painterDecorator->paint(painter,this); 
 }
 
 void Chart::paintBackground(QPainter & painter)

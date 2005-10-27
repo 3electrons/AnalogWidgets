@@ -16,13 +16,6 @@ QMyWidgetWithBackground::~QMyWidgetWithBackground()
      }
 }
 
-void QMyWidgetWithBackground::repaintBackground()
-{
-  m_pixmap->fill(QColor(0,0,0,0));
-  QPainter painter(m_pixmap);
-  paintBackground(painter);
-}
-
 void QMyWidgetWithBackground::drawBackground()
 {
   if (m_pixmap->size() != size() || m_modified )
@@ -40,5 +33,16 @@ void QMyWidgetWithBackground::updateWithBackground()
 {
   m_modified=true;
   update();
+}
 
+bool QMyWidgetWithBackground::doRepaintBackground() 
+{
+  return m_modified; 
+}
+
+void QMyWidgetWithBackground::repaintBackground()
+{
+  m_pixmap->fill(QColor(0,0,0,0));
+  QPainter painter(m_pixmap);
+  paintBackground(painter);
 }

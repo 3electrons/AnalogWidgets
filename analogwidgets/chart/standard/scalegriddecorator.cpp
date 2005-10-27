@@ -13,14 +13,17 @@ using namespace Standard;
 
 void ScalesGridDecorator::paint (QPainter & painter, Chart * chart)
 {
-  paintBackground(painter,chart);
-
-  paintXScale(painter,chart);
-
-  paintYScale(painter,chart);
-  paintXGrid(painter,chart);
-  paintYGrid(painter,chart);
-
+  if (chart->doRepaintBackground()) 
+  {  // to jest malowane na bitmapce w tle 
+     paintBackground(painter,chart);
+     paintXScale(painter,chart);
+     paintXGrid(painter,chart);
+  }
+  else 
+  {  // a to ju¿ na samym ekranie 
+     paintYScale(painter,chart);
+     paintYGrid(painter,chart);
+  }
 
   ChartDecorator::paint(painter,chart);
 }

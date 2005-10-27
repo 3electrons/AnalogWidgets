@@ -23,3 +23,17 @@ Channel::Channel( const Channel & ch)
    showScale	= ch.showScale; 
 }
 */
+/**
+void setMin(double min); 
+
+double min() const ;
+
+void setMax(double max); 
+
+double max() const; 
+  
+
+double m_min() const; 
+
+double Channel::m_max() const { return _m_min
+*/ 

@@ -47,7 +47,21 @@ public:
   * @param pen  - rodzaj pióra jakim ma byæ malowany dany wykres 
   */   
   Channel(double min,double max, QString name,QPen pen );
-
+ 
+  /** Ustawia warto¶æ minimum */ 
+  // void setMin(double min); 
+  /** Zwraca warto¶æ minimun */
+  //double min() const ;
+  /** Ustawia warto¶æ maksimum */ 
+  //void setMax(double max); 
+  /** Zwraca warto¶æ maksimum */
+  //double max() const; 
+  
+  /** Zwraca warto¶æ minimum na skali */ 
+  //double m_min() const; 
+  /** Zwraca warto¶æ maksimum na skali */ 
+  //double m_max() const; 
+  
 }; //  class channel
 } // namespace chart
 #endif //CHANNEL_H

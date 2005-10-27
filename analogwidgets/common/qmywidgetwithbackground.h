@@ -24,7 +24,15 @@ class QMyWidgetWithBackground : public QWidget
 
      /** Odmalowywuje kontrolkê bezwarunkowo odmalowywuj±c t³o. */
      void  updateWithBackground ();
-
+    
+     /** 
+     * Zawraca informacje czy kontrolka zosta³a zmodyfikowana
+     * Ta informacja jest ustawiana gdy bitmapka t³a siê zmienia 
+     * to znaczy zmienia siê rozmiar komponentu lub istnieje 
+     * potrzeba przemalowania t³a. 
+     */ 
+     bool doRepaintBackground(); 
+     
   protected:
     /** Wywo³uje paintBackground - odmalowywuj±c t³o na nowo */
     void repaintBackground();
@@ -35,6 +43,8 @@ class QMyWidgetWithBackground : public QWidget
      * @param background to t³o kontrolki
      */
     virtual void  paintBackground (QPainter & painer) = 0;
+    
+    
 
   protected:
      /** Bufor na t³o. */
