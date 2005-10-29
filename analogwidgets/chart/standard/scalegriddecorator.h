@@ -23,7 +23,7 @@ public:
   * Konstruktor
   * @param component Pointer na nastêpny dekorator
   */
-  ScalesGridDecorator (ChartDecorator * component ):ChartDecorator(component){}
+  ScalesGridDecorator (ChartDecorator * component );
 
  /** Operacja malowania. Maluje kolejne elementy komponentu Chart. */
   void paint (QPainter & painter, Chart * chart);
@@ -41,7 +41,11 @@ protected:
   double xScaleHeight;
   double yScaleHeight;
   double yScaleWidth;
-
+  
+  double m_min; 
+  double m_max; 
+  double scaleSize; 
+//   
 };
 } // chart
 } // Standard

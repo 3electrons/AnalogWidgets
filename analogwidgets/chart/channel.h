@@ -28,10 +28,10 @@ public:
    double min;
   /** Warto¶æ maksymalna dla kana³u która ma byæ wy¶wietlana na wykresie */
    double max;
-  /** Wato¶æ minimalna wyznaczona na podstawie rozleg³o¶ci skali oraz ilo¶ci wêz³ów skali*/
-   double m_min;
+ // /** Wato¶æ minimalna wyznaczona na podstawie rozleg³o¶ci skali oraz ilo¶ci wêz³ów skali*/
+ //  double m_min;
   /** Wato¶æ maksymalna wyznaczona na podstawie rozleg³o¶ci skali oraz ilo¶ci wêz³ów skali */
-   double m_max;
+ //  double m_max;
 
   /** Okre¶la czy kana³ ma mieæ pokazan± w³asn± o¶ z danymi*/
    bool showScale;
