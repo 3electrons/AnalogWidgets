@@ -29,8 +29,11 @@ public:
    void paint (QPainter & painter, Chart * chart);
 
 private:
+   void translateToChannel (QPainter & painter, Chart * chart, Channel & channel);
 
-};
+
+
+};// class ChannelDecorator
 } // chart
 } // Standard
 #endif //CHANNELDECORATOR_H

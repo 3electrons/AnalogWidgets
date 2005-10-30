@@ -5,6 +5,8 @@
 #include "chart.h"
 #include "standard/scalegriddecorator.h"
 #include "standard/glassdecorator.h"
+#include "standard/channeldecorator.h"
+
 
 using namespace std;
 
@@ -17,7 +19,7 @@ Chart::Chart(QWidget *parent)
    m_channels.push_back(Channel());
      Channel t;
      t.max=1000.0;
-     t.min=100.0;
+     t.min=0.0;
      t.m_pen.setColor(Qt::green);
      m_channels.push_back(t);
    m_channel=0;
@@ -32,7 +34,7 @@ void Chart::InitDecorators()
 	(
            new Standard::ScalesGridDecorator
           (
-           NULL// new Standard::GlassDecorator(NULL)
+            new Standard::ChannelDecorator (NULL) // new Standard::GlassDecorator(NULL)
           )
         );
 
@@ -52,7 +54,7 @@ void Chart::paintBackground(QPainter & painter)
   if (m_painterDecorator.get()) m_painterDecorator->paint(painter,this);
 }
 
-void Chart::initCoordinateSystem(QPainter & painter)
+void Chart::initCoordinateSystem(QPainter & /*painter*/)
 {
    	//painter.translate(0.0,0.0);
 	//double ratio = height()/100.0;

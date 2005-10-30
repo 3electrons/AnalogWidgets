@@ -5,8 +5,8 @@
 #ifndef SCALEGRIDPROPERTIES_H
 #define SCALEGRIDPROPERTIES_H
 
-#include <QPen> 
-#include <QFont> 
+#include <QPen>
+#include <QFont>
 
 namespace chart {
 /** Struktura zawieraj±ca dane na temat skali oraz siatki */
@@ -31,16 +31,16 @@ public:
   /** Maksymalna warto¶æ na skali*/
    double size;
 
-	//   /** minimalna wy¶wietlana warto¶æ na skali */
-   	//   	double m_min;
-	//   /** Maksymalna wy¶wietlana warto¶æ na skali */
-   	//	double m_max;
+	   /** minimalna wy¶wietlana warto¶æ na skali */
+   	   	double m_min;
+	   /** Maksymalna wy¶wietlana warto¶æ na skali */
+   		double m_max;
 
   /** Czy ma byæ narysowana siatka dla ca³ej skali */
    bool m_showGrid;
   /** Konstruktor domy¶lny */
   ScaleGrid ( );
-  
+
 };
 } // namespace chart
 #endif //SCALEGRIDPROPERTIES_H

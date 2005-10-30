@@ -9,7 +9,7 @@ using namespace Standard;
 
 /** Operacja malowania. Maluje kolejne elementy komponentu Chart. */
 
-void LegendDecorator::paint (QPainter & painter, Chart * chart)
+void LegendDecorator::paint (QPainter & /*painter*/, Chart * /*chart*/)
 {
 
 }
