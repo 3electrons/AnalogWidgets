@@ -15,8 +15,10 @@ class ScaleGrid {
 public:
    /** Zastosowany font skali */
    QFont m_font;
+   QColor m_fontColor;
    /** Rodzaj u¿ytego pióra do rysowania skali siatki oraz kolor */
    QPen m_pen;
+
 
    /** Ilo¶æ pionowych "drutów" w siatce wykresu */
    unsigned int  m_xMesh;
@@ -37,7 +39,10 @@ public:
    		double m_max;
 
   /** Czy ma byæ narysowana siatka dla ca³ej skali */
-   bool m_showGrid;
+   bool showGrid;
+
+  /** Czy ma pokazac skale */
+   bool showScale;
   /** Konstruktor domy¶lny */
   ScaleGrid ( );
 

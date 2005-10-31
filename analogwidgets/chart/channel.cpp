@@ -8,8 +8,20 @@ Channel::Channel()
     max= m_max= 450;
     showScale=true;
     m_pen.setColor(Qt::white);
+    m_data = NULL;
    // m_iterator_begin=m_iterator_end=0; // wska¼nik na NULL
 }
+
+Channel::Channel(double min,double max, ChannelData * data,const char * name,QPen pen )
+{
+  this->min = m_min = min;
+  this->max = m_max = max;
+  this->m_data = data;
+  this->m_name = QString::fromLocal8Bit(name);
+  this->m_pen = pen;
+  showScale = true;
+}
+
 /*
 Channel::Channel( const Channel & ch)
 {

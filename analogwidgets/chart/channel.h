@@ -6,6 +6,7 @@
 #define CHANNEL_H
 #include <QString>
 #include <QPen>
+#include "channeldata.h"
 
 
 //class Iterator;
@@ -34,6 +35,8 @@ public:
   /** Okre¶la czy kana³ ma mieæ pokazan± w³asn± o¶ z danymi*/
    bool showScale;
   /** Konstruktor domy¶lny */
+
+  ChannelData * m_data;
   Channel();
 
   /**
@@ -44,7 +47,7 @@ public:
   * @param name - nazwa kana³u danych
   * @param pen  - rodzaj pióra jakim ma byæ malowany dany wykres
   */
-  Channel(double min,double max, QString name,QPen pen );
+  Channel(double min,double max, ChannelData * data,const char * name,QPen pen );
 
   /** Ustawia warto¶æ minimum */
   // void setMin(double min);

@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <memory> // auto_ptr
+#include <QTimer>
 
 #include "qmywidgetwithbackground.h"
 #include "channel.h"
@@ -28,19 +29,17 @@ typedef  vector<Channel> Channels;
       Q_PROPERTY (unsigned int ySubMesh     READ ySubMesh     WRITE setXSubMesh      )
 
 
-      /*
-      Q_PROPERTY (double channelXMinimum    READ chXMinimum   WRITE setChXMinimum    )
-      Q_PROPERTY (double channelXMaximum    READ chXMaximum   WRITE setChXMaximum    )
-      Q_PROPERTY (bool   channelShowXScale  READ chShowXScale WRITE setChShowXScale  )
+
+      Q_PROPERTY (double channelMinimum    READ channelMinimum   WRITE setChannelMinimum     )
+      Q_PROPERTY (double channelMaximum    READ channelMaximum   WRITE setChannelMaximum    )
+      Q_PROPERTY (bool   channelShowScale  READ channelShowScale WRITE setChannelShowScale  )
 
 
-      Q_PROPERTY (double channelYMinimum    READ chYMinimum   WRITE setChYMinimum    )
-      Q_PROPERTY (double channelYMaximum    READ chYMaximum   WRITE setChYMaximum    )
-      Q_PROPERTY (bool   channelShowYScale  READ chShowYScale WRITE setChShowYScale  )
+      Q_PROPERTY (QFont  scaleFont              READ scaleFont WRITE setScaleFont  )
+      Q_PROPERTY (bool   showGrid	        READ showGrid  WRITE setShowGrid   )
+      Q_PROPERTY (bool   showScale   		READ showScale WRITE setShowScale  )
 
-      Q_PROPERTY (QColor  channelColor 	    READ chColor        WRITE setChColor     )
-      Q_PROPERTY (double  channelLineWidth  READ chLineWidth    WRITE setChLineWidth )
-
+/*
       Q_PROPERTY (unsigned int xMesh        READ xMesh        WRITE setYMesh         )
       Q_PROPERTY (unsigned int yMesh        READ yMesh        WRITE setXMesh         )
       Q_PROPERTY (QFont font                READ font         WRITE setFont          )
@@ -48,9 +47,13 @@ typedef  vector<Channel> Channels;
 
       public:
     	Chart(QWidget *parent = 0);
+	~Chart();
 
-	 ScaleGrid & scaleGrid() { return m_scalegrid; }
-	 Channels & channels() { return m_channels; }
+	 ScaleGrid & scaleGrid() { return m_scalegrid; } // @TODO to by by³o dobrze wywalic lub przenie¶æ do cze¶ci prywatnej
+	 Channels & channels() { return m_channels; } // @TODO to by by³o dobrze wywaliæ
+
+	 /** Dodaje kana³ z danymi */
+	 void addChannel(Channel & channel);
 
       protected:
         void paintEvent(QPaintEvent *event); 	 // inherited from QMyWidgetWithBackground
@@ -63,87 +66,65 @@ typedef  vector<Channel> Channels;
 	void InitDecorators();
 
 	// accesors and getters
-        unsigned int channel()  const     { return m_channel; }
-        void setChannel(unsigned int i);
+      public:
 
-        double position() const 	  { return m_scalegrid.pos;   }
+        double position()       const 	{ return m_scalegrid.pos;   }
+	double size()           const	{ return m_scalegrid.size; }
+      	double channelMinimum() const   { return m_channels[m_channel].min;}
+      	double channelMaximum() const   { return m_channels[m_channel].max;}
 
-	double size() const		  { return m_scalegrid.size; }
-	void setSize(double i);
+        unsigned int channel()  const   { return m_channel; }
+      	unsigned int yMesh()    const   { return m_scalegrid.m_yMesh;}
+       	unsigned int xMesh()    const   { return m_scalegrid.m_xMesh;}
+      	unsigned int ySubMesh() const   { return m_scalegrid.m_ySubMesh;}
+       	unsigned int xSubMesh() const   { return m_scalegrid.m_xMesh;}
 
-      	unsigned int yMesh() const       { return m_scalegrid.m_yMesh;}
-       	unsigned int xMesh() const       { return m_scalegrid.m_xMesh;}
-      	unsigned int ySubMesh() const    { return m_scalegrid.m_ySubMesh;}
-       	unsigned int xSubMesh() const    { return m_scalegrid.m_xMesh;}
+	bool showGrid()         const	{ return m_scalegrid.showGrid; }
+	bool isPaintOver()      const   { return m_isPaintOver; }
+      	bool channelShowScale() const	{ return m_channels[m_channel].showScale; }
+      	bool showScale()        const	{ return m_scalegrid.showScale;}
 
-	/**
-        // Channel Y
-      	double chYMinimum() const
-      			{ return m_Ychannels[m_channel].minimum;}
-      	void setChYMinimum(double i)
-      			{ m_Ychannels[m_channel].minimum = i; updateWithBackground(); }
+	QFont scaleFont()       const	{ return m_scalegrid.m_font; }
 
 
-      	double chYMaximum() const
-      			{ return m_Ychannels[m_channel].maximum;}
-      	void setChYMaximum(double i)
-      			{ m_Ychannels[m_channel].maximum = i; updateWithBackground(); }
 
-      	bool chShowYScale() const
-      			{ return m_Ychannels[m_channel].showScale; }
-      	void setChShowYScale(bool i)
-      			{ m_Ychannels[m_channel].showScale = i; updateWithBackground(); }
-      	// Channel X
-
-      	double chXMinimum() const
-      			{ return m_Xchannel.minimum;}
-      	void setChXMinimum(double i)
-      			{ m_Xchannel.minimum = i; updateWithBackground(); }
-
-      	double chXMaximum() const
-      			{ return m_Xchannel.maximum;}
-      	void setChXMaximum(double i)
-      			{ m_Xchannel.maximum = i; updateWithBackground(); }
-
-      	bool chShowXScale() const
-      			{ return m_Xchannel.showScale;}
-      	void setChShowXScale(bool i)
-      			{ m_Xchannel.showScale = i; updateWithBackground(); }
-
-      	QColor chColor() const
-      			{ return m_Ychannels[m_channel].color; }
-      	void setChColor(QColor color)
-      			{ m_Ychannels[m_channel].color = color; updateWithBackground(); }
-      	double chLineWidth() const
-      			{ return m_Ychannels[m_channel].lineWidth; }
-      	void setChLineWidth(double i)
-      			{ m_Ychannels[m_channel].lineWidth = i; updateWithBackground(); }
-
-	QFont font() const
-			{ return m_font; }
-	void setFont(QFont i)
-			{ m_font = i; updateWithBackground(); }
-
-	*/
-      	// Pola w³a¶ciwo¶ci.
 
       	public slots:
-      	/**
-      	* Powieksza/pomniejsza widok na osi x
-      	* @param factor Wspó³czynnik powiêkszenia
-      	*/
-      	void zoom(double factor);
       	/**
       	* Ustawia pozycje na wykresie na osi X
       	* param i Nowa pozycja na wykresie pozycja to najmnijesza wartosc
       	* wskazywana na wykresie
       	*/
-      	void setPosition(double i);
+      	void setPosition      (double i);
+	void setSize          (double i);
+      	void setChannelMinimum(double i) { m_channels[m_channel].min = i; updateWithBackground(); }
+      	void setChannelMaximum(double i) { m_channels[m_channel].max = i; updateWithBackground(); }
 
-  	void setYMesh(unsigned int i)    { m_scalegrid.m_yMesh = i;updateWithBackground(); }
-     	void setXMesh(unsigned int i)    { m_scalegrid.m_xMesh = i; updateWithBackground(); }
+        void setChannel (unsigned int i);
+  	void setYMesh   (unsigned int i) { m_scalegrid.m_yMesh = i;updateWithBackground(); }
+     	void setXMesh   (unsigned int i) { m_scalegrid.m_xMesh = i; updateWithBackground(); }
    	void setYSubMesh(unsigned int i) { m_scalegrid.m_ySubMesh = i;updateWithBackground(); }
       	void setXSubMesh(unsigned int i) { m_scalegrid.m_xSubMesh = i; updateWithBackground(); }
+
+      	void setChannelShowScale(bool i) { m_channels[m_channel].showScale = i; updateWithBackground(); }
+      	void setShowScale       (bool i) { m_scalegrid.showScale = i; updateWithBackground(); }
+        void setShowGrid        (bool i) { m_scalegrid.showGrid = i; }
+	void setScaleFont(QFont i)	 { m_scalegrid.m_font = i; updateWithBackground(); }
+
+
+
+
+      	/**
+      	* Powieksza/pomniejsza widok na osi x
+      	* @param factor Wspó³czynnik powiêkszenia
+      	*/
+      	void zoom(double factor);
+
+
+	protected slots:
+
+	/** Ustawia znacznik koñca malowania i przmalowuje kontrolkê w trybie z antialiasingiem */
+	void setPaintOver();
 
 
       	protected:
@@ -155,8 +136,10 @@ typedef  vector<Channel> Channels;
       	/** Wektor kana³ów na dane */
       	Channels m_channels;
       	unsigned int m_channel;
+        /** Timer który po okre¶lonym czasie ma uaktualniæ obraz na wyg³adzony (antialiasing) */
+	QTimer * timer;
 
-
+        bool m_isPaintOver;
       	// Drawing data
       	//QMatrix baseMatrix;
     };
