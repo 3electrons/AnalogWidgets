@@ -5,16 +5,36 @@
     #include <QSlider>
     #include <QString>
     #include <QTimer>
+
     #include "widgets/manometer.h"
     #include "widgets/wallclock.h"
     #include "widgets/thermometer.h"
-    #include "widgets/chart.h" 
-    
+    #include "widgets/chart.h"
+    #include "widgets/datacontainers.h"
+
 
     #include "widgettester.h"
-    #include <iostream> 
-    	
-    using namespace std; 
+
+    #include <iostream>
+    #include <fstream>
+    #include <list>
+    #include <vector>
+    //#include <pair>
+
+    using namespace std;
+
+    typedef vector<int> vint;
+    typedef list <int>  lint;
+    typedef list <double> ldouble;
+    typedef list< pair<double,double> > lpair;
+
+    lpair position;
+    vint  velocity;
+    vint  times;
+    lint  press1;
+    lint  press2;
+    ldouble press3;
+
 // ----------------------------------------------------------------------------------------
 
     TestWidget::TestWidget(QMainWindow *parent)
@@ -59,23 +79,66 @@
 	layout2->addWidget(thermo_lab);
 	layout2->addWidget(thermo);
 	widget->setLayout(layout2);
-	
-	// Layout of stack 3 widget - chart 
-	widget = stackedWidget->widget(3); 
+
+	// Layout of stack 3 widget - chart
+	widget = stackedWidget->widget(3);
 	chart = new Chart();
-	QLayout * layout3 = new QVBoxLayout(); 
-	layout3->addWidget(chart_lab); 
-	layout3->addWidget(chart); 
-	layout3->addWidget(chartPosition); 
-	widget->setLayout(layout3); 
-	 
-// 	
+	QLayout * layout3 = new QVBoxLayout();
+	layout3->addWidget(chart_lab);
+	layout3->addWidget(chart);
+	layout3->addWidget(chartPosition);
+	layout3->addWidget(sizeSlider);
+	layout3->addWidget(injCombo);
+	widget->setLayout(layout3);
+
+ // za³adowanie listy wtrysków do CobmboBox'a
+        QDir dir("wtr");
+        dir.setFilter(QDir::Files);
+	dir.setSorting(QDir::Name);
+        dir.setNameFilters ( QStringList(QString("*.wtr")) );
+	injCombo->addItems(dir.entryList());
+// Zainicjowanie danymi obiektu typu chart
+
+        Channel cisnienie2 (0,250,new DoubleDataContainer<vint,lint>(times,press2),
+			   "[bar] Ci¶nienie pod t³okiem",QPen(Qt::green));
+
+        Channel cisnienie3 (0,250,new DoubleDataContainer<vint,ldouble>(times,press3),
+			   "[bar] Ci¶nienie wyliczone",QPen(Qt::magenta));
+
+	Channel cisnienie (0,250,new DoubleDataContainer<vint,lint>(times,press1),
+			   "[bar] Ci¶nienie nad t³okiem",QPen(Qt::cyan));
+        Channel pozycja(0,100,new PairDataContainer<lpair>(position),
+			  "[mm] Pozycja",QPen(Qt::yellow));
+	QPen vPen;
+	vPen.setColor(Qt::red);
+   	//vPen.setWidthF(2.0);
+	//vPen.setStyle(Qt::DotLine);
+        Channel predkosc  (0,300, new DoubleDataContainer<vint,vint>(times,velocity),
+			  "[cm/s] Prêdko¶æ",QPen(Qt::red));
+
+
+        cisnienie2.showScale = cisnienie3.showScale = false;
+	//pozycja.showScale = predkosc.showScale = false ;
+	//chart->scaleGrid().showScale=false;
+	//chart->scaleGrid().showGrid=false;
+	chart->addChannel(cisnienie2);
+	chart->addChannel(cisnienie3);
+	chart->addChannel(cisnienie);
+	chart->addChannel(pozycja);
+	chart->addChannel(predkosc);
+
+
+
+
+//
  	//connect(HSlider,SIGNAL(valueChanged(int)),bar,SLOT(setValue(int)));
         //connect(spinBox,SIGNAL(valueChanged(int)),bar,SLOT(setValue(int)));
 	connect(spinBox,SIGNAL(valueChanged(int)),this,SLOT(SpinBoxValueChanged(int)));
 	connect(comboBox,SIGNAL(activated(int)),this,SLOT(ComboBoxChoiceChanged(int)));
 	connect(pushButton,SIGNAL(clicked(void)),this,SLOT(WidgetTest(void)));
-	connect(chartPosition,SIGNAL(valueChanged(int)),this,SLOT(movePosition(int))); 
+	connect(chartPosition,SIGNAL(valueChanged(int)),this,SLOT(movePosition(int)));
+	connect(sizeSlider,SIGNAL(sliderMoved(int)),this,SLOT(setSize(int)));
+	connect(injCombo, SIGNAL(activated( const QString & )), this,SLOT(loadInjection(const QString& ))) ;
 
 	HSlider->setMaximum(1000);
 	HSlider->setMinimum(-1000);
@@ -84,11 +147,16 @@
 	ComboBoxChoiceChanged(comboBox->currentIndex());
     }
 
-    void TestWidget::movePosition(int val) 
+    void TestWidget::movePosition(int val)
     {
-     // cout<<"Position:"<<val<<endl; 
-      chart->setPosition(val);     
+     // cout<<"Position:"<<val<<endl;
+      chart->setPosition(val);
     }
+    void TestWidget::setSize(int val)
+    {
+      chart->setSize(val);
+    }
+
     void TestWidget::ComboBoxChoiceChanged(int index)
     {
       int val=0;
@@ -141,6 +209,54 @@
     {
 
 
+    }
+
+  void TestWidget::loadInjection(const QString &  file )
+    {
+        char buffer[1024];
+	std::string f("wtr/");
+	 f+=file.toLocal8Bit().data() ;
+	fstream filein(f.data());
+        if (!filein.good())
+         {
+            cout<<"Nie udane otwarcie pliku:"<<f<<endl;
+            return;
+         }
+
+	for (int i=0;i<11;i++)
+        {
+           filein.getline(buffer,1023,'\n'); // pominiecie nag³ówka
+           //cout<<buffer<<endl;
+         }
+	double pos,vel,p1,p2,p3;
+	times.clear(); // vint
+	velocity.clear(); // vint
+ 	press1.clear(); // vint;
+        press2.clear();
+	press3.clear();
+	position.clear(); //lpair
+        int time = 0;
+        while (!filein.eof())
+        {
+          filein>>pos;
+          filein>>vel;
+          filein>>p1;
+          filein>>p2;
+          filein>>p3;
+
+          times.push_back(time);
+          position.push_back( pair<double,double>(time,pos));
+	  velocity.push_back(vel);
+	  press1.push_back(p1);
+	  press2.push_back(p2);
+	  press3.push_back(p3);
+
+
+          //filein>>buffer;
+         // cout<<time<<"  p:"<<pos<<" v:"<<vel<<" p1:"<<p1<<endl; //" "<<p2<<" "<<p3<<endl;
+	  ++time;
+        }
+        chart->update();
     }
 
     void TestWidget::closeEvent ( QCloseEvent * /* event */)

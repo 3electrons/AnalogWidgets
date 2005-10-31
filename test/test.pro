@@ -6,8 +6,8 @@
 CXXFLAGS     = -pg
 INCLUDEPATH += widgets
 UI_DIR = ui
-QMAKE_CXXFLAGS_RELEASE = -g3 -pg  
-QMAKE_LFLAGS_RELEASE = -pg 
+QMAKE_CXXFLAGS_RELEASE = -g3 -pg #-fprofile-arcs -ftest-coverage  
+QMAKE_LFLAGS_RELEASE = -pg #-fprofile-arcs -ftest-coverage  
 CONFIG += release \
           warn_on
 TEMPLATE = app
@@ -29,7 +29,9 @@ HEADERS += test.h \
 	widgets\standard\glassdecorator.h \
 	widgets\standard\labelsdecorator.h \
 	widgets\standard\legenddecorator.h \
-	widgets\standard\scalegriddecorator.h
+	widgets\standard\scalegriddecorator.h \
+	widgets\channeldata.h \
+	widgets\datacontainers.h 
 
 SOURCES += main.cpp \
            test.cpp \

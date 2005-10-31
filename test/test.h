@@ -7,7 +7,7 @@
 
     class ManoMeter;
     class ThermoMeter;
-    class Chart; 
+    class Chart;
 
 
     class TestWidget : public QMainWindow,  private Ui::TestForm
@@ -23,18 +23,22 @@
     	void ComboBoxChoiceChanged(int index );
         void SpinBoxValueChanged(int val);
 	void WidgetTest();
-	void movePosition(int val); 
-
+	void movePosition(int val);
+	void setSize(int val);
+	void loadInjection(const QString &  file );
 
     private:
 	/** Gdy zamykane jest okno */
 	void closeEvent ( QCloseEvent * e );
+        /** Wczytuje dane przyk³adowego wtrysku i pokazuje je na wykresie */
+
+
 	// Potencjometr
 	ManoMeter * bar;
 	// Termometr
 	ThermoMeter * thermo;
-	// Wykres 
- 	Chart * chart; 
+	// Wykres
+ 	Chart * chart;
     };
 
 
