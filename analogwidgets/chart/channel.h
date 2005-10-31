@@ -15,9 +15,7 @@ class Channel  {
 
 public:
    /** Iteratory wskazuj±ce na dane do odczytania */
-
   // Iterator * m_iterator_begin,m_iterator_end;
-
   /** Pióro jakim ma byæ malowany kana³ - czyli jego kolor, grubo¶æ i styl. */
    QPen m_pen;
   /** Nazwa daych np. Napiêcie */

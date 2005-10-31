@@ -29,8 +29,10 @@ public:
    void paint (QPainter & painter, Chart * chart);
 
 private:
+   /** Wyskalowywuje uk³ad rysowania do wieko¶ci danych w kanale */
    void translateToChannel (QPainter & painter, Chart * chart, Channel & channel);
-
+   /** Rysuje dane z kana³u */ 
+   void paintChannel(QPainter & painter,Chart * chart, Channel & channel); 
 
 
 };// class ChannelDecorator

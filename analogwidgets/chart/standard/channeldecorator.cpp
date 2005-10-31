@@ -17,40 +17,33 @@ using namespace Standard;
 
 void paintSin(QPainter & painter)
 {
-  double x,y,oldX,oldY;
+  double x,y;
   bool init = false;
+  QPainterPath path; 
   for (double i=0;i<=2002;i+=1)
   {
-
     x=i;
     y=sin(x/100) * 100 +65 ;
-
     if (init)
     {
      //cout<<"X:"<<x<<" Y:"<<y<<endl;
-     painter.drawLine(QPointF(x,y),QPointF(oldX,oldY));
+     //painter.drawLine(QPointF(x,y),QPointF(oldX,oldY));
+     path.lineTo(x,y); 
     // painter.translate(0,1);
     }
     else
     {
-
+       path.moveTo(x,y); 
        init = true;
     }
-    oldX=x;
-    oldY=y;
-
-
-
   }// for
-
-
-
-
+  //painter.setRenderHint(QPainter::Antialiasing); 
+    painter.drawPath(path);   
+  //painter.setRenderHint(QPainter::RenderHint(0x0)); 
 }
 
 void ChannelDecorator::paint (QPainter & painter, Chart * chart)
 {
-
  if (!chart->doRepaintBackground())
  {
    unsigned int rh = painter.renderHints();
@@ -66,7 +59,8 @@ void ChannelDecorator::paint (QPainter & painter, Chart * chart)
     painter.save();
     painter.setPen(i->m_pen);
     translateToChannel(painter,chart,*i);
-    paintSin(painter);
+    paintChannel(painter,chart,*i); 
+    //paintSin(painter);
     painter.restore();
   } // while
 
@@ -88,7 +82,29 @@ void ChannelDecorator::translateToChannel (QPainter & painter, Chart * chart, Ch
   // QMatrix m(1.0,0.0,0.0,1.0,-pos,0);
    painter.scale( window.width()/(xmax - xmin) ,  -window.height()/(ymax-ymin) );
    painter.translate(-pos,-ymax);
-
    //cout<<"Translate(x,y):"<<-pos<<","<<ymax<<endl;
+}
 
+void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel & channel)
+{
+  double x,y;
+  
+  double i=chart->scaleGrid().m_min; +  chart->scaleGrid().pos; 
+  double j=chart->scaleGrid().m_max  + chart->scaleGrid().pos; 
+  bool init = false;
+  QPainterPath path; 
+  for (;i<=j;i+=1)
+  {
+    x=i;
+    y=sin(x/100) * 100 +165 ;
+    if (init) path.lineTo(x,y); 
+    else
+    {
+       path.moveTo(x,y); 
+       init = true;
+    }
+  }// for
+  //painter.setRenderHint(QPainter::Antialiasing); 
+    painter.drawPath(path);   
+  //painter.setRenderHint(QPainter::RenderHint(0x0)); 	
 }

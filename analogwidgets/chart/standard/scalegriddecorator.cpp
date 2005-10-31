@@ -37,7 +37,7 @@ void ScalesGridDecorator::paint (QPainter & painter, Chart * chart)
 
      painter.setClipRect(yScaleWidth,0,chart->width()-yScaleWidth,yScaleHeight);
      painter.setViewport(yScaleWidth,0,chart->width()-yScaleWidth,yScaleHeight);
-  //   painter.setWindow(yScaleWidth,0,chart->width()-yScaleWidth,yScaleHeight);
+     //   painter.setWindow(yScaleWidth,0,chart->width()-yScaleWidth,yScaleHeight);
      //painter.setWindow(yScaleWidth,0,chart->width()-yScaleWidth,yScaleHeight);
   }
 
