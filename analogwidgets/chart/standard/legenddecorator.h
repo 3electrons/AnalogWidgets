@@ -29,8 +29,9 @@ public:
   void paint (QPainter & painter, Chart * chart);
 
 private:
-
-};
+  /** Rysuje ramkê z opisem  przebiegów zmiennych */
+  void paintLegendFrame(QPainter & painter, Chart * chart);
+};// class LegendDecorator
 } // chart
 } // Standard
 #endif //LEGENDDECORATOR_H

@@ -99,22 +99,25 @@
 	injCombo->addItems(dir.entryList());
 // Zainicjowanie danymi obiektu typu chart
 
-        Channel cisnienie2 (0,250,new DoubleDataContainer<vint,lint>(times,press2),
-			   "[bar] Ci¶nienie pod t³okiem",QPen(Qt::green));
-
-        Channel cisnienie3 (0,250,new DoubleDataContainer<vint,ldouble>(times,press3),
-			   "[bar] Ci¶nienie wyliczone",QPen(Qt::magenta));
-
-	Channel cisnienie (0,250,new DoubleDataContainer<vint,lint>(times,press1),
-			   "[bar] Ci¶nienie nad t³okiem",QPen(Qt::cyan));
-        Channel pozycja(0,100,new PairDataContainer<lpair>(position),
-			  "[mm] Pozycja",QPen(Qt::yellow));
 	QPen vPen;
 	vPen.setColor(Qt::red);
-   	//vPen.setWidthF(2.0);
-	//vPen.setStyle(Qt::DotLine);
+   	vPen.setWidthF(2.0);
+	vPen.setColor(Qt::green);
+        Channel cisnienie2 (0,350,new DoubleDataContainer<vint,lint>(times,press2),
+			   "[bar] Ci¶nienie pod t³okiem",vPen);
+	vPen.setColor(Qt::magenta);
+        Channel cisnienie3 (0,350,new DoubleDataContainer<vint,ldouble>(times,press3),
+			   "[bar] Ci¶nienie wyliczone",vPen);
+	vPen.setColor(Qt::cyan);
+	Channel cisnienie (0,350,new DoubleDataContainer<vint,lint>(times,press1),
+			   "[bar] Ci¶nienie nad t³okiem",vPen);
+	vPen.setColor(Qt::yellow);
+        Channel pozycja(0,230,new PairDataContainer<lpair>(position),
+			  "[mm] Pozycja",vPen);
+	//vPen.setStyle(Qt::DashDotLine);
+	vPen.setColor(Qt::red);
         Channel predkosc  (0,300, new DoubleDataContainer<vint,vint>(times,velocity),
-			  "[cm/s] Prêdko¶æ",QPen(Qt::red));
+			  "[cm/s] Prêdko¶æ",vPen) ;//QPen(Qt::red));
 
 
         cisnienie2.showScale = cisnienie3.showScale = false;
@@ -239,11 +242,10 @@
         while (!filein.eof())
         {
           filein>>pos;
-          filein>>vel;
+          filein>>p3;
           filein>>p1;
           filein>>p2;
-          filein>>p3;
-
+          filein>>vel;
           times.push_back(time);
           position.push_back( pair<double,double>(time,pos));
 	  velocity.push_back(vel);

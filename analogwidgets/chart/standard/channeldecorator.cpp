@@ -49,8 +49,17 @@ void ChannelDecorator::translateToChannel (QPainter & painter, Chart * chart, Ch
    ymax = channel.m_max;
 
    QRect window = painter.window();
-   painter.scale( window.width()/(xmax - xmin) ,  -window.height()/(ymax-ymin) );
-   painter.translate(-pos,-ymax);
+   xfactor = window.width()/(xmax - xmin );
+   yfactor = -window.height()/(ymax - ymin);
+   dx = -pos * xfactor;
+   dy = ymax * -yfactor;
+
+
+  // painter.scale( window.width()/(xmax - xmin) ,  -window.height()/(ymax-ymin) );
+  // painter.translate(-pos,-ymax);
+ //  painter.scale( xfactor,  yfactor );
+  // painter.translate(dx,dy);
+
 }
 
 void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel & channel)
@@ -64,7 +73,7 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel &
       {
         QPolygonF line;
         while( channel.m_data->next(x,y) && x <= j  )
-          line.append(QPointF(x,y));
+          line.append(QPointF(x*xfactor+dx,y*yfactor+dy));
 	  // @TODO - tak by nie dodawal danych sprzed okienka podgl±du
         painter.drawPolyline(line);
       }

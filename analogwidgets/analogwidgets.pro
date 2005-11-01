@@ -21,7 +21,9 @@
 		chart\standard\glassdecorator.h \
 		chart\standard\labelsdecorator.h \
 		chart\standard\legenddecorator.h \
-		chart\standard\scalegriddecorator.h \ 
+		chart\standard\scalegriddecorator.h \
+		chart\channeldata.h \
+		chart\datacontainers.h \ 
 		analogwidgets_plugin.h \
 		defines.h \
 		functions.h 

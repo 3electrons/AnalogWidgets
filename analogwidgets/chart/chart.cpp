@@ -61,7 +61,7 @@ void Chart::setPaintOver()
 	{
           m_isPaintOver = true;
           timer->stop();
-	  cout<<"Uaktualniam"<<endl;
+	  //cout<<"Uaktualniam"<<endl;
           update();
           // By malowalo normalnie wygladzone no chyba ze malujemy z duza czestoliwoscia ...
           m_isPaintOver = true; // kiedy ma byc malowane w antialiasingu jak czesto sie da ...
