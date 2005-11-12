@@ -67,18 +67,38 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel &
   double x,y;
 
 //  double i=chart->scaleGrid().m_min; +  chart->scaleGrid().pos;
+  double i = chart->scaleGrid().pos;
   double j=chart->scaleGrid().m_max  + chart->scaleGrid().pos;
+  double current_x = 0 ,old_x,current_y,old_y,old_X;
+  bool init = false,add = false;
+  int width =  painter.window().width();
+
   if (channel.m_data)
    if (channel.m_data->init())
       {
         QPolygonF line;
-        while( channel.m_data->next(x,y) && x <= j  )
-          line.append(QPointF(x*xfactor+dx,y*yfactor+dy));
-	  // @TODO - tak by nie dodawal danych sprzed okienka podgl±du
+
+        while( channel.m_data->next(x,y) && current_x <= width    )
+        {
+           current_x = x*xfactor+dx;
+           current_y = y*yfactor+dy;
+
+           if (old_x <= 0 && 0 <=current_x) add = true;
+
+           if ( !init || ( add && ( abs(old_x-current_x)>=1.0 || abs(old_y-current_y)>=1.0 )) )
+                 line.append(QPointF(current_x,current_y));
+
+           old_x = current_x;
+           old_y = current_y;
+           init = true;
+        }
+       // cout<<"Dodalem:"<<line.size()<<endl;
+
         painter.drawPolyline(line);
       }
     else
      cout<<"Channel:"<<channel.m_name.toLocal8Bit().constData()<<" has no data"<<endl;
+
 
   //painter.setRenderHint(QPainter::RenderHint(0x0));
 }
