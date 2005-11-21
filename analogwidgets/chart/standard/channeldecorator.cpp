@@ -61,7 +61,7 @@ void ChannelDecorator::translateToChannel (QPainter & painter, Chart * chart, Ch
   // painter.translate(dx,dy);
 
 }
-
+#include <QPainterPath>
 void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel & channel)
 {
   double x,y;
@@ -76,8 +76,8 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel &
   if (channel.m_data)
    if (channel.m_data->init())
       {
-        QPolygonF line;
-
+       // QPolygonF line;
+        QPainterPath path;
         while( channel.m_data->next(x,y) && current_x <= width    )
         {
            current_x = x*xfactor+dx;
@@ -86,7 +86,12 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel &
            if (old_x <= 0 && 0 <=current_x) add = true;
 
            if ( !init || ( add && ( abs(old_x-current_x)>=1.0 || abs(old_y-current_y)>=1.0 )) )
-                 line.append(QPointF(current_x,current_y));
+              {
+                   //line.append(QPointF(current_x,current_y));
+                if (!init) path.moveTo(current_x,current_y);
+                else path.lineTo(current_x,current_y);
+
+              }
 
            old_x = current_x;
            old_y = current_y;
@@ -94,7 +99,7 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel &
         }
        // cout<<"Dodalem:"<<line.size()<<endl;
 
-        painter.drawPolyline(line);
+       // painter.drawPolyline(line);
       }
     else
      cout<<"Channel:"<<channel.m_name.toLocal8Bit().constData()<<" has no data"<<endl;
