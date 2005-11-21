@@ -98,7 +98,7 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel &
            init = true;
         }
        // cout<<"Dodalem:"<<line.size()<<endl;
-
+       painter.drawPath(path); 
        // painter.drawPolyline(line);
       }
     else
