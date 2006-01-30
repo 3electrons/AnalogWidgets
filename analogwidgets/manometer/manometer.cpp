@@ -1,6 +1,7 @@
 #include <QtGui>
 #include <math.h>
 #include <assert.h>
+
 #include "manometer.h"
 #define PI 3.141592653589793238512808959406186204433
 
@@ -121,18 +122,20 @@ void ManoMeter::paintBackground(QPainter & painter)
 	painter.restore();
 
         // Rysowanie skali liczby .
-	if (digitOffset())
+
+	if (true || digitOffset())
         {
+          painter.setPen(Qt::black);
           painter.rotate(-60.0);
 	  painter.setFont(digitFont());
 	  for (int i=0;i<9;i++)
 	  {
 	    QString val = QString("%1").arg(m_min + i*(m_max - m_min)/8.0 );
-	    QSize Size = painter.fontMetrics().size(Qt::TextSingleLine, val);
+            QSize Size = painter.fontMetrics().size(Qt::TextSingleLine, val);
             painter.save();
 	    painter.translate( digitOffset() * cos((5+i)*PI/6.0), digitOffset() * sin((5+i)*PI/6.0));
 	    painter.drawText( QPointF( Size.width()/ -2.0,  Size.height() / 4.0), val);
-	    painter.restore();
+            painter.restore();
 	  }
 	}
 

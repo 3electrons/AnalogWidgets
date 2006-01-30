@@ -19,6 +19,7 @@ typedef  vector<Channel> Channels;
     class Chart : public QMyWidgetWithBackground
     {
       Q_OBJECT
+
       Q_PROPERTY (unsigned int channel      	READ channel      WRITE setChannel   )
       Q_PROPERTY (double position 		READ position     WRITE setPosition  )
       Q_PROPERTY (double size     		READ size         WRITE setSize      )
@@ -39,11 +40,11 @@ typedef  vector<Channel> Channels;
       Q_PROPERTY (bool   showGrid	        READ showGrid  WRITE setShowGrid   )
       Q_PROPERTY (bool   showScale   		READ showScale WRITE setShowScale  )
 
-/*
+
       Q_PROPERTY (unsigned int xMesh        READ xMesh        WRITE setYMesh         )
       Q_PROPERTY (unsigned int yMesh        READ yMesh        WRITE setXMesh         )
       Q_PROPERTY (QFont font                READ font         WRITE setFont          )
-      */
+
 
       public:
     	Chart(QWidget *parent = 0);

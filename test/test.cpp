@@ -86,6 +86,7 @@
 	QLayout * layout3 = new QVBoxLayout();
 	layout3->addWidget(chart_lab);
 	layout3->addWidget(chart);
+        layout3->addWidget(new Chart());
 	layout3->addWidget(chartPosition);
 	layout3->addWidget(sizeSlider);
 	layout3->addWidget(injCombo);

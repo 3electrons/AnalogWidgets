@@ -17,15 +17,18 @@ using namespace std;
 Chart::Chart(QWidget *parent)
 	: QMyWidgetWithBackground(parent)
 {
+   cout<<"Konstruktor"<<endl;
   // QWidget
    setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
    setWindowTitle(tr("Chart diagram"));
    m_channel=0;
    timer = new QTimer(this);
    timer->setInterval(1000);
-   m_isPaintOver = true;
+   setShowScale(false);
+   m_isPaintOver = false;
    connect(timer,SIGNAL(timeout()),this,SLOT(setPaintOver()));
    InitDecorators();
+
 }
 
 Chart::~Chart()
@@ -46,7 +49,8 @@ void Chart::addChannel(Channel & channel)
 
 void Chart::InitDecorators()
 {
-	m_painterDecorator.reset
+       cout<<"InitDecorators"<<endl;
+       m_painterDecorator.reset
 	(
            new Standard::ScalesGridDecorator
           (
@@ -54,23 +58,24 @@ void Chart::InitDecorators()
 		( new Standard::LegendDecorator(NULL) ) // new Standard::GlassDecorator(NULL)
           )
         );
-
 }
 
 void Chart::setPaintOver()
 	{
-          m_isPaintOver = true;
+          *m_isPaintOver = true;
           timer->stop();
 	  //cout<<"Uaktualniam"<<endl;
           update();
           // By malowalo normalnie wygladzone no chyba ze malujemy z duza czestoliwoscia ...
           m_isPaintOver = true; // kiedy ma byc malowane w antialiasingu jak czesto sie da ...
+
 	}
 void Chart::paintEvent(QPaintEvent * /*event */)
 {
+   //cout<<"paintEvent"<<endl;
    drawBackground();
    QPainter painter(this);
-   initCoordinateSystem(painter);
+   //initCoordinateSystem(painter);
    if (m_painterDecorator.get()) m_painterDecorator->paint(painter,this);
    if (!m_isPaintOver) timer->start();
    m_isPaintOver = false;
@@ -79,13 +84,15 @@ void Chart::paintEvent(QPaintEvent * /*event */)
 
 void Chart::paintBackground(QPainter & painter)
 {
-   initCoordinateSystem(painter);
+
+   //initCoordinateSystem(painter);
    if (m_painterDecorator.get()) m_painterDecorator->paint(painter,this);
 }
 
 void Chart::initCoordinateSystem(QPainter & /*painter*/)
 {
    	;
+
 }
 
 //

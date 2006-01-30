@@ -1,10 +1,12 @@
-    #include "chart.h" 
-    #include "chart_plugin.h"     
-    #include "../defines.h"  
+    #include "chart.h"
+    #include "chart_plugin.h"
+    #include "../defines.h"
+    #include <iostream>
+    using namespace std;
     /*------------------------------------------------------------------------------------------------
-     *			     			CHART  
+     *			     			CHART
      *------------------------------------------------------------------------------------------------*/
-    
+
     ChartPlugin::ChartPlugin(QObject *parent)
         : QObject(parent)
     {
@@ -24,18 +26,21 @@
         return initialized;
     }
 
-    QWidget *ChartPlugin::createWidget(QWidget *parent)
+    QWidget * ChartPlugin::createWidget(QWidget *parent)
     {
-        return new Chart(parent);
+      cout<<"New Komponent"<<endl;
+      return new Chart(parent);
     }
 
     QString ChartPlugin::name() const
     {
+        cout<<"name()"<<endl;
         return QLatin1String("Chart");
     }
 
     QString ChartPlugin::group() const
     {
+        cout<<"group()"<<endl;
         return QLatin1String("Analog Widgets");
     }
 
@@ -56,12 +61,14 @@
 
     bool ChartPlugin::isContainer() const
     {
-        return false;
+       cout<<"isContainer()"<<endl;
+       return false;
     }
 
     QString ChartPlugin::domXml() const
     {
-        return QLatin1String("<widget class=\"Chart\" name=\"Chart\">\n"
+        cout<<"domXml()"<<endl;
+	 return QLatin1String("<widget class=\"Chart\" name=\"Chart\">\n"
                              " <property name=\"geometry\">\n"
                              "  <rect>\n"
                              "   <x>0</x>\n"
@@ -82,14 +89,16 @@
 
     QString ChartPlugin::includeFile() const
     {
-        return QLatin1String("chart.h");
+       cout<<"includeFile()"<<endl;
+       return QLatin1String("chart.h");
     }
 
     QString ChartPlugin::codeTemplate() const
     {
+        cout<<"codeTemplate()"<<endl;
         return QString();
     }
 
-#ifdef SINGLEPLUGINS     
+#ifdef SINGLEPLUGINS
     Q_EXPORT_PLUGIN(ChartPlugin)
-#endif 
+#endif
