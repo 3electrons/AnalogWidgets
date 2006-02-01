@@ -6,6 +6,7 @@
 LINK = g++ 
 CXXFLAGS = -g3 
 INCLUDEPATH += ../analogwidgets \
+               ../analogwidgets/chart \
                ../analogwidgets/common 
 MOC_DIR = ../output 
 UI_DIR = . 
