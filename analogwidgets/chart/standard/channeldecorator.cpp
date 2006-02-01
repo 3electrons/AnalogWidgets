@@ -3,10 +3,11 @@
 **************************************************************************/
 
 #include <QtGui>
+#include <QPainterPath>
 #include "chart.h"
 #include "channeldecorator.h"
 #include <cmath>
-#include <iostream>
+#include <iostream> 
 
 using namespace std;
 
@@ -19,6 +20,7 @@ void ChannelDecorator::paint (QPainter & painter, Chart * chart)
 {
  if (!chart->doRepaintBackground())
  {
+   painter.save(); 
    unsigned int rh = painter.renderHints();
    if (chart->isPaintOver())  painter.setRenderHint(QPainter::Antialiasing); // w³aczenie antialiasingu
 
@@ -35,6 +37,7 @@ void ChannelDecorator::paint (QPainter & painter, Chart * chart)
    } // while
 
    painter.setRenderHint(QPainter::RenderHint(rh)); // wylaczenie antialiasingu
+   painter.restore(); 
  }// if not doRepaintBackground
   ChartDecorator::paint(painter,chart); // uruchomienie nastêpnego dekoratora
 }
@@ -61,7 +64,12 @@ void ChannelDecorator::translateToChannel (QPainter & painter, Chart * chart, Ch
   // painter.translate(dx,dy);
 
 }
-#include <QPainterPath>
+
+bool anyVector (int x1,int x2) 
+{
+  return abs(x1-x2)>0; 
+}
+
 void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel & channel)
 {
   double x,y;
@@ -69,10 +77,10 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel &
 //  double i=chart->scaleGrid().m_min; +  chart->scaleGrid().pos;
   double i = chart->scaleGrid().pos;
   double j=chart->scaleGrid().m_max  + chart->scaleGrid().pos;
-  double current_x = 0 ,old_x,current_y,old_y,old_X;
+  double current_x = 0 ,old_x=-1.0,current_y,old_y,old_X;
   bool init = false,add = false;
   int width =  painter.window().width();
-
+  int count = 0; 
   if (channel.m_data)
    if (channel.m_data->init())
       {
@@ -81,22 +89,28 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel &
         {
            current_x = x*xfactor+dx;
            current_y = y*yfactor+dy;
+	  
+           if ( old_x <= 0 && 0 <=current_x) add = true; // jest w oknie 
+           // jest pierwszy lub wnosi jaki¶ wektor przesuniêcia 
+           
+           if ( !init || ( add && ( anyVector(old_x,current_x) || anyVector(old_y,current_y) )))
+           { line.append(QPointF(current_x,current_y)); count++; } 
 
-           if (old_x <= 0 && 0 <=current_x) add = true;
-
-           if ( !init || ( add && ( abs(old_x-current_x)>=1.0 || abs(old_y-current_y)>=1.0 )) )
+/*           
+           if ( !init || ( add && ( abs(old_x-current_x)>=1.0 ) || (abs(old_y-current_y)>=1.0) ))
                           line.append(QPointF(current_x,current_y));
-
+*/
            old_x = current_x;
            old_y = current_y;
            init = true;
+           
+           //line.append(QPointF(current_x,current_y));
         }
        // cout<<"Dodalem:"<<line.size()<<endl;
        painter.drawPolyline(line);
       }
     else
      cout<<"Channel:"<<channel.m_name.toLocal8Bit().constData()<<" has no data"<<endl;
-
-
+   
   //painter.setRenderHint(QPainter::RenderHint(0x0));
 }

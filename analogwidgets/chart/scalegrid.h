@@ -14,8 +14,8 @@ class ScaleGrid {
 
 public:
    /** Zastosowany font skali */
-   QFont m_font;
-   QColor m_fontColor;
+   //QFont m_font;
+   //QColor m_fontColor;
    /** Rodzaj u¿ytego pióra do rysowania skali siatki oraz kolor */
    QPen m_pen;
 
@@ -32,7 +32,7 @@ public:
    double pos;
   /** Maksymalna warto¶æ na skali*/
    double size;
-
+ 
 	   /** minimalna wy¶wietlana warto¶æ na skali */
    	   	double m_min;
 	   /** Maksymalna wy¶wietlana warto¶æ na skali */

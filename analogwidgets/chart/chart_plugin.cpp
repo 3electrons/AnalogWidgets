@@ -1,8 +1,7 @@
     #include "chart.h"
     #include "chart_plugin.h"
     #include "../defines.h"
-    #include <iostream>
-    using namespace std;
+ 
     /*------------------------------------------------------------------------------------------------
      *			     			CHART
      *------------------------------------------------------------------------------------------------*/
@@ -28,19 +27,16 @@
 
     QWidget * ChartPlugin::createWidget(QWidget *parent)
     {
-      cout<<"New Komponent"<<endl;
-      return new Chart(parent);
+          return new Chart(parent);
     }
 
     QString ChartPlugin::name() const
     {
-        cout<<"name()"<<endl;
-        return QLatin1String("Chart");
+            return QLatin1String("Chart");
     }
 
     QString ChartPlugin::group() const
     {
-        cout<<"group()"<<endl;
         return QLatin1String("Analog Widgets");
     }
 
@@ -61,14 +57,12 @@
 
     bool ChartPlugin::isContainer() const
     {
-       cout<<"isContainer()"<<endl;
-       return false;
+         return false;
     }
 
     QString ChartPlugin::domXml() const
     {
-        cout<<"domXml()"<<endl;
-	 return QLatin1String("<widget class=\"Chart\" name=\"Chart\">\n"
+     	 return QLatin1String("<widget class=\"Chart\" name=\"Chart\">\n"
                              " <property name=\"geometry\">\n"
                              "  <rect>\n"
                              "   <x>0</x>\n"
@@ -89,13 +83,11 @@
 
     QString ChartPlugin::includeFile() const
     {
-       cout<<"includeFile()"<<endl;
        return QLatin1String("chart.h");
     }
 
     QString ChartPlugin::codeTemplate() const
     {
-        cout<<"codeTemplate()"<<endl;
         return QString();
     }
 

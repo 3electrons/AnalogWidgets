@@ -38,7 +38,7 @@ void LegendDecorator::paintLegendFrame(QPainter & painter, Chart * chart)
     int width=0,height=0;
     QSize size;
     // Wyliczenie rozmiarów maksymalnych ramki
-    painter.setFont(chart->scaleGrid().m_font);
+    painter.setFont(chart->font());
     while (i--!=channels.begin())
     {
       size = painter.fontMetrics().size(Qt::TextSingleLine, i->m_name);
@@ -59,7 +59,7 @@ void LegendDecorator::paintLegendFrame(QPainter & painter, Chart * chart)
     int x = width + 2*XOFFSET + RIGHTOFFSET;
     int y =  TOPOFFSET;
     // Namalowanie ramki z t³em
-    painter.drawRoundRect(chart->width() - x, y, width+XOFFSET*2,height+YOFFSET*2,9,18);
+    painter.drawRoundRect(chart->width() - x, y, width+XOFFSET*2,height+YOFFSET,9,18);
 
     // Malowanie napisów z opisami
     i = channels.end();

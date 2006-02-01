@@ -1,6 +1,6 @@
 #include <QtGui>
 #include <cmath>
-#include <iostream>
+
 
 #include "chart.h"
 #include "standard/scalegriddecorator.h"
@@ -9,7 +9,7 @@
 #include "standard/legenddecorator.h"
 
 
-using namespace std;
+
 
 //
 //      public
@@ -17,17 +17,18 @@ using namespace std;
 Chart::Chart(QWidget *parent)
 	: QMyWidgetWithBackground(parent)
 {
-   cout<<"Konstruktor"<<endl;
-  // QWidget
    setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
    setWindowTitle(tr("Chart diagram"));
    m_channel=0;
    timer = new QTimer(this);
    timer->setInterval(1000);
-   setShowScale(false);
    m_isPaintOver = false;
    connect(timer,SIGNAL(timeout()),this,SLOT(setPaintOver()));
    InitDecorators();
+  // setChannel(1); 
+   m_showLegend = true;
+   m_zoom = 1.0; 
+   m_xsize = m_scalegrid.size=1000.0; 
 
 }
 
@@ -49,7 +50,6 @@ void Chart::addChannel(Channel & channel)
 
 void Chart::InitDecorators()
 {
-       cout<<"InitDecorators"<<endl;
        m_painterDecorator.reset
 	(
            new Standard::ScalesGridDecorator
@@ -62,7 +62,7 @@ void Chart::InitDecorators()
 
 void Chart::setPaintOver()
 	{
-          *m_isPaintOver = true;
+          m_isPaintOver = true;
           timer->stop();
 	  //cout<<"Uaktualniam"<<endl;
           update();
@@ -95,40 +95,253 @@ void Chart::initCoordinateSystem(QPainter & /*painter*/)
 
 }
 
-//
-//	 Setters and getters
-//
-void Chart::setChannel(unsigned int i)
+//***************************
+//	Public Properties 
+//***************************
+
+// position 
+int Chart::position()          const 	
+{ 
+  return static_cast<int>( m_scalegrid.pos );   
+}
+
+void Chart::setPosition(double i)
+{
+	m_scalegrid.pos=i; 
+        update();
+}
+
+void Chart::setPosition(int i)
+{
+   setPosition((double)i); 
+}
+
+// size 
+double Chart::size()           const	
+{
+  return m_xsize; 
+}
+
+void Chart::setSize(double i)
+{
+      	if (i>0.00001)
+      	{
+      	 m_xsize = i; 
+      	 m_scalegrid.size=m_xsize*m_zoom;
+	 update();
+	}
+}
+
+
+// ***** channelMinimum 
+double Chart::channelMinimum() const   
+{ 
+  if (m_channels.size())
+   return m_channels[m_channel].min;
+  return 0.0; 
+}
+
+void Chart::setChannelMinimum(double i) 
+{ 
+  if (m_channels.size())
+  if (m_channels[m_channel].max > i) 
+  {
+    
+    m_channels[m_channel].min = i; 
+    updateWithBackground(); 
+  }
+}
+
+// ****** channelMaximum 
+double Chart::channelMaximum() const   
+{ 
+  if (m_channels.size())
+   return m_channels[m_channel].max;
+  return 0.0; 
+}
+      	
+void Chart::setChannelMaximum(double i) 
+{
+  if (m_channels.size())
+  if (m_channels[m_channel].min < i) 
+  {
+    m_channels[m_channel].max = i; 
+    updateWithBackground(); 
+  }
+}
+
+// ***** channel 
+int Chart::channel()  const   
+{ 
+  return m_channel; 
+}
+
+void Chart::setChannel( int i)
 {
 	m_channel = i;
-        if (m_channel > m_channels.size())
+        if (m_channel >= m_channels.size())
         {
           m_channels.push_back(Channel());
           updateWithBackground();
         }
 }
 
-void Chart::setSize(double i)
+ 
+
+// channelColor
+QColor Chart::channelColor()      const
 {
-      	m_scalegrid.size=i;
-	update();
+  QColor C(255,255,255); 
+  if (m_channels.size())
+  C = m_channels[m_channel].m_pen.color();
+ 
+  return C;
 }
 
-//
-//  	public slots
-//
-void Chart::setPosition(double i)
+void Chart::setChannelColor( QColor i )
 {
-	m_scalegrid.pos=i;
-        update();
+  if (m_channels.size())
+   {
+     m_channels[m_channel].m_pen.setColor(i);
+     updateWithBackground(); 
+   }
+   
 }
 
-void Chart::zoom(double factor)
-{
-  if (fabs(factor)>0.001)
+// ****** yMesh 
+int Chart::yMesh()    const   { return m_scalegrid.m_yMesh;}
+
+void Chart::setYMesh   ( int i) 
+{  
+  if (i>0)
   {
-    m_scalegrid.size *= factor;
+    m_scalegrid.m_yMesh = i;
+    updateWithBackground(); 
+  }
+}
+
+// ****** x Mesh 
+int Chart::xMesh()    const   { return m_scalegrid.m_xMesh;}
+
+void Chart::setXMesh   ( int i) 
+{ 
+  if (i>0)
+  {
+    m_scalegrid.m_xMesh = i; 
+    updateWithBackground(); 
+  }
+}
+
+// ****** ySubMesh 
+ int Chart::ySubMesh() const   { return m_scalegrid.m_ySubMesh;}
+
+void Chart::setYSubMesh( int i) 
+{
+   if (i>=0)
+   {
+     m_scalegrid.m_ySubMesh = i;
+     updateWithBackground(); 
+   }
+}
+// ****** xSubMesh 
+int Chart::xSubMesh() const   { return m_scalegrid.m_xSubMesh;}
+
+void Chart::setXSubMesh( int i) 
+{ 
+  if (i>=0)
+  {
+    m_scalegrid.m_xSubMesh = i; 
+    updateWithBackground(); 
+  }
+}
+
+// ***** channelShowScale 
+bool Chart::channelShowScale() const	
+{ 
+ if (m_channels.size())
+  return m_channels[m_channel].showScale; 
+  return false; 
+}
+
+void Chart::setChannelShowScale(bool i) 
+{
+   if (m_channels.size())
+   { 
+     m_channels[m_channel].showScale = i;
+     updateWithBackground(); 
+   }
+}
+
+// ***** channelName 
+QString Chart::channelName () const
+{
+  QString name; 
+  if (m_channels.size())
+    name = m_channels[m_channel].m_name ; 
+  return name ;
+}
+
+void Chart::setChannelName (QString i) 
+{
+  if (m_channels.size())
+  {
+    m_channels[m_channel].m_name = i; 
+    update(); 
+  }
+}
+// ***** showScale 
+bool Chart::showScale()        const	{ return m_scalegrid.showScale;}
+
+void Chart::setShowScale(bool i) 
+{
+   m_scalegrid.showScale = i; 
+   updateWithBackground(); 
+}
+
+// ****** showLegend 
+bool Chart::showLegend()       const    { return m_showLegend; } 
+
+void Chart::setShowLegend(bool i)
+{
+  m_showLegend = i;
+  updateWithBackground(); 
+}
+
+// ****** showGrid 
+bool Chart::showGrid()         const	{ return m_scalegrid.showGrid; }
+
+void Chart::setShowGrid(bool i) 
+{ 
+  m_scalegrid.showGrid = i;
+  updateWithBackground();  
+}
+
+// ***** zoom 
+double Chart::zoom()	       const
+{
+  return m_zoom; 
+}
+
+void Chart::setZoom(double factor)
+{
+  if (fabs(factor)>0.01)
+  {
+    m_zoom = factor;
+    m_scalegrid.size = m_xsize*m_zoom; 
     update();
   }
 }
+
+// Zas³ania setFont QWidget by mo¿na by³o od¶wie¿yæ ca³y komponent 
+void Chart::setFont(QFont i) 
+{ 
+   QWidget::setFont(i);
+   updateWithBackground(); 
+}
+
+// Ustawia koniec malowania i nastêpuje malownie z antialiasingiem 
+bool Chart::isPaintOver()      const    { return m_isPaintOver; }
+
+
+
 

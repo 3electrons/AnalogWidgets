@@ -22,6 +22,7 @@
 */
 #include <assert.h>
 #include <cmath>
+
 using namespace std;
 
 template <typename T>
@@ -30,9 +31,8 @@ bool range(T m_minimum,T m_maximum, T & m_min, T & m_max,unsigned int steps, boo
   T max_tmp = m_max, min_tmp = m_min;
   m_max=m_maximum;
   m_min=m_minimum;
-
   assert( m_max > m_min );
-  assert( m_max - m_min >! 0 );
+//  assert( (m_max - m_min) > 0 );
 
   T diff = abs(m_max - m_min);
   T scale = 0, factor = 0 ;
