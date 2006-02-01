@@ -1,1 +1,0 @@
-../../analogwidgets/thermometer/thermometer.cpp

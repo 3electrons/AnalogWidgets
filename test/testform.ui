@@ -28,14 +28,6 @@
       <property name="orientation" >
        <enum>Qt::Horizontal</enum>
       </property>
-      <layout class="QHBoxLayout" >
-       <property name="margin" >
-        <number>8</number>
-       </property>
-       <property name="spacing" >
-        <number>6</number>
-       </property>
-      </layout>
       <widget class="QListWidget" name="listWidget" >
        <property name="sizePolicy" >
         <sizepolicy>
@@ -152,30 +144,6 @@
              <string>Tutaj będzie wykres</string>
             </property>
            </widget>
-           <widget class="QScrollBar" name="chartPosition" >
-            <property name="geometry" >
-             <rect>
-              <x>120</x>
-              <y>330</y>
-              <width>160</width>
-              <height>16</height>
-             </rect>
-            </property>
-            <property name="sizePolicy" >
-             <sizepolicy>
-              <hsizetype>7</hsizetype>
-              <vsizetype>1</vsizetype>
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="maximum" >
-             <number>5000</number>
-            </property>
-            <property name="orientation" >
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
            <widget class="QComboBox" name="injCombo" >
             <property name="geometry" >
              <rect>
@@ -211,6 +179,64 @@
             </property>
             <property name="orientation" >
              <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+           <widget class="QScrollBar" name="chartPosition" >
+            <property name="geometry" >
+             <rect>
+              <x>120</x>
+              <y>330</y>
+              <width>160</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="sizePolicy" >
+             <sizepolicy>
+              <hsizetype>7</hsizetype>
+              <vsizetype>1</vsizetype>
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximum" >
+             <number>5000</number>
+            </property>
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+           <widget class="QDoubleSpinBox" name="zoomBox" >
+            <property name="geometry" >
+             <rect>
+              <x>290</x>
+              <y>330</y>
+              <width>100</width>
+              <height>23</height>
+             </rect>
+            </property>
+            <property name="minimumSize" >
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize" >
+             <size>
+              <width>100</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="prefix" >
+             <string>zoom </string>
+            </property>
+            <property name="minimum" >
+             <double>0.01</double>
+            </property>
+            <property name="singleStep" >
+             <double>0.01</double>
+            </property>
+            <property name="value" >
+             <double>1</double>
             </property>
            </widget>
           </widget>

@@ -1,5 +1,5 @@
 #include "widgettester.h"
-#include "widgets/qmyabstractmeter.h"
+#include "common/qmyabstractmeter.h"
 
 
 	WidgetTester::WidgetTester(QObject * parent,QMyAbstractMeter * meter):QObject(parent)

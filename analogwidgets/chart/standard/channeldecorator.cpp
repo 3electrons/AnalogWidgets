@@ -20,7 +20,7 @@ void ChannelDecorator::paint (QPainter & painter, Chart * chart)
 {
  if (!chart->doRepaintBackground())
  {
-   painter.save(); 
+   //painter.save(); 
    unsigned int rh = painter.renderHints();
    if (chart->isPaintOver())  painter.setRenderHint(QPainter::Antialiasing); // w³aczenie antialiasingu
 
@@ -37,8 +37,9 @@ void ChannelDecorator::paint (QPainter & painter, Chart * chart)
    } // while
 
    painter.setRenderHint(QPainter::RenderHint(rh)); // wylaczenie antialiasingu
-   painter.restore(); 
+    
  }// if not doRepaintBackground
+  painter.restore();
   ChartDecorator::paint(painter,chart); // uruchomienie nastêpnego dekoratora
 }
 

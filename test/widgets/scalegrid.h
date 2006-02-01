@@ -1,1 +1,0 @@
-../../analogwidgets/chart/scalegrid.h

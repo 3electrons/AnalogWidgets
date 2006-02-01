@@ -1,55 +1,55 @@
 # Plik utworzony przez menad?era projektów kdevelopa
-# -------------------------------------------
-# Podkatalog wzgl?dem g?ównego katalogu projektu: .
-# Cel to program:
+# ------------------------------------------- 
+# Podkatalog wzgl?dem g?ównego katalogu projektu: ./test
+# Cel to program:  
 
-CXXFLAGS     = -pg
-INCLUDEPATH += widgets
-UI_DIR = ui
-QMAKE_CXXFLAGS_RELEASE = -g3 -pg #-fprofile-arcs -ftest-coverage  
-QMAKE_LFLAGS_RELEASE = -pg #-fprofile-arcs -ftest-coverage  
+LINK = g++ 
+CXXFLAGS = -g3 
+INCLUDEPATH += ../analogwidgets \
+               ../analogwidgets/common 
+MOC_DIR = ../output 
+UI_DIR = . 
+OBJECTS_DIR = ../output 
+QMAKE_LFLAGS_RELEASE = -pg \
+                       -ftest-coverage 
 CONFIG += release \
-          warn_on
-TEMPLATE = app
-LINK     = g++ -pg 
-FORMS += testform.ui
+          warn_on 
+TEMPLATE = app 
+FORMS += testform.ui 
 HEADERS += test.h \
            widgettester.h \
-	   ui_testform.h \
-	   widgets\functions.h \
-           widgets\qmywidgetwithbackground.h \
-	   widgets\qmyabstractmeter.h \
-           widgets\wallclock.h \
-           widgets\manometer.h \
-	   widgets\thermometer.h \
-	   widgets\chart.h \
-	   widgets\channel.h \
-	   widgets\scalegrid.h \
-	widgets\standard\channeldecorator.h \
-	widgets\standard\glassdecorator.h \
-	widgets\standard\labelsdecorator.h \
-	widgets\standard\legenddecorator.h \
-	widgets\standard\scalegriddecorator.h \
-	widgets\channeldata.h \
-	widgets\datacontainers.h 
-
+           ui_testform.h \
+           ..\analogwidgets\functions.h \
+           ..\analogwidgets\common\qmywidgetwithbackground.h \
+           ..\analogwidgets\common\qmyabstractmeter.h \
+           ..\analogwidgets\wallclock\wallclock.h \
+           ..\analogwidgets\manometer\manometer.h \
+           ..\analogwidgets\thermometer\thermometer.h \
+           ..\analogwidgets\chart\channel.h \
+           ..\analogwidgets\chart\chartdecorator.h \
+           ..\analogwidgets\chart\chart.h \
+           ..\analogwidgets\chart\scalegrid.h \
+           ..\analogwidgets\chart\standard\channeldecorator.h \
+           ..\analogwidgets\chart\standard\glassdecorator.h \
+           ..\analogwidgets\chart\standard\labelsdecorator.h \
+           ..\analogwidgets\chart\standard\legenddecorator.h \
+           ..\analogwidgets\chart\standard\scalegriddecorator.h \
+           ..\analogwidgets\chart\channeldata.h \
+           ..\analogwidgets\chart\datacontainers.h 
 SOURCES += main.cpp \
            test.cpp \
-	   widgettester.cpp \
-           widgets\qmywidgetwithbackground.cpp \
-	   widgets\qmyabstractmeter.cpp \
-           widgets\wallclock.cpp \
-           widgets\manometer.cpp \
-	   widgets\thermometer.cpp \
-	   widgets\chart.cpp \
-	   widgets\channel.cpp \
-	   widgets\scalegrid.cpp \
-	widgets\standard\channeldecorator.cpp \
-	widgets\standard\glassdecorator.cpp \
-	widgets\standard\labelsdecorator.cpp \
-	widgets\standard\legenddecorator.cpp \
-	widgets\standard\scalegriddecorator.cpp
-
+           widgettester.cpp \
+           ..\analogwidgets\common\qmywidgetwithbackground.cpp \
+           ..\analogwidgets\common\qmyabstractmeter.cpp \
+           ..\analogwidgets\wallclock\wallclock.cpp \
+           ..\analogwidgets\manometer\manometer.cpp \
+           ..\analogwidgets\thermometer\thermometer.cpp \
+           ..\analogwidgets\chart\channel.cpp \
+           ..\analogwidgets\chart\chart.cpp \
+           ..\analogwidgets\chart\scalegrid.cpp \
+           ..\analogwidgets\chart\standard\channeldecorator.cpp \
+           ..\analogwidgets\chart\standard\glassdecorator.cpp \
+           ..\analogwidgets\chart\standard\labelsdecorator.cpp \
+           ..\analogwidgets\chart\standard\legenddecorator.cpp \
+           ..\analogwidgets\chart\standard\scalegriddecorator.cpp 
 =======
-
-

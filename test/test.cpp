@@ -6,11 +6,11 @@
     #include <QString>
     #include <QTimer>
 
-    #include "widgets/manometer.h"
-    #include "widgets/wallclock.h"
-    #include "widgets/thermometer.h"
-    #include "widgets/chart.h"
-    #include "widgets/datacontainers.h"
+    #include "manometer/manometer.h"
+    #include "wallclock/wallclock.h"
+    #include "thermometer/thermometer.h"
+    #include "chart/chart.h"
+    #include "chart/datacontainers.h"
 
 
     #include "widgettester.h"
@@ -86,8 +86,10 @@
 	QLayout * layout3 = new QVBoxLayout();
 	layout3->addWidget(chart_lab);
 	layout3->addWidget(chart);
-        layout3->addWidget(new Chart());
-	layout3->addWidget(chartPosition);
+        QLayout * wert = new QHBoxLayout(); 
+        wert->addWidget(chartPosition); 
+        wert->addWidget(zoomBox); 
+	layout3->addItem(wert);
 	layout3->addWidget(sizeSlider);
 	layout3->addWidget(injCombo);
 	widget->setLayout(layout3);
@@ -143,7 +145,7 @@
 	connect(chartPosition,SIGNAL(valueChanged(int)),this,SLOT(movePosition(int)));
 	connect(sizeSlider,SIGNAL(sliderMoved(int)),this,SLOT(setSize(int)));
 	connect(injCombo, SIGNAL(activated( const QString & )), this,SLOT(loadInjection(const QString& ))) ;
-
+	connect(zoomBox,SIGNAL(valueChanged(double)),chart,SLOT(setZoom(double))); 
 	HSlider->setMaximum(1000);
 	HSlider->setMinimum(-1000);
 	spinBox->setMaximum(1000);

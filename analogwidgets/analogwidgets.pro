@@ -10,6 +10,8 @@ DESTDIR = plugins
 CONFIG += release \
           warn_on \
           plugin 
+MOC_DIR = ..\output
+OBJECTS_DIR = ..\output 
 TEMPLATE = lib 
 HEADERS += defines.h \
            common\qmywidgetwithbackground.h \

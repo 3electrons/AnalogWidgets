@@ -71,7 +71,7 @@ void ScalesGridDecorator::paint (QPainter & painter, Chart * chart)
      //   painter.setWindow(yScaleWidth,0,chart->width()-yScaleWidth,yScaleHeight);
      //painter.setWindow(yScaleWidth,0,chart->width()-yScaleWidth,yScaleHeight);
   }
-  painter.restore(); 
+  //painter.restore(); 
   ChartDecorator::paint(painter,chart);
 }
 
