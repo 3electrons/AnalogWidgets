@@ -96,7 +96,7 @@
   </kdevfilecreate>
   <kdevtrollproject>
     <general>
-      <activedir>communication/Bartkom/src/comm/protocols</activedir>
+      <activedir>test</activedir>
     </general>
     <run>
       <directoryradio>executable</directoryradio>

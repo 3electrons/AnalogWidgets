@@ -4,7 +4,8 @@
 
 TEMPLATE    = subdirs
 SUBDIRS     = \
-        communication \
-	analogwidgets \
-	test 
+      	Bartkom/src/comm \
+	Bartkom/src/xml \
+        Bartkom/src/lib 
+
 
