@@ -81,13 +81,13 @@ void ManoMeter::paintBackground(QPainter & painter)
           // nominal
 	  painter.setBrush(QColor(0,200,0));
 	  assert(m_max-m_min != 0);
-	  int angle = (3840 * ( m_nominal - m_min ))/(m_max-m_min);
+	  int angle = (int) (3840 * ( m_nominal - m_min ))/(m_max-m_min);
 	  if (m_min <= m_nominal && m_nominal < m_max )
            painter.drawPie(QRect(-141,-141,282,282),-480,3840 - angle % 5760 );
 	  // Critical
 
 	  painter.setBrush(QBrush(Qt::red));
-	  angle = (3840 * ( m_critical - m_min ))/(m_max-m_min);
+	  angle = (int)(3840 * ( m_critical - m_min ))/(m_max-m_min);
 	  if ( m_min <= m_critical && m_critical < m_max  )
 	  painter.drawPie(QRect(-141,-141,282,282),-480, 3840 - angle % 5760  ); //-480, 3840*( m_max-m_min - critical()-abs(m_min) )/static_cast<double>(m_max-m_min));
 	  // bia³a obwiednia
