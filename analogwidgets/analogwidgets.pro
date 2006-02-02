@@ -3,6 +3,19 @@
 # Podkatalog wzgl?dem g?ównego katalogu projektu: ./analogwidgets
 # Cel to biblioteka 
 
+TARGETDEPS += ../communication/Bartkom/src/lib/libcomm.a 
+LIBS += ../communication/Bartkom/src/lib/libcomm.a 
+INCLUDEPATH += ../communication/Bartkom/src/comm \
+               common \
+               chart 
+MOC_DIR = ..\objects 
+OBJECTS_DIR = ..\objects 
+QMAKE_CXXFLAGS_RELEASE += -g3 
+DESTDIR = plugins 
+CONFIG += release \
+          warn_on \
+          plugin 
+TEMPLATE = lib 
 HEADERS += defines.h \
            common/qmywidgetwithbackground.h \
            common/qmyabstractmeter.h \
@@ -50,13 +63,3 @@ SOURCES += common/qmywidgetwithbackground.cpp \
            mnemonics/mnemonicbox_plugin.cpp \
            mnemonics/mnemonicbox.cpp \
            functions.cpp 
-INCLUDEPATH += common \
-chart
-QMAKE_CXXFLAGS_RELEASE += -g3
-DESTDIR = plugins
-CONFIG += release \
-warn_on \
-plugin
-MOC_DIR = ..\objects
-OBJECTS_DIR = ..\objects
-TEMPLATE = lib

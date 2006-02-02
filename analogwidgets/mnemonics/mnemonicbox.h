@@ -11,16 +11,30 @@
  * Class MnemonicBox
  * Komponent reprezentuj±cy box jeden z komponentów SpinBox DoubleSpinBox lub CheckBox
  */
+ 
+// Deklaracja wartwy po³±czeniowej z mnemonikiem 
+namespace protocols
+{
+ class MnemonicBridge; 
+}
 class MnemonicBox : public QWidget 
 {
    Q_OBJECT 
    Q_PROPERTY ( QString mnemonic 	READ mnemonic 	WRITE setMnemonic  ) 
    Q_PROPERTY ( bool    isVisible 	READ isVisible 	WRITE setIsVisible ) 
    Q_PROPERTY ( int     type            READ type       WRITE setType      )
+   Q_PROPERTY ( QString server          READ server     WRITE setServer    ) 
  public:
+   
+   
    
  
   MnemonicBox (QWidget * parent );
+ 
+ 
+  void  setServer  (QString value); 
+  QString server   (); 
+
  
   int  intValue () 		const;
   double  doubleValue () 	const;
@@ -29,8 +43,13 @@ class MnemonicBox : public QWidget
   QString  mnemonic () 		const ;
   
   int type () const {return m_type ;} 
+  
+  
+  
   public slots: 
  
+ 
+  
   void  setValue   (int value);
   void  setValue   (double value);
   void  setChecked (bool value);
@@ -77,6 +96,8 @@ class MnemonicBox : public QWidget
   
   /** Widget potomny */ 
   QWidget * m_widget; 
+  
+  protocols::MnemonicBridge * m_bridge; 
   
  private:
 };

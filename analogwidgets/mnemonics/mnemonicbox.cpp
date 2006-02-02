@@ -1,39 +1,86 @@
 #include <QtGui> 
 #include <iostream>
+
 #include "mnemonicbox.h"
+#include "comm/engine.h" // z Bartkom/src/comm/
 
 using namespace std; 
+using namespace comm; 
+
 MnemonicBox::MnemonicBox(QWidget * parent) : QWidget(parent)
 {
   m_type = none; 
   m_mnemonicname = QString("mnemonic"); 
   m_isVisible = true; 
   m_widget = NULL; 
+  m_bridge = NULL; 
+  
+  //****************
+  // DO testów tylko 
+  setServer("/config.xml");
+  m_mnemonicname = "drugi"; 
+  
+  //****************
+  
   initChildComponent(); 
   
+}
+
+void MnemonicBox::setServer  (QString value)
+{
+  comm::EngineConfigFile( value.toLocal8Bit().data() );
+}
+
+QString MnemonicBox::server   ()
+{
+  QString Str ( comm::EngineConfigFile().c_str()); 
+  return Str; 
 }
 
 void MnemonicBox::initChildComponent()
 {
   
-  if (NULL==layout())
+  if (NULL==m_bridge) 
+  { 
+    delete m_bridge; 
+    m_bridge = NULL; 
+  }
+  
+  try
   {
+     m_bridge = CreateMnemonicBridge(m_mnemonicname.toLocal8Bit().data()); 
+     string type = m_bridge->property("type");
+     cout<<"Type:"<<type; 
+     m_type = none; 
+     char *types[]={"int","double","bool"}; 
+     int  m_types[]={int_t,double_t,bool_t}; 
+     for (int i=0;i<3;i++)
+     if (type==types[i]) m_type = m_types[i]; 
+  }
+  
+  catch (exception & e)
+  {
+    cout<<"Wyj±tek:"<<e.what()<<endl; 
+  }
+  
+    if (NULL==layout())
+    {
       QHBoxLayout * layout = new QHBoxLayout(); 
       layout->setMargin(0);
       layout->setSpacing(0); 
-      setLayout(layout);  
-  }
+      setLayout(layout);   
+    }
   
-   if (m_widget)
-   {
+    if (m_widget)
+    {
       layout()->removeWidget(m_widget);
       m_widget->disconnect(); // roz³±cza wszystkie sygna³y 
       delete m_widget; 
       m_widget = NULL; 
-   }
+    }
   
-   if (true==m_isVisible)
-   {
+     if (true==m_isVisible)
+    {
       switch (m_type)
       { 
          case int_t    : intType()    ; break;

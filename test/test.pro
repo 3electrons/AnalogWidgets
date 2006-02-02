@@ -3,6 +3,21 @@
 # Podkatalog wzgl?dem g?ównego katalogu projektu: ./test
 # Cel to program:  
 
+LINK = g++ 
+CXXFLAGS = -g3 
+TARGETDEPS += ../communication/Bartkom/src/lib/libcomm.a 
+LIBS += ../communication/Bartkom/src/lib/libcomm.a 
+INCLUDEPATH += ../analogwidgets \
+               ../analogwidgets/chart \
+               ../analogwidgets/common 
+MOC_DIR = ../objects 
+UI_DIR = . 
+OBJECTS_DIR = ../objects 
+QMAKE_LFLAGS_RELEASE = -pg \
+                       -ftest-coverage 
+CONFIG += release \
+          warn_on 
+TEMPLATE = app 
 FORMS += testform.ui 
 HEADERS += test.h \
            widgettester.h \
@@ -42,17 +57,4 @@ SOURCES += main.cpp \
            ../analogwidgets/chart/standard/scalegriddecorator.cpp \
            ../analogwidgets/mnemonics/mnemonicbox.cpp \
            ../analogwidgets/functions.cpp 
-LINK = g++
-CXXFLAGS = -g3
-INCLUDEPATH += ../analogwidgets \
-../analogwidgets/chart \
-../analogwidgets/common
-MOC_DIR = ../objects
-UI_DIR = .
-OBJECTS_DIR = ../objects
-QMAKE_LFLAGS_RELEASE = -pg \
--ftest-coverage
-CONFIG += release \
-warn_on
-TEMPLATE = app
 =======
