@@ -40,7 +40,8 @@ SOURCES += main.cpp \
            ../analogwidgets/chart/standard/labelsdecorator.cpp \
            ../analogwidgets/chart/standard/legenddecorator.cpp \
            ../analogwidgets/chart/standard/scalegriddecorator.cpp \
-           ../analogwidgets/mnemonics/mnemonicbox.cpp 
+           ../analogwidgets/mnemonics/mnemonicbox.cpp \
+           ../analogwidgets/functions.cpp 
 LINK = g++
 CXXFLAGS = -g3
 INCLUDEPATH += ../analogwidgets \
