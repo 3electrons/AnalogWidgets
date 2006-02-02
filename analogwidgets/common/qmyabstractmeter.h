@@ -11,18 +11,18 @@
    {
 	// @TODO zrobiæ szablon by mo¿na te¿ by³o pu¿ywaæ typu double dla dok³adych wskazañ
 	Q_OBJECT
-	Q_PROPERTY (int minimum READ minimum WRITE setMinimum )
-	Q_PROPERTY (int maximum READ maximum WRITE setMaximum )
-	Q_PROPERTY (int value   READ value   WRITE setValue )
-	Q_PROPERTY (int nominal READ nominal WRITE setNominal);
-	Q_PROPERTY (int critical READ critical WRITE setCritical);
+	Q_PROPERTY (double minimum READ minimum WRITE setMinimum )
+	Q_PROPERTY (double maximum READ maximum WRITE setMaximum )
+	Q_PROPERTY (double value   READ value   WRITE setValue )
+	Q_PROPERTY (double nominal READ nominal WRITE setNominal);
+	Q_PROPERTY (double critical READ critical WRITE setCritical);
 
 	Q_PROPERTY (QString prefix READ prefix WRITE setPrefix)
 	Q_PROPERTY (QString suffix READ suffix WRITE setSuffix)
 	Q_PROPERTY (QFont valueFont READ valueFont   WRITE setValueFont)
-	Q_PROPERTY (int valueOffset READ valueOffset WRITE setValueOffset)
+	Q_PROPERTY (double valueOffset READ valueOffset WRITE setValueOffset)
 	Q_PROPERTY (QFont digitFont READ digitFont   WRITE setDigitFont)
-	Q_PROPERTY (int digitOffset READ digitOffset WRITE setDigitOffset)
+	Q_PROPERTY (double digitOffset READ digitOffset WRITE setDigitOffset)
 
 
     public:
@@ -30,25 +30,25 @@
     	QMyAbstractMeter(QWidget *parent = 0);
 	virtual ~QMyAbstractMeter() {};
 
-	int  minimum() const   { return m_minimum; }
-        void setMinimum(int i);
-        int  maximum() const   { return m_maximum; }
-        void setMaximum(int i);
-        int value() const         { return m_value;}
+	double  minimum() const   { return m_minimum; }
+        void setMinimum(double i);
+        double  maximum() const   { return m_maximum; }
+        void setMaximum(double i);
+        double value() const         { return m_value;}
 
-	int nominal() const	  { return m_nominal; 		}
-	void setNominal(int i)    { m_nominal = i; updateWithBackground();}
-	int critical() const	  { return m_critical;		}
-	void setCritical(int i)   { m_critical = i; updateWithBackground();}
+	double nominal() const	  { return m_nominal; 		}
+	void setNominal(double i)    { m_nominal = i; updateWithBackground();}
+	double critical() const	  { return m_critical;		}
+	void setCritical(double i)   { m_critical = i; updateWithBackground();}
 
 	QFont valueFont() const   { return m_valueFont;        }
 	void setValueFont(QFont f){ m_valueFont = f; updateWithBackground(); }
 
-	int valueOffset() const   { return m_valueOffset;       }
-	void setValueOffset(int v){ m_valueOffset = v; updateWithBackground();}
+	double valueOffset() const   { return m_valueOffset;       }
+	void setValueOffset(double v){ m_valueOffset = v; updateWithBackground();}
 
-	int digitOffset() const   { return m_digitOffset;       }
-	void setDigitOffset(int v){ m_digitOffset = v; updateWithBackground();}
+	double digitOffset() const   { return m_digitOffset;       }
+	void setDigitOffset(double v){ m_digitOffset = v; updateWithBackground();}
 
 	QFont digitFont() const   { return m_digitFont;         }
 	void setDigitFont(QFont f){ m_digitFont = f; updateWithBackground();  }
@@ -61,9 +61,10 @@
 
     public slots:
        	void setValue(int val);
-
+        void setValue(double val); 
     signals:
     	void valueChanged(int val);
+    	void valueChanged(double val);
 
     protected:
 
@@ -74,17 +75,17 @@
 	 */
 	bool calcMaxMin();
 	/** Starting value on barometer */
-	int m_min;
+	double m_min;
 	/** Endgind value on barometer */
-	int m_max;
-	int m_minimum;
-	int m_maximum;
-	int m_value;
-	int m_nominal;
-	int m_critical;
+	double m_max;
+	double m_minimum;
+	double m_maximum;
+	double m_value;
+	double m_nominal;
+	double m_critical;
 
-	int m_valueOffset;
-	int m_digitOffset;
+	double m_valueOffset;
+	double m_digitOffset;
  	QFont m_valueFont;
 	QFont m_digitFont;
 	QString m_prefix;

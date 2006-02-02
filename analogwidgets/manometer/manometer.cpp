@@ -9,18 +9,18 @@ using namespace Qt;
 ManoMeter::ManoMeter(QWidget *parent)
         : QMyAbstractMeter(parent)
 {
-        m_max=300;
-        m_min=0;
+        m_max=300.0;
+        m_min=0.0;
 
-	m_maximum=300; // najpierw rêcznie potem seterem by wywo³aæ calcMaxMin
-  	setMinimum(0);
+	m_maximum=300.0; // najpierw rêcznie potem seterem by wywo³aæ calcMaxMin
+  	setMinimum(0.0);
 	calcMaxMin(); // bo nie wiemy czym s± zainicjowane limity
 
-	setValue(0);
-        setNominal(80);
-	setCritical(220);
-	setValueOffset(-100);
-	setDigitOffset(105);
+	setValue(0.0);
+        setNominal(80.0);
+	setCritical(220.0);
+	setValueOffset(-100.0);
+	setDigitOffset(105.0);
 	setSuffix(QString(" [bar]"));
 	m_digitFont.setPointSize(20);
 	m_valueFont.setPointSize(25);
@@ -130,7 +130,9 @@ void ManoMeter::paintBackground(QPainter & painter)
 	  painter.setFont(digitFont());
 	  for (int i=0;i<9;i++)
 	  {
-	    QString val = QString("%1").arg(m_min + i*(m_max - m_min)/8.0 );
+	    double v = m_min + i*(m_max - m_min)/8.0;
+	    if (fabs(v) < 0.000001 ) v = 0.0;
+	    QString val = QString("%1").arg(v);
             QSize Size = painter.fontMetrics().size(Qt::TextSingleLine, val);
             painter.save();
 	    painter.translate( digitOffset() * cos((5+i)*PI/6.0), digitOffset() * sin((5+i)*PI/6.0));
@@ -166,7 +168,7 @@ void ManoMeter::paintEvent(QPaintEvent * )
 	painter.rotate(60.0);
 	painter.setPen(Qt::NoPen);
 	painter.setBrush(QBrush(Qt::black));
-   	painter.rotate(  (  (abs(m_min)+value()) * 240.0) / static_cast<double> (m_max - m_min) );
+   	painter.rotate(  (  (fabs(m_min)+value()) * 240.0) / static_cast<double> (m_max - m_min) );
 
 	//painter.drawConvexPolygon(QPolygon(6,hand));
 	painter.drawPath(hand_path);

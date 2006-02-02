@@ -48,7 +48,8 @@ SOURCES += common/qmywidgetwithbackground.cpp \
            chart/standard/scalegriddecorator.cpp \
            analogwidgets_plugin.cpp \
            mnemonics/mnemonicbox_plugin.cpp \
-           mnemonics/mnemonicbox.cpp 
+           mnemonics/mnemonicbox.cpp \
+           functions.cpp 
 INCLUDEPATH += common \
 chart
 QMAKE_CXXFLAGS_RELEASE += -g3

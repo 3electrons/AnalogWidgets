@@ -12,33 +12,6 @@ using namespace std;
 using namespace Standard;
 
 
-/** 
-* Znajduje najwiêksz± warto¶æ mniejsz± od scaleSize/steps i
-* jednocze¶nie bêd±c± ca³kowicie podzieln± przez warto¶æ 
-* 10^N  gdzie n jest dowoln± liczb± ca³kowit±.
-* dla 5,2,1 jest to  odpowiedniio {...,500,50,5,0.5,...},
-* {...200,20,2,0.2,0.02,...} etc. 
-*/ 
- 
-double minimalStep(double scaleSize, int steps)
-{
-  double ms = scaleSize/steps; 
-  double fractions[]={5,2,1}; 
-  double multiply = 10; 
-  if (static_cast<int>(ms)<=5) multiply = 0.1 ; 
-
-  while (true)
-  {
-     for (int i=0;i<3;i++)
-     {
-       //cout<<"Fractions:"<<fractions[i]<<endl; 
-       if (fractions[i]<ms) return fractions[i]; 
-       
-         fractions[i]*=multiply; 
-     }
-  }
-  return 1.0; 
-}
 
 
 /** Operacja malowania. Maluje kolejne elementy komponentu Chart. */
@@ -66,8 +39,8 @@ void ScalesGridDecorator::paint (QPainter & painter, Chart * chart)
      paintYScale(painter,chart);
      paintYGrid(painter,chart);
 
-     painter.setClipRect(yScaleWidth,0,chart->width()-yScaleWidth,yScaleHeight+1);
-     painter.setViewport(yScaleWidth,0,chart->width()-yScaleWidth,yScaleHeight);
+     painter.setClipRect((int)yScaleWidth,0,(int)(chart->width()-yScaleWidth),(int)yScaleHeight+1);
+     painter.setViewport((int)yScaleWidth,0,(int)(chart->width()-yScaleWidth),(int)yScaleHeight);
      //   painter.setWindow(yScaleWidth,0,chart->width()-yScaleWidth,yScaleHeight);
      //painter.setWindow(yScaleWidth,0,chart->width()-yScaleWidth,yScaleHeight);
   }
@@ -201,7 +174,7 @@ void ScalesGridDecorator::paintYScale(QPainter & painter, Chart * chart)
     
     // Pozioma lina nad skal± .
     painter.setPen(QColor(40,40,180)); 
-    painter.drawLine(QPoint(0,yScaleHeight),QPoint(chart->width(),yScaleHeight));
+    painter.drawLine(QPointF(0,yScaleHeight),QPointF(chart->width(),yScaleHeight));
    } // if showScale
 
 }
@@ -232,7 +205,7 @@ void ScalesGridDecorator::paintYGrid(QPainter & painter, Chart * chart)
      if (!chart->scaleGrid().showGrid)
         ScaleBottom = yScaleHeight;
      else // linia pionowa zamykajaca siatkê od prawej  
-        painter.drawLine ( QPoint(chart->width()-1,0),QPoint(chart->width()-1,yScaleHeight));
+        painter.drawLine ( QPoint(chart->width()-1,0),QPoint(chart->width()-1,(int)yScaleHeight));
  
      do
      {

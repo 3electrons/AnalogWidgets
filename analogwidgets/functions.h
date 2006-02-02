@@ -1,6 +1,24 @@
 #ifndef _FUNCTIONS_H_
 #define _FUNCTIONS_H_
 
+#include <assert.h>
+#include <cmath>
+//#include <iostream> // dla testów 
+
+using namespace std;
+
+/** 
+* Znajduje najwiêksz± warto¶æ mniejsz± od scaleSize/steps i
+* jednocze¶nie bêd±c± ca³kowicie podzieln± przez warto¶æ 
+* 10^N  gdzie n jest dowoln± liczb± ca³kowit±.
+* dla 5,2,1 jest to  odpowiedniio {...,500,50,5,0.5,...},
+* {...200,20,2,0.2,0.02,...} etc. 
+*/ 
+ 
+
+double minimalStep(double scaleSize, int steps);
+
+
 /**
 * Szablonowa funkcja do wyznaczania skali w zadanym przedziale o wyznaczonej ilo¶ci punktów skali.
 * Na podstawie warto¶ci minimalnej oraz maksymalnej, jak± chcemy osi±gnaæ ustawia
@@ -20,14 +38,11 @@
 * zmieni³y swoj± warto¶æ.  Na podstawie tej warto¶ci wiadomo czy nale¿y np. przerysowaæ skalê
 * - podaj±c wcze¶niej poprzednie warto¶ci zakresu skali.
 */
-#include <assert.h>
-#include <cmath>
-
-using namespace std;
 
 template <typename T>
 bool range(T m_minimum,T m_maximum, T & m_min, T & m_max,unsigned int steps, bool left = false,double inc = 5.0)
 {
+  //cout<<"("<<m_minimum<<","<<m_maximum<<")  ("<<m_min<<","<<m_max<<")"<<endl;
   T max_tmp = m_max, min_tmp = m_min;
   m_max=m_maximum;
   m_min=m_minimum;
