@@ -1,6 +1,7 @@
 TEMPLATE    = subdirs
 SUBDIRS     = \
 	analogwidgets \
-	test 
-
+	test \
+	Bartkom/src/comm \ 
+        Bartkom/src/lib 
 

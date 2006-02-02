@@ -47,9 +47,9 @@ CXXFLAGS = -g3
 INCLUDEPATH += ../analogwidgets \
 ../analogwidgets/chart \
 ../analogwidgets/common
-MOC_DIR = ../output
+MOC_DIR = ../objects
 UI_DIR = .
-OBJECTS_DIR = ../output
+OBJECTS_DIR = ../objects
 QMAKE_LFLAGS_RELEASE = -pg \
 -ftest-coverage
 CONFIG += release \

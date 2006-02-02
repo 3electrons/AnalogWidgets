@@ -57,6 +57,6 @@ DESTDIR = plugins
 CONFIG += release \
 warn_on \
 plugin
-MOC_DIR = ..\output
-OBJECTS_DIR = ..\output
+MOC_DIR = ..\objects
+OBJECTS_DIR = ..\objects
 TEMPLATE = lib
