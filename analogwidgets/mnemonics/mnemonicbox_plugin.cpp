@@ -1,5 +1,5 @@
-    #include "qmnemonicbox.h" 
-    #include "qmnemonicbox_plugin.h"     
+    #include "mnemonicbox.h" 
+    #include "mnemonicbox_plugin.h"     
     #include "../defines.h"  
     /*------------------------------------------------------------------------------------------------
      *			     			MANOMETER    
@@ -67,8 +67,8 @@
                              "  <rect>\n"
                              "   <x>0</x>\n"
                              "   <y>0</y>\n"
-                             "   <width>100</width>\n"
-                             "   <height>100</height>\n"
+                             "   <width>70</width>\n"
+                             "   <height>22</height>\n"
                              "  </rect>\n"
                              " </property>\n"
                              " <property name=\"toolTip\" >\n"

@@ -8,7 +8,7 @@
         Q_OBJECT
         Q_INTERFACES(QDesignerCustomWidgetInterface)
     public:
-        ManoMeterPlugin(QObject *parent = 0);
+        MnemonicBoxPlugin(QObject *parent = 0);
         bool isContainer() const;
         bool isInitialized() const;
         QIcon icon() const;
