@@ -49,6 +49,7 @@ class MnemonicBox : public QWidget
   public slots: 
  
  
+  void  updateValue(); 
   
   void  setValue   (int value);
   void  setValue   (double value);
@@ -65,6 +66,7 @@ class MnemonicBox : public QWidget
       update(); 
     }
   } 
+  
     
   signals:
   

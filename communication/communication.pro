@@ -3,9 +3,8 @@
 #
 
 TEMPLATE    = subdirs
-SUBDIRS     = \
-      	Bartkom/src/comm \
-	Bartkom/src/xml \
-        Bartkom/src/lib 
+SUBDIRS     = Bartkom/src
+	
+	 
 
 

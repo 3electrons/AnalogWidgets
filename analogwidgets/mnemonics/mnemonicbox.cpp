@@ -17,8 +17,8 @@ MnemonicBox::MnemonicBox(QWidget * parent) : QWidget(parent)
   
   //****************
   // DO testów tylko 
-  setServer("/config.xml");
-  m_mnemonicname = "drugi"; 
+ // setServer("/config.xml");
+ // m_mnemonicname = "drugi"; 
   
   //****************
   
@@ -28,7 +28,7 @@ MnemonicBox::MnemonicBox(QWidget * parent) : QWidget(parent)
 
 void MnemonicBox::setServer  (QString value)
 {
-  comm::EngineConfigFile( value.toLocal8Bit().data() );
+   comm::EngineConfigFile( value.toLocal8Bit().data() );
 }
 
 QString MnemonicBox::server   ()
@@ -40,18 +40,17 @@ QString MnemonicBox::server   ()
 void MnemonicBox::initChildComponent()
 {
   
-  if (NULL==m_bridge) 
+  if (m_bridge) 
   { 
     delete m_bridge; 
     m_bridge = NULL; 
+    m_type = none;
   }
   
   try
   {
      m_bridge = CreateMnemonicBridge(m_mnemonicname.toLocal8Bit().data()); 
      string type = m_bridge->property("type");
-     cout<<"Type:"<<type; 
-     m_type = none; 
      char *types[]={"int","double","bool"}; 
      int  m_types[]={int_t,double_t,bool_t}; 
      for (int i=0;i<3;i++)
@@ -100,7 +99,23 @@ void MnemonicBox::intType()
    QSpinBox * box =  new QSpinBox(this); 
    connect (this,SIGNAL(valueChanged(int)),box,SLOT(setValue(int)));
    connect (box,SIGNAL(valueChanged(int)),this,SLOT(setValue(int)));
-  
+    
+     // minimum 
+     common::Value v = m_bridge->property("min"); 
+     box->setMinimum(v);
+   
+     // maximum; 
+     v = m_bridge->property("max"); 
+     box->setMaximum(v); 
+
+     // step 
+     v = m_bridge->property("step");
+     box->setSingleStep(v);
+     
+     // default 
+     v = m_bridge->property("default");
+     box->setValue(v); 
+ 
    m_widget = box; 
 }
 
@@ -111,6 +126,29 @@ void MnemonicBox::doubleType()
    connect (this,SIGNAL(valueChanged(double)),box,SLOT(setValue(double))); 
    connect (box,SIGNAL(valueChanged(double)),this,SLOT(setValue(double))); 
    
+  
+    // liczba cyfr po przecinku 
+   common::Value v = m_bridge->property("digits"); 
+   box->setDecimals(v); 
+   
+   // minimum
+   v = m_bridge->property("min");
+   box->setMinimum(v);
+   
+   // maximum; 
+   v = m_bridge->property("max"); 
+   box->setMaximum(v); 
+   
+   // step
+   v = m_bridge->property("step");
+   box->setSingleStep(v);
+   
+   // default 
+   v = m_bridge->property("default");
+   box->setValue(v); 
+
+   
+   
    m_widget = box; 
 }
 
@@ -119,6 +157,11 @@ void MnemonicBox::boolType()
    QCheckBox * box =  new QCheckBox("",this);
    connect(this,SIGNAL(checkChanged(bool)),box,SLOT(setChecked(bool))); 
    connect(box,SIGNAL(toggled(bool)),this,SLOT(setChecked(bool))); 
+   
+   // default 
+   common::Value v = m_bridge->property("default");
+   box->setChecked(v); 
+
    m_widget = box; 
     
 }
@@ -131,33 +174,68 @@ void MnemonicBox::noneType()
 }
 
 
-int MnemonicBox::intValue () const
+void MnemonicBox::updateValue()
 {
-  return 1;
+  if (! m_bridge) return; 
+  common::Value v = m_bridge->value();
+  switch (m_type)
+  {
+   case int_t   : setValue(v.toInt()) ; break; 
+   case double_t: setValue(v.toDouble()) ; break; 
+   case bool_t  : setChecked(v); break;
+  }
 }
+
 void MnemonicBox::setValue (int value) 
 {
- 
+  if (!m_bridge) return; 
+  common::Value v = value; 
+  m_bridge->setValue( v.str()); 
   emit valueChanged(value); 
   emit valueChanged((double)value);
+  
 }
 
-
-double MnemonicBox::doubleValue () const
-{
-  return 1.0;
-}
 void  MnemonicBox::setValue (double value) 
 {
+  if (!m_bridge) return; 
+  common::Value v = value; 
+  m_bridge->setValue( v.str()); 
+  
   emit valueChanged(value);
   emit valueChanged((int)value); 
+  
 }
-
 void MnemonicBox::setChecked (bool value) 
 {
+  if (!m_bridge) return; 
+  common::Value v = value; 
+  m_bridge->setValue(v.str()); 
+  
   emit checkChanged(value);
 }
 
+
+int MnemonicBox::intValue () const
+{
+  if (!m_bridge) return 1; 
+  common::Value v = m_bridge->value();
+  return v; 
+}
+
+double MnemonicBox::doubleValue () const
+{
+  if (!m_bridge) return 1.0;
+  common::Value v = m_bridge->value();
+  return v;
+}
+
+bool MnemonicBox::checked() const
+{
+  if (!m_bridge) return false; 
+  common::Value v = m_bridge->value();
+  return v; 
+}
 
 
 QString MnemonicBox::mnemonic () const
@@ -167,6 +245,9 @@ QString MnemonicBox::mnemonic () const
 void MnemonicBox::setMnemonic (QString value) 
 {
   m_mnemonicname = value; 
+  initChildComponent();
+  setObjectName(value); 
+  update(); 
 }
 
 
