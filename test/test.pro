@@ -1,23 +1,8 @@
 # Plik utworzony przez menad?era projektów kdevelopa
 # ------------------------------------------- 
-# Podkatalog wzgl?dem g?ównego katalogu projektu: ./test
+# Podkatalog wzgl?dem g?ównego katalogu projektu: .
 # Cel to program:  
 
-LINK = g++ 
-CXXFLAGS = -g3 
-TARGETDEPS += ../communication/Bartkom/src/lib/libcomm.a 
-LIBS += ../communication/Bartkom/src/lib/libcomm.a 
-INCLUDEPATH += ../analogwidgets \
-               ../analogwidgets/chart \
-               ../analogwidgets/common 
-MOC_DIR = ../objects 
-UI_DIR = . 
-OBJECTS_DIR = ../objects 
-QMAKE_LFLAGS_RELEASE = -pg \
-                       -ftest-coverage 
-CONFIG += release \
-          warn_on 
-TEMPLATE = app 
 FORMS += testform.ui 
 HEADERS += test.h \
            widgettester.h \
@@ -56,5 +41,21 @@ SOURCES += main.cpp \
            ../analogwidgets/chart/standard/legenddecorator.cpp \
            ../analogwidgets/chart/standard/scalegriddecorator.cpp \
            ../analogwidgets/mnemonics/mnemonicbox.cpp \
-           ../analogwidgets/functions.cpp 
+           ../analogwidgets/functions.cpp \
+           ../analogwidgets/mnemonics/mnemonicbox_plugin.cpp 
+LINK = g++
+CXXFLAGS = -g3
+TARGETDEPS += ../communication/Bartkom/src/lib/libcomm.a
+LIBS += ../communication/Bartkom/src/lib/libcomm.a
+INCLUDEPATH += ../analogwidgets \
+../analogwidgets/chart \
+../analogwidgets/common
+MOC_DIR = ../objects
+UI_DIR = .
+OBJECTS_DIR = ../objects
+QMAKE_LFLAGS_RELEASE = -pg \
+-ftest-coverage
+CONFIG += release \
+warn_on
+TEMPLATE = app
 =======
