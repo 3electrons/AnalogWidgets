@@ -1,6 +1,6 @@
 # Plik utworzony przez menad?era projektów kdevelopa
 # ------------------------------------------- 
-# Podkatalog wzgl?dem g?ównego katalogu projektu: .
+# Podkatalog wzgl?dem g?ównego katalogu projektu: ./test
 # Cel to program:  
 
 FORMS += testform.ui 
@@ -41,8 +41,7 @@ SOURCES += main.cpp \
            ../analogwidgets/chart/standard/legenddecorator.cpp \
            ../analogwidgets/chart/standard/scalegriddecorator.cpp \
            ../analogwidgets/mnemonics/mnemonicbox.cpp \
-           ../analogwidgets/functions.cpp \
-           ../analogwidgets/mnemonics/mnemonicbox_plugin.cpp 
+           ../analogwidgets/functions.cpp 
 LINK = g++
 CXXFLAGS = -g3
 TARGETDEPS += ../communication/Bartkom/src/lib/libcomm.a
