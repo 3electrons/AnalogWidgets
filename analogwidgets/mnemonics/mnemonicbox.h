@@ -75,6 +75,9 @@ class MnemonicBox : public QWidget
   void checkChanged(bool val); 
   
  protected:
+  
+
+  
   void paintEvent(QPaintEvent *event); 
   
   /** Inicjuje komponent potomny */ 
@@ -100,8 +103,9 @@ class MnemonicBox : public QWidget
   QWidget * m_widget; 
   
   protocols::MnemonicBridge * m_bridge; 
-  
+ 
  private:
+ 
 };
 #endif //QMNEMONICBOX_H
 

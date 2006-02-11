@@ -3,9 +3,65 @@
 
 #include "mnemonicbox.h"
 #include "comm/engine.h" // z Bartkom/src/comm/
+#include "comm/comm_exceptions.h"
 
 using namespace std; 
 using namespace comm; 
+
+#define READ 0x0
+#define WRITE 0x1
+
+
+
+/** 
+* Ustawia tryb designMode lub nie jest domyslnie zerem 
+*/ 
+bool set = false; 
+bool & designMode(bool val=false,bool modify=false)
+{
+  static bool mode;
+  if (!set && !modify ) { mode = false; set = true ; }  
+  if (modify) { mode = val; set = true ; }   
+  return mode; 
+}
+
+
+/** 
+* Pobiera wartosæ mnemonika - w zale¿no¶ci od tego czy jest w trybie 
+* projektowania czy aplikacji rzuca wyjatek lub wpisuje go na standardowe wyj¶cie 
+*/ 
+common::Value bridgeValue(protocols::MnemonicBridge * bridge) 
+{
+  common::Value v("");
+  try
+  { v = bridge->value(); }
+  catch (comm_error & e)
+  {
+   if (designMode()) cout<<e.what()<<endl;
+   else throw e; 
+  }
+  return v.str(); 
+}
+
+
+/** 
+* Ustawia wartosæ mnemonika - w zale¿no¶ci od tego czy jest w trybie 
+* projektowania czy aplikacji rzuca wyjatek lub wpisuje go na standardowe wyj¶cie 
+*/ 
+
+
+void setBridgeValue(common::Value & v , protocols::MnemonicBridge * bridge)
+{
+  try
+  {
+    bridge->setValue(v.str());
+  }
+  catch (comm_error & e) 
+  {
+    if (designMode()) cout<<e.what()<<endl;
+    else throw e; 
+  }
+}
 
 MnemonicBox::MnemonicBox(QWidget * parent) : QWidget(parent)
 {
@@ -15,16 +71,10 @@ MnemonicBox::MnemonicBox(QWidget * parent) : QWidget(parent)
   m_widget = NULL; 
   m_bridge = NULL; 
   
-  //****************
-  // DO testów tylko 
- // setServer("/config.xml");
- // m_mnemonicname = "drugi"; 
-  
-  //****************
-  
   initChildComponent(); 
   
 }
+
 
 void MnemonicBox::setServer  (QString value)
 {
@@ -171,13 +221,15 @@ void MnemonicBox::noneType()
   QLabel * label = new QLabel(m_mnemonicname,this); 
   label->setAlignment(Qt::AlignHCenter);
   m_widget = label;  
+  m_widget->resize(m_widget->width(),16); 
 }
 
 
 void MnemonicBox::updateValue()
 {
   if (! m_bridge) return; 
-  common::Value v = m_bridge->value();
+  
+  common::Value v = bridgeValue(m_bridge);
   switch (m_type)
   {
    case int_t   : setValue(v.toInt()) ; break; 
@@ -190,7 +242,7 @@ void MnemonicBox::setValue (int value)
 {
   if (!m_bridge) return; 
   common::Value v = value; 
-  m_bridge->setValue( v.str()); 
+  setBridgeValue(v,m_bridge); 
   emit valueChanged(value); 
   emit valueChanged((double)value);
   
@@ -200,7 +252,7 @@ void  MnemonicBox::setValue (double value)
 {
   if (!m_bridge) return; 
   common::Value v = value; 
-  m_bridge->setValue( v.str()); 
+  setBridgeValue(v,m_bridge); 
   
   emit valueChanged(value);
   emit valueChanged((int)value); 
@@ -210,7 +262,7 @@ void MnemonicBox::setChecked (bool value)
 {
   if (!m_bridge) return; 
   common::Value v = value; 
-  m_bridge->setValue(v.str()); 
+  setBridgeValue(v,m_bridge); 
   
   emit checkChanged(value);
 }
@@ -219,21 +271,21 @@ void MnemonicBox::setChecked (bool value)
 int MnemonicBox::intValue () const
 {
   if (!m_bridge) return 1; 
-  common::Value v = m_bridge->value();
+  common::Value v = bridgeValue(m_bridge); 
   return v; 
 }
 
 double MnemonicBox::doubleValue () const
 {
   if (!m_bridge) return 1.0;
-  common::Value v = m_bridge->value();
+  common::Value v = bridgeValue(m_bridge); 
   return v;
 }
 
 bool MnemonicBox::checked() const
 {
   if (!m_bridge) return false; 
-  common::Value v = m_bridge->value();
+  common::Value v = bridgeValue(m_bridge); 
   return v; 
 }
 
@@ -271,6 +323,7 @@ void MnemonicBox::paintEvent(QPaintEvent * /*event*/)
       painter.drawRect(0,0,width()-1,height()-1); 
   }
 }// paintEvent 
+
 
 
 

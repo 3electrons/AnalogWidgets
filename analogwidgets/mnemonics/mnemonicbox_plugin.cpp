@@ -5,11 +5,13 @@
      *			     			MANOMETER    
      *------------------------------------------------------------------------------------------------*/
     
+    bool & designMode(bool val=false,bool modify=false);
     
     MnemonicBoxPlugin::MnemonicBoxPlugin(QObject *parent)
         : QObject(parent)
     {
         initialized = false;
+        designMode(true,true); 
     }
 
     void MnemonicBoxPlugin::initialize(QDesignerFormEditorInterface * /*core*/)
