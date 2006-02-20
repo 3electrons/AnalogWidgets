@@ -150,6 +150,8 @@ void MnemonicBox::intType()
    connect (this,SIGNAL(valueChanged(int)),box,SLOT(setValue(int)));
    connect (box,SIGNAL(valueChanged(int)),this,SLOT(setValue(int)));
     
+     if (m_bridge)
+     {
      // minimum 
      common::Value v = m_bridge->property("min"); 
      box->setMinimum(v);
@@ -165,7 +167,7 @@ void MnemonicBox::intType()
      // default 
      v = m_bridge->property("default");
      box->setValue(v); 
- 
+     }
    m_widget = box; 
 }
 
@@ -176,7 +178,8 @@ void MnemonicBox::doubleType()
    connect (this,SIGNAL(valueChanged(double)),box,SLOT(setValue(double))); 
    connect (box,SIGNAL(valueChanged(double)),this,SLOT(setValue(double))); 
    
-  
+   if (m_bridge)
+   {
     // liczba cyfr po przecinku 
    common::Value v = m_bridge->property("digits"); 
    box->setDecimals(v); 
@@ -197,7 +200,7 @@ void MnemonicBox::doubleType()
    v = m_bridge->property("default");
    box->setValue(v); 
 
-   
+   } // if m_bridge 
    
    m_widget = box; 
 }
@@ -208,10 +211,12 @@ void MnemonicBox::boolType()
    connect(this,SIGNAL(checkChanged(bool)),box,SLOT(setChecked(bool))); 
    connect(box,SIGNAL(toggled(bool)),this,SLOT(setChecked(bool))); 
    
+   if (m_bridge)
+   {
    // default 
    common::Value v = m_bridge->property("default");
    box->setChecked(v); 
-
+   }
    m_widget = box; 
     
 }
@@ -289,7 +294,7 @@ bool MnemonicBox::checked() const
   return v; 
 }
 
-
+	
 QString MnemonicBox::mnemonic () const
 {
   return m_mnemonicname;
