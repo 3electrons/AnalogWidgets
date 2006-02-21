@@ -1,4 +1,4 @@
-	#ifndef QMNEMONICBOX_H
+#ifndef QMNEMONICBOX_H
 #define QMNEMONICBOX_H
 #include <QString>
 #include "qstring.h"
