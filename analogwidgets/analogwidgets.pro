@@ -28,9 +28,7 @@ HEADERS += defines.h \
            defines.h \
            functions.h \
            mnemonics/mnemonicbox_plugin.h \
-           mnemonics/mnemonicbox.h \
-           mnemonics/mnemonicproperty.h \
-           mnemonics/mnemonicproperty_plugin.h 
+           mnemonics/mnemonicbox.h 
 SOURCES += common/qmywidgetwithbackground.cpp \
            common/qmyabstractmeter.cpp \
            wallclock/wallclock.cpp \
@@ -51,9 +49,7 @@ SOURCES += common/qmywidgetwithbackground.cpp \
            analogwidgets_plugin.cpp \
            mnemonics/mnemonicbox_plugin.cpp \
            mnemonics/mnemonicbox.cpp \
-           functions.cpp \
-           mnemonics/mnemonicproperty.cpp \
-           mnemonics/mnemonicproperty_plugin.cpp 
+           functions.cpp 
 TARGETDEPS += ../communication/Bartkom/src/lib/libcomm.a
 LIBS += ../communication/Bartkom/src/lib/libcomm.a
 INCLUDEPATH += ../communication/Bartkom/src/comm \
