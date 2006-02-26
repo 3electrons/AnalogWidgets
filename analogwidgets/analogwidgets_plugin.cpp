@@ -6,6 +6,7 @@
 #include "thermometer/thermometer_plugin.h" 
 #include "chart/chart_plugin.h" 
 #include "mnemonics/mnemonicbox_plugin.h" 
+#include "led/led_plugin.h" 
 
 AnalogWidgetsPlugin::AnalogWidgetsPlugin()
 {
@@ -13,6 +14,7 @@ AnalogWidgetsPlugin::AnalogWidgetsPlugin()
   m_pluginList.push_back(new ManoMeterPlugin(NULL));
   m_pluginList.push_back(new ThermoMeterPlugin(NULL));
   m_pluginList.push_back(new ChartPlugin(NULL)); 
+  m_pluginList.push_back(new LedPlugin(NULL)); 
   m_pluginList.push_back(new MnemonicBoxPlugin(NULL)); 
   
 }
