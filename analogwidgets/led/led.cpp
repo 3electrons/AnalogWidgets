@@ -50,7 +50,7 @@
        if (!m_checked) 
        { 
          back.getHsv(&h,&s,&v,&a);
-         s*=0.15; 
+         s*=0.20; 
          back.setHsv(h,s,v,a); 
         }
        painter.setBrush(back); 
