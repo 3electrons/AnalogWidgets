@@ -82,7 +82,7 @@
 
     QString LedPlugin::includeFile() const
     {
-        return QLatin1String("led.h");
+        return QLatin1String("analogwidgets/les/led.h");
     }
 
     QString LedPlugin::codeTemplate() const

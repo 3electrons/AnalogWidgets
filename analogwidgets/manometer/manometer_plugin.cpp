@@ -83,7 +83,7 @@
 
     QString ManoMeterPlugin::includeFile() const
     {
-        return QLatin1String("manometer.h");
+        return QLatin1String("analogwidgets/manometer/manometer.h");
     }
 
     QString ManoMeterPlugin::codeTemplate() const

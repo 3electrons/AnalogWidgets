@@ -6,10 +6,11 @@
 #include <QTimer>
 #include <QPen> 
 
-#include "qmywidgetwithbackground.h"
-#include "channel.h"
-#include "scalegrid.h"
-#include "chartdecorator.h"
+#include "common/qmywidgetwithbackground.h"
+
+#include "chart/channel.h"
+#include "chart/scalegrid.h"
+#include "chart/chartdecorator.h"
 
 
 using namespace std;
@@ -102,6 +103,7 @@ typedef  vector<Channel> Channels;
       	void setPosition      (double i);
       	void setPosition      (int i); 
 	void setSize          (double i);
+	void setSize 	      (int i); 
 	
       	void setChannelMinimum(double i); 
       	void setChannelMaximum(double i); 
@@ -131,6 +133,12 @@ typedef  vector<Channel> Channels;
       	*/
       	void setZoom(double factor);
 
+	signals: 
+	void sizeChanged(int i); 
+	void sizeChanged(double i); 
+	void positionChanged(int i); 
+	void positionChanged(double i); 
+	
                 
 	protected slots:
 

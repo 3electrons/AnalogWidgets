@@ -5,6 +5,7 @@
 #include "manometer/manometer_plugin.h"
 #include "thermometer/thermometer_plugin.h" 
 #include "chart/chart_plugin.h" 
+//#include "wheel/wheel_plugin.h"
 #include "mnemonics/mnemonicbox_plugin.h" 
 #include "led/led_plugin.h" 
 
@@ -15,6 +16,7 @@ AnalogWidgetsPlugin::AnalogWidgetsPlugin()
   m_pluginList.push_back(new ThermoMeterPlugin(NULL));
   m_pluginList.push_back(new ChartPlugin(NULL)); 
   m_pluginList.push_back(new LedPlugin(NULL)); 
+ // m_pluginList.push_back(new WheelPlugin(NULL)); 
   m_pluginList.push_back(new MnemonicBoxPlugin(NULL)); 
   
 }

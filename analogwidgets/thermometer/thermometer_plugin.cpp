@@ -83,7 +83,7 @@
 
     QString ThermoMeterPlugin::includeFile() const
     {
-        return QLatin1String("thermometer.h");
+        return QLatin1String("analogwidgets/thermometer/thermometer.h");
     }
 
     QString ThermoMeterPlugin::codeTemplate() const

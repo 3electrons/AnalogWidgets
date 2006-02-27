@@ -109,11 +109,13 @@ void Chart::setPosition(double i)
 {
 	m_scalegrid.pos=i; 
         update();
+        positionChanged( i ); 
+        positionChanged(static_cast<int> (i));  
 }
 
 void Chart::setPosition(int i)
 {
-   setPosition((double)i); 
+   setPosition(static_cast<double>(i)); 
 }
 
 // size 
@@ -130,8 +132,14 @@ void Chart::setSize(double i)
       	 m_scalegrid.size=m_xsize*m_zoom;
 	 update();
 	}
+	sizeChanged( i ); 
+	sizeChanged( static_cast<int> (i)); 
 }
 
+void Chart::setSize(int i)
+{
+  setSize(static_cast<double>(i)); 
+}
 
 // ***** channelMinimum 
 double Chart::channelMinimum() const   
