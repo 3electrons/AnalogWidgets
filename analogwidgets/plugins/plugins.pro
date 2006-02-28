@@ -16,7 +16,7 @@ LIBS +=       ../libanalogwidgets.a \
 INCLUDEPATH +=  ../analogwidgets 
                
 
-TARGET = analogwidgets 
+TARGET = analogwidgets_plugin 
 MOC_DIR = ..\objects
 OBJECTS_DIR = ..\objects
 QMAKE_CXXFLAGS_RELEASE += -g3
