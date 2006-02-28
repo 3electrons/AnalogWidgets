@@ -4,6 +4,7 @@
 
 TEMPLATE    = subdirs
 SUBDIRS     = \
+        communication \ 
         code \
 	plugins  
 

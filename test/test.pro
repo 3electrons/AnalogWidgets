@@ -3,13 +3,18 @@
 # Podkatalog wzgl?dem g?ównego katalogu projektu: ./test
 # Cel to program:  
 
+QMAKE_LIBDIR += /usr/lib/qt4/plugins/designer 
+
 LINK = g++ 
 CXXFLAGS = -g3 
-TARGETDEPS += ../communication/Bartkom/src/lib/libcomm.a \
-              ../analogwidgets/libanalogwidgets.a 
-LIBS += ../communication/Bartkom/src/lib/libcomm.a \
-        ../analogwidgets/libanalogwidgets.a 
-INCLUDEPATH += ../analogwidgets/analogwidgets 
+#TARGETDEPS += ../communication/Bartkom/src/lib/libcomm.a \
+#              ../analogwidgets/libanalogwidgets.a 
+#LIBS += ../communication/Bartkom/src/lib/libcomm.a \
+#        ../analogwidgets/libanalogwidgets.a
+
+LIBS += ../analogwidgets/libanalogwidgets.so 
+
+INCLUDEPATH += ../analogwidgets/analogwidgets
 MOC_DIR = objects 
 UI_DIR = . 
 OBJECTS_DIR = ../objects 

@@ -4,7 +4,6 @@
 
 TEMPLATE    = subdirs
 SUBDIRS     = \
-        communication \
-	analogwidgets \
+        analogwidgets \
 	test 
 
