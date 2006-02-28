@@ -5,7 +5,7 @@
 #ifndef GLASSDECORATOR_H
 #define GLASSDECORATOR_H
 
-#include "chartdecorator.h"
+#include "chart/chartdecorator.h"
 
 
 

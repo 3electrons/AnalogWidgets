@@ -5,7 +5,7 @@
 #ifndef SCALESGRIDDECORATOR_H
 #define SCALESGRIDDECORATOR_H
 
-#include "chartdecorator.h"
+#include "chart/chartdecorator.h"
 
 
 

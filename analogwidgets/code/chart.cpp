@@ -3,10 +3,10 @@
 
 
 #include "chart.h"
-#include "standard/scalegriddecorator.h"
-#include "standard/glassdecorator.h"
-#include "standard/channeldecorator.h"
-#include "standard/legenddecorator.h"
+#include "chart/standard/scalegriddecorator.h"
+#include "chart/standard/glassdecorator.h"
+#include "chart/standard/channeldecorator.h"
+#include "chart/standard/legenddecorator.h"
 
 
 

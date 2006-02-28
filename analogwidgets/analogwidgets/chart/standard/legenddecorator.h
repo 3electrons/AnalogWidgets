@@ -5,7 +5,7 @@
 #ifndef LEGENDDECORATOR_H
 #define LEGENDDECORATOR_H
 
-#include "chartdecorator.h"
+#include "chart/chartdecorator.h"
 
 
 

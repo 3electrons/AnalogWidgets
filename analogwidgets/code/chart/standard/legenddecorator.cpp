@@ -3,7 +3,7 @@
 **************************************************************************/
 #include <QtGui>
 #include <cmath>
-#include "legenddecorator.h"
+#include "chart/standard/legenddecorator.h"
 #include "chart.h"
 
 using namespace std;

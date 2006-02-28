@@ -2,7 +2,7 @@
   			labelsdecorator.cpp - Copyright coder
 **************************************************************************/
 
-#include "labelsdecorator.h"
+#include "chart/standard/labelsdecorator.h"
 #include "chart.h"
 
 using namespace Standard;

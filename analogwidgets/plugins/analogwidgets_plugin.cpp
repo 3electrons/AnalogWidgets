@@ -1,13 +1,13 @@
 #include "analogwidgets_plugin.h"
 #include "defines.h"
 
-#include "wallclock/wallclock_plugin.h"
-#include "manometer/manometer_plugin.h"
-#include "thermometer/thermometer_plugin.h" 
-#include "chart/chart_plugin.h" 
+#include "wallclock_plugin.h"
+#include "manometer_plugin.h"
+#include "thermometer_plugin.h" 
+#include "chart_plugin.h" 
 //#include "wheel/wheel_plugin.h"
-#include "mnemonics/mnemonicbox_plugin.h" 
-#include "led/led_plugin.h" 
+#include "mnemonicbox_plugin.h" 
+#include "led_plugin.h" 
 
 AnalogWidgetsPlugin::AnalogWidgetsPlugin()
 {

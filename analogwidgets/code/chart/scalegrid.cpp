@@ -1,4 +1,4 @@
-#include "scalegrid.h"
+#include "chart/scalegrid.h"
 
 using namespace chart;
 

@@ -1,4 +1,4 @@
-#include "channel.h"
+#include "chart/channel.h"
 
 using namespace chart;
 

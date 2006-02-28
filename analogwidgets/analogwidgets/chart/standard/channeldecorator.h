@@ -5,7 +5,7 @@
 #ifndef CHANNELDECORATOR_H
 #define CHANNELDECORATOR_H
 
-#include "chartdecorator.h"
+#include "chart/chartdecorator.h"
 
 
 

@@ -1,6 +1,6 @@
     #include "chart.h"
     #include "chart_plugin.h"
-    #include "../defines.h"
+    #include "defines.h"
  
     /*------------------------------------------------------------------------------------------------
      *			     			CHART

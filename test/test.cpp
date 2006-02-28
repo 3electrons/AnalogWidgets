@@ -6,10 +6,10 @@
     #include <QString>
     #include <QTimer>
 
-    #include "manometer/manometer.h"
-    #include "wallclock/wallclock.h"
-    #include "thermometer/thermometer.h"
-    #include "chart/chart.h"
+    #include "manometer.h"
+    #include "wallclock.h"
+    #include "thermometer.h"
+    #include "chart.h"
     #include "chart/datacontainers.h"
 
 

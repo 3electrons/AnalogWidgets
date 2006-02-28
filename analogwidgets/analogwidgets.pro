@@ -5,6 +5,5 @@
 TEMPLATE    = subdirs
 SUBDIRS     = \
         code \
-	plugins \
-	staticlib 
+	plugins  
 

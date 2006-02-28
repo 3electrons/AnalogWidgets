@@ -5,7 +5,7 @@
 #ifndef LABELSDECORATOR_H
 #define LABELSDECORATOR_H
 
-#include "chartdecorator.h"
+#include "chart/chartdecorator.h"
 
 
 

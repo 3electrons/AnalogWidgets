@@ -3,7 +3,7 @@
 **************************************************************************/
 #include <QtGui>
 // #include <iostream>
-#include "scalegriddecorator.h"
+#include "chart/standard/scalegriddecorator.h"
 #include "chart.h"
 #include "functions.h"
 

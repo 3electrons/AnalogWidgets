@@ -6,7 +6,7 @@
 #include <QTimer>
 #include <QPen> 
 
-#include "common/qmywidgetwithbackground.h"
+#include "qmywidgetwithbackground.h"
 
 #include "chart/channel.h"
 #include "chart/scalegrid.h"

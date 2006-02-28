@@ -5,7 +5,7 @@
 #include <QtGui>
 #include <QPainterPath>
 #include "chart.h"
-#include "channeldecorator.h"
+#include "chart/standard/channeldecorator.h"
 #include <cmath>
 #include <iostream> 
 
