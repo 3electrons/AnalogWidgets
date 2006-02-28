@@ -13,8 +13,10 @@ using namespace Standard;
 
 void LegendDecorator::paint (QPainter & painter, Chart * chart)
 {
+ 
  if (!chart->doRepaintBackground())
   if (chart->isPaintOver())
+  if (chart->showLegend()) 
   {
     unsigned int rh = painter.renderHints();
     painter.setRenderHint(QPainter::RenderHint(0x0)); // w³aczenie antialiasingu

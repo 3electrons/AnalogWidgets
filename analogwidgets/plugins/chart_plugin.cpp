@@ -83,7 +83,7 @@
 
     QString ChartPlugin::includeFile() const
     {
-       return QLatin1String("analogwidgets/chart/chart.h");
+       return QLatin1String("analogwidgets/chart.h");
     }
 
     QString ChartPlugin::codeTemplate() const

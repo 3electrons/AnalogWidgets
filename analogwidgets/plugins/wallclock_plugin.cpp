@@ -82,7 +82,7 @@
 
     QString WallClockPlugin::includeFile() const
     {
-        return QLatin1String("analogwidgets/wallclock/wallclock.h");
+        return QLatin1String("analogwidgets/wallclock.h");
     }
 
     QString WallClockPlugin::codeTemplate() const

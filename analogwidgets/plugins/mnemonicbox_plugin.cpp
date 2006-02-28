@@ -84,7 +84,7 @@
 
     QString MnemonicBoxPlugin::includeFile() const
     {
-        return QLatin1String("analogwidgets/mnemonics/manemonicbox.h");
+        return QLatin1String("analogwidgets/manemonicbox.h");
     }
 
     QString MnemonicBoxPlugin::codeTemplate() const
