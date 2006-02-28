@@ -20,7 +20,17 @@
     #include <list>
     #include <vector>
     //#include <pair>
-
+    #ifdef WIN32 
+     #define UNDEPRESS "[bar] Ciœnienie pod t³okiem"
+     #define CALCPRESS "[bar] Ciœnienie wyliczone"
+     #define OVERPRESS "[bar] Ciœnienie nad t³okiem"
+     #define VELOCITY  "[cm/s] Prêdkoœæ"
+    #else
+     #define UNDEPRESS "[bar] Ci¶nienie pod t³okiem"
+     #define CALCPRESS "[bar] Ci¶nienie wyliczone"
+     #define OVERPRESS "[bar] Ci¶nienie nad t³okiem"
+     #define VELOCITY  "[cm/s] Prêdko¶æ"
+    #endif 
     using namespace std;
 
     typedef vector<int> vint;
@@ -107,20 +117,20 @@
    	vPen.setWidthF(2.0);
 	vPen.setColor(Qt::green);
         Channel cisnienie2 (0,350,new DoubleDataContainer<vint,lint>(times,press2),
-			   "[bar] Ci¶nienie pod t³okiem",vPen);
+			   UNDEPRESS,vPen);
 	vPen.setColor(Qt::magenta);
         Channel cisnienie3 (0,350,new DoubleDataContainer<vint,ldouble>(times,press3),
-			   "[bar] Ci¶nienie wyliczone",vPen);
+			   CALCPRESS,vPen);
 	vPen.setColor(Qt::cyan);
 	Channel cisnienie (0,350,new DoubleDataContainer<vint,lint>(times,press1),
-			   "[bar] Ci¶nienie nad t³okiem",vPen);
+			   OVERPRESS,vPen);
 	vPen.setColor(Qt::yellow);
         Channel pozycja(0,230,new PairDataContainer<lpair>(position),
 			  "[mm] Pozycja",vPen);
 	//vPen.setStyle(Qt::DashDotLine);
 	vPen.setColor(Qt::red);
         Channel predkosc  (0,300, new DoubleDataContainer<vint,vint>(times,velocity),
-			  "[cm/s] Prêdko¶æ",vPen) ;//QPen(Qt::red));
+			  VELOCITY,vPen) ;//QPen(Qt::red));
 
 
         cisnienie2.showScale = cisnienie3.showScale = false;

@@ -12,8 +12,11 @@ CXXFLAGS = -g3
 #LIBS += ../communication/Bartkom/src/lib/libcomm.a \
 #        ../analogwidgets/libanalogwidgets.a
 
-unix:LIBS += ../analogwidgets/libanalogwidgets_plugin.so 
-win32:LIBS += ../analogwidgets/analogwidgets_plugin.dll 
+unix:LIBS  += ../analogwidgets/libanalogwidgets_plugin.so 
+win32:LIBS += ../analogwidgets/libanalogwidgets.a  \
+              ../analogwidgets/communication/Bartkom/src/lib/libcomm.a 
+              
+
 
 INCLUDEPATH += ../analogwidgets/analogwidgets
 MOC_DIR = objects 
