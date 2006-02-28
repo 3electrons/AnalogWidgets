@@ -62,7 +62,7 @@
 
     QString ChartPlugin::domXml() const
     {
-     	 return QLatin1String("<widget class=\"Chart\" name=\"Chart\">\n"
+     	 return QLatin1String("<widget class=\"Chart\" name=\"chart\">\n"
                              " <property name=\"geometry\">\n"
                              "  <rect>\n"
                              "   <x>0</x>\n"

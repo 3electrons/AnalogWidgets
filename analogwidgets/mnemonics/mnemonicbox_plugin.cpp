@@ -64,7 +64,7 @@
 
     QString MnemonicBoxPlugin::domXml() const
     {
-        return QLatin1String("<widget class=\"MnemonicBox\" name=\"MnemonicBox\">\n"
+        return QLatin1String("<widget class=\"MnemonicBox\" name=\"mnemonicbox\">\n"
                              " <property name=\"geometry\">\n"
                              "  <rect>\n"
                              "   <x>0</x>\n"

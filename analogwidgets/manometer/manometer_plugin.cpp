@@ -62,7 +62,7 @@
 
     QString ManoMeterPlugin::domXml() const
     {
-        return QLatin1String("<widget class=\"ManoMeter\" name=\"ManoMeter\">\n"
+        return QLatin1String("<widget class=\"ManoMeter\" name=\"manometer\">\n"
                              " <property name=\"geometry\">\n"
                              "  <rect>\n"
                              "   <x>0</x>\n"

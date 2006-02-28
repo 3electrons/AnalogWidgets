@@ -62,7 +62,7 @@
 
     QString LedPlugin::domXml() const
     {
-        return QLatin1String("<widget class=\"Led\" name=\"Led\">\n"
+        return QLatin1String("<widget class=\"Led\" name=\"led\">\n"
                              " <property name=\"geometry\">\n"
                              "  <rect>\n"
                              "   <x>0</x>\n"

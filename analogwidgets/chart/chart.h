@@ -19,7 +19,7 @@ using namespace chart;
 typedef  vector<Channel> Channels;
 
     class Chart :  public QMyWidgetWithBackground
-    {
+    	{
       Q_OBJECT
       Q_PROPERTY (int channel     	 	READ channel      WRITE setChannel   )
       Q_PROPERTY (int position  		READ position     WRITE setPosition  )

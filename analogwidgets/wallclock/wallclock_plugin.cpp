@@ -61,7 +61,7 @@
 
     QString WallClockPlugin::domXml() const
     {
-        return QLatin1String("<widget class=\"WallClock\" name=\"WallClock\">\n"
+        return QLatin1String("<widget class=\"WallClock\" name=\"wallclock\">\n"
                              " <property name=\"geometry\">\n"
                              "  <rect>\n"
                              "   <x>0</x>\n"

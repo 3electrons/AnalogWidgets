@@ -62,7 +62,7 @@
 
     QString ThermoMeterPlugin::domXml() const
     {
-        return QLatin1String("<widget class=\"ThermoMeter\" name=\"ThermoMeter\">\n"
+        return QLatin1String("<widget class=\"ThermoMeter\" name=\"thermometer\">\n"
                              " <property name=\"geometry\">\n"
                              "  <rect>\n"
                              "   <x>0</x>\n"
