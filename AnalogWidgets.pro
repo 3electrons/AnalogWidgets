@@ -6,4 +6,6 @@ TEMPLATE    = subdirs
 SUBDIRS     = \
         analogwidgets \
 	test 
+#	install
+	
 

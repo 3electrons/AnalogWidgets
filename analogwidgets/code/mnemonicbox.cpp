@@ -3,7 +3,7 @@
 
 #include "mnemonicbox.h"
 #include "comm/engine.h" // z Bartkom/src/comm/
-#include "comm/comm_exceptions.h"
+
 
 using namespace std; 
 using namespace comm; 
@@ -56,11 +56,12 @@ void setBridgeValue(common::Value & v , protocols::MnemonicBridge * bridge)
   {
     bridge->setValue(v.str());
   }
-  catch (comm_error & e) 
+  catch (exception & e) 
   {
     if (designMode()) cout<<e.what()<<endl;
     else throw e; 
   }
+
 }
 
 MnemonicBox::MnemonicBox(QWidget * parent) : QWidget(parent)
