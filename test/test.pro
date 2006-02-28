@@ -10,7 +10,7 @@ TARGETDEPS += ../communication/Bartkom/src/lib/libcomm.a \
 LIBS += ../communication/Bartkom/src/lib/libcomm.a \
         ../analogwidgets/libanalogwidgets.a 
 INCLUDEPATH += ../analogwidgets/analogwidgets 
-MOC_DIR = ../objects 
+MOC_DIR = objects 
 UI_DIR = . 
 OBJECTS_DIR = ../objects 
 QMAKE_LFLAGS_RELEASE = -pg \
