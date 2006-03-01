@@ -3,8 +3,6 @@
 #
 
 TEMPLATE    = subdirs
-SUBDIRS     = \
-        communication \ 
-        code \
-	plugins  
+SUBDIRS     =  code \
+	       plugins  
 

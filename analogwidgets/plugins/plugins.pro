@@ -5,10 +5,10 @@
 
 
 TARGETDEPS += ../libanalogwidgets.a \
-              ../communication/Bartkom/src/lib/libcomm.a
+              ../../../Bartkom/src/lib/libcomm.a
 	      
 LIBS +=       ../libanalogwidgets.a \
-              ../communication/Bartkom/src/lib/libcomm.a
+              ../../../Bartkom/src/lib/libcomm.a
 	      
 
 
