@@ -15,8 +15,7 @@
 
 using namespace std;
 using namespace chart;
-
-typedef  vector<Channel> Channels;
+typedef  vector<chart::Channel> Channels;
 
     class Chart :  public QMyWidgetWithBackground
     	{

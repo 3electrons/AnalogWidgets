@@ -15,28 +15,58 @@ namespace chart {
 class Channel  {
 
 public:
+
+   void setPen(QPen & pen);
+   QPen pen() const; 
+   
+   void setName(QString & name); 
+   QString name() const; 
+  
+   ChannelData * data() const; 
+   
+   double maximum() const { return m_max ; }
+   void setMaximum(double i) { if (i>m_min) m_max = i;}
+   double minimum() const { return m_min ; }
+   void setMinimum(double i) { if (i<m_max) m_min = i;}
+   
+   void setCalcMinMax(double a,double b)
+   {
+     if (a<b) { m_calc_min = a ; m_calc_max = b; }
+   }
+   void getCalcMinMax(double &a, double &b)
+   {
+     a = m_calc_min; b = m_calc_max ; 
+   }
+   
+   bool showScale() const { return m_showScale; }
+   void setShowScale(bool i ){ m_showScale = i ; } 
+   
+   protected: 
    /** Iteratory wskazuj±ce na dane do odczytania */
   // Iterator * m_iterator_begin,m_iterator_end;
   /** Pióro jakim ma byæ malowany kana³ - czyli jego kolor, grubo¶æ i styl. */
    QPen m_pen;
   /** Nazwa daych np. Napiêcie */
    QString m_name;
-
+  /** Dane kana³u */ 
+  ChannelData * m_data;
+  
 
   /** Warto¶æ minmalna dla kana³u która ma byæ wy¶wietlana na wykresie */
-   double min;
-  /** Warto¶æ maksymalna dla kana³u która ma byæ wy¶wietlana na wykresie */
-   double max;
-  /** Wato¶æ minimalna wyznaczona na podstawie rozleg³o¶ci skali oraz ilo¶ci wêz³ów skali*/
    double m_min;
-  /** Wato¶æ maksymalna wyznaczona na podstawie rozleg³o¶ci skali oraz ilo¶ci wêz³ów skali */
+  /** Warto¶æ maksymalna dla kana³u która ma byæ wy¶wietlana na wykresie */
    double m_max;
+  /** Wato¶æ minimalna wyznaczona na podstawie rozleg³o¶ci skali oraz ilo¶ci wêz³ów skali*/
+   double m_calc_min;
+  /** Wato¶æ maksymalna wyznaczona na podstawie rozleg³o¶ci skali oraz ilo¶ci wêz³ów skali */
+   double m_calc_max;
 
   /** Okre¶la czy kana³ ma mieæ pokazan± w³asn± o¶ z danymi*/
-   bool showScale;
+   bool m_showScale;
   /** Konstruktor domy¶lny */
+  public: 
 
-  ChannelData * m_data;
+ 
   Channel();
 
   /**

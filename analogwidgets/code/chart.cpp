@@ -144,17 +144,15 @@ void Chart::setSize(int i)
 double Chart::channelMinimum() const   
 { 
   if (m_channels.size())
-   return m_channels[m_channel].min;
+   return m_channels[m_channel].minimum();
   return 0.0; 
 }
 
 void Chart::setChannelMinimum(double i) 
 { 
   if (m_channels.size())
-  if (m_channels[m_channel].max > i) 
   {
-    
-    m_channels[m_channel].min = i; 
+    m_channels[m_channel].setMinimum(i);
     updateWithBackground(); 
   }
 }
@@ -163,16 +161,16 @@ void Chart::setChannelMinimum(double i)
 double Chart::channelMaximum() const   
 { 
   if (m_channels.size())
-   return m_channels[m_channel].max;
+   return m_channels[m_channel].maximum();
+  
   return 0.0; 
 }
       	
 void Chart::setChannelMaximum(double i) 
 {
   if (m_channels.size())
-  if (m_channels[m_channel].min < i) 
   {
-    m_channels[m_channel].max = i; 
+    m_channels[m_channel].setMaximum(i);  
     updateWithBackground(); 
   }
 }
@@ -200,7 +198,7 @@ QColor Chart::channelColor()      const
 {
   QColor C(255,255,255); 
   if (m_channels.size())
-  C = m_channels[m_channel].m_pen.color();
+  C = m_channels[m_channel].pen().color();
  
   return C;
 }
@@ -209,7 +207,7 @@ void Chart::setChannelColor( QColor i )
 {
   if (m_channels.size())
    {
-     m_channels[m_channel].m_pen.setColor(i);
+     m_channels[m_channel].pen().setColor(i);
      updateWithBackground(); 
    }
    
@@ -266,7 +264,7 @@ void Chart::setXSubMesh( int i)
 bool Chart::channelShowScale() const	
 { 
  if (m_channels.size())
-  return m_channels[m_channel].showScale; 
+  return m_channels[m_channel].showScale(); 
   return false; 
 }
 
@@ -274,7 +272,7 @@ void Chart::setChannelShowScale(bool i)
 {
    if (m_channels.size())
    { 
-     m_channels[m_channel].showScale = i;
+     m_channels[m_channel].setShowScale(i);
      updateWithBackground(); 
    }
 }
@@ -284,7 +282,7 @@ QString Chart::channelName () const
 {
   QString name; 
   if (m_channels.size())
-    name = m_channels[m_channel].m_name ; 
+    name = m_channels[m_channel].name() ; 
   return name ;
 }
 
@@ -292,7 +290,7 @@ void Chart::setChannelName (QString i)
 {
   if (m_channels.size())
   {
-    m_channels[m_channel].m_name = i; 
+    m_channels[m_channel].setName(i); 
     update(); 
   }
 }

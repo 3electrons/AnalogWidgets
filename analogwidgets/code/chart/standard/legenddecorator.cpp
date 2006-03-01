@@ -43,7 +43,7 @@ void LegendDecorator::paintLegendFrame(QPainter & painter, Chart * chart)
     painter.setFont(chart->font());
     while (i--!=channels.begin())
     {
-      size = painter.fontMetrics().size(Qt::TextSingleLine, i->m_name);
+      size = painter.fontMetrics().size(Qt::TextSingleLine, i->name());
       width = max(width,size.width());
       height += size.height();
     } // while
@@ -69,9 +69,9 @@ void LegendDecorator::paintLegendFrame(QPainter & painter, Chart * chart)
     y = TOPOFFSET + YOFFSET*2;
     while (i--!=channels.begin())
     {
-      size = painter.fontMetrics().size(Qt::TextSingleLine, i->m_name);
-      painter.setPen(i->m_pen);
-      painter.drawText(x,y,i->m_name);
+      size = painter.fontMetrics().size(Qt::TextSingleLine, i->name());
+      painter.setPen(i->pen());
+      painter.drawText(x,y,i->name());
       y += size.height();
     } // while
 }

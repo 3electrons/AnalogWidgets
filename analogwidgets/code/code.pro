@@ -4,7 +4,7 @@
 # Cel to biblioteka analogwidgets
 
 INCLUDEPATH += ../analogwidgets \
-               ../communication/Bartkom/src/comm 
+               ../../../Bartkom/src/comm 
 OBJECTS_DIR = ../objects 
 TARGET = analogwidgets 
 DESTDIR = ../ 

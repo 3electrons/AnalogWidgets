@@ -133,7 +133,8 @@
 			  VELOCITY,vPen) ;//QPen(Qt::red));
 
 
-        cisnienie2.showScale = cisnienie3.showScale = false;
+        cisnienie2.setShowScale(false); 
+        cisnienie3.setShowScale(false);
 	//pozycja.showScale = predkosc.showScale = false ;
 	//chart->scaleGrid().showScale=false;
 	//chart->scaleGrid().showGrid=false;

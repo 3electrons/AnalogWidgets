@@ -88,14 +88,14 @@ void ScalesGridDecorator::paintXScale(QPainter & painter, Chart * chart)
   {
    // @TODO - sprawdziæ czy warto¶ci przystaj± do skali  && if yMesh > 10 to sie dziwne rzeczy dzieja 
    int maxTextWidth=0; // maksymalna szeroko¶æ napisu skali
-   if (i->showScale)
+   if (i->showScale())
    {
-     painter.setPen(i->m_pen);
+     painter.setPen(i->pen());
      double m_min,m_max;
-     range(i->min,i->max,m_min,m_max,yMesh,true,minimalStep(i->max-i->min,yMesh));  // wyznaczenie ca³ej rangi ...
+     range(i->minimum(),i->maximum(),m_min,m_max,yMesh,true,minimalStep(i->maximum()-i->minimum(),yMesh));  // wyznaczenie ca³ej rangi ...
 
      double scaleStep = (m_max-m_min)/ yMesh;
-      i->m_min = m_min; i->m_max = m_max+scaleStep; //  ustawianie wymiarów dla kana³ów
+      i->setCalcMinMax(m_min, m_max+scaleStep); //  ustawianie wymiarów dla kana³ów
      double scalePos=m_max;
      double posStep = yScaleHeight /( yMesh+1), posText=posStep;
      // malowanie literek skali

@@ -30,7 +30,7 @@ void ChannelDecorator::paint (QPainter & painter, Chart * chart)
    while (i--!=channels.begin())
    {
      painter.save();
-     painter.setPen(i->m_pen);
+     painter.setPen(i->pen());
      translateToChannel(painter,chart,*i);
      paintChannel(painter,chart,*i);
      painter.restore();
@@ -49,8 +49,7 @@ void ChannelDecorator::translateToChannel (QPainter & painter, Chart * chart, Ch
    pos  = chart->scaleGrid().pos ;
    xmin = chart->scaleGrid().m_min;
    xmax = chart->scaleGrid().m_max;
-   ymin = channel.m_min;
-   ymax = channel.m_max;
+   channel.getCalcMinMax(ymin,ymax); 
 
    QRect window = painter.window();
    xfactor = window.width()/(xmax - xmin );
@@ -82,11 +81,11 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel &
   bool init = false,add = false;
   int width =  painter.window().width();
   int count = 0; 
-  if (channel.m_data)
-   if (channel.m_data->init())
+  if (channel.data())
+   if (channel.data()->init())
       {
         QPolygonF line;
-        while( channel.m_data->next(x,y) && current_x <= width    )
+        while( channel.data()->next(x,y) && current_x <= width    )
         {
            current_x = x*xfactor+dx;
            current_y = y*yfactor+dy;
@@ -111,7 +110,7 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel &
        painter.drawPolyline(line);
       }
     else
-     cout<<"Channel:"<<channel.m_name.toLocal8Bit().constData()<<" has no data"<<endl;
+     cout<<"Channel:"<<channel.name().toLocal8Bit().constData()<<" has no data"<<endl;
    
   //painter.setRenderHint(QPainter::RenderHint(0x0));
 }
