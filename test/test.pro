@@ -14,7 +14,7 @@ CXXFLAGS = -g3
 
 unix:LIBS  += ../analogwidgets/libanalogwidgets_plugin.so 
 win32:LIBS += ../analogwidgets/libanalogwidgets.a  \
-              ../analogwidgets/communication/Bartkom/src/lib/libcomm.a 
+              ../../Bartkom/src/lib/libcomm.a 
               
 
 
