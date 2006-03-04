@@ -6,6 +6,8 @@
 INCLUDEPATH += ../analogwidgets \
                ../../../Bartkom/src/comm 
 OBJECTS_DIR = ../objects 
+QMAKE_CXXFLAGS_RELEASE += -g3 
+QMAKE_CXXFLAGS_DEBUG += -g3 
 TARGET = analogwidgets 
 DESTDIR = ../ 
 CONFIG += release \

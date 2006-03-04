@@ -8,8 +8,8 @@
 using namespace std; 
 using namespace comm; 
 
-#define READ 0x0
-#define WRITE 0x1
+//#define READ 0x0
+//..#define WRITE 0x1
 
 
 
@@ -37,8 +37,9 @@ common::Value bridgeValue(protocols::MnemonicBridge * bridge)
   { v = bridge->value(); }
   catch (comm_error & e)
   {
-   if (designMode()) cout<<e.what()<<endl;
-   else throw e; 
+  // if (designMode())
+    cout<<e.what()<<endl;
+   //else throw e; 
   }
   return v.str(); 
 }
@@ -148,8 +149,6 @@ void MnemonicBox::initChildComponent()
 void MnemonicBox::intType()
 {
    QSpinBox * box =  new QSpinBox(this); 
-   connect (this,SIGNAL(valueChanged(int)),box,SLOT(setValue(int)));
-   connect (box,SIGNAL(valueChanged(int)),this,SLOT(setValue(int)));
     
      if (m_bridge)
      {
@@ -167,17 +166,24 @@ void MnemonicBox::intType()
      
      // default 
      v = m_bridge->property("default");
-     box->setValue(v); 
+        if (!v.str().empty())
+          box->setValue(v); 
+        else 
+        {
+          v=bridgeValue(m_bridge);
+          box->setValue(v); 
+        }
      }
    m_widget = box; 
+   connect (this,SIGNAL(valueChanged(int)),box,SLOT(setValue(int)));
+   connect (box,SIGNAL(valueChanged(int)),this,SLOT(setValue(int)));
+
 }
 
 void MnemonicBox::doubleType()
 {
    QDoubleSpinBox * box = new QDoubleSpinBox(this);
    
-   connect (this,SIGNAL(valueChanged(double)),box,SLOT(setValue(double))); 
-   connect (box,SIGNAL(valueChanged(double)),this,SLOT(setValue(double))); 
    
    if (m_bridge)
    {
@@ -199,26 +205,41 @@ void MnemonicBox::doubleType()
    
    // default 
    v = m_bridge->property("default");
-   box->setValue(v); 
+     if (!v.str().empty())
+       box->setValue(v); 
+     else 
+     {
+       v=bridgeValue(m_bridge); 
+       box->setValue(v); 
+     }
 
    } // if m_bridge 
    
    m_widget = box; 
+   connect (this,SIGNAL(valueChanged(double)),box,SLOT(setValue(double))); 
+   connect (box,SIGNAL(valueChanged(double)),this,SLOT(setValue(double))); 
+
 }
 
 void MnemonicBox::boolType()
 {
    QCheckBox * box =  new QCheckBox("",this);
-   connect(this,SIGNAL(checkChanged(bool)),box,SLOT(setChecked(bool))); 
-   connect(box,SIGNAL(toggled(bool)),this,SLOT(setChecked(bool))); 
    
    if (m_bridge)
    {
    // default 
    common::Value v = m_bridge->property("default");
-   box->setChecked(v); 
+    if (!v.str().empty())
+      box->setChecked(v); 
+    else // pobierz warto¶æ z mnemonika  
+    {
+      v = bridgeValue(m_bridge);
+      box->setChecked(v); 
+    }
    }
    m_widget = box; 
+   connect(this,SIGNAL(checkChanged(bool)),box,SLOT(setChecked(bool))); 
+   connect(box,SIGNAL(toggled(bool)),this,SLOT(setChecked(bool))); 
     
 }
  
