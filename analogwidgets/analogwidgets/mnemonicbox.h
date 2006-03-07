@@ -12,7 +12,7 @@
 using namespace std; 
 class MnemonicBox; 
 
-typedef map<string,MnemonicBox *>  mnemonic_dict; 
+typedef map<string,MnemonicBox *>  mnemonic_map; 
  
 // Deklaracja wartwy po³±czeniowej z mnemonikiem 
 namespace protocols
@@ -34,10 +34,12 @@ class MnemonicBox : public QWidget
   
  public:
    
-   static mnemonic_dict widgets; 
+   static mnemonic_map widgets; 
    
  
   MnemonicBox (QWidget * parent );
+  
+  ~MnemonicBox(); 
    
   void  setServer  (QString value); 
   QString server   (); 
@@ -83,7 +85,7 @@ class MnemonicBox : public QWidget
   
  protected:
   
-
+  void clean(); 
   
   void paintEvent(QPaintEvent *event); 
   
@@ -102,6 +104,9 @@ class MnemonicBox : public QWidget
   
   /** Typ mnemonika none,int_t double itd ... */ 
   int m_type; 
+  
+  /** czy zmienna mnemonic jest tylko do oczytu */ 
+  bool m_readOnly; 
   
   /** Nazwa mnemonika */
   QString m_mnemonicname;
