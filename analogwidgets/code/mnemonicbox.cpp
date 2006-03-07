@@ -22,6 +22,7 @@ bool & designMode(bool val=false,bool modify=false)
   static bool mode;
   if (!set && !modify ) { mode = false; set = true ; }  
   if (modify) { mode = val; set = true ; }   
+  
   return mode; 
 }
 
@@ -34,12 +35,17 @@ common::Value bridgeValue(protocols::MnemonicBridge * bridge)
 {
   common::Value v("");
   try
-  { v = bridge->value(); }
+  {
+    v = bridge->value(); 
+    usleep(2000); 
+  }
   catch (comm_error & e)
   {
-  // if (designMode())
-    cout<<e.what()<<endl;
-   //else throw e; 
+    string s = bridge->property("name");
+    s+=" "; s+=e.what(); 
+    common::log<<"* Communication error:"<<s<<endl;
+    QMessageBox::critical(NULL,"Blad odczytu",s.c_str()); 
+    v = bridge->lastValue(); 
   }
   return v.str(); 
 }
@@ -51,18 +57,23 @@ common::Value bridgeValue(protocols::MnemonicBridge * bridge)
 */ 
 
 
-void setBridgeValue(common::Value & v , protocols::MnemonicBridge * bridge)
+bool setBridgeValue(common::Value & v , protocols::MnemonicBridge * bridge)
 {
+  bool status = false; 
   try
   {
     bridge->setValue(v.str());
+    status = true; 
   }
   catch (exception & e) 
   {
-    if (designMode()) cout<<e.what()<<endl;
-    else throw e; 
+    string s = bridge->property("name");
+    s+=" "; s+=e.what(); 
+    common::log<<"* Communication error:"<<s<<endl;
+    QMessageBox::critical(NULL,"Blad zapisu",s.c_str()); 
+    v = bridge->lastValue(); 
   }
-
+  return status; 
 }
 
 MnemonicBox::MnemonicBox(QWidget * parent) : QWidget(parent)
@@ -107,43 +118,48 @@ void MnemonicBox::initChildComponent()
      int  m_types[]={int_t,double_t,bool_t}; 
      for (int i=0;i<3;i++)
      if (type==types[i]) m_type = m_types[i]; 
-  }
+  }  
   
   catch (exception & e)
   {
-    cout<<"Wyj±tek:"<<e.what()<<endl; 
+    clog<<"FAIL - mnemonicbox error:"<<m_bridge->property("name")<<" "<<e.what()<<endl; 
+   // noneType(); 
+   // layout()->addWidget(m_widget); 
   }
-  
-    if (NULL==layout())
+     
+    QLayout * layout = this->layout();
+    if (NULL==layout)
     {
-      QHBoxLayout * layout = new QHBoxLayout(); 
+      layout = new QHBoxLayout(); 
       layout->setMargin(0);
-      layout->setSpacing(0); 
-      setLayout(layout);   
+      layout->setSpacing(0);       
+      //setLayout(layout);
     }
-  
-    if (m_widget)
-    {
-      layout()->removeWidget(m_widget);
-      m_widget->disconnect(); // roz³±cza wszystkie sygna³y 
-      delete m_widget; 
-      m_widget = NULL; 
-    }
+     
+     if (m_widget)
+     {
+       layout->removeWidget(m_widget);
+       m_widget->disconnect(); // roz³±cza wszystkie sygna³y 
+       delete m_widget; 
+       m_widget = NULL; 
+     }
   
      if (true==m_isVisible)
-    {
+     {
       switch (m_type)
       { 
          case int_t    : intType()    ; break;
          case double_t : doubleType() ; break; 
          case bool_t   : boolType()   ; break; 
          case none     : noneType()   ; break;
-       }
-       layout()->addWidget(m_widget); 
+      }
+     layout->addWidget(m_widget); 
    } // if visible 
    else 
-      setLayout(NULL);
-    
+   {
+     setLayout(NULL);    
+     delete layout; 
+   }
 }
 
 void MnemonicBox::intType()
@@ -166,11 +182,12 @@ void MnemonicBox::intType()
      
      // default 
      v = m_bridge->property("default");
-        if (!v.str().empty())
+        if (!v.empty())
           box->setValue(v); 
         else 
         {
           v=bridgeValue(m_bridge);
+          if (!v.empty())
           box->setValue(v); 
         }
      }
@@ -205,11 +222,12 @@ void MnemonicBox::doubleType()
    
    // default 
    v = m_bridge->property("default");
-     if (!v.str().empty())
+     if (!v.empty())
        box->setValue(v); 
      else 
      {
        v=bridgeValue(m_bridge); 
+       if (!v.empty())
        box->setValue(v); 
      }
 
@@ -229,11 +247,12 @@ void MnemonicBox::boolType()
    {
    // default 
    common::Value v = m_bridge->property("default");
-    if (!v.str().empty())
+    if (!v.empty())
       box->setChecked(v); 
     else // pobierz warto¶æ z mnemonika  
     {
       v = bridgeValue(m_bridge);
+      if (!v.empty())
       box->setChecked(v); 
     }
    }
@@ -257,62 +276,81 @@ void MnemonicBox::updateValue()
   if (! m_bridge) return; 
   
   common::Value v = bridgeValue(m_bridge);
-  switch (m_type)
-  {
-   case int_t   : setValue(v.toInt()) ; break; 
-   case double_t: setValue(v.toDouble()) ; break; 
-   case bool_t  : setChecked(v); break;
-  }
+  
+  if (!v.empty())
+   switch (m_type)
+   {
+    case int_t   : setValue(v.toInt()) ; break; 
+    case double_t: setValue(v.toDouble()) ; break; 
+    case bool_t  : setChecked(v); break;
+   }
+  
 }
 
 void MnemonicBox::setValue (int value) 
 {
   if (!m_bridge) return; 
-  common::Value v = value; 
-  setBridgeValue(v,m_bridge); 
-  emit valueChanged(value); 
-  emit valueChanged((double)value);
+  common::Value v1 = m_bridge->lastValue(),v2 = value; 
+  
+  if (v1!=v2)
+  {
+   setBridgeValue(v2,m_bridge);
+   if (v2.empty()) v2 = 0.0; 
+   emit valueChanged(v2.toInt()); 
+   emit valueChanged(v2.toDouble()); 
+  }
   
 }
 
 void  MnemonicBox::setValue (double value) 
 {
   if (!m_bridge) return; 
-  common::Value v = value; 
-  setBridgeValue(v,m_bridge); 
-  
-  emit valueChanged(value);
-  emit valueChanged((int)value); 
-  
+  common::Value v1=m_bridge->lastValue(),v2 = value; 
+  if (v1!=v2) 
+  {
+   setBridgeValue(v2,m_bridge);
+   if (v2.empty()) v2 = 0.0; 
+   emit valueChanged(v2.toInt());
+   emit valueChanged(v2.toDouble()); 
+  }
+   
+   
 }
+
 void MnemonicBox::setChecked (bool value) 
 {
   if (!m_bridge) return; 
-  common::Value v = value; 
-  setBridgeValue(v,m_bridge); 
-  
-  emit checkChanged(value);
+  common::Value v1 = m_bridge->lastValue(),v2 = value; 
+  if (v1!=v2)
+  {
+   setBridgeValue(v2,m_bridge);
+   if (v2.empty()) v2 = false;   
+   emit checkChanged(v2.toBool());
+  }
 }
 
 
 int MnemonicBox::intValue () const
 {
   if (!m_bridge) return 1; 
-  common::Value v = bridgeValue(m_bridge); 
+  common::Value v = m_bridge->lastValue(); 
+  if (v.empty()) v = 0; 
   return v; 
 }
 
 double MnemonicBox::doubleValue () const
 {
   if (!m_bridge) return 1.0;
-  common::Value v = bridgeValue(m_bridge); 
+  common::Value v =  m_bridge->lastValue(); 
+  if (v.empty()) v = 0.0;; 
   return v;
 }
 
 bool MnemonicBox::checked() const
 {
   if (!m_bridge) return false; 
-  common::Value v = bridgeValue(m_bridge); 
+  common::Value v =  m_bridge->lastValue(); 
+  if (v.empty()) v = false; 
   return v; 
 }
 

@@ -63,7 +63,6 @@ void Chart::setPaintOver()
 	{
           m_isPaintOver = true;
           timer->stop();
-	  //cout<<"Uaktualniam"<<endl;
           update();
           // By malowalo normalnie wygladzone no chyba ze malujemy z duza czestoliwoscia ...
           m_isPaintOver = true; // kiedy ma byc malowane w antialiasingu jak czesto sie da ...
@@ -71,7 +70,6 @@ void Chart::setPaintOver()
 	}
 void Chart::paintEvent(QPaintEvent * /*event */)
 {
-   //cout<<"paintEvent"<<endl;
    drawBackground();
    QPainter painter(this);
    //initCoordinateSystem(painter);

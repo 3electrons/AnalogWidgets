@@ -106,7 +106,6 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel &
            
            //line.append(QPointF(current_x,current_y));
         }
-       // cout<<"Dodalem:"<<line.size()<<endl;
        painter.drawPolyline(line);
       }
     else

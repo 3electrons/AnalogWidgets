@@ -166,7 +166,6 @@
 
     void TestWidget::movePosition(int val)
     {
-     // cout<<"Position:"<<val<<endl;
       chart->setPosition(val);
     }
     void TestWidget::setSize(int val)
