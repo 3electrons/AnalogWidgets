@@ -27,10 +27,11 @@ namespace protocols
 class MnemonicBox : public QWidget 
 {
    Q_OBJECT 
+   Q_PROPERTY ( QString server          READ server     WRITE setServer    ) 
    Q_PROPERTY ( QString mnemonic 	READ mnemonic 	WRITE setMnemonic  ) 
    Q_PROPERTY ( bool    isVisible 	READ isVisible 	WRITE setIsVisible ) 
    Q_PROPERTY ( int     type            READ type       WRITE setType      )
-   Q_PROPERTY ( QString server          READ server     WRITE setServer    ) 
+  
  public:
    
    static mnemonic_dict widgets; 

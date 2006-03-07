@@ -92,13 +92,16 @@ MnemonicBox::MnemonicBox(QWidget * parent) : QWidget(parent)
   m_isVisible = true; 
   m_widget = NULL; 
   m_bridge = NULL; 
-  initChildComponent(); 
+  //initChildComponent(); 
 }
 
 
 void MnemonicBox::setServer  (QString value)
 {
    comm::EngineConfigFile( value.toLocal8Bit().data() );
+   if (NULL==m_bridge)
+      initChildComponent(); 
+   
 }
 
 QString MnemonicBox::server   ()
