@@ -7,16 +7,23 @@
 #include <QSpinBox> 
 #include <QDoubleSpinBox> 
 #include <QCheckBox> 
-/**
- * Class MnemonicBox
- * Komponent reprezentuj±cy box jeden z komponentów SpinBox DoubleSpinBox lub CheckBox
- */
+#include <map> 
+
+using namespace std; 
+class MnemonicBox; 
+
+typedef map<string,MnemonicBox *>  mnemonic_dict; 
  
 // Deklaracja wartwy po³±czeniowej z mnemonikiem 
 namespace protocols
 {
  class MnemonicBridge; 
 }
+
+/**
+ * Class MnemonicBox
+ * Komponent reprezentuj±cy box jeden z komponentów SpinBox DoubleSpinBox lub CheckBox
+ */
 class MnemonicBox : public QWidget 
 {
    Q_OBJECT 
@@ -26,12 +33,11 @@ class MnemonicBox : public QWidget
    Q_PROPERTY ( QString server          READ server     WRITE setServer    ) 
  public:
    
-   
+   static mnemonic_dict widgets; 
    
  
   MnemonicBox (QWidget * parent );
- 
- 
+   
   void  setServer  (QString value); 
   QString server   (); 
 
