@@ -9,6 +9,7 @@ OBJECTS_DIR = ../objects
 QMAKE_CXXFLAGS_RELEASE += -g3 
 QMAKE_CXXFLAGS_DEBUG += -g3 
 TARGET = analogwidgets 
+WIN32:DEFINES+= WIN32
 DESTDIR = ../ 
 CONFIG += release \
           warn_on \
@@ -32,7 +33,8 @@ HEADERS += ../analogwidgets/chart/chartdecorator.h \
            ../analogwidgets/mnemonicbox.h \
            ../analogwidgets/qmywidgetwithbackground.h \
            ../analogwidgets/chart.h \
-           ../analogwidgets/thermometer.h 
+           ../analogwidgets/thermometer.h \
+           defines.h 
 SOURCES += chart/scalegrid.cpp \
            chart/standard/labelsdecorator.cpp \
            chart/standard/glassdecorator.cpp \

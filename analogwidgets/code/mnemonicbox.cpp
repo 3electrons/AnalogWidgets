@@ -1,6 +1,7 @@
 #include <QtGui> 
 #include <iostream>
 
+#include "defines.h"
 #include "mnemonicbox.h"
 #include "comm/engine.h" // z Bartkom/src/comm/
 
