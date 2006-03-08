@@ -77,13 +77,7 @@ bool setBridgeValue(common::Value & v , protocols::MnemonicBridge * bridge)
   return status; 
 }
 
-
-
-
-
-
 mnemonic_map MnemonicBox::widgets; 
-
 
 MnemonicBox::MnemonicBox(QWidget * parent) : QWidget(parent)
 {
@@ -93,7 +87,7 @@ MnemonicBox::MnemonicBox(QWidget * parent) : QWidget(parent)
   m_widget = NULL; 
   m_bridge = NULL; 
   m_readOnly = true; 
-  //initChildComponent(); 
+  initWidget();          
 }
 
 MnemonicBox::~MnemonicBox()
@@ -104,7 +98,7 @@ MnemonicBox::~MnemonicBox()
 
 void MnemonicBox::setServer  (QString value)
 {
-   comm::EngineConfigFile( value.toLocal8Bit().data() );
+   comm::ReinitEngine( value.toLocal8Bit().data() );
    if (none==m_type)
    {
       MnemonicBox * box;
@@ -130,32 +124,41 @@ QString MnemonicBox::server   ()
 
 void MnemonicBox::initChildComponent()
 {
-  
+  initBridge();
+  initWidget();          
+}// initChildComponent  
+ 
+void MnemonicBox::initBridge()
+{
   if (m_bridge) 
   { 
     delete m_bridge; 
     m_bridge = NULL; 
     m_type = none;
   }
-  
+    
   try
   {
-   m_bridge = CreateMnemonicBridge(m_mnemonicname.toLocal8Bit().data()); 
-   string type = m_bridge->property("type");
-   common::Value v = m_bridge->property("readonly"); 
-   m_readOnly = v; 
-   cout<<"Read only:"<<m_readOnly<<endl; 
-   char *types[]={"int","double","bool"}; 
-   int  m_types[]={int_t,double_t,bool_t}; 
-   for (int i=0;i<3;i++)
-   if (type==types[i]) m_type = m_types[i]; 
+     m_bridge = CreateMnemonicBridge(m_mnemonicname.toLocal8Bit().data()); 
+     string type = m_bridge->property("type");
+     common::Value v = m_bridge->property("readonly"); 
+     cout<<"ReadOnly:"<<v.str()<<endl; 
+     m_readOnly = v; 
+     char *types[]={"int","double","bool"}; 
+     int  m_types[]={int_t,double_t,bool_t}; 
+     for (int i=0;i<3;i++)
+     if (type==types[i]) m_type = m_types[i]; 
   }
-  
   catch (exception & e)
   {
-   common::log<<"FAIL - init menmonicbox "<<m_mnemonicname.toLocal8Bit().data()<<" error:"<<e.what()<<endl; 
+     common::log<<"FAIL - init menmonicbox "<<m_mnemonicname.toLocal8Bit().data()<<" error:"<<e.what()<<endl; 
   } 
-       
+}// initBridge 
+
+void MnemonicBox::initWidget()
+{
+    
+    // Pozyskanie layout'u 
     QLayout * layout = this->layout();
     if (NULL==layout)
     {
@@ -165,6 +168,8 @@ void MnemonicBox::initChildComponent()
       setLayout(layout);
     }
      
+     
+    // zgrabne usuniêcie starego widgetu je¿eli istnieje  
      if (m_widget)
      {
        layout->removeWidget(m_widget);
@@ -173,6 +178,7 @@ void MnemonicBox::initChildComponent()
        m_widget = NULL; 
      }
       
+     // utworzenie nowego widgetu  
      try 
      {
       switch (m_type)
@@ -180,13 +186,12 @@ void MnemonicBox::initChildComponent()
          case int_t    : intType()    ; break;
          case double_t : doubleType() ; break; 
          case bool_t   : boolType()   ; break; 
-         case none     : noneType()   ; break;
-      }
+         case none     : noneType()   ; break; 
+       }
      }
+     // usuniêcie nieudanego widgetu ... z który ma ¼le zainicjowan± w³a¶ciow¶æ 
      catch (exception & e)
      {
-       // usuniêcie nieudanego widgetu ... z który ma ¼le zainicjowan± w³a¶ciow¶æ 
-      
        m_widget->disconnect(); // roz³±cza wszystkie sygna³y 
        delete m_widget; 
        m_widget = NULL; 
@@ -194,17 +199,11 @@ void MnemonicBox::initChildComponent()
        noneType(); 
        common::log<<"FAIL - create mnemonicbox:"<<m_bridge->property("name")<<" error:"<<e.what()<<endl;
      }
-     // Komponent jest utworzony i dostêpny by mo¿na by³o ustawiaæ jego warto¶ci odpowiednio. 
+     // wrzucenie do layout'a
      layout->addWidget(m_widget); 
-     
-     
-   
-   m_widget->setVisible(m_isVisible);  
-   
-    // if visible 
-  
-}// initChildComponent  
- 
+      
+     m_widget->setVisible(m_isVisible);        
+}// initWidget 
  
 
 
@@ -308,6 +307,7 @@ void MnemonicBox::noneType()
   label->setAlignment(Qt::AlignHCenter);
   m_widget = label;  
   m_widget->resize(m_widget->width(),16); 
+  m_type=none; 
 }
 
 
@@ -390,7 +390,8 @@ int MnemonicBox::intValue () const
 
 double MnemonicBox::doubleValue () const
 {
-  if (!m_bridge) return 1.0;
+  if (!m_bridge) 
+    return 1.0;
   common::Value v =  m_bridge->lastValue(); 
   if (v.empty()) v = 0.0;; 
   return v;
@@ -411,17 +412,20 @@ QString MnemonicBox::mnemonic () const
 }
 void MnemonicBox::setMnemonic (QString value) 
 {
-  clean(); 
+  if (value!="mnemonic")
+  {
+    clean(); 
   
-  m_mnemonicname = value; 
-  string str = m_mnemonicname.toLocal8Bit().data();
+    m_mnemonicname = value; 
+    string str = m_mnemonicname.toLocal8Bit().data();
   
-  widgets[str]=this; 
+    widgets[str]=this; 
   
-  initChildComponent();
-  setObjectName(value); 
-  
-  update(); 
+    setObjectName(value); 
+    initChildComponent();
+ 
+    update(); 
+  }
 }
 
 
@@ -436,12 +440,16 @@ void MnemonicBox::setIsVisible (bool value)
 
 void MnemonicBox::clean()
 {
+  
   string str = m_mnemonicname.toLocal8Bit().data();
-  //cout<<"Deleting:"<<str<<" addr:"<<this<<endl; 
-  if (widgets[str])
+  if (str!="mnemonic")
   {
-   widgets[str]=NULL; 
-   widgets.erase(widgets.find(str)); //]=NULL;
+   cout<<"Deleting:"<<str<<" addr:"<<this<<endl; 
+   if (widgets[str])
+   {
+    //// widgets[str]=NULL; 
+     widgets.erase(widgets.find(str)); //]=NULL;
+   }
   }
 }
 

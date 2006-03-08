@@ -30,7 +30,7 @@ class MnemonicBox : public QWidget
    Q_PROPERTY ( QString server          READ server     WRITE setServer    ) 
    Q_PROPERTY ( QString mnemonic 	READ mnemonic 	WRITE setMnemonic  ) 
    Q_PROPERTY ( bool    isVisible 	READ isVisible 	WRITE setIsVisible ) 
-   Q_PROPERTY ( int     type            READ type       WRITE setType      )
+ 
   
  public:
    
@@ -51,7 +51,7 @@ class MnemonicBox : public QWidget
   bool  isVisible () 		const;
   QString  mnemonic () 		const ;
   
-  int type () const {return m_type ;} 
+  
   
   
   
@@ -65,16 +65,7 @@ class MnemonicBox : public QWidget
   void  setChecked (bool value);
   void  setMnemonic (QString value);
   void  setIsVisible (bool value);
-  
-  void  setType(int type)
-  {
-    if (type>=0 && type<4)
-    {
-      m_type = type;
-      initChildComponent(); 
-      update(); 
-    }
-  } 
+   
   
     
   signals:
@@ -91,6 +82,10 @@ class MnemonicBox : public QWidget
   
   /** Inicjuje komponent potomny */ 
   void initChildComponent();
+  
+  void initBridge(); // inicjuje po³±czenie z engimem komunikacji 
+  void initWidget(); // inicjuje widget na podstawie typu oraz tego czy jest zdefinowany jaki¶ widget do tej porty 
+  
   
   void intType();
   void doubleType();
