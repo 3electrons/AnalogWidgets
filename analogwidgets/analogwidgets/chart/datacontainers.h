@@ -31,9 +31,15 @@ class PairDataContainer : public ChannelData
 
   bool next(double & x , double & y)
   {
-    x = static_cast<double> (m_iterator->first);
-    y = static_cast<double> (m_iterator->second);
-    return m_container.end() != ++m_iterator;
+    if (m_container.end() == m_iterator) 
+      return false; 
+    
+     x = static_cast<double> (m_iterator->first);
+     y = static_cast<double> (m_iterator->second);
+        
+    ++m_iterator; 
+    
+    return true;
   }
 
 }; // class DataContainers
@@ -65,11 +71,12 @@ class DoubleDataContainer : public ChannelData
 
   bool next( double & x, double & y)
   {
+    if ( (m_xcontainer.end() == m_xit ) || (m_ycontainer.end() == m_yit) )
+          return false; 
     x = static_cast<double> (*m_xit++);
     y = static_cast<double> (*m_yit++);
 
-
-   return ( m_xcontainer.end() != m_xit ) || ( m_ycontainer.end() != m_yit );
+   return true;
   }
 
 };

@@ -142,7 +142,7 @@ void MnemonicBox::initBridge()
      m_bridge = CreateMnemonicBridge(m_mnemonicname.toLocal8Bit().data()); 
      string type = m_bridge->property("type");
      common::Value v = m_bridge->property("readonly"); 
-     cout<<"ReadOnly:"<<v.str()<<endl; 
+     //cout<<"ReadOnly:"<<v.str()<<endl; 
      m_readOnly = v; 
      char *types[]={"int","double","bool"}; 
      int  m_types[]={int_t,double_t,bool_t}; 
@@ -438,13 +438,17 @@ void MnemonicBox::setIsVisible (bool value)
    update();
 }
 
+QWidget * MnemonicBox::childWidget()
+{
+  return m_widget; 
+}
+
 void MnemonicBox::clean()
 {
   
   string str = m_mnemonicname.toLocal8Bit().data();
   if (str!="mnemonic")
   {
-   cout<<"Deleting:"<<str<<" addr:"<<this<<endl; 
    if (widgets[str])
    {
     //// widgets[str]=NULL; 
@@ -455,7 +459,6 @@ void MnemonicBox::clean()
 
 void MnemonicBox::paintEvent(QPaintEvent * /*event*/)
 {
-  
   if (none==m_type && m_isVisible)
   {
       QPainter painter(this); 

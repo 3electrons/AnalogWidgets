@@ -51,6 +51,7 @@ class MnemonicBox : public QWidget
   bool  isVisible () 		const;
   QString  mnemonic () 		const ;
   
+  QWidget * childWidget(); 
   
   
   
