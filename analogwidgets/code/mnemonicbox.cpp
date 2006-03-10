@@ -44,7 +44,7 @@ common::Value bridgeValue(protocols::MnemonicBridge * bridge)
   {
     string s = bridge->property("name");
     s+=" "; s+=e.what(); 
-    common::log<<"* Communication error:"<<s<<endl;
+    common::log()<<"* Communication error:"<<s<<endl;
     QMessageBox::critical(NULL,"Blad odczytu",s.c_str()); 
     v = bridge->lastValue(); 
   }
@@ -70,7 +70,7 @@ bool setBridgeValue(common::Value & v , protocols::MnemonicBridge * bridge)
   {
     string s = bridge->property("name");
     s+=" "; s+=e.what(); 
-    common::log<<"* Communication error:"<<s<<endl;
+    common::log()<<"* Communication error:"<<s<<endl;
     QMessageBox::critical(NULL,"Blad zapisu",s.c_str()); 
     v = bridge->lastValue(); 
   }
@@ -151,7 +151,7 @@ void MnemonicBox::initBridge()
   }
   catch (exception & e)
   {
-     common::log<<"FAIL - init menmonicbox "<<m_mnemonicname.toLocal8Bit().data()<<" error:"<<e.what()<<endl; 
+     common::log()<<"FAIL - init menmonicbox "<<m_mnemonicname.toLocal8Bit().data()<<" error:"<<e.what()<<endl; 
   } 
 }// initBridge 
 
@@ -197,7 +197,7 @@ void MnemonicBox::initWidget()
        m_widget = NULL; 
        m_type=none; 
        noneType(); 
-       common::log<<"FAIL - create mnemonicbox:"<<m_bridge->property("name")<<" error:"<<e.what()<<endl;
+       common::log()<<"FAIL - create mnemonicbox:"<<m_bridge->property("name")<<" error:"<<e.what()<<endl;
      }
      // wrzucenie do layout'a
      layout->addWidget(m_widget); 
