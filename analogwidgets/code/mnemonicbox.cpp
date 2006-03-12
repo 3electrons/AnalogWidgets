@@ -34,11 +34,13 @@ bool & designMode(bool val=false,bool modify=false)
 */ 
 common::Value bridgeValue(protocols::MnemonicBridge * bridge) 
 {
+  
   common::Value v("");
+  
   try
   {
     v = bridge->value(); 
-    usleep(2000); 
+    usleep(MnemonicBox::intervalTime()); 
   }
   catch (comm_error & e)
   {
@@ -48,7 +50,8 @@ common::Value bridgeValue(protocols::MnemonicBridge * bridge)
     QMessageBox::critical(NULL,"Blad odczytu",s.c_str()); 
     v = bridge->lastValue(); 
   }
-  return v.str(); 
+  return v;
+   
 }
 
 
@@ -59,11 +62,12 @@ common::Value bridgeValue(protocols::MnemonicBridge * bridge)
 
 
 bool setBridgeValue(common::Value & v , protocols::MnemonicBridge * bridge)
-{
+{ 
   bool status = false; 
   try
   {
     bridge->setValue(v.str());
+    usleep(MnemonicBox::intervalTime()); 
     status = true; 
   }
   catch (exception & e) 
@@ -76,6 +80,17 @@ bool setBridgeValue(common::Value & v , protocols::MnemonicBridge * bridge)
   }
   return status; 
 }
+
+
+//  MnemonicBox - implementacja 
+// 
+
+unsigned int MnemonicBox::m_intervalTime=2000; 
+
+
+
+
+
 
 mnemonic_map MnemonicBox::widgets; 
 
@@ -142,6 +157,7 @@ void MnemonicBox::initBridge()
      m_bridge = CreateMnemonicBridge(m_mnemonicname.toLocal8Bit().data()); 
      string type = m_bridge->property("type");
      common::Value v = m_bridge->property("readonly"); 
+     m_default = m_bridge->property("default").c_str(); 
      //cout<<"ReadOnly:"<<v.str()<<endl; 
      m_readOnly = v; 
      char *types[]={"int","double","bool"}; 
@@ -181,8 +197,8 @@ void MnemonicBox::initWidget()
      // utworzenie nowego widgetu  
      try 
      {
-      switch (m_type)
-      { 
+       switch (m_type)
+       { 
          case int_t    : intType()    ; break;
          case double_t : doubleType() ; break; 
          case bool_t   : boolType()   ; break; 
@@ -197,11 +213,10 @@ void MnemonicBox::initWidget()
        m_widget = NULL; 
        m_type=none; 
        noneType(); 
-       common::log()<<"FAIL - create mnemonicbox:"<<m_bridge->property("name")<<" error:"<<e.what()<<endl;
+       common::log()<<"FAIL - create MnemonicBox:"<<m_bridge->property("name")<<" error:"<<e.what()<<endl;
      }
      // wrzucenie do layout'a
      layout->addWidget(m_widget); 
-      
      m_widget->setVisible(m_isVisible);        
 }// initWidget 
  
@@ -226,15 +241,15 @@ void MnemonicBox::intType()
      box->setSingleStep(v);
      
      // default 
-     v = m_bridge->property("default");
-        if (!v.empty())
-          box->setValue(v); 
-        else 
-        {
-          v=bridgeValue(m_bridge);
-          if (!v.empty())
-          box->setValue(v); 
-        }
+     if (designMode()) 
+         setDefault(); 
+     else 
+      {
+         v = bridgeValue(m_bridge);  
+         if(v.empty()) v=0; 
+         box->setValue(v); 
+      }
+        
       m_widget = box; 
       connect (this,SIGNAL(valueChanged(int)),box,SLOT(setValue(int)));
       connect (box,SIGNAL(valueChanged(int)),this,SLOT(setValue(int)));
@@ -264,15 +279,16 @@ void MnemonicBox::doubleType()
      box->setSingleStep(v);
    
      // default 
-     v = m_bridge->property("default");
-       if (!v.empty())
+     if (designMode()) 
+         setDefault();       
+     else 
+      {
+         v = bridgeValue(m_bridge);  
+         if (v.empty()) v=0.0; 
          box->setValue(v); 
-       else 
-       {
-         v=bridgeValue(m_bridge); 
-         if (!v.empty())
-         box->setValue(v); 
-       }
+      }
+       
+     
    m_widget = box; 
    connect (this,SIGNAL(valueChanged(double)),box,SLOT(setValue(double))); 
    connect (box,SIGNAL(valueChanged(double)),this,SLOT(setValue(double))); 
@@ -284,16 +300,17 @@ void MnemonicBox::boolType()
  if (m_bridge)
  {
     QCheckBox * box =  new QCheckBox("");
-    // default 
-    common::Value v = m_bridge->property("default");
-    if (!v.empty())
-      box->setChecked(v); 
-    else // pobierz warto¶æ z mnemonika  
-    {
-      v = bridgeValue(m_bridge);
-      if (!v.empty())
-      box->setChecked(v); 
-    }
+     common::Value v(""); 
+     // default 
+     if (designMode()) 
+          setDefault(); 
+     else 
+      {
+         v = bridgeValue(m_bridge);  
+         if (v.empty()) v=false; 
+         box->setChecked(v); 
+      }
+   
     m_widget = box; 
    connect(this,SIGNAL(checkChanged(bool)),box,SLOT(setChecked(bool))); 
    connect(box,SIGNAL(toggled(bool)),this,SLOT(setChecked(bool))); 
@@ -342,7 +359,7 @@ void MnemonicBox::setValue (int value)
   if (!m_bridge || m_readOnly) return; 
   common::Value v1 = m_bridge->lastValue(),v2 = value; 
   
-  if (v1!=v2)
+  if (v1!=v2) // bo lastValue jest to samo
   {
    setBridgeValue(v2,m_bridge);
    if (v2.empty()) v2 = 0.0; 
@@ -356,7 +373,7 @@ void  MnemonicBox::setValue (double value)
 {
   if (!m_bridge || m_readOnly) return; 
   common::Value v1=m_bridge->lastValue(),v2 = value; 
-  if (v1!=v2) 
+  if (v1!=v2 ) 
   {
    setBridgeValue(v2,m_bridge);
    if (v2.empty()) v2 = 0.0; 
@@ -371,7 +388,7 @@ void MnemonicBox::setChecked (bool value)
 {
   if (!m_bridge || m_readOnly) return; 
   common::Value v1 = m_bridge->lastValue(),v2 = value; 
-  if (v1!=v2)
+  if (v1!=v2 )
   {
    setBridgeValue(v2,m_bridge);
    if (v2.empty()) v2 = false;   
@@ -415,15 +432,12 @@ void MnemonicBox::setMnemonic (QString value)
   if (value!="mnemonic")
   {
     clean(); 
-  
+    setToolTip(value); 
     m_mnemonicname = value; 
     string str = m_mnemonicname.toLocal8Bit().data();
-  
     widgets[str]=this; 
-  
     setObjectName(value); 
-    initChildComponent();
- 
+    initChildComponent(); 
     update(); 
   }
 }
@@ -436,6 +450,23 @@ void MnemonicBox::setIsVisible (bool value)
    m_isVisible = value ; 
    initChildComponent();
    update();
+}
+
+void  MnemonicBox::setDefault() // slot 
+{
+   common::Value v("");
+   
+   v = m_default.toLocal8Bit().data();
+   if (!v.empty())
+   {
+     switch (m_type) 
+     {
+       case int_t   : setValue(v.toInt()); 	break;
+       case double_t: setValue(v.toDouble()); 	break;
+       case bool_t  : setValue(v.toBool());	break; 
+       case none :    break;
+     }
+   }
 }
 
 QWidget * MnemonicBox::childWidget()
@@ -468,6 +499,36 @@ void MnemonicBox::paintEvent(QPaintEvent * /*event*/)
 }// paintEvent 
 
 
+unsigned int MnemonicBox::intervalTime()
+{
+  return m_intervalTime; 
+}
+   
+void MnemonicBox::setIntervalTime(unsigned int i)
+{
+  m_intervalTime = i;   
+}
+
+void MnemonicBox::setOnline()
+{
+   protocols::MnemonicBridge::setOnline(); 
+   updateAll(); 
+}
+  
+void MnemonicBox::setOffline()
+{
+  protocols::MnemonicBridge::setOffline(); 
+}
 
 
+void MnemonicBox::updateAll()
+{
+   mnemonic_map::iterator i  = widgets.begin(); 
+   while (i!=widgets.end())
+    (*i++).second->updateValue();   
+}
 
+protocols::MnemonicBridge * MnemonicBox::bridge()
+{
+  return m_bridge; 
+} 

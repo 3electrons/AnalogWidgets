@@ -35,7 +35,6 @@ class MnemonicBox : public QWidget
  public:
    
    static mnemonic_map widgets; 
-   
  
   MnemonicBox (QWidget * parent );
   
@@ -54,7 +53,17 @@ class MnemonicBox : public QWidget
   QWidget * childWidget(); 
   
   
+   static unsigned int intervalTime();
+   static void setIntervalTime(unsigned int i);
+   
+   static void setOnline();
+   static void setOffline(); 
+   
+   // Uaktualnia wszystkie mnemoniki w je¿eli w trybie on-line */ 
+   static void updateAll(); 
   
+  
+   protocols::MnemonicBridge * bridge(); 
   
   public slots: 
  
@@ -66,7 +75,7 @@ class MnemonicBox : public QWidget
   void  setChecked (bool value);
   void  setMnemonic (QString value);
   void  setIsVisible (bool value);
-   
+  void  setDefault();  
   
     
   signals:
@@ -93,6 +102,9 @@ class MnemonicBox : public QWidget
   void boolType(); 
   void noneType(); 
   
+  static unsigned int m_intervalTime; 
+  
+  
   enum {none = 0x0, int_t=0x1,double_t=0x2,bool_t=0x3 }; 
  
   /** Czy ma byæ widzialnym komponentem czy tylko takim sobie */ 
@@ -106,6 +118,8 @@ class MnemonicBox : public QWidget
   
   /** Nazwa mnemonika */
   QString m_mnemonicname;
+  /** Warto¶æ domy¶lna */ 
+  QString m_default; 
   
   /** Widget potomny */ 
   QWidget * m_widget; 
