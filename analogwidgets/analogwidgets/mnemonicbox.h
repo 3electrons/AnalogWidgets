@@ -20,6 +20,26 @@ namespace protocols
  class MnemonicBridge; 
 }
 
+/** Klasa do sygnalizowania globalnych zdarzeñ o mnemonikach */
+class GlobalMnemonicBox : public QObject 
+{ 
+  Q_OBJECT
+  public: 
+  GlobalMnemonicBox(QObject * parent = NULL); 
+  
+  public slots: 
+  
+  void setOnline(bool i=true);
+  void setOffline (bool i = true); 
+  void updateAll(); 
+  
+  signals: 
+  void setedOnline();
+  void setedOffline();
+  void allUpdated(); 
+  
+};
+
 /**
  * Class MnemonicBox
  * Komponent reprezentuj±cy box jeden z komponentów SpinBox DoubleSpinBox lub CheckBox
@@ -27,14 +47,17 @@ namespace protocols
 class MnemonicBox : public QWidget 
 {
    Q_OBJECT 
-   Q_PROPERTY ( QString server      READ server      WRITE setServer    ) 
-   Q_PROPERTY ( QString mnemonic 	READ mnemonic 	 WRITE setMnemonic  ) 
-   Q_PROPERTY ( bool    online      READ isAllOnline WRITE setAllOnline ) 
-   Q_PROPERTY ( bool    isVisible 	READ isVisible 	 WRITE setIsVisible ) 
+   Q_PROPERTY ( QString server      	READ server         	WRITE setServer    ) 
+   Q_PROPERTY ( QString mnemonic 	READ mnemonic 		WRITE setMnemonic  ) 
+   Q_PROPERTY ( bool    online      	READ isOnline       	WRITE setOnline    ) 
+   Q_PROPERTY ( bool    isVisible 	READ isVisible 	 	WRITE setIsVisible ) 
 
   
  public:
+   /** Obiekt do globalnego zarz±dzania mnemonikami */ 
+   static GlobalMnemonicBox global; 
    
+   /** Mapa wszystkich mnenomików */ 
    static mnemonic_map widgets; 
  
   MnemonicBox (QWidget * parent );
@@ -49,7 +72,7 @@ class MnemonicBox : public QWidget
   double  doubleValue () 	const;
   bool  checked () 		const;
   bool  isVisible () 		const;
-  bool  isAllOnline()      const; 
+  bool  isOnline()              const; 
   QString  mnemonic () 		const ;
   
   QWidget * childWidget(); 
@@ -58,13 +81,8 @@ class MnemonicBox : public QWidget
    static unsigned int intervalTime();
    static void setIntervalTime(unsigned int i);
    
-   static void setOnline();
-   static void setOffline(); 
    
-   // Uaktualnia wszystkie mnemoniki w je¿eli w trybie on-line */ 
-   static void updateAll(); 
-  
-  
+     
    protocols::MnemonicBridge * bridge(); 
   
   public slots: 
@@ -78,13 +96,17 @@ class MnemonicBox : public QWidget
   void  setMnemonic (QString value);
   void  setIsVisible (bool value);
   void  setDefault();  
-  void  setAllOnline(bool i ); 
+  void  setOnline(bool i=true);
+  void  setOffline(bool i=true);
+  void  updateAll(); 
+  
     
   signals:
   
   void valueChanged(int val);
   void valueChanged(double val); 
   void checkChanged(bool val); 
+  
   
  protected:
   

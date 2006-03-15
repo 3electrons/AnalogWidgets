@@ -12,7 +12,7 @@
     {
         initialized = false;
         designMode(true,true); 
-        MnemonicBox::setOffline(); 
+        MnemonicBox::global.setOffline(); 
     }
 
     void MnemonicBoxPlugin::initialize(QDesignerFormEditorInterface * /*core*/)

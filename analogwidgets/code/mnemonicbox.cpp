@@ -14,6 +14,48 @@ using namespace comm;
 
 
 
+
+GlobalMnemonicBox::GlobalMnemonicBox(QObject * parent ):QObject(parent) 
+{
+ ;
+} 
+  
+ 
+  
+void GlobalMnemonicBox::setOnline(bool i)
+{ 
+   if (i)
+   {
+     protocols::MnemonicBridge::setOnline(); 
+     emit setedOnline(); 
+     updateAll(); 
+   }
+   else setOffline(!i);
+}
+
+
+void GlobalMnemonicBox::setOffline (bool i)
+{
+  if (i)
+  {
+    protocols::MnemonicBridge::setOnline(); 
+    emit setedOffline(); 
+  }
+  else  setOnline(!i);  
+}
+
+void GlobalMnemonicBox::updateAll()
+{
+ // setOnline(i); 
+  mnemonic_map::iterator i  = MnemonicBox::widgets.begin(); 
+  while (i!=MnemonicBox::widgets.end())
+  (*i++).second->updateValue();   
+  emit allUpdated(); 
+}
+
+
+
+
 /** 
 * Ustawia tryb designMode lub nie jest domyslnie zerem 
 */ 
@@ -49,7 +91,7 @@ common::Value bridgeValue(protocols::MnemonicBridge * bridge)
     common::log()<<"* Communication error:"<<s<<endl;
     QMessageBox::critical(NULL,"Blad odczytu",s.c_str()); 
     v = bridge->lastValue();
-    MnemonicBox::setOffline();  
+    MnemonicBox::global.setOffline();  
   }
   return v;
    
@@ -78,7 +120,7 @@ bool setBridgeValue(common::Value & v , protocols::MnemonicBridge * bridge)
     common::log()<<"* Communication error:"<<s<<endl;
     QMessageBox::critical(NULL,"Blad zapisu",s.c_str()); 
     v = bridge->lastValue(); 
-    MnemonicBox::setOffline(); 
+    MnemonicBox::global.setOffline(); 
   }
   return status; 
 }
@@ -89,10 +131,7 @@ bool setBridgeValue(common::Value & v , protocols::MnemonicBridge * bridge)
 
 unsigned int MnemonicBox::m_intervalTime=2000; 
 
-
-
-
-
+GlobalMnemonicBox MnemonicBox::global; 
 
 mnemonic_map MnemonicBox::widgets; 
 
@@ -137,16 +176,6 @@ QString MnemonicBox::server   ()
 {
   QString Str ( comm::EngineConfigFile().c_str()); 
   return Str; 
-}
-
-bool MnemonicBox::isAllOnline() const
-{
-  return protocols::MnemonicBridge::isOnline();    
-}
-
-void MnemonicBox::setAllOnline(bool i)
-{
-  protocols::MnemonicBridge::setOnline(i);     
 }
 
 void MnemonicBox::initChildComponent()
@@ -521,24 +550,26 @@ void MnemonicBox::setIntervalTime(unsigned int i)
   m_intervalTime = i;   
 }
 
-void MnemonicBox::setOnline()
+void MnemonicBox::setOnline(bool i)
 {
-   protocols::MnemonicBridge::setOnline(); 
-   updateAll(); 
+   global.setOnline(i); 
 }
   
-void MnemonicBox::setOffline()
+void MnemonicBox::setOffline(bool i)
 {
-  protocols::MnemonicBridge::setOffline(); 
+  global.setOffline( i ); 
 }
-
+  
+bool MnemonicBox::isOnline() const
+{
+  return protocols::MnemonicBridge::isOnline(); 
+}
 
 void MnemonicBox::updateAll()
 {
-   mnemonic_map::iterator i  = widgets.begin(); 
-   while (i!=widgets.end())
-    (*i++).second->updateValue();   
+  global.updateAll(); 
 }
+
 
 protocols::MnemonicBridge * MnemonicBox::bridge()
 {
