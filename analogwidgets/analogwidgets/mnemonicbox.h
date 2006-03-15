@@ -27,10 +27,11 @@ namespace protocols
 class MnemonicBox : public QWidget 
 {
    Q_OBJECT 
-   Q_PROPERTY ( QString server          READ server     WRITE setServer    ) 
-   Q_PROPERTY ( QString mnemonic 	READ mnemonic 	WRITE setMnemonic  ) 
-   Q_PROPERTY ( bool    isVisible 	READ isVisible 	WRITE setIsVisible ) 
- 
+   Q_PROPERTY ( QString server      READ server      WRITE setServer    ) 
+   Q_PROPERTY ( QString mnemonic 	READ mnemonic 	 WRITE setMnemonic  ) 
+   Q_PROPERTY ( bool    online      READ isAllOnline WRITE setAllOnline ) 
+   Q_PROPERTY ( bool    isVisible 	READ isVisible 	 WRITE setIsVisible ) 
+
   
  public:
    
@@ -48,6 +49,7 @@ class MnemonicBox : public QWidget
   double  doubleValue () 	const;
   bool  checked () 		const;
   bool  isVisible () 		const;
+  bool  isAllOnline()      const; 
   QString  mnemonic () 		const ;
   
   QWidget * childWidget(); 
@@ -76,7 +78,7 @@ class MnemonicBox : public QWidget
   void  setMnemonic (QString value);
   void  setIsVisible (bool value);
   void  setDefault();  
-  
+  void  setAllOnline(bool i ); 
     
   signals:
   

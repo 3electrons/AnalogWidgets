@@ -48,7 +48,8 @@ common::Value bridgeValue(protocols::MnemonicBridge * bridge)
     s+=" "; s+=e.what(); 
     common::log()<<"* Communication error:"<<s<<endl;
     QMessageBox::critical(NULL,"Blad odczytu",s.c_str()); 
-    v = bridge->lastValue(); 
+    v = bridge->lastValue();
+    MnemonicBox::setOffline();  
   }
   return v;
    
@@ -77,6 +78,7 @@ bool setBridgeValue(common::Value & v , protocols::MnemonicBridge * bridge)
     common::log()<<"* Communication error:"<<s<<endl;
     QMessageBox::critical(NULL,"Blad zapisu",s.c_str()); 
     v = bridge->lastValue(); 
+    MnemonicBox::setOffline(); 
   }
   return status; 
 }
@@ -135,6 +137,16 @@ QString MnemonicBox::server   ()
 {
   QString Str ( comm::EngineConfigFile().c_str()); 
   return Str; 
+}
+
+bool MnemonicBox::isAllOnline() const
+{
+  return protocols::MnemonicBridge::isOnline();    
+}
+
+void MnemonicBox::setAllOnline(bool i)
+{
+  protocols::MnemonicBridge::setOnline(i);     
 }
 
 void MnemonicBox::initChildComponent()
