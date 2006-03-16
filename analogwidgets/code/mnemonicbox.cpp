@@ -24,10 +24,12 @@ GlobalMnemonicBox::GlobalMnemonicBox(QObject * parent ):QObject(parent)
   
 void GlobalMnemonicBox::setOnline(bool i)
 { 
-   if (i)
+   if (i && protocols::MnemonicBridge::isOffline())
    {
+    // qDebug("setOnline()"); 
      protocols::MnemonicBridge::setOnline(); 
-     emit setedOnline(); 
+     emit setedOnline(true);
+    
      updateAll(); 
    }
    else setOffline(!i);
@@ -36,10 +38,11 @@ void GlobalMnemonicBox::setOnline(bool i)
 
 void GlobalMnemonicBox::setOffline (bool i)
 {
-  if (i)
+  if (i && protocols::MnemonicBridge::isOnline())
   {
-    protocols::MnemonicBridge::setOnline(); 
-    emit setedOffline(); 
+   // qDebug("setOffline()");
+    protocols::MnemonicBridge::setOffline(); 
+    emit setedOnline(false);  
   }
   else  setOnline(!i);  
 }
@@ -82,7 +85,8 @@ common::Value bridgeValue(protocols::MnemonicBridge * bridge)
   try
   {
     v = bridge->value(); 
-    usleep(MnemonicBox::intervalTime()); 
+    if (protocols::MnemonicBridge::isOnline())
+      usleep(MnemonicBox::intervalTime()); 
   }
   catch (comm_error & e)
   {
@@ -110,7 +114,8 @@ bool setBridgeValue(common::Value & v , protocols::MnemonicBridge * bridge)
   try
   {
     bridge->setValue(v.str());
-    usleep(MnemonicBox::intervalTime()); 
+    if (protocols::MnemonicBridge::isOnline())
+      usleep(MnemonicBox::intervalTime()); 
     status = true; 
   }
   catch (exception & e) 
@@ -149,6 +154,7 @@ MnemonicBox::MnemonicBox(QWidget * parent) : QWidget(parent)
 MnemonicBox::~MnemonicBox()
 {
   clean();
+ 
 }
 
 
@@ -258,7 +264,13 @@ void MnemonicBox::initWidget()
      }
      // wrzucenie do layout'a
      layout->addWidget(m_widget); 
-     m_widget->setVisible(m_isVisible);        
+     m_widget->setVisible(m_isVisible); 
+            
+    
+     
+        setFocusPolicy(Qt::StrongFocus); 
+        setFocusProxy(m_widget); 
+        
 }// initWidget 
  
 
@@ -267,7 +279,7 @@ void MnemonicBox::intType()
 {    
   if (m_bridge)
   {
-      QSpinBox * box =  new QSpinBox(); 
+      QSpinBox * box =  new QSpinBox(this); 
    
      // minimum 
      common::Value v = m_bridge->property("min"); 
@@ -301,7 +313,7 @@ void MnemonicBox::doubleType()
 {
   if (m_bridge)
   {
-       QDoubleSpinBox * box = new QDoubleSpinBox();
+       QDoubleSpinBox * box = new QDoubleSpinBox(this);
  
       // liczba cyfr po przecinku 
       common::Value v = m_bridge->property("digits"); 
@@ -340,7 +352,7 @@ void MnemonicBox::boolType()
 {   
  if (m_bridge)
  {
-    QCheckBox * box =  new QCheckBox("");
+    QCheckBox * box =  new QCheckBox(this);
      common::Value v(""); 
      // default 
      if (designMode()) 
@@ -361,7 +373,7 @@ void MnemonicBox::boolType()
  
 void MnemonicBox::noneType()
 {
-  QLabel * label = new QLabel(m_mnemonicname); 
+  QLabel * label = new QLabel(m_mnemonicname,this); 
   label->setAlignment(Qt::AlignHCenter);
   m_widget = label;  
   m_widget->resize(m_widget->width(),16); 
@@ -514,6 +526,9 @@ QWidget * MnemonicBox::childWidget()
 {
   return m_widget; 
 }
+
+
+
 
 void MnemonicBox::clean()
 {

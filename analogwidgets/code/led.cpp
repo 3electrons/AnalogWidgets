@@ -47,7 +47,7 @@
        c=back; 
        
        // Kolor diody 
-       if (!m_checked) 
+       if (!m_checked || !isEnabled()) 
        { 
          back.getHsv(&h,&s,&v,&a);
          s*=0.20; 

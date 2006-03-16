@@ -34,9 +34,9 @@ class GlobalMnemonicBox : public QObject
   void updateAll(); 
   
   signals: 
-  void setedOnline();
-  void setedOffline();
+  void setedOnline(bool i=true);
   void allUpdated(); 
+  void updatingProgress(int i); 
   
 };
 
@@ -110,6 +110,8 @@ class MnemonicBox : public QWidget
   
  protected:
   
+  
+   
   void clean(); 
   
   void paintEvent(QPaintEvent *event); 
