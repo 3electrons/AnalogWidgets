@@ -25,7 +25,7 @@ CONFIG += release \
 warn_on \
 plugin
 TEMPLATE = lib
-
+QT+=xml 
 SOURCES += analogwidgets_plugin.cpp \
            chart_plugin.cpp \
 	   led_plugin.cpp \

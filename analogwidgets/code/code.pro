@@ -11,6 +11,7 @@ QMAKE_CXXFLAGS_DEBUG += -g3
 TARGET = analogwidgets 
 WIN32:DEFINES+= WIN32
 DESTDIR = ../ 
+QT+= xml 
 CONFIG += release \
           warn_on \
           staticlib 

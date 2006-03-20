@@ -1,4 +1,7 @@
 #include <QtGui> 
+#include <QDomDocument> 
+#include <QDomElement> 
+
 #include <iostream>
 
 #include "defines.h"
@@ -9,19 +12,17 @@
 using namespace std; 
 using namespace comm; 
 
-//#define READ 0x0
-//..#define WRITE 0x1
 
-
-
-
+/**********************************************************************************************
+ 				GlobalMnemonicBox - Konstruktor
+**********************************************************************************************/
 GlobalMnemonicBox::GlobalMnemonicBox(QObject * parent ):QObject(parent) 
 {
  ;
-} 
-  
- 
-  
+}    
+/**********************************************************************************************
+ 				GlobalMnemonicBox - setOnline
+**********************************************************************************************/
 void GlobalMnemonicBox::setOnline(bool i)
 { 
    if (i && protocols::MnemonicBridge::isOffline())
@@ -35,7 +36,9 @@ void GlobalMnemonicBox::setOnline(bool i)
    else setOffline(!i);
 }
 
-
+/**********************************************************************************************
+ 				GlobalMnemonicBox - setOffline
+**********************************************************************************************/
 void GlobalMnemonicBox::setOffline (bool i)
 {
   if (i && protocols::MnemonicBridge::isOnline())
@@ -46,19 +49,22 @@ void GlobalMnemonicBox::setOffline (bool i)
   }
   else  setOnline(!i);  
 }
-
+/**********************************************************************************************
+ 				GlobalMnemonicBox - updateAll 
+**********************************************************************************************/
 void GlobalMnemonicBox::updateAll()
 {
  // setOnline(i); 
   mnemonic_map::iterator i  = MnemonicBox::widgets.begin(); 
   while (i!=MnemonicBox::widgets.end())
-  (*i++).second->updateValue();   
+  (i++).value()->updateValue();   
   emit allUpdated(); 
 }
 
 
-
-
+/**********************************************************************************************
+  					  designMode
+**********************************************************************************************/
 /** 
 * Ustawia tryb designMode lub nie jest domyslnie zerem 
 */ 
@@ -72,16 +78,16 @@ bool & designMode(bool val=false,bool modify=false)
   return mode; 
 }
 
-
+/**********************************************************************************************
+  					  bridgeValue 
+**********************************************************************************************/
 /** 
 * Pobiera wartosæ mnemonika - w zale¿no¶ci od tego czy jest w trybie 
 * projektowania czy aplikacji rzuca wyjatek lub wpisuje go na standardowe wyj¶cie 
 */ 
 common::Value bridgeValue(protocols::MnemonicBridge * bridge) 
 {
-  
   common::Value v("");
-  
   try
   {
     v = bridge->value(); 
@@ -97,17 +103,16 @@ common::Value bridgeValue(protocols::MnemonicBridge * bridge)
     v = bridge->lastValue();
     MnemonicBox::global.setOffline();  
   }
-  return v;
-   
+  return v;   
 }
 
-
+/**********************************************************************************************
+  					  setBridgeValue 
+**********************************************************************************************/
 /** 
 * Ustawia wartosæ mnemonika - w zale¿no¶ci od tego czy jest w trybie 
 * projektowania czy aplikacji rzuca wyjatek lub wpisuje go na standardowe wyj¶cie 
 */ 
-
-
 bool setBridgeValue(common::Value & v , protocols::MnemonicBridge * bridge)
 { 
   bool status = false; 
@@ -130,9 +135,9 @@ bool setBridgeValue(common::Value & v , protocols::MnemonicBridge * bridge)
   return status; 
 }
 
-
-//  MnemonicBox - implementacja 
-// 
+/**********************************************************************************************
+				  MnemonicBox - implementacja 
+**********************************************************************************************/
 
 unsigned int MnemonicBox::m_intervalTime=2000; 
 
@@ -140,6 +145,9 @@ GlobalMnemonicBox MnemonicBox::global;
 
 mnemonic_map MnemonicBox::widgets; 
 
+/**********************************************************************************************
+				  MnemonicBox - Konstruktor
+**********************************************************************************************/
 MnemonicBox::MnemonicBox(QWidget * parent) : QWidget(parent)
 {
   m_type = none; 
@@ -151,13 +159,17 @@ MnemonicBox::MnemonicBox(QWidget * parent) : QWidget(parent)
   initWidget();          
 }
 
+/**********************************************************************************************
+				  MnemonicBox - Destruktor
+**********************************************************************************************/
 MnemonicBox::~MnemonicBox()
 {
-  clean();
- 
+  unRegister();
 }
 
-
+/**********************************************************************************************
+				  MnemonicBox - setServer
+**********************************************************************************************/
 void MnemonicBox::setServer  (QString value)
 {
    comm::ReinitEngine( value.toLocal8Bit().data() );
@@ -167,7 +179,7 @@ void MnemonicBox::setServer  (QString value)
       mnemonic_map::iterator i=widgets.begin();
       while (i!=widgets.end())
       {
-        box = (*i).second; 
+        box = i.value(); 
         //cout<<"Box:"<<box<<endl; 
         if (box)
         if ( none==box->m_type) box->initChildComponent();
@@ -177,19 +189,87 @@ void MnemonicBox::setServer  (QString value)
      // initChildComponent(); 
    }
 }
-
+/**********************************************************************************************
+				  MnemonicBox - server
+**********************************************************************************************/
 QString MnemonicBox::server   ()
 {
   QString Str ( comm::EngineConfigFile().c_str()); 
   return Str; 
 }
+/**********************************************************************************************
+				  MnemonicBox - loadMnemonics`
+**********************************************************************************************/
+void MnemonicBox::loadMnemonics(QString fileName,QSet<QString> * mnemonics )
+{
+ 
 
+}
+/**********************************************************************************************
+				  MnemonicBox - saveMnemonics
+**********************************************************************************************/
+void MnemonicBox::saveMnemonics(QString fileName,QSet<QString> * mnemonics)
+{
+  
+  QDomDocument doc;   
+  QDomElement root = doc.createElement("MnemonicBox"); 
+  QDomElement mnemonic_values = doc.createElement("mnemonic_values"); 
+  
+  doc.appendChild(root); 
+  root.appendChild(mnemonic_values); 
+    
+  MnemonicBox * box; 
+  if (mnemonics && mnemonics->size()) 
+  { 
+    QSet<QString>::const_iterator s;
+    s=mnemonics->begin(); 
+    while (s!=mnemonics->end())
+    {
+      box = widgets[*s];
+      
+      QDomElement value = doc.createElement("mnemonic"); 
+      value.setAttribute("name",box->mnemonic());
+      value.setAttribute("value",box->strValue()); 
+      mnemonic_values.appendChild(value); 
+      
+      s++; 
+    } 
+  } 
+  else 
+  {
+     mnemonic_map::iterator i = widgets.begin(); 
+     while (i!=widgets.end())
+     {
+      box = i.value(); 
+      
+      QDomElement value = doc.createElement("mnemonic"); 
+      value.setAttribute("name",box->mnemonic());
+      value.setAttribute("value",box->strValue()); 
+      mnemonic_values.appendChild(value); 
+        
+      i++;
+     }
+  }
+  QFile file(fileName); 
+  file.open(QIODevice::WriteOnly); 
+  QTextStream out(&file); 
+  doc.save(out,4); 
+  file.close(); 
+  
+ // if (mnemonics)
+}
+/**********************************************************************************************
+				  MnemonicBox - initChildComponent 
+**********************************************************************************************/
 void MnemonicBox::initChildComponent()
 {
   initBridge();
   initWidget();          
 }// initChildComponent  
- 
+
+/**********************************************************************************************
+				  MnemonicBox - initBridge 
+**********************************************************************************************/
 void MnemonicBox::initBridge()
 {
   if (m_bridge) 
@@ -217,7 +297,9 @@ void MnemonicBox::initBridge()
      common::log()<<"FAIL - init menmonicbox "<<m_mnemonicname.toLocal8Bit().data()<<" error:"<<e.what()<<endl; 
   } 
 }// initBridge 
-
+/**********************************************************************************************
+				  MnemonicBox - initWidget
+**********************************************************************************************/
 void MnemonicBox::initWidget()
 {
     
@@ -272,9 +354,10 @@ void MnemonicBox::initWidget()
         setFocusProxy(m_widget); 
         
 }// initWidget 
- 
 
-
+/**********************************************************************************************
+				  MnemonicBox - intType
+*********************************************************************************************/
 void MnemonicBox::intType()
 {    
   if (m_bridge)
@@ -308,7 +391,9 @@ void MnemonicBox::intType()
       connect (box,SIGNAL(valueChanged(int)),this,SLOT(setValue(int)));
    }
 }// intType
-
+/**********************************************************************************************
+				  MnemonicBox - doubleType
+**********************************************************************************************/
 void MnemonicBox::doubleType()
 {
   if (m_bridge)
@@ -347,7 +432,9 @@ void MnemonicBox::doubleType()
    connect (box,SIGNAL(valueChanged(double)),this,SLOT(setValue(double))); 
  } // if m_bridge 
 }// doubleType
-
+/**********************************************************************************************
+				  MnemonicBox - boolType
+**********************************************************************************************/
 void MnemonicBox::boolType()
 {   
  if (m_bridge)
@@ -370,7 +457,9 @@ void MnemonicBox::boolType()
   
  }    
 }// boolType 
- 
+/**********************************************************************************************
+				  MnemonicBox - noneType
+**********************************************************************************************/
 void MnemonicBox::noneType()
 {
   QLabel * label = new QLabel(m_mnemonicname,this); 
@@ -379,34 +468,51 @@ void MnemonicBox::noneType()
   m_widget->resize(m_widget->width(),16); 
   m_type=none; 
 }
-
-
+/**********************************************************************************************
+				  MnemonicBox - updateValue
+**********************************************************************************************/
 void MnemonicBox::updateValue()
 {
   if (! m_bridge) return; 
   
   common::Value v = bridgeValue(m_bridge);
-  
-  if (!v.empty())
-   switch (m_type)
+  setValue(v); 
+}
+/**********************************************************************************************
+				  MnemonicBox - setValue( Value ) 
+**********************************************************************************************/
+void MnemonicBox::setValue( common::Value & v) 
+{
+   try
    {
-    case int_t   : 
-       		setValue(v.toInt());
-     		emit valueChanged(v.toInt()); 
-     		emit valueChanged(v.toDouble()); 
-    	     	break; 
-    case double_t: 
-        	setValue(v.toDouble()) ;
-           	emit valueChanged(v.toInt()); 
-		emit valueChanged(v.toDouble()); 
-		break; 
-    case bool_t  : 
-    		setChecked(v); 
-    		emit checkChanged(v.toBool());
-    		break;
+     if (!v.empty())
+     {
+       switch (m_type) 
+       {
+         case int_t   : setValue(v.toInt()); 	break;
+         case double_t: setValue(v.toDouble()); 	break;
+         case bool_t  : setValue(v.toBool());	break; 
+         case none :    break;
+       }
+     }
+   }
+   catch (exception & e)
+   {  
+     ; // common::log()<<"FAIL - setting mnemonic */ 
    }
 }
-
+/**********************************************************************************************
+				  MnemonicBox - setValue ( QString ) 
+**********************************************************************************************/
+void MnemonicBox::setValue (QString value)
+{
+   if (!m_bridge || m_readOnly) return; 
+   common::Value v = value.toLocal8Bit().data(); 
+   setValue( v); 
+}
+/**********************************************************************************************
+				  MnemonicBox - setValue( int )
+**********************************************************************************************/
 void MnemonicBox::setValue (int value) 
 {
   if (!m_bridge || m_readOnly) return; 
@@ -418,10 +524,11 @@ void MnemonicBox::setValue (int value)
    if (v2.empty()) v2 = 0.0; 
    emit valueChanged(v2.toInt()); 
    emit valueChanged(v2.toDouble()); 
-  }
-  
+  }  
 }
-
+/**********************************************************************************************
+				  MnemonicBox - setValue( double )
+**********************************************************************************************/
 void  MnemonicBox::setValue (double value) 
 {
   if (!m_bridge || m_readOnly) return; 
@@ -432,11 +539,11 @@ void  MnemonicBox::setValue (double value)
    if (v2.empty()) v2 = 0.0; 
    emit valueChanged(v2.toInt());
    emit valueChanged(v2.toDouble()); 
-  }
-   
-   
+  }   
 }
-
+/**********************************************************************************************
+				  MnemonicBox - setChecked ( bool )
+**********************************************************************************************/
 void MnemonicBox::setChecked (bool value) 
 {
   if (!m_bridge || m_readOnly) return; 
@@ -448,16 +555,31 @@ void MnemonicBox::setChecked (bool value)
    emit checkChanged(v2.toBool());
   }
 }
-
-
+/**********************************************************************************************
+				  MnemonicBox - strValue
+**********************************************************************************************/
+QString MnemonicBox::strValue() const 
+{
+   QString str("0"); 
+   if (!m_bridge) return str; 
+   common::Value v = m_bridge->lastValue(); 
+   if (v.empty()) v = 0; 
+   str = v.c_str(); 
+   return str;  
+}
+/**********************************************************************************************
+				  MnemonicBox - intValue
+**********************************************************************************************/
 int MnemonicBox::intValue () const
 {
-  if (!m_bridge) return 1; 
+  if (!m_bridge) return 0; 
   common::Value v = m_bridge->lastValue(); 
   if (v.empty()) v = 0; 
   return v; 
 }
-
+/**********************************************************************************************
+				  MnemonicBox - doubleValue
+**********************************************************************************************/
 double MnemonicBox::doubleValue () const
 {
   if (!m_bridge) 
@@ -466,7 +588,9 @@ double MnemonicBox::doubleValue () const
   if (v.empty()) v = 0.0;; 
   return v;
 }
-
+/**********************************************************************************************
+				  MnemonicBox - checked
+**********************************************************************************************/
 bool MnemonicBox::checked() const
 {
   if (!m_bridge) return false; 
@@ -474,76 +598,80 @@ bool MnemonicBox::checked() const
   if (v.empty()) v = false; 
   return v; 
 }
-
-	
+/**********************************************************************************************
+				  MnemonicBox - mnemonic
+**********************************************************************************************/
 QString MnemonicBox::mnemonic () const
 {
   return m_mnemonicname;
 }
+/**********************************************************************************************
+				  MnemonicBox - setMnemonic
+**********************************************************************************************/
 void MnemonicBox::setMnemonic (QString value) 
 {
   if (value!="mnemonic")
   {
-    clean(); 
+    unRegister(); 
     setToolTip(value); 
     m_mnemonicname = value; 
-    string str = m_mnemonicname.toLocal8Bit().data();
-    widgets[str]=this; 
+    widgets[value]=this; 
     setObjectName(value); 
     initChildComponent(); 
     update(); 
   }
 }
-
-
-bool MnemonicBox::isVisible () const {  return m_isVisible;  }
-
+/**********************************************************************************************
+				  MnemonicBox - isVisible
+**********************************************************************************************/
+bool MnemonicBox::isVisible () const 
+{  
+  return m_isVisible;  
+}
+/**********************************************************************************************
+				  MnemonicBox - setIsVisible
+**********************************************************************************************/
 void MnemonicBox::setIsVisible (bool value) 
 { 
    m_isVisible = value ; 
    initChildComponent();
    update();
 }
-
+/**********************************************************************************************
+				  MnemonicBox - setDefault 
+**********************************************************************************************/
 void  MnemonicBox::setDefault() // slot 
 {
    common::Value v("");
    
    v = m_default.toLocal8Bit().data();
-   if (!v.empty())
-   {
-     switch (m_type) 
-     {
-       case int_t   : setValue(v.toInt()); 	break;
-       case double_t: setValue(v.toDouble()); 	break;
-       case bool_t  : setValue(v.toBool());	break; 
-       case none :    break;
-     }
-   }
+   setValue(v); 
 }
-
+/**********************************************************************************************
+				  MnemonicBox - childWidget
+**********************************************************************************************/
 QWidget * MnemonicBox::childWidget()
 {
   return m_widget; 
 }
-
-
-
-
-void MnemonicBox::clean()
+/**********************************************************************************************
+				  MnemonicBox - unRegister
+**********************************************************************************************/
+void MnemonicBox::unRegister()
 {
-  
-  string str = m_mnemonicname.toLocal8Bit().data();
-  if (str!="mnemonic")
+
+  if (m_mnemonicname!="mnemonic")
   {
-   if (widgets[str])
+   if (widgets[m_mnemonicname])
    {
     //// widgets[str]=NULL; 
-     widgets.erase(widgets.find(str)); //]=NULL;
+     widgets.erase(widgets.find(m_mnemonicname)); //]=NULL;
    }
   }
 }
-
+/**********************************************************************************************
+				  MnemonicBox - paintEvent
+**********************************************************************************************/
 void MnemonicBox::paintEvent(QPaintEvent * /*event*/)
 {
   if (none==m_type && m_isVisible)
@@ -553,39 +681,51 @@ void MnemonicBox::paintEvent(QPaintEvent * /*event*/)
       painter.drawRect(0,0,width()-1,height()-1); 
   }
 }// paintEvent 
-
-
+/**********************************************************************************************
+				  MnemonicBox - intervalTime
+**********************************************************************************************/
 unsigned int MnemonicBox::intervalTime()
 {
   return m_intervalTime; 
 }
-   
+/**********************************************************************************************
+				  MnemonicBox - setIntervalTime 
+**********************************************************************************************/
 void MnemonicBox::setIntervalTime(unsigned int i)
 {
   m_intervalTime = i;   
 }
-
+/**********************************************************************************************
+				  MnemonicBox - setOnline
+**********************************************************************************************/
 void MnemonicBox::setOnline(bool i)
 {
    global.setOnline(i); 
 }
-  
+/**********************************************************************************************
+				  MnemonicBox - setOffline
+**********************************************************************************************/
 void MnemonicBox::setOffline(bool i)
 {
   global.setOffline( i ); 
 }
-  
+/**********************************************************************************************
+				  MnemonicBox - isOnline
+**********************************************************************************************/
 bool MnemonicBox::isOnline() const
 {
   return protocols::MnemonicBridge::isOnline(); 
 }
-
+/**********************************************************************************************
+				  MnemonicBox - updateAll
+**********************************************************************************************/
 void MnemonicBox::updateAll()
 {
   global.updateAll(); 
 }
-
-
+/**********************************************************************************************
+				  MnemonicBox - bridge
+**********************************************************************************************/
 protocols::MnemonicBridge * MnemonicBox::bridge()
 {
   return m_bridge; 
