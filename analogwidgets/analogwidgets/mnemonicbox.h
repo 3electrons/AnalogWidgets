@@ -8,7 +8,7 @@
 #include <QCheckBox>
 #include <QSet>  
 #include <QMap> 
-#include "comm/engine.h" // z Bartkom/src/comm/
+
 
 using namespace std; 
 class MnemonicBox; 
@@ -128,11 +128,7 @@ class MnemonicBox : public QWidget
   
   
  protected:
-  
-   /** Ustawia warto¶æ na podstawie common::Value */ 
-   void setValue( common::Value & v); 
-   
-   
+     
    /** Wyrejestrowywuje siê z listy widgetów typu MnemonicBox */
    void unRegister(); 
   
@@ -172,15 +168,16 @@ class MnemonicBox : public QWidget
    
    /** Mapa wszystkich mnenomików */ 
    static mnemonic_map widgets; 
-  
+ 
+   /** Typ enumeryczny dla typu kontrolki */ 
+   enum {None = 0x0, Int=0x1,Double=0x2,Bool=0x3 }; 
+ 
   protected: 
   
    /** Czas operacji oczytu i zapisu */ 
    static unsigned int m_intervalTime; 
      
-   /** Typ enumeryczny dla typu kontrolki */ 
-   enum {none = 0x0, int_t=0x1,double_t=0x2,bool_t=0x3 }; 
- 
+  
    /** Czy ma byæ widzialnym komponentem czy tylko takim sobie */ 
    bool m_isVisible; 
   
