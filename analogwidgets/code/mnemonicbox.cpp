@@ -10,8 +10,9 @@
 
 
 using namespace std; 
-using namespace comm; 
-
+using namespace comm;
+ 
+// @TODO - zapisz w xml powinien byc do strumienia a nie do pliku by mozna bylo zapis zagniezdzic 
 
 /**********************************************************************************************
  				GlobalMnemonicBox - Konstruktor
