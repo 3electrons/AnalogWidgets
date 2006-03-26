@@ -8,6 +8,45 @@
 #include "chart/standard/channeldecorator.h"
 #include "chart/standard/legenddecorator.h"
 
+/* 
+
+   Zanim to zrobisz - przemy¶l gruntownie mechanizm kana³ów ... 
+   
+2. Zmieniæ nieco interfejs chartów ... stworzyæ tzw. grupy kana³ów ... 
+       oraz dodaæ mo¿liwo¶æ wy¶wietlania wybranych kana³ow z wykresu 1 na wykresie 2. 
+       Przy okazji mo¿na by by³o podmieniæ w³a¶ciwo¶ci tych kana³ów ... np kolor itp. 
+       Ka¿dy kana³ identyfikowany by³ by odatkowo przez swoj± nazwê ... 
+       Dodaæ kontekstowe menu z standardowymi opcjami dla Chart'a oraz list± grup kana³ów 
+       co pozwoli³o by zarz±dzaæ grup± kana³ów oraz ka¿dym kana³em w grupie osobno. 
+       
+       Pomys³ na implementacjê: 
+       Je¿eli kana³ nie ma nazwy nie jest wy¶wietlany w Legendzie ... 
+       Interfejs kana³ów pozostaje taki sam ... dochodz± tylko nowe metody ktore mog± zwróciæ 
+       kana³y w nowej grupie oraz pozwala to na tworzenie nowych kana³ów w nowych grupach :) 
+       
+       np . addChannel("Nazwa grupy kana³ów", Channel(...)); 
+       oraz addChannel(nr_grupy,Channel(...)); 
+            addChannel(Channel(...)); // dodaje channel do podstawowej grupy 
+            
+            channels(); zwraca referencjê do kana³ów we wszystkich grupach
+            channels(nr_grupy) ... zwraca referencjê do kana³ow konkretnej grupy :D 
+            channels("Nazwa grupy") ... 
+                        
+           pokazanie grupy kana³ów z chart'a 1 na charcie 2. to 
+             
+           chart1->addGroup("new group",chart2->channles("Wskazana grupa"); 
+           potem mo¿na ju¿ rêcznie sobie dokonfigurowaæ resztê ... np. 
+           chart1->channels("Wskazana grupa")[1].isVisible(false); 
+           lub chart1->channels("Wskazana grupa").remove("Pozycja tloka"); 
+           
+           
+             
+    Pomys³ 2 zdecydowanie bardziej mi siê podoba ... jest bardziej uniwersalny 
+    mo¿na by go zastosowaæ te¿ w innych aplikacjach ... 
+    
+    Na razie zrobiæ na sztywno ... dodawane kana³y po prostu jak do tej pory. 
+    
+ */   
 
 
 //
