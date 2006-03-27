@@ -97,12 +97,13 @@ common::Value bridgeValue(protocols::MnemonicBridge * bridge)
   }
   catch (comm_error & e)
   {
+    MnemonicBox::global.setOffline();  
     string s = bridge->property("name");
     s+=" "; s+=e.what(); 
     common::log()<<"* Communication error:"<<s<<endl;
     QMessageBox::critical(NULL,"Blad odczytu",s.c_str()); 
     v = bridge->lastValue();
-    MnemonicBox::global.setOffline();  
+    
   }
   return v;   
 }
@@ -126,12 +127,13 @@ bool setBridgeValue(common::Value & v , protocols::MnemonicBridge * bridge)
   }
   catch (exception & e) 
   {
+    MnemonicBox::global.setOffline(); 
     string s = bridge->property("name");
     s+=" "; s+=e.what(); 
     common::log()<<"* Communication error:"<<s<<endl;
     QMessageBox::critical(NULL,"Blad zapisu",s.c_str()); 
     v = bridge->lastValue(); 
-    MnemonicBox::global.setOffline(); 
+    
   }
   return status; 
 }
