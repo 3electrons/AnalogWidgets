@@ -385,5 +385,86 @@ void Chart::setFont(QFont i)
 bool Chart::isPaintOver()      const    { return m_isPaintOver; }
 
 
+void Chart::contextMenuEvent ( QContextMenuEvent * e )
+{
+  contextMenu()->exec(e->globalPos()); 
+}
+
+/** Buduje zwyk³e menu */ 
+QMenu * Chart::contextMenu()
+{
+  QMenu * menu = new QMenu(this); 
+  // By specyifczne akcje odpala³y sie tutaj 
+  connect(menu,SIGNAL(triggered(QAction *)),this,SLOT(contextMenuActionTriggered(QAction *)));
+    
+  QAction * a,*b; 
+     
+  a = menu->addAction(trUtf8("Dane")); 
+       QMenu * dane = new QMenu(this); 
+       a->setMenu(dane);        
+       Channels::iterator i = m_channels.begin(); 
+       unsigned int ch_no = 0; 
+       while (i!=m_channels.end())
+       {
+          QString code = "c"; 
+          code += QString(ch_no); 
+          
+          b = dane->addAction(i->name()); 
+          QMenu * channel = new QMenu(this);  
+          b->setMenu(channel);          
+          b = channel->addAction(trUtf8("Poka\305\274")); 
+          b->setCheckable(true);
+          b->setObjectName(code+QString("show")); 
+          // Tutaj czy kana³ ma byæ pokazywany w ogóle 
+          
+          // Separator 
+          channel->addAction("")->setSeparator(true); 
+          
+          // Pokzaywanie skali 
+          b = channel->addAction(trUtf8("Poka\305\274 skal\304\231")); 
+          b->setCheckable(true);
+          b->setChecked(i->showScale()); 
+          b->setObjectName(code+QString("scale")); 
+          
+          // Pokazywanie w legendzie 
+          b = channel->addAction(trUtf8("Poka\305\274 legend\304\231")); 
+          b->setCheckable(true); 
+          b->setObjectName(code+QString("legend")); 
+          // czy pokazywany w legendzie ...         
+          
+          i++;
+          ch_no++; 
+       }
+     
+     
+     
+  a = menu->addAction(""); 
+  a->setSeparator(true);    
+     
+  a = menu->addAction(trUtf8("Poka\305\274 siatk\304\231"));
+  a->setCheckable(true); 
+  a->setChecked(showGrid()); 
+  connect(a,SIGNAL(toggled(bool)),this,SLOT(setShowGrid(bool)));  
+  
+
+  a = menu->addAction(trUtf8("Poka\305\274 skal\304\231")); 
+  a->setCheckable(true);
+  a->setChecked(showScale()); 
+  connect(a,SIGNAL(toggled(bool)),this,SLOT(setShowScale(bool))); 
+    
+  a = menu->addAction(trUtf8("Poka\305\274 legend\304\231")); 
+  a->setCheckable(true); 
+  a->setChecked(showLegend()); 
+  connect(a,SIGNAL(toggled(bool)),this,SLOT(setShowLegend(bool))); 
+    
+  
+  
+  return menu; 
+}
+
+void Chart::contextMenuActionTriggered(QAction * a)
+{
+  qDebug("Action triggered %s",a->text().toLocal8Bit().data()); 
+}
 
 

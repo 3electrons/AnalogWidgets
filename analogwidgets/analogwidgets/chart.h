@@ -5,6 +5,7 @@
 #include <memory> // auto_ptr
 #include <QTimer>
 #include <QPen> 
+#include <QMenu> 
 
 #include "qmywidgetwithbackground.h"
 
@@ -91,6 +92,10 @@ typedef  vector<chart::Channel> Channels;
       	bool showScale()        const;
       	bool showLegend()       const; 
 
+     	/** Buduje zwyk³e menu */ 
+      	QMenu * contextMenu(); 
+
+	
 	//QFont scaleFont()       const;
 
       	public slots:
@@ -141,11 +146,23 @@ typedef  vector<chart::Channel> Channels;
                 
 	protected slots:
 
+
+
 	/** Ustawia znacznik koñca malowania i przmalowuje kontrolkê w trybie z antialiasingiem */
 	void setPaintOver();
 
 
+        /** Wywo³ana zosta³a konkretna akcja z menu */ 
+        void contextMenuActionTriggered(QAction * a);
+
       	protected:
+      	
+      	/** Wywo³uje menu */ 
+      	void contextMenuEvent ( QContextMenuEvent * e );
+      	
+      	
+      	
+      	
 	/** Informacje na temat skali oraz siatki wykresu */
 	ScaleGrid m_scalegrid;
 	/** Pointer do pierwszego dekoratora do malowania wykresu */

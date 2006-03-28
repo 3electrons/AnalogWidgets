@@ -7,6 +7,7 @@
 #include "chart.h"
 #include "functions.h"
 
+#define ACCURACY 0.000001 
 
 using namespace std;
 using namespace Standard;
@@ -30,14 +31,15 @@ void ScalesGridDecorator::paint (QPainter & painter, Chart * chart)
   painter.save();
   if (chart->doRepaintBackground())
   {  // to jest malowane na bitmapce w tle
+     m_channelsScale = false; 
      paintBackground(painter,chart);
-     paintXScale(painter,chart);
-     paintXGrid(painter,chart);
+     paintYScale(painter,chart);
+     paintYGrid(painter,chart);
   }
   else
   {  // a to ju¿ na samym ekranie
-     paintYScale(painter,chart);
-     paintYGrid(painter,chart);
+     paintXScale(painter,chart);
+     paintXGrid(painter,chart);
 
      painter.setClipRect((int)yScaleWidth,0,(int)(chart->width()-yScaleWidth),(int)yScaleHeight+1);
      painter.setViewport((int)yScaleWidth,0,(int)(chart->width()-yScaleWidth),(int)yScaleHeight);
@@ -63,7 +65,7 @@ void ScalesGridDecorator::paintBackground(QPainter &painter, Chart * chart)
 
 #define XFONT_DISTANCE 7
 #define YFONT_DISTANCE 2.5
-void ScalesGridDecorator::paintXScale(QPainter & painter, Chart * chart)
+void ScalesGridDecorator::paintYScale(QPainter & painter, Chart * chart)
 {
   painter.setFont(chart->font());
 
@@ -88,6 +90,9 @@ void ScalesGridDecorator::paintXScale(QPainter & painter, Chart * chart)
   {
    // @TODO - sprawdziæ czy warto¶ci przystaj± do skali  && if yMesh > 10 to sie dziwne rzeczy dzieja 
    int maxTextWidth=0; // maksymalna szeroko¶æ napisu skali
+   
+   m_channelsScale |=i->showScale(); // czy który kolwiek kana³ ma mlowan± skalê 
+   
    if (i->showScale())
    {
      painter.setPen(i->pen());
@@ -99,9 +104,10 @@ void ScalesGridDecorator::paintXScale(QPainter & painter, Chart * chart)
      double scalePos=m_max;
      double posStep = yScaleHeight /( yMesh+1), posText=posStep;
      // malowanie literek skali
-     while (scalePos >= m_min)
+     while ( scalePos + ACCURACY >  m_min )
      {
-      if (fabs(scalePos)<0.000001 ) scalePos = 0.0; // brzydki hack ale pownien dzia³aæ.
+      if (fabs(scalePos)<ACCURACY ) scalePos = 0.0; // brzydki hack ale pownien dzia³aæ.
+      
       QString Str = QString().setNum(scalePos,'g',12); // "%1").arg(scalePos,6);
       int tw = painter.fontMetrics().size(Qt::TextSingleLine, Str ).width();
       if (tw>maxTextWidth) maxTextWidth=tw;
@@ -109,6 +115,7 @@ void ScalesGridDecorator::paintXScale(QPainter & painter, Chart * chart)
       posText+=posStep;
       scalePos-=scaleStep;
      }
+     
      yScaleWidth+=XFONT_DISTANCE+maxTextWidth;
    }// if showScale
 
@@ -121,7 +128,7 @@ void ScalesGridDecorator::paintXScale(QPainter & painter, Chart * chart)
 
 
 
-void ScalesGridDecorator::paintYScale(QPainter & painter, Chart * chart)
+void ScalesGridDecorator::paintXScale(QPainter & painter, Chart * chart)
 {
    int xMesh = chart->scaleGrid().m_xMesh;
    double pos = chart->scaleGrid().pos;
@@ -179,7 +186,7 @@ void ScalesGridDecorator::paintYScale(QPainter & painter, Chart * chart)
 
 }
 
-void ScalesGridDecorator::paintYGrid(QPainter & painter, Chart * chart)
+void ScalesGridDecorator::paintXGrid(QPainter & painter, Chart * chart)
 { 
   painter.setPen(QColor(40,40,180)); // kolor siatki
   
@@ -202,11 +209,12 @@ void ScalesGridDecorator::paintYGrid(QPainter & painter, Chart * chart)
      int y;
      
      double ScaleBottom = 0.0 ;// czy bêd± d³ugie kreski czy tylko pici pici przy liczbach 
+     
      if (!chart->scaleGrid().showGrid)
         ScaleBottom = yScaleHeight;
      else // linia pionowa zamykajaca siatkê od prawej  
         painter.drawLine ( QPoint(chart->width()-1,0),QPoint(chart->width()-1,(int)yScaleHeight));
- 
+     
      do
      {
       //painter.drawLine(QPointF(scale_pos,0),QPointF(scale_pos,yScaleHeight));
@@ -227,7 +235,7 @@ void ScalesGridDecorator::paintYGrid(QPainter & painter, Chart * chart)
   }// if showScale or Grid    
 }
 
-void ScalesGridDecorator::paintXGrid(QPainter & painter, Chart * chart)
+void ScalesGridDecorator::paintYGrid(QPainter & painter, Chart * chart)
 {
   painter.setPen(QColor(40,40,180));
 
@@ -245,7 +253,7 @@ void ScalesGridDecorator::paintXGrid(QPainter & painter, Chart * chart)
  double step   = yScaleHeight/(ySteps*ySubSteps);
  double pos = 0.0;
 
-  for (unsigned int i=0;i<=ySteps*ySubSteps;i++)
+  for (unsigned int i=0;i<ySteps*ySubSteps;i++)
   {
     if (i%ySubSteps)  // je¿eli s± ustawione
         painter.drawLine(QPointF(yScaleWidth,pos),QPointF(length,pos));
@@ -253,8 +261,11 @@ void ScalesGridDecorator::paintXGrid(QPainter & painter, Chart * chart)
         painter.drawLine(QPointF(0.0,pos),QPointF(length,pos));
     pos+=step;
   }
-  painter.drawLine(QPointF(yScaleWidth,0.0),QPointF(yScaleWidth,yScaleHeight));
-  // Jezeli nie ma siatki to malujemy tez line na samym dole 
+   // pionowa linia po lewej otwieraj±ca skalê lub ca³± siatkê 
+   if (m_channelsScale || chart->showGrid() || chart->showScale() )
+   painter.drawLine(QPointF(yScaleWidth,0.0),QPointF(yScaleWidth,yScaleHeight));
+  
+  // Jezeli nie ma skali a jest siatka to malujemy tez line na samym dole 
   if (chart->scaleGrid().showGrid && !chart->scaleGrid().showScale) 
    painter.drawLine(QPoint(0,chart->height()-1),QPoint(chart->width(),chart->height()-1)); 
 

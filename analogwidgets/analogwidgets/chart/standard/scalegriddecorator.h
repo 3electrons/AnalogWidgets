@@ -45,6 +45,7 @@ protected:
   double m_min; 
   double m_max; 
   double scaleSize; 
+  bool   m_channelsScale ; // okre¶la czy jakikoliek kana³ ma malowan± skalê 
 //   
 };
 } // chart
