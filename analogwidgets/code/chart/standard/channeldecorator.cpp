@@ -56,7 +56,7 @@ void ChannelDecorator::translateToChannel (QPainter & painter, Chart * chart, Ch
    yfactor = -window.height()/(ymax - ymin);
    dx = -pos * xfactor;
    dy = ymax * -yfactor;
-
+   dxw = window.width();  
 
   // painter.scale( window.width()/(xmax - xmin) ,  -window.height()/(ymax-ymin) );
   // painter.translate(-pos,-ymax);
@@ -65,48 +65,59 @@ void ChannelDecorator::translateToChannel (QPainter & painter, Chart * chart, Ch
 
 }
 
-bool anyVector (int x1,int x2) 
+bool anyVector (double x1,double x2) 
 {
-  return abs(x1-x2)>0; 
+  return fabs(x1-x2)>1.0; 
 }
+
+
+
+
 
 void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel & channel)
 {
-  double x,y;
-
-//  double i=chart->scaleGrid().m_min; +  chart->scaleGrid().pos;
-  double i = chart->scaleGrid().pos;
-  double j=chart->scaleGrid().m_max  + chart->scaleGrid().pos;
-  double current_x = 0 ,old_x=-1.0,current_y,old_y,old_X;
+  double x,y;  
+  double current_x = 0 ,old_x=-1.0,current_y,old_y=-1.0;
   bool init = false,add = false;
-  int width =  painter.window().width();
-  int count = 0; 
+  
+  
   if (channel.data())
    if (channel.data()->init())
       {
         QPolygonF line;
-        while( channel.data()->next(x,y) && current_x <= width    )
+        while( channel.data()->next(x,y) )
         {
            current_x = x*xfactor+dx;
            current_y = y*yfactor+dy;
-	  
-           if ( old_x <= 0 && 0 <=current_x) add = true; // jest w oknie 
-           // jest pierwszy lub wnosi jaki¶ wektor przesuniêcia 
-           
-           if ( !init || ( add && ( anyVector(old_x,current_x) || anyVector(old_y,current_y) )))
-           { line.append(QPointF(current_x,current_y)); count++; } 
+             
+             
+           bool xvector = anyVector(old_x,current_x); 
+           bool yvector = anyVector(old_y,current_y); 
+           bool vector = xvector||yvector; 
+           bool oldInWindow = painter.window().contains(old_x,old_y); 
+       	   bool newInWindow = painter.window().contains(current_x,current_y); 
 
-/*           
-           if ( !init || ( add && ( abs(old_x-current_x)>=1.0 ) || (abs(old_y-current_y)>=1.0) ))
-                          line.append(QPointF(current_x,current_y));
-*/
-           old_x = current_x;
-           old_y = current_y;
-           init = true;
+           if (  ((oldInWindow || newInWindow)||(!oldInWindow && !newInWindow)) && (xvector || yvector) )
+               add = true; 
            
-           //line.append(QPointF(current_x,current_y));
+	    
+           if (!init || add )
+           {
+              line.append(QPointF(current_x,current_y)); 
+	      old_x = current_x; 
+	      old_y = current_y; 
+	   
+	   
+	   }
+	 
+           init = true;
+           add = false; 
+           
+        }// while channel.data()->next ... 
+        {
+         painter.drawPolyline(line);
+         cout<<"Paint lines"<<line.size()<<" Channel:"<<channel.name().toLocal8Bit().constData()<<endl; 
         }
-       painter.drawPolyline(line);
       }
     else
      cout<<"Channel:"<<channel.name().toLocal8Bit().constData()<<" has no data"<<endl;

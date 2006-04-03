@@ -22,24 +22,27 @@ public:
    void setName(QString & name); 
    QString name() const; 
   
+   /** Zwraca wska¼nik do "pojemnika" z danymi */ 
    ChannelData * data() const; 
    
-   double maximum() const { return m_max ; }
-   void setMaximum(double i) { if (i>m_min) m_max = i;}
-   double minimum() const { return m_min ; }
-   void setMinimum(double i) { if (i<m_max) m_min = i;}
+   /** Zwraca maksymaln± warto¶æ kana³u jaka ma byæ widoczna na wykresie */ 
+   double maximum() const;
+   /** Ustawia maksymaln± warto¶æ kana³u jaka ma byæ widoczna na wykresie */ 
+   void setMaximum(double i);
+   /** Zwraca minimaln± warto¶æ kana³u jaka ma byæ widoczna na wykrsie */
+   double minimum() const ;
+   /** Zadaje minimaln± warto¶æ kana³u jaka ma byæ widoczna na wykresie */
+   void setMinimum(double i);
    
-   void setCalcMinMax(double a,double b)
-   {
-     if (a<b) { m_calc_min = a ; m_calc_max = b; }
-   }
-   void getCalcMinMax(double &a, double &b)
-   {
-     a = m_calc_min; b = m_calc_max ; 
-   }
+   /** Ustawia wyliczone warto¶ci max i min kana³u do rysowania na wykresie */ 
+   void setCalcMinMax(double a,double b);
+   /** Zwraca maximum i minimum wyliczone kana³u do rysowania na wykresie */   
+   void getCalcMinMax(double &a, double &b);
    
-   bool showScale() const { return m_showScale; }
-   void setShowScale(bool i ){ m_showScale = i ; } 
+   /** Zwraca flagê czy skala kana³u ma byæ rysowana na wykresie */
+   bool showScale() const;
+   /** Ustawia flagê czy skala kana³u ma byæ rysowana na wykresie */ 
+   void setShowScale(bool i );
    
    protected: 
    /** Iteratory wskazuj±ce na dane do odczytania */

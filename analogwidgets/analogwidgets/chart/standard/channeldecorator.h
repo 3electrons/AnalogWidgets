@@ -37,6 +37,8 @@ private:
    double xfactor;
    double yfactor;
    double dx,dy;
+   // Szeroko¶æ okienka 
+   double dxw; 
 
 
 };// class ChannelDecorator

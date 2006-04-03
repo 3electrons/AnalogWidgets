@@ -48,30 +48,57 @@ ChannelData * Channel::data() const
   return m_data;  
 }
    
-/*
-Channel::Channel( const Channel & ch)
+ 
+double Channel::maximum() const 
 {
-   m_pen    	= ch.m_pen;
-   m_name 	= ch.m_name;
-
-   min		= ch.min;
-   max		= ch.max;
-   m_min	= ch.min;
-   m_max	= ch.max;
-   showScale	= ch.showScale;
+  return m_max ; 
 }
-*/
-/**
-void setMin(double min);
-
-double min() const ;
-
-void setMax(double max);
-
-double max() const;
 
 
-double m_min() const;
+void Channel::setMaximum(double i) 
+{ 
+   if (i>m_min) 
+      m_max = i;
+}
 
-double Channel::m_max() const { return _m_min
-*/
+
+double Channel::minimum() const 
+{ 
+  return m_min ; 
+}
+
+
+void Channel::setMinimum(double i) 
+{ 
+  if (i<m_max) 
+    m_min = i;
+}
+   
+   
+void Channel::setCalcMinMax(double a,double b)
+{
+  if (a<b)
+  {
+    m_calc_min = a; 
+    m_calc_max = b; 
+  }
+}
+
+
+void Channel::getCalcMinMax(double &a, double &b)
+{
+  a = m_calc_min; 
+  b = m_calc_max ; 
+}
+   
+   
+bool Channel::showScale() const 
+{ 
+  return m_showScale; 
+}
+
+
+void Channel::setShowScale(bool i)
+{ 
+  m_showScale = i ; 
+} 
