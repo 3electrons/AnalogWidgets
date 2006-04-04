@@ -43,6 +43,36 @@ void ChannelDecorator::paint (QPainter & painter, Chart * chart)
   ChartDecorator::paint(painter,chart); // uruchomienie nastêpnego dekoratora
 }
 
+
+void ChannelDecorator::absPosition(QPoint & curPos, QPolygonF & absPoints, Chart * chart,QRect & clip)
+{
+   double xmin,ymin,xmax,ymax,pos;
+ //  pos  = chart->scaleGrid().pos ;
+ //  xmin = chart->scaleGrid().m_min;
+  // xmax = chart->scaleGrid().m_max;
+   
+  // xfactor = window.width()/(xmax - xmin );
+  // dx = -pos * xfactor;
+   
+   double current_x = curPos.x(); 
+   double current_y = curPos.y(); 
+   double abs_x =  (current_x - dx )/(xfactor);  
+   double abs_y = 0; 
+   
+    Channels & channels = chart->channels();
+   Channels::iterator i=channels.begin();
+
+   while (i!=channels.end())
+   {
+     i++->getCalcMinMax(ymin,ymax); 
+     yfactor = -window.height()/(ymax - ymin);
+     dy = ymax * -yfactor;
+     abs_y =  (current_y - dy )/(yfactor); 
+     absPoints.push_back(QPointF(abs_x,abs_y));
+    }  
+}
+
+
 void ChannelDecorator::translateToChannel (QPainter & painter, Chart * chart, Channel & channel)
 {
    double xmin,ymin,xmax,ymax,pos;
@@ -51,7 +81,7 @@ void ChannelDecorator::translateToChannel (QPainter & painter, Chart * chart, Ch
    xmax = chart->scaleGrid().m_max;
    channel.getCalcMinMax(ymin,ymax); 
 
-   QRect window = painter.window();
+   window = painter.window();
    xfactor = window.width()/(xmax - xmin );
    yfactor = -window.height()/(ymax - ymin);
    dx = -pos * xfactor;
@@ -97,16 +127,14 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel &
            bool oldInWindow = painter.window().contains(old_x,old_y); 
        	   bool newInWindow = painter.window().contains(current_x,current_y); 
 
-           if (  ((oldInWindow || newInWindow)||(!oldInWindow && !newInWindow)) && (xvector || yvector) )
-               add = true; 
-           
-	    
+           add =  (  ((oldInWindow || newInWindow)||(!oldInWindow && !newInWindow)) && (xvector || yvector) );
+    
            if (!init || add )
            {
               line.append(QPointF(current_x,current_y)); 
 	      old_x = current_x; 
 	      old_y = current_y; 
-	   
+	      qDebug("(%d,%d)",(int)current_x,(int)current_y);    
 	   
 	   }
 	 
@@ -116,11 +144,11 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel &
         }// while channel.data()->next ... 
         {
          painter.drawPolyline(line);
-         cout<<"Paint lines"<<line.size()<<" Channel:"<<channel.name().toLocal8Bit().constData()<<endl; 
+         //cout<<"Paint lines"<<line.size()<<" Channel:"<<qPrintable(channel.name())<<endl; 
         }
       }
     else
-     cout<<"Channel:"<<channel.name().toLocal8Bit().constData()<<" has no data"<<endl;
+     cout<<"Channel:"<<qPrintable(channel.name())<<" has no data"<<endl;
    
   //painter.setRenderHint(QPainter::RenderHint(0x0));
 }

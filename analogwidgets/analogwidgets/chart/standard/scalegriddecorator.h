@@ -27,7 +27,13 @@ public:
 
  /** Operacja malowania. Maluje kolejne elementy komponentu Chart. */
   void paint (QPainter & painter, Chart * chart);
-
+  
+ /** 
+ * Tutaj tak narpawdê przeliczona jest zmienna pos ... tak by odpowiada³a 
+ * faktycznej pozycji paintera oraz uaktualniany jest clip poniewa¿ jest dokonywany ... 
+ */
+  void absPosition(QPoint & pos, QPolygonF & absPoints, Chart * chart,QRect & clip);
+   
 protected:
 
   void paintBackground(QPainter &painter, Chart * chart);

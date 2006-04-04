@@ -462,9 +462,25 @@ QMenu * Chart::contextMenu()
   return menu; 
 }
 
+/** Wywo³anie menu kontekstowego */ 
 void Chart::contextMenuActionTriggered(QAction * a)
 {
   qDebug("Action triggered %s",a->text().toLocal8Bit().data()); 
+}
+
+/** Ruch mysz± */ 
+void Chart::mouseMoveEvent ( QMouseEvent * e )
+{
+  QRect clip(0,0,width(),height()); 
+  QPoint pos = e->pos(); 
+  QPolygonF positions; 
+  qDebug("mouseMoveEvent"); 
+  if (m_painterDecorator.get()) 
+     m_painterDecorator->absPosition(pos,positions,this,clip);
+  
+  for (int i=0;i<positions.size();i++)
+    qDebug("%s %f,%f",qPrintable(m_channels[i].name()),positions[i].x(),positions[i].y() );
+   
 }
 
 

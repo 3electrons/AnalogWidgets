@@ -15,8 +15,9 @@ namespace Standard {
  * Class ChannelDecorator
  * Implementacja rysowania kana³ów z danymi dla komponentu Chart
  */
-class ChannelDecorator : public ChartDecorator {
-
+class ChannelDecorator :  public ChartDecorator 
+{
+  
 public:
 
   /**
@@ -27,7 +28,13 @@ public:
 
   /** Operacja malowania. Maluje kolejne elementy komponentu Chart. */
    void paint (QPainter & painter, Chart * chart);
-
+   
+  /** 
+  * Podaje pozycje absolutne w których (w kana³ach) znajduje siê krusor (odczytan± z wykresu) 
+  * @see ChartDecorator::absPosition 
+  */ 
+ void absPosition(QPoint & pos, QPolygonF & absPoints, Chart * chart,QRect & clip);
+  
 private:
    /** Wyskalowywuje uk³ad rysowania do wieko¶ci danych w kanale */
    void translateToChannel (QPainter & painter, Chart * chart, Channel & channel);
@@ -39,7 +46,8 @@ private:
    double dx,dy;
    // Szeroko¶æ okienka 
    double dxw; 
-
+   // Wielko¶æ okienka ... 
+   QRect window; 
 
 };// class ChannelDecorator
 } // chart

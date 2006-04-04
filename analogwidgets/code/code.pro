@@ -40,7 +40,8 @@ SOURCES += chart/scalegrid.cpp \
            qmywidgetwithbackground.cpp \
            thermometer.cpp \
            wallclock.cpp \
-           mnemonicmodel.cpp 
+           mnemonicmodel.cpp \
+           chart/chartdecorator.cpp 
 INCLUDEPATH += ../analogwidgets \
 ../../../Bartkom/src/comm
 OBJECTS_DIR = ../objects

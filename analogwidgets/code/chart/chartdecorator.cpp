@@ -1,33 +1,18 @@
-/************************************************************************
-  			chartdecorator.h - Copyright coder
-**************************************************************************/
-
-#ifndef CHARTDECORATOR_H
-#define CHARTDECORATOR_H
-#include <QPolygonF> 
-#include <QPoint> 
-#include <QRect>
-
-class QPainter; // Deklaracja klas
-class Chart;
-
-namespace chart {
-/**
- * Class ChartDecorator
- * Klasa bazowa dla dekoratorów komponentu Chart.
- */
-class ChartDecorator {
-
-public:
-
-  /**
+#include "chart/chartdecorator.h" 
+ 
+using namespace chart;  
+ /**
    * Operacja malowania. Zupe³nie abstrakcyjna. Ka¿dy kolejny dekorator ma za zadanie domalowaæ
    * kolejne elementy wykresu takie jak t³o, skala, siatka, sam wykres, legenda, inne rzeczy
    * Maluje kolejne elementy komponentu Chart.
    * @param painter Painter za pomoc± którego ma odbyæ siê malowanie
    * @param chart   Wska¼nik na g³ówny komponent - pozwala wydêbiæ dodatkowe informacje
    */
-   virtual void paint (QPainter & painter, Chart * chart);
+   void ChartDecorator::paint (QPainter & painter, Chart * chart)
+   {
+     if (m_component) 
+       m_component->paint(painter,chart);
+   }
    
    /** 
    * Metoda która je¿eli jest zaimplementowana zwraca pozycje absolutne dla 
@@ -45,20 +30,20 @@ public:
    *           Podobnie pozycja pos powinna byæ modyfikowana w taki sposób by by³a pozycj± 
    *           bezwzglêdno± wobec clipu. 
    */
-   virtual void absPosition(QPoint & pos, QPolygonF & absPoints, Chart * chart,QRect & clip);
+   void ChartDecorator::absPosition(QPoint & pos, QPolygonF & absPoints, Chart * chart,QRect & clip)
+   {
+      if (m_component) 
+        m_component->absPosition(pos,absPoints,chart,clip);
+   }
 
   /** Konstruktor - parametrem jest inny dekorator.*/
-    ChartDecorator (ChartDecorator * component);
+    ChartDecorator::ChartDecorator (ChartDecorator * component):m_component(component)
+    {}
 
   /** Destruktor wirutalny */
-   virtual ~ChartDecorator();
-
-private:
-
-  /** Wska¼nik do nastêpnego dekoratora. */
-   ChartDecorator * m_component;
-
-};
-} // namespace chart
-#endif //CHARTDECORATOR_H
-
+   ChartDecorator::~ChartDecorator()
+   {
+    if (m_component) 
+       delete m_component;
+    m_component=0;
+   }

@@ -156,11 +156,12 @@ typedef  vector<chart::Channel> Channels;
         void contextMenuActionTriggered(QAction * a);
 
       	protected:
-      	
-      	/** Wywo³uje menu */ 
+      	//////////// E V E N T S /////////////
+      	/** Wywo³anie menu kontekstowego */ 
       	void contextMenuEvent ( QContextMenuEvent * e );
       	
-      	
+      	/** Ruch mysz± */ 
+      	void mouseMoveEvent ( QMouseEvent * e ); 
       	
       	
 	/** Informacje na temat skali oraz siatki wykresu */
