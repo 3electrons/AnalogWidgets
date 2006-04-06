@@ -39,7 +39,7 @@ void ChannelDecorator::paint (QPainter & painter, Chart * chart)
    painter.setRenderHint(QPainter::RenderHint(rh)); // wylaczenie antialiasingu
     
  }// if not doRepaintBackground
-  painter.restore();
+  painter.restore(); // odwraca zmiany jakie by³y wprowadzone przez porzedni dekorator 
   ChartDecorator::paint(painter,chart); // uruchomienie nastêpnego dekoratora
 }
 
@@ -80,8 +80,7 @@ void ChannelDecorator::translateToChannel (QPainter & painter, Chart * chart, Ch
    xmin = chart->scaleGrid().m_min;
    xmax = chart->scaleGrid().m_max;
    channel.getCalcMinMax(ymin,ymax); 
-
-   window = painter.window();
+   window = painter.window(); 
    xfactor = window.width()/(xmax - xmin );
    yfactor = -window.height()/(ymax - ymin);
    dx = -pos * xfactor;

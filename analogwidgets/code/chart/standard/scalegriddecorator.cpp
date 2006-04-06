@@ -40,10 +40,37 @@ void ScalesGridDecorator::paint (QPainter & painter, Chart * chart)
   {  // a to ju¿ na samym ekranie
      paintXScale(painter,chart);
      paintXGrid(painter,chart);
-
-     painter.setClipRect((int)yScaleWidth,0,(int)(chart->width()-yScaleWidth),(int)yScaleHeight+1);
-     painter.setViewport((int)yScaleWidth,0,(int)(chart->width()-yScaleWidth),(int)yScaleHeight);
+     
+     
+     
+    
+     
+     
+    
+     QRect r_clip(yScaleWidth,0,chart->width()-yScaleWidth-2,yScaleHeight); 
+     
+     //painter.setPen(Qt::green); 
+     //painter.drawRect(r_clip);
+     
+     //painter.setClipRect(r_clip); 
+    
+    
+     QRect r_viewport(yScaleWidth,0,chart->width()-yScaleWidth-1,yScaleHeight); 
+     
+     painter.setPen(Qt::cyan); 
+     painter.drawRect(r_viewport); 
+     r_viewport = r_clip; 
+     painter.setViewport(r_viewport);
+   
+    
+  
+  // painter.setWindow((int)yScaleWidth,0,(int)(chart->width()-yScaleWidth),(int)yScaleHeight+1);
+   
+   //  painter.setClipRect((int)yScaleWidth,0,(int)(chart->width()-yScaleWidth),(int)yScaleHeight+1);
+   //  painter.setViewport((int)yScaleWidth,0,(int)(chart->width()-yScaleWidth),(int)yScaleHeight);
      //   painter.setWindow(yScaleWidth,0,chart->width()-yScaleWidth,yScaleHeight);
+       
+   
      //painter.setWindow(yScaleWidth,0,chart->width()-yScaleWidth,yScaleHeight);
   }
   //painter.restore(); 
