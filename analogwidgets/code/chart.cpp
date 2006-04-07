@@ -67,7 +67,7 @@ Chart::Chart(QWidget *parent)
    m_showLegend = true;
    m_zoom = 1.0; 
    m_xsize = m_scalegrid.size=1000.0; 
-
+   setMouseTracking(true); 
 }
 
 Chart::~Chart()
@@ -115,7 +115,7 @@ void Chart::paintEvent(QPaintEvent * /*event */)
    if (m_painterDecorator.get()) m_painterDecorator->paint(painter,this);
    if (!m_isPaintOver) timer->start();
    m_isPaintOver = false;
-
+   paintCursorPosition(painter); 
 }
 
 void Chart::paintBackground(QPainter & painter)
@@ -471,16 +471,73 @@ void Chart::contextMenuActionTriggered(QAction * a)
 /** Ruch mysz± */ 
 void Chart::mouseMoveEvent ( QMouseEvent * e )
 {
-  QRect clip(0,0,width(),height()); 
-  QPoint pos = e->pos(); 
-  QPolygonF positions; 
-  qDebug("mouseMoveEvent"); 
-  if (m_painterDecorator.get()) 
-     m_painterDecorator->absPosition(pos,positions,this,clip);
+  m_clip = QRect (0,0,width(),height()); 
+  m_currentCurPoint = e->pos(); 
+  m_currentCurPositions.clear();
   
-  for (int i=0;i<positions.size();i++)
-    qDebug("%s %f,%f",qPrintable(m_channels[i].name()),positions[i].x(),positions[i].y() );
-   
+  if (m_painterDecorator.get()) 
+     m_painterDecorator->absPosition(m_currentCurPoint,m_currentCurPositions,this,m_clip);
+  
+  m_currentCurPoint.rx()+=m_clip.x();
+  m_currentCurPoint.ry()+=m_clip.y(); 
+  
+  if (m_clip.contains(m_currentCurPoint))
+  {
+  
+     emit curPosChanged(m_currentCurPositions); 
+    
+    
+     if (e->buttons()&&Qt::LeftButton)
+     {
+        // po prostu bêdzie ramka ... 
+        emit curRangeChanged(m_currentCurPositions,m_lastCurPositions);
+     }
+     else 
+     {
+        m_lastCurPoint = m_currentCurPoint; 
+        m_lastCurPositions = m_currentCurPositions;    
+     }
+   update(); 
+  }
 }
+
+/** Maluje pozycjê kursora na obiekcie danych */  	 	
+void Chart::paintCursorPosition(QPainter & painter)
+{
+  if (!m_clip.contains(m_currentCurPoint)) return; 
+  
+  painter.setPen(QColor(0,150,150)); 
+  if (m_lastCurPoint==m_currentCurPoint) 	 	// tylko linia do namalowania 
+  {
+
+    painter.drawLine(
+                       QPoint(m_currentCurPoint.x(),m_clip.y()),
+                       QPoint(m_currentCurPoint.x(),m_clip.y()+m_clip.height())
+                     );
+    painter.drawLine( QPoint(m_clip.x(),m_currentCurPoint.y()),
+                      QPoint(m_clip.x()+m_clip.width(),m_currentCurPoint.y())
+                    );  	 	
+   	 	
+  }
+  else 
+  { 	 
+  	
+    QRect horiz(QPoint(m_clip.x(),m_currentCurPoint.y()),
+               QPoint(m_clip.x()+m_clip.width()-3,m_lastCurPoint.y())
+               ); 
+               
+    QRect vert(QPoint(m_currentCurPoint.x(),m_clip.y()),
+               QPoint(m_lastCurPoint.x(),m_clip.y()+m_clip.height())
+               );
+                  
+    painter.setBrush(QColor(0,150,150,100));//Qt::NoBrush); //
+    QPen pen = painter.pen(); 
+    pen.setWidthF(1.5); 
+    painter.setPen(pen);
+   // painter.drawRect(vert); 
+    QRect intersect = vert.intersect(horiz); 
+    painter.drawRect(intersect); 	 	
+  }	 	
+}// paintCursorPositon 
 
 

@@ -16,6 +16,7 @@
 
 using namespace std;
 using namespace chart;
+
 typedef  vector<chart::Channel> Channels;
 
     class Chart :  public QMyWidgetWithBackground
@@ -58,15 +59,39 @@ typedef  vector<chart::Channel> Channels;
 	 void addChannel(Channel & channel);
 
       protected:
-        void paintEvent(QPaintEvent *event); 	 // inherited from QMyWidgetWithBackground
+	/** Malowanie t³a */ 
 	void paintBackground(QPainter & painter);// inherited form QMyWidgetWithBackground
-	void initCoordinateSystem(QPainter & painter);
+        	 	
+        /** Maluje pozycjê kursora na obiekcie danych */  	 	
+        void paintCursorPosition(QPainter & painter);   	 	
+ 	
+ 	
+ 	//////////// E V E N T S /////////////
+ 	/** Malowanie widgetu */ 
+        void paintEvent(QPaintEvent *event); 	 // inherited from QMyWidgetWithBackground
+		
+
+      	/** Wywo³anie menu kontekstowego */ 
+      	void contextMenuEvent ( QContextMenuEvent * e );
+      	
+      	
+      	/** Ruch mysz± */ 
+      	void mouseMoveEvent ( QMouseEvent * e ); 
+	
+	
+	//////////////// H E L P E R S ////////////////
+	
+	
+	
 	
 	/** Metoda ta ma za zadanie zainicjalizowaæ wszystkie dekoratory wykresu - normalnie powinna zbudowaæ
         * ca³± strukturê dekoratorów na podstawie infomracji z pluginów lub innych ¼róde³ ...
         */
 	void InitDecorators();
-
+	
+	
+        /** Inicjuje system kordynatów */ 
+        void initCoordinateSystem(QPainter & painter);
 	// accesors and getters
       public:
 
@@ -143,7 +168,10 @@ typedef  vector<chart::Channel> Channels;
 	void positionChanged(int i); 
 	void positionChanged(double i); 
 	
-                
+        void curPosChanged(QPolygonF &); 
+        
+        void curRangeChanged(QPolygonF &, QPolygonF &);         
+	
 	protected slots:
 
 
@@ -156,12 +184,7 @@ typedef  vector<chart::Channel> Channels;
         void contextMenuActionTriggered(QAction * a);
 
       	protected:
-      	//////////// E V E N T S /////////////
-      	/** Wywo³anie menu kontekstowego */ 
-      	void contextMenuEvent ( QContextMenuEvent * e );
-      	
-      	/** Ruch mysz± */ 
-      	void mouseMoveEvent ( QMouseEvent * e ); 
+     
       	
       	
 	/** Informacje na temat skali oraz siatki wykresu */
@@ -186,7 +209,15 @@ typedef  vector<chart::Channel> Channels;
         /** Wielko¶æ osi X - to warto¶æ nie zmienna */
         double m_xsize;
         bool m_isPaintOver;
-      	// Drawing data
-      	//QMatrix baseMatrix;
+      	
+        ///// HELPER data ///// 
+        /** Ostatnia pozycja cursora */
+        QPoint m_lastCurPoint,m_currentCurPoint; // mouseMoveEvent 
+        /** Ostatnia pozycja cursora w kana³ach */ 
+        QPolygonF m_currentCurPositions,m_lastCurPositions; // mouseMoveEvent 
+        /** Okno z kana³ami */
+        QRect m_clip; // mouseMoveEvent 
     };
+
+
 #endif // CHART_H

@@ -48,6 +48,8 @@ private:
    double dxw; 
    // Wielko¶æ okienka ... 
    QRect window; 
+   // Wielko¶æ viewportu 
+   QRect viewport; 
 
 };// class ChannelDecorator
 } // chart
