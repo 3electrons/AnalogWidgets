@@ -168,9 +168,9 @@ typedef  vector<chart::Channel> Channels;
 	void positionChanged(int i); 
 	void positionChanged(double i); 
 	
-        void curPosChanged(QPolygonF &); 
+        void curPosChanged(const QPolygonF &); 
         
-        void curRangeChanged(QPolygonF &, QPolygonF &);         
+        void curRangeChanged(const QPolygonF &,const QPolygonF &);         
 	
 	protected slots:
 

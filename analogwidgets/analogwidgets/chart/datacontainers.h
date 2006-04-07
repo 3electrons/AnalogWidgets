@@ -12,15 +12,15 @@ using namespace std;
 * dla komponentu typu Chart.
 * @see ChannelData
 */
-template <typename Type>
+template <typename type>
 class PairDataContainer : public ChannelData
 {
 
-   Type & m_container;
-  typename Type::iterator m_iterator;
+  type & m_container;
+  typename type::iterator m_iterator;
   public:
 
-  PairDataContainer ( Type & container ): m_container(container)
+  PairDataContainer ( type & container ): m_container(container)
   { ; }
 
   bool init()
@@ -41,31 +41,47 @@ class PairDataContainer : public ChannelData
     
     return true;
   }
+  
+  std::pair<double,double> findX (double x)
+  {
+    return pair<double,double>(0,0); 
+  }
 
 }; // class DataContainers
 
 
+#include <iostream> 
+using namespace std; 
 /**
 * Klasa szablonowa na 2 pojemniki z dostêpem sekwencyjnym zawieraj±cych dane skalarne (double,int,etc.)
 * jest klas± pochodn± klasy ChannelData co czyni j± idealn± do zastosowania jako ¼ród³o danych
 * dla komponentu typu Chart
 */
-template <typename Type1, typename Type2>
+template <typename type1, typename type2>
 class DoubleDataContainer : public ChannelData
 {
-  Type1 & m_xcontainer;
-  Type2 & m_ycontainer;
-  typename Type1::iterator m_xit;
-  typename Type2::iterator m_yit;
-
+  type1 & m_xcontainer;
+  type2 & m_ycontainer;
+  typename type1::iterator m_xit;
+  typename type2::iterator m_yit;
+  
+  typename type1::iterator m_xfind_it;
+  typename type2::iterator m_yfind_it;
+  unsigned int find_index ; 
+  
   public:
-  DoubleDataContainer(Type1 & xContainer, Type2 & yContainer)
+  DoubleDataContainer(type1 & xContainer, type2 & yContainer)
 	  : m_xcontainer(xContainer),m_ycontainer(yContainer)
-  { ; }
+  { 
+   initFind(); 
+   init();
+  }
+  
   bool init()
   {
     m_xit = m_xcontainer.begin();
     m_yit = m_ycontainer.begin();
+    
     return ! (m_xcontainer.empty() || m_ycontainer.empty() );
   }
 
@@ -78,7 +94,46 @@ class DoubleDataContainer : public ChannelData
 
    return true;
   }
-
+  
+  std::pair<double,double> findX (double x)
+  {
+    cout<<"findX"<<endl; 
+    if (find_index > m_xcontainer.size() || find_index > m_ycontainer.size())
+      initFind(); 
+    
+    double left = *m_xfind_it;
+    double right = left; 
+    while ( left < x && right >= x 
+            && m_xfind_it!=m_xcontainer.begin() 
+            && m_xfind_it!=m_xcontainer.end()
+            && m_yfind_it!=m_ycontainer.begin() 
+            && m_yfind_it!=m_ycontainer.end()
+            ) 
+    {
+       left = *m_xfind_it;
+       if (left > x ) 
+        { m_xfind_it --;  m_yfind_it --;
+           right = left; 
+        }
+        else 
+        { m_xfind_it++ ; m_yfind_it++; }  
+    }
+    
+     cout<<"Left:"<<left<<" Right:"<<right<<endl;
+     
+    return pair<double,double>(right,*m_yfind_it++);       
+  }
+  
+ 
+  protected: 
+   void initFind()
+   {
+     find_index=0; 
+     m_xfind_it = m_xcontainer.begin();
+     m_yfind_it = m_ycontainer.begin(); 
+    
+   }
+   
 };
 
 

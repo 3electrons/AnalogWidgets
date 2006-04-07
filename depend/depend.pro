@@ -1,4 +1,4 @@
 # To projekt z zaleznosciami
 
 TEMPLATE = subdirs
-SUBDIRS = ../../Bartkom
+SUBDIRS = ../../Bartkom/src/comm

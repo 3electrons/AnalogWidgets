@@ -1,6 +1,6 @@
 #ifndef CHANNELDATA_H
 #define CHANNELDATA_H
-
+#include <utility>
 
 namespace chart
 {
@@ -23,6 +23,8 @@ namespace chart
     /** Destruktor wirtualny by mozna bylo ³adnie posprz±taæ */
     virtual ~ChannelData()
     { ; }
+    
+    virtual std::pair<double,double> findX(double x)=0; 
 
   };// class ChannelData
 }; // namespace chart
