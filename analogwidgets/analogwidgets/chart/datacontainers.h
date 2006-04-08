@@ -1,6 +1,6 @@
 #ifndef DATACONTAINERS_H
 #define DATACONTAINERS_H
-
+#include <cmath> 
 #include "channeldata.h"
 
 using namespace chart;
@@ -44,7 +44,7 @@ class PairDataContainer : public ChannelData
   
   std::pair<double,double> findX (double x)
   {
-    return pair<double,double>(0,0); 
+   // @TODO Ta funkcja musi zostaæ napisana ...  return pair<double,double>(0,0); 
   }
 
 }; // class DataContainers
@@ -57,6 +57,23 @@ using namespace std;
 * jest klas± pochodn± klasy ChannelData co czyni j± idealn± do zastosowania jako ¼ród³o danych
 * dla komponentu typu Chart
 */
+
+
+
+
+template <typename T >
+class between
+{
+ T val;
+ public:
+ between(T v):val(v)
+ { ; } 
+ bool operator()(T & a,T & b)
+ {
+  return a>=val && val<b; 
+ }
+};
+
 template <typename type1, typename type2>
 class DoubleDataContainer : public ChannelData
 {
@@ -67,14 +84,13 @@ class DoubleDataContainer : public ChannelData
   
   typename type1::iterator m_xfind_it;
   typename type2::iterator m_yfind_it;
-  unsigned int find_index ; 
+ 
   
   public:
   DoubleDataContainer(type1 & xContainer, type2 & yContainer)
 	  : m_xcontainer(xContainer),m_ycontainer(yContainer)
   { 
-   initFind(); 
-   init();
+    init();
   }
   
   bool init()
@@ -95,44 +111,32 @@ class DoubleDataContainer : public ChannelData
    return true;
   }
   
+  
   std::pair<double,double> findX (double x)
   {
-    cout<<"findX"<<endl; 
-    if (find_index > m_xcontainer.size() || find_index > m_ycontainer.size())
-      initFind(); 
+    typedef typename type1::value_type just_type; 
+    typename type1::iterator b,xi = adjacent_find(m_xcontainer.begin(),m_xcontainer.end(),between<just_type>((just_type)x)); 
+    if (xi==m_xcontainer.end()) return pair<double,double>(0.0,0.0); 
     
-    double left = *m_xfind_it;
-    double right = left; 
-    while ( left < x && right >= x 
-            && m_xfind_it!=m_xcontainer.begin() 
-            && m_xfind_it!=m_xcontainer.end()
-            && m_yfind_it!=m_ycontainer.begin() 
-            && m_yfind_it!=m_ycontainer.end()
-            ) 
-    {
-       left = *m_xfind_it;
-       if (left > x ) 
-        { m_xfind_it --;  m_yfind_it --;
-           right = left; 
-        }
-        else 
-        { m_xfind_it++ ; m_yfind_it++; }  
-    }
+    typename type2::iterator yi = m_ycontainer.begin();   
     
-     cout<<"Left:"<<left<<" Right:"<<right<<endl;
-     
-    return pair<double,double>(right,*m_yfind_it++);       
+    b=xi; b++; 
+    if (fabs(x-*xi) > fabs(x-*b)) xi++; 
+    b = xi; 
+    int s=0; 
+    while (xi!=m_xcontainer.begin())
+    { xi --; s++; } 
+    
+    for (int i=0;i<s;i++,yi++); 
+        
+        
+        
+   return pair<double,double>(*b,*yi); 
   }
   
  
   protected: 
-   void initFind()
-   {
-     find_index=0; 
-     m_xfind_it = m_xcontainer.begin();
-     m_yfind_it = m_ycontainer.begin(); 
-    
-   }
+   
    
 };
 
