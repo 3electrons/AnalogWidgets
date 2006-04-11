@@ -67,7 +67,7 @@ Chart::Chart(QWidget *parent)
    m_showLegend = true;
    m_zoom = 1.0; 
    m_xsize = m_scalegrid.size=1000.0; 
-   setMouseTracking(true); 
+  
 }
 
 Chart::~Chart()
@@ -471,6 +471,8 @@ void Chart::contextMenuActionTriggered(QAction * a)
 /** Ruch mysz± */ 
 void Chart::mouseMoveEvent ( QMouseEvent * e )
 {
+  if (!hasMouseTracking()) return; 
+   
   m_clip = QRect (0,0,width(),height()); 
   m_currentCurPoint = e->pos(); 
   m_currentCurPositions.clear();
