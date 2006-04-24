@@ -60,9 +60,9 @@ void ScalesGridDecorator::absPosition(QPoint & pos, QPolygonF & absPoints, Chart
 {
   // Tutaj nastêpuje modyfikacja pos oraz clip ... 
   clip = QRect((int)yScaleWidth,0,(int)(chart->width()-yScaleWidth),(int)yScaleHeight+1);
-  qDebug("Pozycja kursora przed %d,%d",pos.x(),pos.y()); 
+//  qDebug("Pozycja kursora przed %d,%d",pos.x(),pos.y()); 
   pos-=clip.topLeft(); 
-  qDebug("Pozycja kursora po %d,%d",pos.x(),pos.y()); 
+//  qDebug("Pozycja kursora po %d,%d",pos.x(),pos.y()); 
   // By lecia³o dalej ... 
   ChartDecorator::absPosition( pos,absPoints,chart,clip); 
 }
