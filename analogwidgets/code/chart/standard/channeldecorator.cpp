@@ -29,11 +29,14 @@ void ChannelDecorator::paint (QPainter & painter, Chart * chart)
 
    while (i--!=channels.begin())
    {
-     painter.save();
-     painter.setPen(i->pen());
-     translateToChannel(painter,chart,*i);
-     paintChannel(painter,chart,*i);
-     painter.restore();
+     if (i->visible())
+     {
+       painter.save();
+       painter.setPen(i->pen());
+       translateToChannel(painter,chart,*i);
+       paintChannel(painter,chart,*i);
+       painter.restore();
+     }
    } // while
 
    painter.setRenderHint(QPainter::RenderHint(rh)); // wylaczenie antialiasingu
@@ -60,7 +63,7 @@ void ChannelDecorator::absPosition(QPoint & curPos, QPolygonF & absPoints, Chart
    double abs_y = 0; 
    
     Channels & channels = chart->channels();
-   Channels::iterator i=channels.begin();
+    Channels::iterator i=channels.begin();
   // qDebug("Okno (%d,%d)",window.width()-window.x(),window.height()); 
   // qDebug("View (%d,%d)",viewport.width(),viewport.height()); 
    

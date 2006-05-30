@@ -44,6 +44,12 @@ public:
    /** Ustawia flagê czy skala kana³u ma byæ rysowana na wykresie */ 
    void setShowScale(bool i );
    
+   /** Zwraca flagê czy kana³ ma byæ widoczny i wy¶wietlany na wykresie */
+   bool visible() const;
+   
+   /** Ustawia flagê widoczno¶ci @see visible */
+   void setVisible(bool i); 
+
    protected: 
    /** Iteratory wskazuj±ce na dane do odczytania */
   // Iterator * m_iterator_begin,m_iterator_end;
@@ -66,6 +72,13 @@ public:
 
   /** Okre¶la czy kana³ ma mieæ pokazan± w³asn± o¶ z danymi*/
    bool m_showScale;
+
+
+  /** Okre¶³a czy ma byæ pokazany na wykresie */
+   bool m_visible; 
+
+  /** Okre¶la czy kana³ ma byæ widoczny ...w ogóle */ 
+   //bool m_visible; 
   /** Konstruktor domy¶lny */
   public: 
 
@@ -80,7 +93,7 @@ public:
   * @param name - nazwa kana³u danych
   * @param pen  - rodzaj pióra jakim ma byæ malowany dany wykres
   */
-  Channel(double min,double max, ChannelData * data,const char * name,QPen pen );
+  Channel(double min,double max, ChannelData * data,QString name,QPen pen );
 
   /** Ustawia warto¶æ minimum */
   // void setMin(double min);

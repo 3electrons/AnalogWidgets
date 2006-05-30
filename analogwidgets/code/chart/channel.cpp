@@ -4,33 +4,35 @@ using namespace chart;
 
 Channel::Channel()
 {
-    m_min= m_calc_min= 0;
-    m_max= m_calc_max= 450;
-    m_showScale=true;
-    m_pen.setColor(Qt::white);
-    m_data = NULL;
-   // m_iterator_begin=m_iterator_end=0; // wska¼nik na NULL
+   m_min= m_calc_min= 0;
+   m_max= m_calc_max= 450;
+   m_showScale=true;
+   m_visible = true; 
+   m_pen.setColor(Qt::white);
+   m_data = NULL;
+  // m_iterator_begin=m_iterator_end=0; // wska¼nik na NULL
 }
 
-Channel::Channel(double min,double max, ChannelData * data,const char * name,QPen pen )
+Channel::Channel(double min,double max, ChannelData * data,QString name,QPen pen )
 {
   this->m_min = m_calc_min = min;
   this->m_max = m_calc_max = max;
   this->m_data = data;
-  this->m_name = QString::fromLocal8Bit(name);
+  this->m_name = name;
   this->m_pen = pen;
   m_showScale = true;
+  m_visible = true; 
 }
 
 
 void Channel::setPen(QPen & pen) 
 {
- m_pen = pen;
+  m_pen = pen;
 }
 
 QPen Channel::pen() const
 {
- return m_pen; 
+  return m_pen; 
 }
    
 void Channel::setName(QString & name)
@@ -102,3 +104,14 @@ void Channel::setShowScale(bool i)
 { 
   m_showScale = i ; 
 } 
+
+
+bool Channel::visible() const
+{
+  return m_visible; 
+}
+
+void Channel::setVisible(bool i)
+{
+  m_visible = i; 
+}

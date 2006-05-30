@@ -1,5 +1,8 @@
 #include <QtGui>
 #include <cmath>
+#include <cstdio> 
+#include <cstring> 
+
 
 
 #include "chart.h"
@@ -48,6 +51,8 @@
     
  */   
 
+
+using namespace std; 
 
 //
 //      public
@@ -406,15 +411,16 @@ QMenu * Chart::contextMenu()
        unsigned int ch_no = 0; 
        while (i!=m_channels.end())
        {
-          QString code = "c"; 
-          code += QString(ch_no); 
+          QString code = "c "; 
+          code += QString::number(ch_no); 
           
           b = dane->addAction(i->name()); 
           QMenu * channel = new QMenu(this);  
           b->setMenu(channel);          
           b = channel->addAction(trUtf8("Poka\305\274")); 
           b->setCheckable(true);
-          b->setObjectName(code+QString("show")); 
+          b->setChecked(i->visible()); 
+          b->setObjectName(code+QString(" show")); 
           // Tutaj czy kana³ ma byæ pokazywany w ogóle 
           
           // Separator 
@@ -424,12 +430,12 @@ QMenu * Chart::contextMenu()
           b = channel->addAction(trUtf8("Poka\305\274 skal\304\231")); 
           b->setCheckable(true);
           b->setChecked(i->showScale()); 
-          b->setObjectName(code+QString("scale")); 
+          b->setObjectName(code+QString(" scale")); 
           
           // Pokazywanie w legendzie 
-          b = channel->addAction(trUtf8("Poka\305\274 legend\304\231")); 
-          b->setCheckable(true); 
-          b->setObjectName(code+QString("legend")); 
+ //         b = channel->addAction(trUtf8("Poka\305\274 legend\304\231")); 
+ //         b->setCheckable(true); 
+ //         b->setObjectName(code+QString("legend")); 
           // czy pokazywany w legendzie ...         
           
           i++;
@@ -465,7 +471,19 @@ QMenu * Chart::contextMenu()
 /** Wywo³anie menu kontekstowego */ 
 void Chart::contextMenuActionTriggered(QAction * a)
 {
-  qDebug("Action triggered %s",a->text().toLocal8Bit().data()); 
+  qDebug("Action triggered %s",a->objectName().toLocal8Bit().data()); 
+  QString name = a->objectName(); 
+  char command[10]; 
+  int channel;  char c; 
+  if ('c'==name[0])
+  {
+    sscanf(a->objectName().toLocal8Bit().data(),"%c %d %s",&c,&channel,command); 
+    if (0==strcmp(command,"show"))
+      m_channels[channel].setVisible(!m_channels[channel].visible()); 
+    if (0==strcmp(command,"scale"))
+      m_channels[channel].setShowScale(!m_channels[channel].showScale()); 
+    updateWithBackground(); 
+  }
 }
 
 /** Ruch mysz± */ 
