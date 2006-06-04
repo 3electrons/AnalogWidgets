@@ -10,3 +10,5 @@ SUBDIRS     = \
 #	install
 	
 
+QMAKE_CXXFLAGS_RELEASE += -pg
+QMAKE_LDFLAGS_RELEASE += -pg

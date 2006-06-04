@@ -20,6 +20,9 @@ namespace chart
     * @return Zwraca warto¶æ false gdy osi±gnie koniec strumienia danych
     */
     virtual bool next(double & x, double & y) = 0;
+    
+    /** Zwraca ilo¶æ elementów */
+    virtual int size() = 0;
     /** Destruktor wirtualny by mozna bylo ³adnie posprz±taæ */
     virtual ~ChannelData()
     { ; }

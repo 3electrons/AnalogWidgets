@@ -42,11 +42,15 @@ class PairDataContainer : public ChannelData
     return true;
   }
   
-  std::pair<double,double> findX (double x)
+  std::pair<double,double> findX (double)
   {
    // @TODO Ta funkcja musi zostaæ napisana ...  return pair<double,double>(0,0); 
   }
 
+  int size()
+  {
+     return m_container.size(); 
+  }
 }; // class DataContainers
 
 
@@ -97,7 +101,6 @@ class DoubleDataContainer : public ChannelData
   {
     m_xit = m_xcontainer.begin();
     m_yit = m_ycontainer.begin();
-    
     return ! (m_xcontainer.empty() || m_ycontainer.empty() );
   }
 
@@ -111,7 +114,11 @@ class DoubleDataContainer : public ChannelData
    return true;
   }
   
-  
+  int size()
+  {
+	return m_xcontainer.size(); 
+  }
+
   std::pair<double,double> findX (double x)
   {
     typedef typename type1::value_type just_type; 
@@ -126,19 +133,12 @@ class DoubleDataContainer : public ChannelData
     int s=0; 
     while (xi!=m_xcontainer.begin())
     { xi --; s++; } 
-    
-    for (int i=0;i<s;i++,yi++); 
-        
-        
-        
+     for (int i=0;i<s;i++,yi++); 
    return pair<double,double>(*b,*yi); 
   }
-  
- 
-  protected: 
-   
-   
-};
+
+
+}; // class DoubleDataContainer
 
 
 #endif // DATACONTAINERS_H

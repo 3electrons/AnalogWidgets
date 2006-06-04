@@ -6,6 +6,7 @@
 QMAKE_LIBDIR += /usr/lib/qt4/plugins/designer 
 
 LINK = g++ 
+QMAKE_LDFLAGS_RELEASE= -pg
 CXXFLAGS = -g3 
 #TARGETDEPS += ../communication/Bartkom/src/lib/libcomm.a \
 #              ../analogwidgets/libanalogwidgets.a 

@@ -96,13 +96,13 @@ void ChannelDecorator::translateToChannel (QPainter & painter, Chart * chart, Ch
    dxw = window.width();  
 }
 
+
 bool anyVector (double x1,double x2) 
 {
-  return fabs(x1-x2)>1.0; 
+  double x = x2-x1; 
+   (x<0)? x : -x; 
+  return x>1.0; 
 }
-
-
-
 
 
 void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel & channel)
@@ -110,18 +110,18 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel &
   double x,y;  
   double current_x = 0 ,old_x=-1.0,current_y,old_y=-1.0;
   bool init = false,add = false;
+  ChannelData * data = channel.data() ;
   
-  
-  if (channel.data())
-   if (channel.data()->init())
+  if (data)
+   if (data->init())
       {
         QPolygonF line;
-        while( channel.data()->next(x,y) )
+
+        while( data->next(x,y) )
         {
            current_x = x*xfactor+dx;
            current_y = y*yfactor+dy;
-             
-             
+
            bool xvector = anyVector(old_x,current_x); 
            bool yvector = anyVector(old_y,current_y); 
            bool vector = xvector||yvector; 
@@ -129,27 +129,25 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel &
        	   bool newInWindow = painter.window().contains(current_x,current_y); 
 
            add =  (  ((oldInWindow || newInWindow)||(!oldInWindow && !newInWindow)) && (xvector || yvector) );
-    
+
            if (!init || add )
            {
               line.append(QPointF(current_x,current_y)); 
 	      old_x = current_x; 
 	      old_y = current_y; 
-	     // qDebug("(%d,%d)",(int)current_x,(int)current_y);    
-	   
+	     // qDebug("(%d,%d)",(int)current_x,(int)current_y);
 	   }
-	 
+
            init = true;
            add = false; 
-           
+
         }// while channel.data()->next ... 
-        {
+
          painter.drawPolyline(line);
-         //cout<<"Paint lines"<<line.size()<<" Channel:"<<qPrintable(channel.name())<<endl; 
-        }
+        //cout<<"Paint lines"<<line.size()<<" Channel:"<<qPrintable(channel.name())<<endl; 
       }
-    else
+      else
      cout<<"Channel:"<<qPrintable(channel.name())<<" has no data"<<endl;
-   
+
   //painter.setRenderHint(QPainter::RenderHint(0x0));
 }

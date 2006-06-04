@@ -402,11 +402,15 @@ QMenu * Chart::contextMenu()
   // By specyifczne akcje odpala³y sie tutaj 
   connect(menu,SIGNAL(triggered(QAction *)),this,SLOT(contextMenuActionTriggered(QAction *)));
     
-  QAction * a,*b; 
+  QAction * a_data,*a_scale,*a; 
      
-  a = menu->addAction(trUtf8("Dane")); 
-       QMenu * dane = new QMenu(this); 
-       a->setMenu(dane);        
+  a_data  = menu->addAction(trUtf8("Dane")); 
+  a_scale = menu->addAction(trUtf8("Skala pionowa"));
+
+       QMenu * data = new QMenu(this); 
+       QMenu * scale = new QMenu(this); 
+       a_data->setMenu(data);        
+       a_scale->setMenu(scale);
        Channels::iterator i = m_channels.begin(); 
        unsigned int ch_no = 0; 
        while (i!=m_channels.end())
@@ -414,29 +418,19 @@ QMenu * Chart::contextMenu()
           QString code = "c "; 
           code += QString::number(ch_no); 
           
-          b = dane->addAction(i->name()); 
-          QMenu * channel = new QMenu(this);  
-          b->setMenu(channel);          
-          b = channel->addAction(trUtf8("Poka\305\274")); 
-          b->setCheckable(true);
-          b->setChecked(i->visible()); 
-          b->setObjectName(code+QString(" show")); 
           // Tutaj czy kana³ ma byæ pokazywany w ogóle 
+          a = data->addAction(i->name()); 
+          a->setCheckable(true);
+          a->setChecked(i->visible()); 
+          a->setObjectName(code+QString(" show")); 
           
-          // Separator 
-          channel->addAction("")->setSeparator(true); 
           
           // Pokzaywanie skali 
-          b = channel->addAction(trUtf8("Poka\305\274 skal\304\231")); 
-          b->setCheckable(true);
-          b->setChecked(i->showScale()); 
-          b->setObjectName(code+QString(" scale")); 
+          a = scale->addAction(i->name()); 
+          a->setCheckable(true);
+          a->setChecked(i->showScale()); 
+          a->setObjectName(code+QString(" scale")); 
           
-          // Pokazywanie w legendzie 
- //         b = channel->addAction(trUtf8("Poka\305\274 legend\304\231")); 
- //         b->setCheckable(true); 
- //         b->setObjectName(code+QString("legend")); 
-          // czy pokazywany w legendzie ...         
           
           i++;
           ch_no++; 
@@ -447,18 +441,18 @@ QMenu * Chart::contextMenu()
   a = menu->addAction(""); 
   a->setSeparator(true);    
      
-  a = menu->addAction(trUtf8("Poka\305\274 siatk\304\231"));
+  a = menu->addAction(trUtf8("Siatka"));
   a->setCheckable(true); 
   a->setChecked(showGrid()); 
   connect(a,SIGNAL(toggled(bool)),this,SLOT(setShowGrid(bool)));  
   
 
-  a = menu->addAction(trUtf8("Poka\305\274 skal\304\231")); 
+  a = menu->addAction(trUtf8("Skala pozioma")); 
   a->setCheckable(true);
   a->setChecked(showScale()); 
   connect(a,SIGNAL(toggled(bool)),this,SLOT(setShowScale(bool))); 
     
-  a = menu->addAction(trUtf8("Poka\305\274 legend\304\231")); 
+  a = menu->addAction(trUtf8("Legenda")); 
   a->setCheckable(true); 
   a->setChecked(showLegend()); 
   connect(a,SIGNAL(toggled(bool)),this,SLOT(setShowLegend(bool))); 
