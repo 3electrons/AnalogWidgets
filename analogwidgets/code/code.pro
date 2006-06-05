@@ -1,8 +1,21 @@
-# Plik utworzony przez menad?era projektów kdevelopa
+\# Plik utworzony przez menad?era projektów kdevelopa
 # ------------------------------------------- 
-# Podkatalog wzgl?dem g?ównego katalogu projektu: ./depend/../../AnalogWidgets/analogwidgets/code
+# Podkatalog wzgl?dem g?ównego katalogu projektu: ./analogwidgets/code
 # Cel to biblioteka analogwidgets
 
+QT += xml 
+INCLUDEPATH += ../analogwidgets 
+
+#../../../Bartkom/src/comm 
+OBJECTS_DIR = ../objects 
+QMAKE_CXXFLAGS_RELEASE += -g3 
+QMAKE_CXXFLAGS_DEBUG += -g3 
+TARGET = analogwidgets 
+DESTDIR = ../ 
+CONFIG += release \
+          warn_on \
+          staticlib 
+TEMPLATE = lib 
 HEADERS += ../analogwidgets/chart/chartdecorator.h \
            ../analogwidgets/chart/channeldata.h \
            ../analogwidgets/chart/channel.h \
@@ -18,12 +31,10 @@ HEADERS += ../analogwidgets/chart/chartdecorator.h \
            ../analogwidgets/wallclock.h \
            ../analogwidgets/manometer.h \
            ../analogwidgets/qmyabstractmeter.h \
-           ../analogwidgets/mnemonicbox.h \
            ../analogwidgets/qmywidgetwithbackground.h \
            ../analogwidgets/chart.h \
            ../analogwidgets/thermometer.h \
-           defines.h \
-           ../analogwidgets/mnemonicmodel.h 
+           defines.h 
 SOURCES += chart/scalegrid.cpp \
            chart/standard/labelsdecorator.cpp \
            chart/standard/glassdecorator.cpp \
@@ -35,25 +46,11 @@ SOURCES += chart/scalegrid.cpp \
            functions.cpp \
            led.cpp \
            manometer.cpp \
-           mnemonicbox.cpp \
            qmyabstractmeter.cpp \
            qmywidgetwithbackground.cpp \
            thermometer.cpp \
            wallclock.cpp \
-           mnemonicmodel.cpp \
            chart/chartdecorator.cpp 
-INCLUDEPATH += ../analogwidgets \
-../../../Bartkom/src/comm
-OBJECTS_DIR = ../objects
-QMAKE_CXXFLAGS_RELEASE += -g3 -pg 
-QMAKE_CXXFLAGS_DEBUG += -g3 
-TARGET = analogwidgets
-DESTDIR = ../
-QT+= xml
-CONFIG += release \
-warn_on \
-staticlib
-TEMPLATE = lib
 WIN32{
   DEFINES+= WIN32
 }
