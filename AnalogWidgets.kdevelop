@@ -96,7 +96,7 @@
   </kdevfilecreate>
   <kdevtrollproject>
     <general>
-      <activedir>test</activedir>
+      <activedir>analogwidgets/plugins</activedir>
     </general>
     <run>
       <directoryradio>executable</directoryradio>

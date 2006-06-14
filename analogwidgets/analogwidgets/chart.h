@@ -43,6 +43,7 @@ typedef  vector<chart::Channel> Channels;
       Q_PROPERTY (bool   showGrid	        READ showGrid   WRITE setShowGrid   )
       Q_PROPERTY (bool   showScale   		READ showScale  WRITE setShowScale  )
       Q_PROPERTY (bool   showLegend   		READ showLegend WRITE setShowLegend )
+      Q_PROPERTY (bool   antialiasing           READ antialiasing WRITE setAntialiasing ) 
       
       // Z w³a¶ciwo¶ci QWidget 
       Q_PROPERTY (QFont font                READ font         WRITE setFont          )
@@ -115,7 +116,8 @@ typedef  vector<chart::Channel> Channels;
 	bool isPaintOver()      const;
       	bool channelShowScale() const;
       	bool showScale()        const;
-      	bool showLegend()       const; 
+      	bool showLegend()       const;
+        bool antialiasing()   const; 
 
      	/** Buduje zwyk³e menu */ 
       	QMenu * contextMenu(); 
@@ -150,6 +152,7 @@ typedef  vector<chart::Channel> Channels;
       	void setShowScale       (bool i); 
         void setShowGrid        (bool i); 
 	void setShowLegend      (bool i);
+	void setAntialiasing    (bool i); 
 	
 	// Zaslania ustawianie fontu QWidget 
 	// i odmalowywuje wszystko od nowa 
@@ -199,7 +202,10 @@ typedef  vector<chart::Channel> Channels;
 	QTimer * timer;
 
         /** Czy pokazywaæ legendê */
-        bool m_showLegend; 
+        bool m_showLegend;
+	   
+	/** Czy u¿ywaæ antialiasingu */
+	bool m_antialiasing; 
         
         /* Warto¶æ zoom oraz m_xsize po wymono¿enu daj± warto¶æ m_scalegrid.size 
         * W ten sposób ³atwo mo¿na sterowaæ zoomem z zewn±trz */ 

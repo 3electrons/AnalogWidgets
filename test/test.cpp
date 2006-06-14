@@ -20,17 +20,12 @@
     #include <list>
     #include <vector>
     //#include <pair>
-    #ifdef WIN32 
-     #define UNDEPRESS "[bar] Ciœnienie pod t³okiem"
-     #define CALCPRESS "[bar] Ciœnienie wyliczone"
-     #define OVERPRESS "[bar] Ciœnienie nad t³okiem"
-     #define VELOCITY  "[cm/s] Prêdkoœæ"
-    #else
-     #define UNDEPRESS "[bar] Ci¶nienie pod t³okiem"
-     #define CALCPRESS "[bar] Ci¶nienie wyliczone"
-     #define OVERPRESS "[bar] Ci¶nienie nad t³okiem"
-     #define VELOCITY  "[cm/s] Prêdko¶æ"
-    #endif 
+
+     #define UNDEPRESS "[bar] Ci\305\233nienie pod t\305\202okiem"
+     #define CALCPRESS "[bar] Ci\305\233nienie wyliczone"
+     #define OVERPRESS "[bar] Ci\305\233nienie nad t\305\202okiem"
+     #define VELOCITY  "[cm/s] Pr\304\231dko\305\233\304\207"
+
     using namespace std;
 
     typedef vector<int> vint;
@@ -117,20 +112,20 @@
    	vPen.setWidthF(2.0);
 	vPen.setColor(Qt::green);
         Channel cisnienie2 (0,350,new DoubleDataContainer<vint,lint>(times,press2),
-			   UNDEPRESS,vPen);
+			   trUtf8(UNDEPRESS),vPen);
 	vPen.setColor(Qt::magenta);
         Channel cisnienie3 (0,350,new DoubleDataContainer<vint,ldouble>(times,press3),
-			   CALCPRESS,vPen);
+			   trUtf8(CALCPRESS),vPen);
 	vPen.setColor(Qt::cyan);
 	Channel cisnienie (0,350,new DoubleDataContainer<vint,lint>(times,press1),
-			   OVERPRESS,vPen);
+			  trUtf8(OVERPRESS),vPen);
 	vPen.setColor(Qt::yellow);
         Channel pozycja(0,230,new PairDataContainer<lpair>(position),
-			  "[mm] Pozycja",vPen);
+			  trUtf8("[mm] Pozycja"),vPen);
 	//vPen.setStyle(Qt::DashDotLine);
 	vPen.setColor(Qt::red);
         Channel predkosc  (0,300, new DoubleDataContainer<vint,vint>(times,velocity),
-			  VELOCITY,vPen) ;//QPen(Qt::red));
+			  trUtf8(VELOCITY),vPen) ;//QPen(Qt::red));
 
 
         cisnienie2.setShowScale(false); 

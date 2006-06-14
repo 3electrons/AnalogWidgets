@@ -72,7 +72,7 @@ Chart::Chart(QWidget *parent)
    m_showLegend = true;
    m_zoom = 1.0; 
    m_xsize = m_scalegrid.size=1000.0; 
-  
+   m_antialiasing = true; 
 }
 
 Chart::~Chart()
@@ -354,6 +354,16 @@ void Chart::setShowLegend(bool i)
   updateWithBackground(); 
 }
 
+bool Chart::antialiasing() const {  return m_antialiasing; }
+
+
+void Chart::setAntialiasing(bool i)
+{
+  m_antialiasing = i; 
+  updateWithBackground();    
+}
+
+
 // ****** showGrid 
 bool Chart::showGrid()         const	{ return m_scalegrid.showGrid; }
 
@@ -457,7 +467,10 @@ QMenu * Chart::contextMenu()
   a->setChecked(showLegend()); 
   connect(a,SIGNAL(toggled(bool)),this,SLOT(setShowLegend(bool))); 
     
-  
+  a = menu->addAction(trUtf8("Antialiasing"));
+  a->setCheckable(true);
+  a->setChecked(antialiasing());
+  connect(a,SIGNAL(toggled(bool)),this,SLOT(setAntialiasing(bool))); 
   
   return menu; 
 }

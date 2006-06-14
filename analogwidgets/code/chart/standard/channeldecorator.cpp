@@ -22,7 +22,7 @@ void ChannelDecorator::paint (QPainter & painter, Chart * chart)
  {
    //painter.save(); 
    unsigned int rh = painter.renderHints();
-   if (chart->isPaintOver())  painter.setRenderHint(QPainter::Antialiasing); // w³aczenie antialiasingu
+   if (chart->isPaintOver() && chart->antialiasing())  painter.setRenderHint(QPainter::Antialiasing); // w³aczenie antialiasingu
 
    Channels & channels = chart->channels();
    Channels::iterator i=channels.end();
