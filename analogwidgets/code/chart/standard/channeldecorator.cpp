@@ -101,7 +101,7 @@ bool anyVector (double x1,double x2)
 {
   double x = x2-x1; 
    (x<0)? x : -x; 
-  return x>1.0; 
+  return x>0.99; 
 }
 
 
@@ -115,13 +115,23 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel &
   if (data)
    if (data->init())
       {
-        QPolygonF line;
-
+        //QPolygon line;
+        QPoint line[data->size()]; 
+        //line.resize(data->size());
+        unsigned int i =0; 
         while( data->next(x,y) )
         {
            current_x = x*xfactor+dx;
            current_y = y*yfactor+dy;
-
+       
+           //if (anyVector(current_x,old_x) || anyVector(current_y,old_y))
+           //{
+           
+              line[i++] = (QPoint(current_x,current_y)); 
+              old_x = current_x; 
+              old_y = current_y; 
+          // }
+	   /*
            bool xvector = anyVector(old_x,current_x); 
            bool yvector = anyVector(old_y,current_y); 
            bool vector = xvector||yvector; 
@@ -139,11 +149,15 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel &
 	   }
 
            init = true;
-           add = false; 
+           add = false;
+	   */
 
         }// while channel.data()->next ... 
-
-         painter.drawPolyline(line);
+        //painter.setMatrixEnabled(false); 
+       // painter.setViewTransformEnabled ( false ); 
+        painter.drawPolyline(line,i);
+       // painter.setViewTransformEnabled ( true ); 
+      //  painter.setMatrixEnabled(true); 
         //cout<<"Paint lines"<<line.size()<<" Channel:"<<qPrintable(channel.name())<<endl; 
       }
       else
