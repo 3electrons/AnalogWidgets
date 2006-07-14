@@ -2,7 +2,7 @@
 # ------------------------------------------- 
 # Podkatalog wzgl?dem g?ównego katalogu projektu: ./analogwidgets/plugins
 # Cel to biblioteka analogwidgets_plugin
-
+include (../../Flags.pri ) 
 QT += xml 
 TARGETDEPS += ../libanalogwidgets.a 
 #              ../../../Bartkom/src/lib/libcomm.a 
@@ -11,7 +11,8 @@ LIBS += ../libanalogwidgets.a
 INCLUDEPATH += ../analogwidgets 
 MOC_DIR = ..\objects 
 OBJECTS_DIR = ..\objects 
-QMAKE_CXXFLAGS_RELEASE += -g3 
+
+#QMAKE_CXXFLAGS_RELEASE += -g3 
 TARGET = analogwidgets_plugin 
 DESTDIR = ../ 
 CONFIG += release \
