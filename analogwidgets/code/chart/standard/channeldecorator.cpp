@@ -100,8 +100,8 @@ void ChannelDecorator::translateToChannel (QPainter & painter, Chart * chart, Ch
 bool anyVector (double x1,double x2) 
 {
   double x = x2-x1; 
-   (x<0)? x : -x; 
-  return x>0.99; 
+  if (x<0) x = -x; 
+   return x>1.0; 
 }
 
 
@@ -115,8 +115,9 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel &
   if (data)
    if (data->init())
       {
-        //QPolygon line;
-        QPoint line[data->size()]; 
+        //QPolygon lineA
+        const int size = 100; 
+        QPoint line[size]; 
         //line.resize(data->size());
         unsigned int i =0; 
         while( data->next(x,y) )
@@ -124,14 +125,6 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel &
            current_x = x*xfactor+dx;
            current_y = y*yfactor+dy;
        
-           //if (anyVector(current_x,old_x) || anyVector(current_y,old_y))
-           //{
-           
-              line[i++] = (QPoint(current_x,current_y)); 
-              old_x = current_x; 
-              old_y = current_y; 
-          // }
-	   /*
            bool xvector = anyVector(old_x,current_x); 
            bool yvector = anyVector(old_y,current_y); 
            bool vector = xvector||yvector; 
@@ -140,9 +133,14 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel &
 
            add =  (  ((oldInWindow || newInWindow)||(!oldInWindow && !newInWindow)) && (xvector || yvector) );
 
-           if (!init || add || true )
+           if (!init || add )
            {
-              line.append(QPointF(current_x,current_y)); 
+             line[i++]=(QPoint(current_x,current_y)); 
+             if (i > size ) 
+             {
+               painter.drawPolyline(line,i); 
+               i=0; 
+             }
 	      old_x = current_x; 
 	      old_y = current_y; 
 	     // qDebug("(%d,%d)",(int)current_x,(int)current_y);
@@ -150,13 +148,12 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel &
 
            init = true;
            add = false;
-	   */
 
         }// while channel.data()->next ... 
-        //painter.setMatrixEnabled(false); 
+      //  painter.setMatrixEnabled(false); 
        // painter.setViewTransformEnabled ( false ); 
         painter.drawPolyline(line,i);
-       // painter.setViewTransformEnabled ( true ); 
+      //  painter.setViewTransformEnabled ( true ); 
       //  painter.setMatrixEnabled(true); 
         //cout<<"Paint lines"<<line.size()<<" Channel:"<<qPrintable(channel.name())<<endl; 
       }
