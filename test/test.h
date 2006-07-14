@@ -17,6 +17,10 @@
         TestWidget(QMainWindow *parent = 0);
         /** Inicjuje podstawow± geometriê oraz komponenty na formie */
         void initialize();
+        
+        /** Inicjuje wykres */ 
+        void initCharts(); 
+        
         /** Generuje p³±czenia pomiêdzy sygna³ami i slotami */
         void connections();
     public slots:

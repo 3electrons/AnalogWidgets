@@ -130,7 +130,7 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel &
 
            add =  (  ((oldInWindow || newInWindow)||(!oldInWindow && !newInWindow)) && (xvector || yvector) );
 
-           if (!init || add )
+           if (!init || add || true )
            {
               line.append(QPointF(current_x,current_y)); 
 	      old_x = current_x; 

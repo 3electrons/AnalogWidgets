@@ -105,39 +105,6 @@
 	dir.setSorting(QDir::Name);
         dir.setNameFilters ( QStringList(QString("*.wtr")) );
 	injCombo->addItems(dir.entryList());
-// Zainicjowanie danymi obiektu typu chart
-
-	QPen vPen;
-	vPen.setColor(Qt::red);
-   	vPen.setWidthF(2.0);
-	vPen.setColor(Qt::green);
-        Channel cisnienie2 (0,350,new DoubleDataContainer<vint,lint>(times,press2),
-			   trUtf8(UNDEPRESS),vPen);
-	vPen.setColor(Qt::magenta);
-        Channel cisnienie3 (0,350,new DoubleDataContainer<vint,ldouble>(times,press3),
-			   trUtf8(CALCPRESS),vPen);
-	vPen.setColor(Qt::cyan);
-	Channel cisnienie (0,350,new DoubleDataContainer<vint,lint>(times,press1),
-			  trUtf8(OVERPRESS),vPen);
-	vPen.setColor(Qt::yellow);
-        Channel pozycja(0,230,new PairDataContainer<lpair>(position),
-			  trUtf8("[mm] Pozycja"),vPen);
-	//vPen.setStyle(Qt::DashDotLine);
-	vPen.setColor(Qt::red);
-        Channel predkosc  (0,300, new DoubleDataContainer<vint,vint>(times,velocity),
-			  trUtf8(VELOCITY),vPen) ;//QPen(Qt::red));
-
-
-        cisnienie2.setShowScale(false); 
-        cisnienie3.setShowScale(false);
-	//pozycja.showScale = predkosc.showScale = false ;
-	//chart->scaleGrid().showScale=false;
-	//chart->scaleGrid().showGrid=false;
-	chart->addChannel(cisnienie2);
-	chart->addChannel(cisnienie3);
-	chart->addChannel(cisnienie);
-	chart->addChannel(pozycja);
-	chart->addChannel(predkosc);
 
 
 
@@ -157,6 +124,44 @@
 	spinBox->setMaximum(1000);
 	spinBox->setMinimum(-1000);
 	ComboBoxChoiceChanged(comboBox->currentIndex());
+    }
+    
+    void TestWidget::initCharts()
+    {
+     // Zainicjowanie danymi obiektu typu chart
+
+      QPen vPen;
+      vPen.setColor(Qt::red);
+      vPen.setWidthF(2.0);
+      vPen.setColor(Qt::green);
+      Channel cisnienie2 (0,350,new DoubleDataContainer<vint,lint>(times,press2),
+                          trUtf8(UNDEPRESS),vPen);
+      vPen.setColor(Qt::magenta);
+      Channel cisnienie3 (0,350,new DoubleDataContainer<vint,ldouble>(times,press3),
+                          trUtf8(CALCPRESS),vPen);
+      vPen.setColor(Qt::cyan);
+      Channel cisnienie (0,350,new DoubleDataContainer<vint,lint>(times,press1),
+                         trUtf8(OVERPRESS),vPen);
+      vPen.setColor(Qt::yellow);
+      Channel pozycja(0,230,new PairDataContainer<lpair>(position),
+                      trUtf8("[mm] Pozycja"),vPen);
+	//vPen.setStyle(Qt::DashDotLine);
+      vPen.setColor(Qt::red);
+      Channel predkosc  (0,300, new DoubleDataContainer<vint,vint>(times,velocity),
+                         trUtf8(VELOCITY),vPen) ;//QPen(Qt::red));
+
+
+      cisnienie2.setShowScale(false); 
+      cisnienie3.setShowScale(false);
+	//pozycja.showScale = predkosc.showScale = false ;
+	//chart->scaleGrid().showScale=false;
+	//chart->scaleGrid().showGrid=false;
+      chart->addChannel(cisnienie2);
+      chart->addChannel(cisnienie3);
+      chart->addChannel(cisnienie);
+      chart->addChannel(pozycja);
+      chart->addChannel(predkosc);
+ 
     }
 
     void TestWidget::movePosition(int val)
@@ -224,6 +229,8 @@
 
   void TestWidget::loadInjection(const QString &  file )
     {
+        
+      
         char buffer[1024];
 	std::string f("wtr/");
 	 f+=file.toLocal8Bit().data() ;
@@ -266,6 +273,10 @@
          // cout<<time<<"  p:"<<pos<<" v:"<<vel<<" p1:"<<p1<<endl; //" "<<p2<<" "<<p3<<endl;
 	  ++time;
         }
+        
+        
+        chart->channels().clear(); 
+        initCharts(); 
         chart->update();
     }
 
