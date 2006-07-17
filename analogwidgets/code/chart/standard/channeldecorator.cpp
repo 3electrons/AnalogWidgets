@@ -138,8 +138,9 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel &
              line[i++]=(QPoint(current_x,current_y)); 
              if (i > size ) 
              {
-               painter.drawPolyline(line,i); 
-               i=0; 
+               painter.drawPolyline(line,size);
+	       line[0] = line[size-1]; // Last point is first one 
+               i=1; 
              }
 	      old_x = current_x; 
 	      old_y = current_y; 
