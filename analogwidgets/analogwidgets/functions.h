@@ -3,7 +3,7 @@
 
 #include <assert.h>
 #include <cmath>
-//#include <iostream> // dla testów 
+#include <iostream> // dla testów 
 
 using namespace std;
 
@@ -48,7 +48,8 @@ bool range(T m_minimum,T m_maximum, T & m_min, T & m_max,unsigned int steps, boo
   m_min=m_minimum;
   assert( m_max > m_min );
 //  assert( (m_max - m_min) > 0 );
-
+//  if (m_max<0) left!=left; 
+  
   T diff = abs(m_max - m_min);
   T scale = 0, factor = 0 ;
 
@@ -62,7 +63,11 @@ bool range(T m_minimum,T m_maximum, T & m_min, T & m_max,unsigned int steps, boo
    
   while (!done)
   {
-     m_max=0;
+    
+    // dirty hack to have zero equal exactly zero 
+    if (m_max<0)  m_max=m_min;
+    else m_max = 0.0; 
+    
      while ( m_max < m_maximum ) m_max +=factor;
      m_min = m_max - scale;
      if (m_min <= m_minimum ) done = true;
@@ -75,7 +80,7 @@ bool range(T m_minimum,T m_maximum, T & m_min, T & m_max,unsigned int steps, boo
 	   	m_min+=factor;
    		m_max+=factor;
   	}
-
+  cout<<"Min:"<<m_min<<" Max:"<<m_max<<endl;
  return (m_max != max_tmp) | (m_min != min_tmp);
 }
 

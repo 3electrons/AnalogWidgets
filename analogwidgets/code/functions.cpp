@@ -5,6 +5,7 @@ using namespace std;
 
 double minimalStep(double scaleSize, int steps)
 {
+  scaleSize = std::abs(scaleSize); 
   double ms = scaleSize/steps; 
   double fractions[]={5,2,1}; 
   double multiply = 10; 

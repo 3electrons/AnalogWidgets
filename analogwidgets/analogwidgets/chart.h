@@ -47,8 +47,6 @@ typedef  vector<chart::Channel> Channels;
       
       // Z w³a¶ciwo¶ci QWidget 
       Q_PROPERTY (QFont font                READ font         WRITE setFont          )
-
-
       public:
     	Chart(QWidget *parent = 0);
 	~Chart();
@@ -118,6 +116,11 @@ typedef  vector<chart::Channel> Channels;
       	bool showScale()        const;
       	bool showLegend()       const;
         bool antialiasing()   const; 
+        
+        QColor topBackgroundColor() const; 
+        QColor bottomBackgroundColor() const; 
+        QColor gridColor() const; 
+        
 
      	/** Buduje zwyk³e menu */ 
       	QMenu * contextMenu(); 
@@ -158,6 +161,10 @@ typedef  vector<chart::Channel> Channels;
 	// i odmalowywuje wszystko od nowa 
 	void setFont       (QFont i);	 
 	
+        
+        void setTopBackgroundColor(const QColor &c);
+        void setBottomBackgrounColor(const QColor &c);
+        void setGridColor(const QColor & c); 
 
       	/**
       	* Powieksza/pomniejsza widok na osi x
@@ -223,6 +230,11 @@ typedef  vector<chart::Channel> Channels;
         QPolygonF m_currentCurPositions,m_lastCurPositions; // mouseMoveEvent 
         /** Okno z kana³ami */
         QRect m_clip; // mouseMoveEvent 
+        
+        QColor m_topBackgroundColor; 
+        QColor m_bottomBackgroundColor; 
+        QColor m_gridColor; 
+        
     };
 
 

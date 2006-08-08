@@ -1,4 +1,4 @@
-QMAKE_CXXFLAGS_RELEASE =  -Os -mfpmath=sse 
+QMAKE_CXXFLAGS_RELEASE =  -Os -mfpmath=sse
 QMAKE_LFLAGS_RELEASE   = 
 
 

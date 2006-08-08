@@ -73,6 +73,10 @@ Chart::Chart(QWidget *parent)
    m_zoom = 1.0; 
    m_xsize = m_scalegrid.size=1000.0; 
    m_antialiasing = true; 
+   
+   m_topBackgroundColor = QColor(0,0,150); 
+   m_bottomBackgroundColor = Qt::black; 
+   m_gridColor = QColor(40,40,180);
 }
 
 Chart::~Chart()
@@ -356,6 +360,21 @@ void Chart::setShowLegend(bool i)
 
 bool Chart::antialiasing() const {  return m_antialiasing; }
 
+QColor Chart::topBackgroundColor() const
+{
+  return m_topBackgroundColor;  
+}
+
+
+QColor Chart::bottomBackgroundColor() const
+{
+  return m_bottomBackgroundColor;  
+}
+
+QColor Chart::gridColor() const
+{
+  return m_gridColor;  
+}
 
 void Chart::setAntialiasing(bool i)
 {
@@ -394,6 +413,24 @@ void Chart::setFont(QFont i)
 { 
    QWidget::setFont(i);
    updateWithBackground(); 
+}
+
+void Chart::setTopBackgroundColor( const QColor & c) 
+{
+  m_topBackgroundColor = c; 
+  updateWithBackground();  
+}
+
+void Chart::setBottomBackgrounColor( const QColor & c) 
+{
+  m_bottomBackgroundColor = c; 
+  updateWithBackground();  
+}
+
+void Chart::setGridColor( const QColor & c) 
+{
+  m_gridColor=c; 
+  updateWithBackground(); 
 }
 
 // Ustawia koniec malowania i nastêpuje malownie z antialiasingiem 

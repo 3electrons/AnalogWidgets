@@ -67,18 +67,17 @@ void ScalesGridDecorator::absPosition(QPoint & pos, QPolygonF & absPoints, Chart
   ChartDecorator::absPosition( pos,absPoints,chart,clip); 
 }
 
+
 void ScalesGridDecorator::paintBackground(QPainter &painter, Chart * chart)
 {
-
   QLinearGradient background(0,0,0,chart->height());
-  background.setColorAt(0.0,QColor(0,0,150));
-  background.setColorAt(1.0,Qt::black);
+  background.setColorAt(0.0, chart->topBackgroundColor());
+  background.setColorAt(1.0, chart->bottomBackgroundColor());
   painter.setBrush(QBrush(background));
   //painter.setBrush(Qt::black);
   painter.drawRect(0,0,chart->width(),chart->height());
-
-
 }
+
 
 #define XFONT_DISTANCE 7
 #define YFONT_DISTANCE 2.5
@@ -199,7 +198,7 @@ void ScalesGridDecorator::paintXScale(QPainter & painter, Chart * chart)
     }while (x <= chart->width() ) ;
     
     // Pozioma lina nad skal± .
-    painter.setPen(QColor(40,40,180)); 
+    painter.setPen(chart->gridColor()); 
     painter.drawLine(QPointF(0,yScaleHeight),QPointF(chart->width(),yScaleHeight));
    } // if showScale
 
@@ -207,7 +206,7 @@ void ScalesGridDecorator::paintXScale(QPainter & painter, Chart * chart)
 
 void ScalesGridDecorator::paintXGrid(QPainter & painter, Chart * chart)
 { 
-  painter.setPen(QColor(40,40,180)); // kolor siatki
+  painter.setPen(chart->gridColor()); // kolor siatki
   
   if (chart->scaleGrid().showGrid || chart->scaleGrid().showScale) 
   {
@@ -256,7 +255,7 @@ void ScalesGridDecorator::paintXGrid(QPainter & painter, Chart * chart)
 
 void ScalesGridDecorator::paintYGrid(QPainter & painter, Chart * chart)
 {
-  painter.setPen(QColor(40,40,180));
+  painter.setPen(chart->gridColor());
 
   // Malowanie lini poziomych
   unsigned int ySteps    = chart->scaleGrid().m_yMesh + 1;
