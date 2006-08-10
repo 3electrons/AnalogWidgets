@@ -13,7 +13,7 @@ win32 {
 linux-g++ {
  # Development machine 
  
-# QMAKE_CXXFLAGS_RELEASE += -march=k8 
+ QMAKE_CXXFLAGS_RELEASE += -march=k8 
 
 }
 
