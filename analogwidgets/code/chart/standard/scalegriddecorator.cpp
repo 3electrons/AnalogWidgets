@@ -125,8 +125,8 @@ void ScalesGridDecorator::paintYScale(QPainter & painter, Chart * chart)
      while ( scalePos + ACCURACY >  m_min )
      {
       if (fabs(scalePos)<ACCURACY ) scalePos = 0.0; // brzydki hack ale pownien dzia³aæ.
-      
-      QString Str = QString().setNum(scalePos,'g',12); // "%1").arg(scalePos,6);
+      if (fabs(scalePos) <  0.000000000001 ) scalePos = 0.0; 		
+      QString Str = QString().setNum(scalePos,'G',12); // "%1").arg(scalePos,6);
       int tw = painter.fontMetrics().size(Qt::TextSingleLine, Str ).width();
       if (tw>maxTextWidth) maxTextWidth=tw;
       painter.drawText(QPointF(yScaleWidth,posText-YFONT_DISTANCE),Str);
@@ -185,8 +185,8 @@ void ScalesGridDecorator::paintXScale(QPainter & painter, Chart * chart)
     {
       y = (chart->height()- static_cast<int>(yScaleHeight));
       //  painter.drawLine(QPointF(scale_pos,yScaleHeight + y*0.25 ),QPointF(scale_pos,yScaleHeight));
-
-      QString Str = QString().setNum(scale_value,'g',12); ////QString("%1").arg(scale_value,6);
+      if (fabs(scale_value) <  0.000000000001 ) scale_value = 0.0; 		
+      QString Str = QString().setNum(scale_value,'G',12); ////QString("%1").arg(scale_value,6);
       fw = painter.fontMetrics().size(Qt::TextSingleLine, Str ).width();
       x = static_cast<int> (scale_pos - fw/2 + yScaleWidth);
       if (x + fw/2 >= yScaleWidth )
