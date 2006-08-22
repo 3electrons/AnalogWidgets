@@ -117,7 +117,7 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel &
       {
         //QPolygon lineA
         const int size = 100; 
-        QPoint line[size]; 
+        QPoint line[size+2]; 
         //line.resize(data->size());
         unsigned int i =0; 
         while( data->next(x,y) )

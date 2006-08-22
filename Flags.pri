@@ -1,4 +1,4 @@
-QMAKE_CXXFLAGS_RELEASE =  -Os -mfpmath=sse
+QMAKE_CXXFLAGS_RELEASE = -g3  # -Os -mfpmath=sse
 QMAKE_LFLAGS_RELEASE   = 
 
 
@@ -13,7 +13,7 @@ win32 {
 linux-g++ {
  # Development machine 
  
- QMAKE_CXXFLAGS_RELEASE += -march=k8 
+# QMAKE_CXXFLAGS_RELEASE += -march=k8 
 
 }
 
