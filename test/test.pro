@@ -13,8 +13,8 @@ LINK = g++
 #LIBS += ../communication/Bartkom/src/lib/libcomm.a \
 #        ../analogwidgets/libanalogwidgets.a
 
-unix:LIBS  += ../analogwidgets/libanalogwidgets_plugin.so 
-win32:LIBS += ../analogwidgets/libanalogwidgets.a  
+#unix:LIBS  += ../analogwidgets/libanalogwidgets_plugin.so 
+LIBS += ../analogwidgets/libanalogwidgets.a  
 #              ../../Bartkom/src/lib/libcomm.a 
               
 

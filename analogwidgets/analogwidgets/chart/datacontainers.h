@@ -45,6 +45,7 @@ class PairDataContainer : public ChannelData
   std::pair<double,double> findX (double)
   {
    // @TODO Ta funkcja musi zostaæ napisana ...  return pair<double,double>(0,0); 
+    return pair<double,double>(0,0); 
   }
 
   int size()
