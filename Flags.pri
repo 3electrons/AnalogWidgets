@@ -1,6 +1,13 @@
-QMAKE_CXXFLAGS_RELEASE = -g3  # -Os -mfpmath=sse
-QMAKE_LFLAGS_RELEASE   = 
+# http://gentoo-wiki.com/SECURITY_Debugging_with_Hardened_Gentoo
+# General nonhardened debug config  
 
+QMAKE_CXXFLAGS_RELEASE = -g3 -fno-pie -fno-stack-protector-all -nonow -norelro
+QMAKE_CFLGAGS_RELEASE  = -ggdb 
+
+
+# Release flags :) 
+# QMAKE_CXXFLAGS_RELEASE= -Os -mfpmath=sse
+# QMAKE_LFLAGS_RELEASE   = 
 
 win32 {
  # Target platform - Windows 

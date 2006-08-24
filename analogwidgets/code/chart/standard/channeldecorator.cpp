@@ -151,7 +151,7 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel &
            add = false;
 
         }// while channel.data()->next ... 
-      //  painter.setMatrixEnabled(false); 
+       //  painter.setMatrixEnabled(false); 
        // painter.setViewTransformEnabled ( false ); 
         painter.drawPolyline(line,i);
       //  painter.setViewTransformEnabled ( true ); 

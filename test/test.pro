@@ -5,8 +5,7 @@
 
 QMAKE_LIBDIR += /usr/lib/qt4/plugins/designer 
 
-include (../Flags.pri) 
-LINK = g++ 
+include (../Flags.pri)  
 
 #TARGETDEPS += ../communication/Bartkom/src/lib/libcomm.a \
 #              ../analogwidgets/libanalogwidgets.a 
@@ -17,14 +16,13 @@ LINK = g++
 LIBS += ../analogwidgets/libanalogwidgets.a  
 #              ../../Bartkom/src/lib/libcomm.a 
               
-
+QMAKE_CXXFLAGS_RELEASE += -fPIC 
 
 INCLUDEPATH += ../analogwidgets/analogwidgets
 MOC_DIR = objects 
 UI_DIR = . 
 OBJECTS_DIR = ../objects 
-QMAKE_LFLAGS_RELEASE = -pg \
-                       -ftest-coverage 
+
 CONFIG += release \
           warn_on 
 TEMPLATE = app 
