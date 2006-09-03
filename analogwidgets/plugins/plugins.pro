@@ -5,9 +5,9 @@
 include (../../Flags.pri ) 
 QT += xml 
 TARGETDEPS += ../libanalogwidgets.a 
-#              ../../../Bartkom/src/lib/libcomm.a 
+
 LIBS += ../libanalogwidgets.a 
-#        ../../../Bartkom/src/lib/libcomm.a 
+
 INCLUDEPATH += ../analogwidgets 
 MOC_DIR = ..\objects 
 OBJECTS_DIR = ..\objects 
