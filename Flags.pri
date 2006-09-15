@@ -14,9 +14,9 @@ win32 {
  # Target platform - Windows 
  # Pentium-Pro -- becouse of Intel and AMD fork 
  
- #QMAKE_CXXFLAGS_RELEASE  = -g3 
+ #QMAKE_CXXFLAGS_RELEASE  = -g3 -Wall
  
- QMAKE_CXXFLAGS_RELEASE += -march=i686 -Os
+ QMAKE_CXXFLAGS_RELEASE  = -march=i686 -Os -Wall 
  
  QMAKE_LFLAGS_RELEASE    = 
  
