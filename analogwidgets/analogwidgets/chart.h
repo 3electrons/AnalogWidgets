@@ -37,6 +37,7 @@ typedef  vector<chart::Channel> Channels;
       Q_PROPERTY (double channelMinimum    READ channelMinimum   WRITE setChannelMinimum    )
       Q_PROPERTY (double channelMaximum    READ channelMaximum   WRITE setChannelMaximum    )
       Q_PROPERTY (bool   channelShowScale  READ channelShowScale WRITE setChannelShowScale  )
+      Q_PROPERTY (bool   channelVisible    READ channelVisible   WRITE setChannelVisible    )
       Q_PROPERTY (QColor channelColor	   READ channelColor     WRITE setChannelColor      )   
       Q_PROPERTY (QString channelName      READ channelName      WRITE setChannelName	    )
      // Q_PROPERTY (QFont  scaleFont              READ scaleFont  WRITE setScaleFont  )
@@ -113,6 +114,7 @@ typedef  vector<chart::Channel> Channels;
 	bool showGrid()         const;
 	bool isPaintOver()      const;
       	bool channelShowScale() const;
+        bool channelVisible()   const; 
       	bool showScale()        const;
       	bool showLegend()       const;
         bool antialiasing()   const; 
@@ -152,6 +154,8 @@ typedef  vector<chart::Channel> Channels;
       	void setXSubMesh( int i); 
 
       	void setChannelShowScale(bool i); 
+        void setChannelVisible  (bool i); 
+        
       	void setShowScale       (bool i); 
         void setShowGrid        (bool i); 
 	void setShowLegend      (bool i);

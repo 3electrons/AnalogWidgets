@@ -314,6 +314,13 @@ bool Chart::channelShowScale() const
   return false; 
 }
 
+bool Chart::channelVisible() const
+{
+  if (m_channels.size())
+    return m_channels[m_channel].visible(); 
+  return false; 
+}
+
 void Chart::setChannelShowScale(bool i) 
 {
    if (m_channels.size())
@@ -322,6 +329,16 @@ void Chart::setChannelShowScale(bool i)
      updateWithBackground(); 
    }
 }
+
+void Chart::setChannelVisible(bool i) 
+{
+  if (m_channels.size())
+  { 
+    m_channels[m_channel].setVisible(i);
+    updateWithBackground(); 
+  }
+}
+
 
 // ***** channelName 
 QString Chart::channelName () const
