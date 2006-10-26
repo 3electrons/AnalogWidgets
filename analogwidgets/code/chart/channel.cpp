@@ -10,6 +10,7 @@ Channel::Channel()
    m_visible = true; 
    m_pen.setColor(Qt::white);
    m_data = NULL;
+   m_type = Line; 
   // m_iterator_begin=m_iterator_end=0; // wska¼nik na NULL
 }
 
@@ -21,7 +22,8 @@ Channel::Channel(double min,double max, ChannelData * data,QString name,QPen pen
   this->m_name = name;
   this->m_pen = pen;
   m_showScale = true;
-  m_visible = true; 
+  m_visible = true;
+  m_type = Line;  
 }
 
 
@@ -114,4 +116,18 @@ bool Channel::visible() const
 void Channel::setVisible(bool i)
 {
   m_visible = i; 
+}
+
+void Channel::setType(unsigned int i)
+{
+  if (i!=Line && i!=Dots)
+   throw "Bledny typ"; 
+     
+  m_type = i; 
+  
+}
+
+unsigned int Channel::type()
+{
+  return m_type;  
 }

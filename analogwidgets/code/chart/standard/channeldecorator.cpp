@@ -130,16 +130,24 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel &
            bool vector = xvector||yvector; 
            bool oldInWindow = painter.window().contains(old_x,old_y); 
        	   bool newInWindow = painter.window().contains(current_x,current_y); 
-
+           if (channel.type() == Channel::Line ) 
            add =  (  ((oldInWindow || newInWindow)||(!oldInWindow && !newInWindow)) && (xvector || yvector) );
 
+           if (channel.type() == Channel::Dots ) 
+             add = (xvector || yvector);
+           
            if (!init || add )
            {
              line[i++]=(QPoint(current_x,current_y)); 
              if (i > size ) 
              {
-               painter.drawPolyline(line,size);
-	       line[0] = line[size-1]; // Last point is first one 
+               
+                if (channel.type()==Channel::Line)
+                painter.drawPolyline(line,size);
+                else 
+                  painter.drawPoints(line,size); 
+
+               line[0] = line[size-1]; // Last point is first one 
                i=1; 
              }
 	      old_x = current_x; 
@@ -153,7 +161,11 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel &
         }// while channel.data()->next ... 
        //  painter.setMatrixEnabled(false); 
        // painter.setViewTransformEnabled ( false ); 
-        painter.drawPolyline(line,i);
+        if (channel.type()==Channel::Line)
+         painter.drawPolyline(line,i);
+        else 
+          painter.drawPoints(line,i); 
+        
       //  painter.setViewTransformEnabled ( true ); 
       //  painter.setMatrixEnabled(true); 
         //cout<<"Paint lines"<<line.size()<<" Channel:"<<qPrintable(channel.name())<<endl; 

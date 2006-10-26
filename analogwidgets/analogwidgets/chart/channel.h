@@ -16,6 +16,8 @@ class Channel  {
 
 public:
 
+   enum { Line = 0x1, Dots = 0x2 };
+  
    void setPen(QPen & pen);
    QPen pen() const; 
    
@@ -50,6 +52,11 @@ public:
    /** Ustawia flagê widoczno¶ci @see visible */
    void setVisible(bool i); 
 
+   /** Zwraca typ wykresu Channel::Line lub Channel::Dots */ 
+   unsigned int type(); 
+   
+   /** Ustawia typ wykresu */ 
+   void setType(unsigned int); 
    protected: 
    /** Iteratory wskazuj±ce na dane do odczytania */
   // Iterator * m_iterator_begin,m_iterator_end;
@@ -60,6 +67,8 @@ public:
   /** Dane kana³u */ 
   ChannelData * m_data;
   
+  /** Typ wykresu */ 
+  unsigned int m_type; 
 
   /** Warto¶æ minmalna dla kana³u która ma byæ wy¶wietlana na wykresie */
    double m_min;
