@@ -3,7 +3,8 @@
 # Podkatalog wzgl?dem g?ównego katalogu projektu: ./analogwidgets/plugins
 # Cel to biblioteka analogwidgets_plugin
 include (../../Flags.pri ) 
-QT += xml 
+QT += xml designer
+
 TARGETDEPS += ../libanalogwidgets.a 
 
 LIBS += ../libanalogwidgets.a 

@@ -147,7 +147,7 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel &
                 else 
                   painter.drawPoints(line,size); 
 
-               line[0] = line[size-1]; // Last point is first one 
+               line[0] = line[size]; // Last point is first one 
                i=1; 
              }
 	      old_x = current_x; 
