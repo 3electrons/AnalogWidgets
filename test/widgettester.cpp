@@ -7,7 +7,7 @@
 
 	  m_meter = meter;
 
-          int range = (m_meter ->maximum() - m_meter->minimum());
+          int range = static_cast<int>(m_meter ->maximum() - m_meter->minimum());
 	  int inc_delay = 250;
           int dec_delay = 1000;
 	  int stop_delay = 100;

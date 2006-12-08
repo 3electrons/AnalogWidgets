@@ -47,7 +47,7 @@ void ChannelDecorator::paint (QPainter & painter, Chart * chart)
 }
 
 
-void ChannelDecorator::absPosition(QPoint & curPos, QPolygonF & absPoints, Chart * chart,QRect & clip)
+void ChannelDecorator::absPosition(QPoint & curPos, QPolygonF & absPoints, Chart * chart,QRect & /*clip*/)
 {
    double xmin,ymin,xmax,ymax,pos;
    pos  = chart->scaleGrid().pos ;
@@ -105,7 +105,7 @@ bool anyVector (double x1,double x2)
 }
 
 
-void ChannelDecorator::paintChannel(QPainter & painter, Chart * chart, Channel & channel)
+void ChannelDecorator::paintChannel(QPainter & painter, Chart * /*chart*/, Channel & channel)
 {
   double x,y;  
   double current_x = 0 ,old_x=-1.0,current_y,old_y=-1.0;

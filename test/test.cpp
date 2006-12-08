@@ -181,13 +181,13 @@
 
       switch (index)
       {
-       case 0: val = meter->value(); break;
-       case 1: val = meter->minimum(); break;
-       case 2: val = meter->maximum(); break;
-       case 3: val = meter->nominal(); break;
-       case 4: val = meter->critical(); break;
-       case 5: val = meter->digitOffset(); break;
-       case 6: val = meter->valueOffset(); break;
+       case 0: val = static_cast<int> ( meter->value()); break;
+       case 1: val = static_cast<int> (meter->minimum()); break;
+       case 2: val = static_cast<int> (meter->maximum()); break;
+       case 3: val = static_cast<int> (meter->nominal()); break;
+       case 4: val = static_cast<int> (meter->critical()); break;
+       case 5: val = static_cast<int> (meter->digitOffset()); break;
+       case 6: val = static_cast<int> (meter->valueOffset()); break;
       }
        spinBox->setValue(val);
     }
@@ -263,9 +263,9 @@
           filein>>vel;
           times.push_back(time);
           position.push_back( pair<double,double>(time,pos));
-	  velocity.push_back(vel);
-	  press1.push_back(p1);
-	  press2.push_back(p2);
+	  velocity.push_back((int)vel);
+	  press1.push_back((int)p1);
+	  press2.push_back((int)p2);
 	  press3.push_back(p3);
 
 
