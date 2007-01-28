@@ -7,7 +7,7 @@
 #include <QPen> 
 #include <QMenu> 
 
-#include "qmywidgetwithbackground.h"
+#include "widgetwithbackground.h"
 
 #include "chart/channel.h"
 #include "chart/scalegrid.h"
@@ -19,7 +19,7 @@ using namespace chart;
 
 typedef  vector<chart::Channel> Channels;
 
-    class Chart :  public QMyWidgetWithBackground
+    class Chart :  public WidgetWithBackground
     	{
       Q_OBJECT
       Q_PROPERTY (int channel     	 	READ channel      WRITE setChannel   )

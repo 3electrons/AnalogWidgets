@@ -58,7 +58,7 @@ using namespace std;
 //      public
 //
 Chart::Chart(QWidget *parent)
-	: QMyWidgetWithBackground(parent)
+	: WidgetWithBackground(parent)
 {
    setSizePolicy (QSizePolicy::Expanding, QSizePolicy::Expanding);
    setWindowTitle(tr("Chart diagram"));

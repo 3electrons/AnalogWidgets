@@ -1,16 +1,16 @@
 #ifndef THERMOMETER_H
 #define THERMOMETER_H
 
-#include "qmyabstractmeter.h"
+#include "abstractmeter.h"
 
-    class ThermoMeter : public QMyAbstractMeter
+    class ThermoMeter : public AbstractMeter
     {
       Q_OBJECT 
       public:
     	ThermoMeter(QWidget *parent = 0);
       protected:
-        void paintEvent(QPaintEvent *event); 	  // inherited form QMyWidgetWithBackground
-	void paintBackground(QPainter & painter); // inherited form QMyWidgetWithBackground
+        void paintEvent(QPaintEvent *event); 	  // inherited form WidgetWithBackground
+	void paintBackground(QPainter & painter); // inherited form WidgetWithBackground
 	void initCoordinateSystem(QPainter & painter);
     };
 #endif // THERMOMETER_H

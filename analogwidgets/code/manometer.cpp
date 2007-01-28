@@ -7,14 +7,14 @@
 
 using namespace Qt;
 ManoMeter::ManoMeter(QWidget *parent)
-        : QMyAbstractMeter(parent)
+        : AbstractMeter(parent)
 {
         m_max=300.0;
         m_min=0.0;
 
-	m_maximum=300.0; // najpierw rêcznie potem seterem by wywo³aæ calcMaxMin
+	m_maximum=300.0; // First we set manualy to call calcMaxMin 
   	setMinimum(0.0);
-	calcMaxMin(); // bo nie wiemy czym s± zainicjowane limity
+	calcMaxMin(); // Extend max and min to have nice step values 
 
 	setValue(0.0);
         setNominal(80.0);
@@ -37,7 +37,7 @@ ManoMeter::ManoMeter(QWidget *parent)
 void ManoMeter::initCoordinateSystem(QPainter & painter)
 {
         int side = qMin(width(), height());
-        // inicjalizacja paintera
+        // painter initialization
         painter.setRenderHint(QPainter::Antialiasing);
         painter.translate(width() / 2, height() / 2);
         painter.scale(side / 335.0, side / 335.0);
@@ -48,7 +48,7 @@ void ManoMeter::paintBackground(QPainter & painter)
 	static const int scaleTriangle[6] = { -6,141,6,141,0,129 };
 	initCoordinateSystem(painter);
 
-        // Malowanie obwiedni tarczy. Bia³a tarcza z czarn± skal±
+        // Painting Malowanie obwiedni tarczy. Bia³a tarcza z czarn± skal±
         QPen Pen(QColor(0,0,0)); Pen.setWidth(4);
         painter.setPen(Pen);
 
@@ -72,7 +72,7 @@ void ManoMeter::paintBackground(QPainter & painter)
 	shield.setColorAt(1.0,QColor(215,215,215));
 
 
-	// wewnêtrzene ko³o skali
+	// internal scale circle 
 	painter.setBrush(QBrush(shield));
 	painter.setPen(Pen);
 	painter.drawEllipse(-142,-142,284,284);
@@ -170,7 +170,6 @@ void ManoMeter::paintEvent(QPaintEvent * )
 	painter.setBrush(QBrush(Qt::black));
    	painter.rotate(  (  (fabs(m_min)+value()) * 240.0) / static_cast<double> (m_max - m_min) );
 
-	//painter.drawConvexPolygon(QPolygon(6,hand));
 	painter.drawPath(hand_path);
 
 	painter.drawEllipse(-10,-10,20,20);

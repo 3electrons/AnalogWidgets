@@ -1,12 +1,12 @@
 #ifndef QLED_H
 #define QLED_H
 #include <QColor> 
-#include "qmywidgetwithbackground.h"
+#include "widgetwithbackground.h"
 
    /**
    * Klasa reprezentuj±ca diodê w dowolnym kolorze jako dwustabilny element wskazuj±cy 
    */
-   class Led : public QMyWidgetWithBackground
+   class Led : public WidgetWithBackground
    {
      Q_OBJECT 
      Q_PROPERTY( bool checked READ isChecked 	WRITE setChecked)

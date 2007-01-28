@@ -1,18 +1,18 @@
 #ifndef WIDGETTESTER_H
 #define WIDGETTESTER_H
  #include <QtCore>
- class QMyAbstractMeter;
+ class AbstractMeter;
 
     class WidgetTester: public QObject
     {
       Q_OBJECT
 
-      QMyAbstractMeter * m_meter;
+      AbstractMeter * m_meter;
       QTimer  * incTimer, * decTimer, *stopTimer;
       int inc;
       int dec;
      public:
-	WidgetTester(QObject * parent,QMyAbstractMeter * meter);
+	WidgetTester(QObject * parent,AbstractMeter * meter);
 
         void start();
 

@@ -4,7 +4,7 @@
     #define PI 3.141592653589793238512808959406186204433
 
     WallClock::WallClock(QWidget *parent)
-        : QMyWidgetWithBackground(parent)
+        : WidgetWithBackground(parent)
     {
         QTimer *timer = new QTimer(this);
         connect(timer, SIGNAL(timeout()), this, SLOT(update()));

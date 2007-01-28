@@ -2,7 +2,7 @@
 #include "led.h" 
 
 
-     Led::Led(QWidget * parent):QMyWidgetWithBackground(parent)
+     Led::Led(QWidget * parent):WidgetWithBackground(parent)
      {
         m_checked = true; 
         m_color = Qt::red; 

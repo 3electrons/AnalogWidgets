@@ -1,22 +1,8 @@
-\# Plik utworzony przez menad?era projektów kdevelopa
+# Plik utworzony przez mened?era projektów kdevelopa
 # ------------------------------------------- 
 # Podkatalog wzgl?dem g?ównego katalogu projektu: ./analogwidgets/code
 # Cel to biblioteka analogwidgets
 
-QT += xml 
-INCLUDEPATH += ../analogwidgets 
-include (../../Flags.pri )
-
-#../../../Bartkom/src/comm 
-OBJECTS_DIR = ../objects 
-#QMAKE_CXXFLAGS_RELEASE = -g3 -pg 
-#QMAKE_CXXFLAGS_DEBUG = -g3 -pg 
-TARGET = analogwidgets 
-DESTDIR = ../ 
-CONFIG += release \
-          warn_on \
-          staticlib 
-TEMPLATE = lib 
 HEADERS += ../analogwidgets/chart/chartdecorator.h \
            ../analogwidgets/chart/channeldata.h \
            ../analogwidgets/chart/channel.h \
@@ -29,13 +15,13 @@ HEADERS += ../analogwidgets/chart/chartdecorator.h \
            ../analogwidgets/chart/scalegrid.h \
            ../analogwidgets/led.h \
            ../analogwidgets/functions.h \
-           ../analogwidgets/wallclock.h \
            ../analogwidgets/manometer.h \
-           ../analogwidgets/qmyabstractmeter.h \
-           ../analogwidgets/qmywidgetwithbackground.h \
            ../analogwidgets/chart.h \
            ../analogwidgets/thermometer.h \
-           defines.h 
+           defines.h \
+           ../analogwidgets/abstractmeter.h \
+           ../analogwidgets/wallclock.h \
+           ../analogwidgets/widgetwithbackground.h 
 SOURCES += chart/scalegrid.cpp \
            chart/standard/labelsdecorator.cpp \
            chart/standard/glassdecorator.cpp \
@@ -47,11 +33,22 @@ SOURCES += chart/scalegrid.cpp \
            functions.cpp \
            led.cpp \
            manometer.cpp \
-           qmyabstractmeter.cpp \
-           qmywidgetwithbackground.cpp \
            thermometer.cpp \
            wallclock.cpp \
-           chart/chartdecorator.cpp 
+           chart/chartdecorator.cpp \
+           abstractmeter.cpp \
+           widgetwithbackground.cpp 
+\# Plik utworzony przez menad?era projektów kdevelopa
+QT += xml
+INCLUDEPATH += ../analogwidgets
+include (../../Flags.pri )
+OBJECTS_DIR = ../objects
+TARGET = analogwidgets
+DESTDIR = ../
+CONFIG += release \
+warn_on \
+staticlib
+TEMPLATE = lib
 WIN32{
   DEFINES+= WIN32
 }

@@ -1,9 +1,9 @@
 #ifndef WALLCLOCK_H
 #define WALLCLOCK_H
 
-#include "qmywidgetwithbackground.h"
+#include "widgetwithbackground.h"
  
-    class WallClock : public QMyWidgetWithBackground 
+    class WallClock : public WidgetWithBackground 
     {
         Q_OBJECT
 	Q_PROPERTY (QFont digitFont READ digitFont WRITE setDigitFont)

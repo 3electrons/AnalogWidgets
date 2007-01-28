@@ -5,7 +5,7 @@
 
 using namespace std;
 ThermoMeter::ThermoMeter(QWidget *parent)
-        : QMyAbstractMeter(parent)
+        : AbstractMeter(parent)
 {
         m_max=80;
         m_min=0;
@@ -131,8 +131,7 @@ void ThermoMeter::paintEvent(QPaintEvent * )
 	  painter.setFont(valueFont());
           QString Str = prefix() + QString("%1").arg(value()) + suffix();
           QSize Size = painter.fontMetrics().size(Qt::TextSingleLine, Str);
-          // @TODO - Nie wiem czemu nie dzia³a to pod win98
-	  painter.drawText(QPointF (Size.width() / -2,valueOffset() + Size.height()) , Str);
+          painter.drawText(QPointF (Size.width() / -2,valueOffset() + Size.height()) , Str);
 	}
 
 

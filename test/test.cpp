@@ -19,8 +19,7 @@
     #include <fstream>
     #include <list>
     #include <vector>
-    //#include <pair>
-
+    
      #define UNDEPRESS "[bar] Ci\305\233nienie pod t\305\202okiem"
      #define CALCPRESS "[bar] Ci\305\233nienie wyliczone"
      #define OVERPRESS "[bar] Ci\305\233nienie nad t\305\202okiem"
@@ -176,7 +175,7 @@
     void TestWidget::ComboBoxChoiceChanged(int index)
     {
       int val=0;
-      QMyAbstractMeter * meter = bar;
+      AbstractMeter * meter = bar;
       if (stackedWidget->currentIndex() == 2) meter = thermo;
 
       switch (index)
@@ -194,7 +193,7 @@
 
     void TestWidget::SpinBoxValueChanged(int val)
     {
-      QMyAbstractMeter * meter = bar;
+      AbstractMeter * meter = bar;
       if (stackedWidget->currentIndex() == 2) meter = thermo;
 
       switch (comboBox->currentIndex())
@@ -210,7 +209,7 @@
     }
     void TestWidget::WidgetTest()
     {
-	QMyAbstractMeter * meter;
+	AbstractMeter * meter;
 	switch (stackedWidget->currentIndex())
 	{
 	  case 1: meter = bar; break;
