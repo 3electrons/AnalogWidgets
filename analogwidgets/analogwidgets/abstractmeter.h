@@ -1,15 +1,14 @@
-#ifndef QMYABSTRACTMETER_H
-#define QMYABSTRACTMETER_H
+#ifndef ABSTRACTMETER_H
+#define ABSTRACTMETER_H
 
-#include "qmywidgetwithbackground.h"
+#include "widgetwithbackground.h"
 
    /**
    * Klasa abstrakcyjna dla wszelkiego rodzaju kontrolek mirz±co wskazuj±cych
    * Zapewnia podstawowy interfejs do tego typu komponentów/ obiektów
    */
-   class QMyAbstractMeter : public QMyWidgetWithBackground
+   class AbstractMeter : public WidgetWithBackground
    {
-	// @TODO zrobiæ szablon by mo¿na te¿ by³o pu¿ywaæ typu double dla dok³adych wskazañ
 	Q_OBJECT
 	Q_PROPERTY (double minimum READ minimum WRITE setMinimum )
 	Q_PROPERTY (double maximum READ maximum WRITE setMaximum )
@@ -27,8 +26,8 @@
 
     public:
 
-    	QMyAbstractMeter(QWidget *parent = 0);
-	virtual ~QMyAbstractMeter() {};
+    	AbstractMeter(QWidget *parent = 0);
+	virtual ~AbstractMeter() {};
 
 	double  minimum() const   { return m_minimum; }
         void setMinimum(double i);
@@ -91,6 +90,6 @@
 	QString m_prefix;
 	QString m_suffix;
 
-   };// QMyAbstractMeter
+   };// AbstractMeter
 
-#endif // _ABSTRACTMETER_H_
+#endif // ABSTRACTMETER_H_

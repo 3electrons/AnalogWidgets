@@ -1,13 +1,13 @@
 #include <QtGui>
-#include "qmywidgetwithbackground.h"
+#include "widgetwithbackground.h"
 
-QMyWidgetWithBackground::QMyWidgetWithBackground(QWidget * parent) : QWidget(parent)
+WidgetWithBackground::WidgetWithBackground(QWidget * parent) : QWidget(parent)
 {
   m_pixmap = new QPixmap(size());
   m_modified = false;
 }
 
-QMyWidgetWithBackground::~QMyWidgetWithBackground()
+WidgetWithBackground::~WidgetWithBackground()
 {
    if (m_pixmap)
      {
@@ -16,7 +16,7 @@ QMyWidgetWithBackground::~QMyWidgetWithBackground()
      }
 }
 
-void QMyWidgetWithBackground::drawBackground()
+void WidgetWithBackground::drawBackground()
 {
   if (m_pixmap->size() != size() || m_modified )
     {
@@ -30,18 +30,18 @@ void QMyWidgetWithBackground::drawBackground()
     painter.drawPixmap(0,0,*m_pixmap);
 }
 
-void QMyWidgetWithBackground::updateWithBackground()
+void WidgetWithBackground::updateWithBackground()
 {
   m_modified=true;
   update();
 }
 
-bool QMyWidgetWithBackground::doRepaintBackground()
+bool WidgetWithBackground::doRepaintBackground()
 {
   return m_modified;
 }
 
-void QMyWidgetWithBackground::repaintBackground()
+void WidgetWithBackground::repaintBackground()
 {
   m_pixmap->fill(QColor(0,0,0,0));
   QPainter painter(m_pixmap);
