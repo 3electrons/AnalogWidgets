@@ -1,0 +1,38 @@
+- Create few groups of widgets:
+  AbstractMeter
+  AbstractCheck 
+  
+- Create Helper classes: 
+  WidgetWithBackground 
+  SvgWidgetWithBackground - special case of WidgetWithBackground suitable to
+  UpdateWrapper - class that allows to slow down update ratio by time
+measurement and conditions ... providing little delay in updates ... 
+
+use svg graphics ... and allowing to make drawing separate. 
+
+- Widget with background - should be able to have layers ... more than one
+"background" 
+
+
+Features: 
+- Each bitmap should be implicitly shared if possible by QPixmapCache 
+- Each svg resource is shared by apropriate object (SvgWidgetWith .. case) 
+- As low as possible memory consumpction (cache and sharing) 
+- As log as possible cpu time consumpction (UpdateWrapper)
+- Good documentation in sense of api, using and architecure as well well
+described development process for new components 
+- Elastic but simple chart  (to think ower) and assosiated components to
+prowide queues and other operator classes to preform operations on input
+data. 
+
+
+- Consider local updates ... only places that may need that. 
+  think over other possibilites to save resources. 
+  
+  
+  Technical issues: 
+  
+  Pixmap from cache may be simply accesed by giving className and size of
+components ... it could be done by WidgetWithBackground 
+
+  
