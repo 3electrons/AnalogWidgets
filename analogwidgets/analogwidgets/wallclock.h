@@ -1,5 +1,7 @@
 #ifndef WALLCLOCK_H
 #define WALLCLOCK_H
+#include <QDateTime> 
+#include <QTimer> 
 
 #include "widgetwithbackground.h"
  
@@ -20,8 +22,8 @@
 	Q_PROPERTY (QColor dateColor  READ dateColor  WRITE setDateColor)
 	Q_PROPERTY (QColor timeColor  READ timeColor  WRITE setTimeColor)
 	Q_PROPERTY (QColor dayColor   READ dayColor   WRITE setDayColor)
-
-
+        Q_PROPERTY (QDateTime  dateTime       READ dateTime       WRITE setDateTime)
+        Q_PROPERTY (bool showCurrentDateTime READ showCurrentDateTime WRITE setShowCurrentDateTime) 
     public:
 	WallClock(QWidget *parent = 0);
 
@@ -48,14 +50,25 @@
 	QColor    dateColor() const   { return m_dateColor;    }
 	QColor    timeColor() const   { return m_timeColor;    }
 	QColor    dayColor()  const   { return m_dayColor;     }
-
+        QDateTime dateTime()  const   { return m_dateTime;     }
+        QDate     date()      const   { return m_dateTime.date(); }
+        QTime     time()      const   { return m_dateTime.time(); } 
+        bool      showCurrentDateTime() const { return m_showCurrentDateTime; } 
+        
 	void   setDigitColor(QColor c){        m_digitColor = c; updateWithBackground();}
 	void   setDateColor(QColor c) {        m_dateColor = c;  updateWithBackground();}
 	void   setTimeColor(QColor c) {        m_timeColor = c;  updateWithBackground();}
 	void   setDayColor (QColor c) {        m_dayColor  = c;  updateWithBackground();}
-
-
-
+        
+      public slots:
+        
+        void   setTime ( const QTime & ); 
+        void   setDate ( const QDate & ); 
+        void   setDateTime( const QDateTime &); 
+        void   setShowCurrentDateTime(bool showCurrentDateTime); 
+      protected slots: 
+        void updateTime(); 
+        
     protected:
 
 	
@@ -84,5 +97,8 @@
         QColor m_dateColor;
         QColor m_timeColor;
         QColor m_dayColor;
+        QDateTime m_dateTime; 
+        bool m_showCurrentDateTime; 
+        QTimer * m_timer; 
     };
 #endif // WALLCLOCK_H
