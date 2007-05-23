@@ -205,16 +205,18 @@ void   WallClock::setTime ( const QTime & t)
   //update(); 
 }
 
+
 void   WallClock::setDate ( const QDate &d )
 {
   m_dateTime.setDate(d);
   setShowCurrentDateTime(false); 
 }
 
+
 void   WallClock::setDateTime( const QDateTime &dt)
 {
   m_dateTime = dt; 
-  setShowCurrentDateTime(false);  
+  setShowCurrentDateTime(false);
 }
 
 void   WallClock::setShowCurrentDateTime(bool showCurrentDateTime)
@@ -230,5 +232,6 @@ void   WallClock::setShowCurrentDateTime(bool showCurrentDateTime)
 void WallClock::updateTime()
 {
   m_dateTime = QDateTime::currentDateTime(); 
-  update();  
+  if (isVisible())
+    update();
 }
