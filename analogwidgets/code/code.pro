@@ -21,7 +21,8 @@ HEADERS += ../analogwidgets/chart/chartdecorator.h \
            defines.h \
            ../analogwidgets/abstractmeter.h \
            ../analogwidgets/wallclock.h \
-           ../analogwidgets/widgetwithbackground.h 
+           ../analogwidgets/widgetwithbackground.h \
+           ../analogwidgets/bitmapbutton.h 
 SOURCES += chart/scalegrid.cpp \
            chart/standard/labelsdecorator.cpp \
            chart/standard/glassdecorator.cpp \
@@ -37,7 +38,8 @@ SOURCES += chart/scalegrid.cpp \
            wallclock.cpp \
            chart/chartdecorator.cpp \
            abstractmeter.cpp \
-           widgetwithbackground.cpp 
+           widgetwithbackground.cpp \
+           bitmapbutton.cpp 
 \# Plik utworzony przez menad?era projektów kdevelopa
 QT += xml
 INCLUDEPATH += ../analogwidgets
