@@ -20,8 +20,8 @@ win32-g++ {
 
 win32-msvc.net {
  # Target platform - Windows VISUAL STUDIO 2003 .NET
- # Pentium-Pro -- becouse of Intel and AMD fork 
-
+ # Pentium-Pro / PII / PIII - Windows Application optimalization
+ QMAKE_CXXFLAGS_RELEASE  += /G6 /GA /arch:SSE 
  QMAKE_LFLAGS_RELEASE    += /LIBPATH:"C:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\lib"  \
                             /LIBPATH:"C:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\PlatformSDK\Lib"
  INCLUDEPATH+= "C:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\include" 
