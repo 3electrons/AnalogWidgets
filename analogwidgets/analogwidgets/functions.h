@@ -65,7 +65,7 @@ bool range(T m_minimum,T m_maximum, T & m_min, T & m_max,unsigned int steps, boo
   {
     
     // dirty hack to have zero equal exactly zero 
-    if (m_max<0)  m_max=m_min - remainder(m_min,steps);
+    if (m_max<0)  m_max=m_min - fmodf(m_min,steps);
     else m_max = 0.0; 
     
      while ( m_max < m_maximum ) m_max +=factor;

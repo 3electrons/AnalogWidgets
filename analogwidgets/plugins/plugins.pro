@@ -19,10 +19,26 @@ SOURCES += analogwidgets_plugin.cpp \
            wallclock_plugin.cpp \
 	   bitmapbutton_plugin.cpp
 	   
-include (../../Flags.pri )
+include (../../Flags.pri)
 QT += xml designer
-TARGETDEPS += ../libanalogwidgets.a
-LIBS += ../libanalogwidgets.a
+
+win32-msvc.net {
+ TARGETDEPS += ..\analogwidgets.lib
+ LIBS += ..\analogwidgets.lib
+} 
+
+win32-g++ {
+ TARGETDEPS += ../libanalogwidgets.a
+ LIBS += ../libanalogwidgets.a
+}
+
+linux {
+ TARGETDEPS += ../libanalogwidgets.a
+ LIBS += ../libanalogwidgets.a
+}
+
+
+
 INCLUDEPATH += ../analogwidgets
 MOC_DIR = ..\objects
 OBJECTS_DIR = ..\objects
