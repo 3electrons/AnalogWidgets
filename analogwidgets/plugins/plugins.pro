@@ -32,9 +32,10 @@ win32-g++ {
  LIBS += ../libanalogwidgets.a
 }
 
-linux {
+
+unix {
  TARGETDEPS += ../libanalogwidgets.a
- LIBS += ../libanalogwidgets.a
+  LIBS += ../libanalogwidgets.a
 }
 
 
