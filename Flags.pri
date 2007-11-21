@@ -2,7 +2,7 @@
 linux-g++ {
  # Development machine 
  
- #QMAKE_CXX = distcc  
+ QMAKE_CXX = distcc  
  QMAKE_CXXFLAGS_RELEASE  = -g3 -Wall -pg 
  #QMAKE_CXXFLAGS_RELEASE = -march=k8 -Os -mfpmath=sse -Wall
  QMAKE_LFLAGS_RELEASE    = 

@@ -32,4 +32,4 @@ HEADERS += test.h \
 SOURCES += main.cpp \
            test.cpp \
            widgettester.cpp 
-=======
+
