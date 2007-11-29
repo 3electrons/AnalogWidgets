@@ -40,7 +40,7 @@ SOURCES += chart/scalegrid.cpp \
            abstractmeter.cpp \
            widgetwithbackground.cpp \
            bitmapbutton.cpp 
-\# Plik utworzony przez menad?era projektów kdevelopa
+# Plik utworzony przez menad?era projektów kdevelopa
 QT += xml
 INCLUDEPATH += ../analogwidgets
 include (../../Flags.pri )
