@@ -20,10 +20,10 @@
     #include <list>
     #include <vector>
     
-     #define UNDEPRESS "[bar] Ci\305\233nienie pod t\305\202okiem"
-     #define CALCPRESS "[bar] Ci\305\233nienie wyliczone"
-     #define OVERPRESS "[bar] Ci\305\233nienie nad t\305\202okiem"
-     #define VELOCITY  "[cm/s] Pr\304\231dko\305\233\304\207"
+     #define UNDEPRESS "[bar] Press 1"
+     #define CALCPRESS "[bar] Press 2"
+     #define OVERPRESS "[bar] Press 3"
+
 
     using namespace std;
 
@@ -144,12 +144,12 @@
       vPen.setColor(Qt::yellow);
       Channel pozycja(0,230,new PairDataContainer<lpair>(position),
                       trUtf8("[mm] Pozycja"),vPen);
-	//vPen.setStyle(Qt::DashDotLine);
+/*	//vPen.setStyle(Qt::DashDotLine);
       vPen.setColor(Qt::red);
       Channel predkosc  (0,300, new DoubleDataContainer<vint,vint>(times,velocity),
                          trUtf8(VELOCITY),vPen) ;//QPen(Qt::red));
 
-
+*/
       cisnienie2.setShowScale(false); 
       cisnienie3.setShowScale(false);
 	//pozycja.showScale = predkosc.showScale = false ;
@@ -158,8 +158,8 @@
       chart->addChannel(cisnienie2);
       chart->addChannel(cisnienie3);
       chart->addChannel(cisnienie);
-      chart->addChannel(pozycja);
-      chart->addChannel(predkosc);
+  //    chart->addChannel(pozycja);
+  //    chart->addChannel(predkosc);
  
     }
 
@@ -240,29 +240,31 @@
             return;
          }
 
-	for (int i=0;i<11;i++)
+/*	for (int i=0;i<11;i++)
         {
            filein.getline(buffer,1023,'\n'); // pominiecie nag³ówka
            //cout<<buffer<<endl;
          }
+ */
 	double pos,vel,p1,p2,p3;
 	times.clear(); // vint
-	velocity.clear(); // vint
+//	velocity.clear(); // vint
  	press1.clear(); // vint;
         press2.clear();
 	press3.clear();
-	position.clear(); //lpair
+//	position.clear(); //lpair
         int time = 0;
         while (!filein.eof())
         {
-          filein>>pos;
+  //        filein>>pos;
           filein>>p3;
           filein>>p1;
           filein>>p2;
-          filein>>vel;
+	  filein.getline(buffer,1023,'\n'); // eat rest of the line 
+    //      filein>>vel;
           times.push_back(time);
-          position.push_back( pair<double,double>(time,pos));
-	  velocity.push_back((int)vel);
+      //    position.push_back( pair<double,double>(time,pos));
+	//  velocity.push_back((int)vel);
 	  press1.push_back((int)p1);
 	  press2.push_back((int)p2);
 	  press3.push_back(p3);

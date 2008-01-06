@@ -143,9 +143,9 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * /*chart*/, Chann
              {
                
                 if (channel.type()==Channel::Line)
-                painter.drawPolyline(line,size);
+                painter.drawPolyline(line,size+1);
                 else 
-                  painter.drawPoints(line,size); 
+                  painter.drawPoints(line,size+1); 
 
                line[0] = line[size]; // Last point is first one 
                i=1; 

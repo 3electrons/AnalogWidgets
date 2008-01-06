@@ -4,16 +4,10 @@
 
 TEMPLATE    = subdirs
 CONFIG     += ordered 
-SUBDIRS     = \
-	analogwidgets 
-#	install
+SUBDIRS     = analogwidgets \
+	      test 
 
-unix{
- SUBDIRS+= test
-}	
 
-win32-g++{
-  SUBDIRS+= test 
-}
+
 
 
