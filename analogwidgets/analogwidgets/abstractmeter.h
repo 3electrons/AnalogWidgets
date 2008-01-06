@@ -4,8 +4,7 @@
 #include "widgetwithbackground.h"
 
    /**
-   * Klasa abstrakcyjna dla wszelkiego rodzaju kontrolek mirz±co wskazuj±cych
-   * Zapewnia podstawowy interfejs do tego typu komponentów/ obiektów
+   * Abstract class for Meter/Gauge classes 
    */
    class AbstractMeter : public WidgetWithBackground
    {
@@ -68,26 +67,43 @@
     protected:
 
        /**
-         * Oblicza warto¶ci m_max oraz m_min wy¶wietlane na skali
-	 * @return Warto¶æ true je¿eli która¶ ze zmiennych m_max lub m_min
-	 * zosta³a uaktualniona.
+         * Calculate m_max and m_min values shown on scale 
+	 * @return true if m_max or m_min has been changed
 	 */
+       
 	bool calcMaxMin();
-	/** Starting value on barometer */
+        
+	/** Starting value on meter  this value is less than m_minimum */
 	double m_min;
-	/** Endgind value on barometer */
+	/** Endgind value on meter this value is more than m_maximum*/
 	double m_max;
+        
+        /** Minimum that has to be on scale */
 	double m_minimum;
+        /** Maximum that has to be on scale */
 	double m_maximum;
+        
+        /** Current value */
 	double m_value;
+        
+        /** Nominal value (allowed value) by convention mark by green look to manometer and thermometer widgets */
 	double m_nominal;
+        /** Critical value (maximum allowed value) by convention mark by red */
 	double m_critical;
 
+        /** Used to place value string on component */
 	double m_valueOffset;
+        /** Used to place scale digits offset. On manometer distance from the center on thermometer distance form left */
 	double m_digitOffset;
+        
+        /** Font used to display value */
  	QFont m_valueFont;
+        /** Font used to display scale digit/numbers */
 	QFont m_digitFont;
+        
+        /** Prefix added to value string  like Speed  */
 	QString m_prefix;
+        /** Postfix added to value string like km/h or mph */ 
 	QString m_suffix;
 
    };// AbstractMeter
