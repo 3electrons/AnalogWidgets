@@ -54,7 +54,7 @@ typedef  vector<chart::Channel> Channels;
       Q_PROPERTY ( int xSubMesh     READ xSubMesh     WRITE setXSubMesh      )
       Q_PROPERTY ( int ySubMesh     READ ySubMesh     WRITE setYSubMesh      )
 
- // Dot±d jest przetestowane 
+ 
 
       Q_PROPERTY (double channelMinimum    READ channelMinimum   WRITE setChannelMinimum    )
       Q_PROPERTY (double channelMaximum    READ channelMaximum   WRITE setChannelMaximum    )
@@ -68,36 +68,28 @@ typedef  vector<chart::Channel> Channels;
       Q_PROPERTY (bool   showLegend   		READ showLegend WRITE setShowLegend )
       Q_PROPERTY (bool   antialiasing           READ antialiasing WRITE setAntialiasing ) 
       
-      // Z w³a¶ciwo¶ci QWidget 
+ 
       Q_PROPERTY (QFont font                READ font         WRITE setFont          )
       public:
     	Chart(QWidget *parent = 0);
 	~Chart();
 
-	 ScaleGrid & scaleGrid() { return m_scalegrid; } // @TODO to by by³o dobrze wywalic lub przenie¶æ do cze¶ci prywatnej
-	 Channels & channels() { return m_channels; } // @TODO to by by³o dobrze wywaliæ
+	 ScaleGrid & scaleGrid() { return m_scalegrid; } 
+	 Channels & channels() { return m_channels; } 
 
-	 /** Dodaje kana³ z danymi */
+	 /** Add channel with data */
 	 void addChannel(Channel & channel);
 
       protected:
-	/** Malowanie t³a */ 
+	/** Paint background */
 	void paintBackground(QPainter & painter);// inherited form QMyWidgetWithBackground
         	 	
-        /** Maluje pozycjê kursora na obiekcie danych */  	 	
+        /** Paint cursor on data */
         void paintCursorPosition(QPainter & painter);   	 	
  	
- 	
  	//////////// E V E N T S /////////////
- 	/** Malowanie widgetu */ 
-        void paintEvent(QPaintEvent *event); 	 // inherited from QMyWidgetWithBackground
-		
-
-      	/** Wywo³anie menu kontekstowego */ 
+        void paintEvent(QPaintEvent *event); 	 // inherited from QMyWidgetWithBackgroun
       	void contextMenuEvent ( QContextMenuEvent * e );
-      	
-      	
-      	/** Ruch mysz± */ 
       	void mouseMoveEvent ( QMouseEvent * e ); 
 	
 	
@@ -106,13 +98,13 @@ typedef  vector<chart::Channel> Channels;
 	
 	
 	
-	/** Metoda ta ma za zadanie zainicjalizowaæ wszystkie dekoratory wykresu - normalnie powinna zbudowaæ
-        * ca³± strukturê dekoratorów na podstawie infomracji z pluginów lub innych ¼róde³ ...
-        */
-	void InitDecorators();
+          /** This method build decorators chain if you like you may substitute it and 
+           * write your on decorators and init them here 
+           */
+	virtual void InitDecorators();
 	
 	
-        /** Inicjuje system kordynatów */ 
+        /** Init coordinates of drawing area*/
         void initCoordinateSystem(QPainter & painter);
 	// accesors and getters
       public:
@@ -146,18 +138,11 @@ typedef  vector<chart::Channel> Channels;
         QColor gridColor() const; 
         
 
-     	/** Buduje zwyk³e menu */ 
+     	/** Build context menu */ 
       	QMenu * contextMenu(); 
 
-	
-	//QFont scaleFont()       const;
-
       	public slots:
-      	/**
-      	* Ustawia pozycje na wykresie na osi X
-      	* param i Nowa pozycja na wykresie pozycja to najmnijesza wartosc
-      	* wskazywana na wykresie
-      	*/
+      	
       	void setPosition      (double i);
       	void setPosition      (int i); 
 	void setSize          (double i);
@@ -183,19 +168,12 @@ typedef  vector<chart::Channel> Channels;
 	void setShowLegend      (bool i);
 	void setAntialiasing    (bool i); 
 	
-	// Zaslania ustawianie fontu QWidget 
-	// i odmalowywuje wszystko od nowa 
 	void setFont       (QFont i);	 
 	
         
         void setTopBackgroundColor(const QColor &c);
         void setBottomBackgrounColor(const QColor &c);
         void setGridColor(const QColor & c); 
-
-      	/**
-      	* Powieksza/pomniejsza widok na osi x
-      	* @param factor Wspó³czynnik powiêkszenia
-      	*/
       	void setZoom(double factor);
 
 	signals: 
@@ -210,57 +188,47 @@ typedef  vector<chart::Channel> Channels;
 	
 	protected slots:
 
-
-
-	/** Ustawia znacznik koñca malowania i przmalowuje kontrolkê w trybie z antialiasingiem */
+	/** Set end of painting and repaint with antialiasing */
 	void setPaintOver();
 
-
-        /** Wywo³ana zosta³a konkretna akcja z menu */ 
         void contextMenuActionTriggered(QAction * a);
 
       	protected:
-     
-      	
-      	
-	/** Informacje na temat skali oraz siatki wykresu */
+
+	/** ScaleGrid structure */
 	ScaleGrid m_scalegrid;
-	/** Pointer do pierwszego dekoratora do malowania wykresu */
+        
+	/** First decorator for chart painting */
 	auto_ptr<ChartDecorator> m_painterDecorator;
 
-      	/** Wektor kana³ów na dane */
+      	/** Vector of channels */
       	Channels m_channels;
       	unsigned int m_channel;
-        /** Timer który po okre¶lonym czasie ma uaktualniæ obraz na wyg³adzony (antialiasing) */
+        /** Antialiasig timer */ 
 	QTimer * timer;
 
-        /** Czy pokazywaæ legendê */
         bool m_showLegend;
-	   
-	/** Czy u¿ywaæ antialiasingu */
+	
 	bool m_antialiasing; 
-        
-        /* Warto¶æ zoom oraz m_xsize po wymono¿enu daj± warto¶æ m_scalegrid.size 
-        * W ten sposób ³atwo mo¿na sterowaæ zoomem z zewn±trz */ 
-        
-        /** Warto¶æ zoom */
+
         double m_zoom;
+
         /** Wielko¶æ osi X - to warto¶æ nie zmienna */
         double m_xsize;
         bool m_isPaintOver;
-      	
+
         ///// HELPER data ///// 
-        /** Ostatnia pozycja cursora */
+        /** Last cursor position */
         QPoint m_lastCurPoint,m_currentCurPoint; // mouseMoveEvent 
-        /** Ostatnia pozycja cursora w kana³ach */ 
+        /** Last cursor position in channels data */
         QPolygonF m_currentCurPositions,m_lastCurPositions; // mouseMoveEvent 
-        /** Okno z kana³ami */
+        /** Window with channels */
         QRect m_clip; // mouseMoveEvent 
-        
+
         QColor m_topBackgroundColor; 
         QColor m_bottomBackgroundColor; 
         QColor m_gridColor; 
-        
+
     };
 
 
