@@ -30,24 +30,23 @@ namespace chart
   {
     public:
     /**
-    * Inicjuje kana³ danych w taki sposób by zwraca³ pozycjê pierwszego elementu
-    * po wywo³aniu metody next
-    * @return True je¿eli pojemnik zawiera dane w przeciwnym wypadku zwraca false
+    * Init data channel in such a way that calling next will return first element of data
+    * @return true if contain data 
     */
     virtual bool init() = 0 ; // ustawia pojemnik na pierwszym elemencie ...
+    
     /**
-    * Ustawia warto¶ci x oraz y kolejnych punktów danych zaczynaj±c od pierwszego
-    * tak d³ugo dopóki s± jakie¶ elementy zwracaj±c warto¶æ true tak d³ugo a¿
-    * znajduje siê co¶ jeszcze w tym strumieniu
-    * @return Zwraca warto¶æ false gdy osi±gnie koniec strumienia danych
+    * Read x,y data from channel 
+    * @return true if modre data can be fetched false if no more data is avaible 
     */
     virtual bool next(double & x, double & y) = 0;
     
-    /** Zwraca ilo¶æ elementów */
+    /** Number of elements/point in data channel */
     virtual int size() = 0;
-    /** Destruktor wirtualny by mozna bylo ³adnie posprz±taæ */
+    /** Virtual destructor */
     virtual ~ChannelData()
     { ; }
+    
     
     virtual std::pair<double,double> findX(double x)=0; 
 

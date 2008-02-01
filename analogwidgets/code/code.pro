@@ -2,6 +2,7 @@
 # ------------------------------------------- 
 # Podkatalog wzgl?dem g?ównego katalogu projektu: ./analogwidgets/code
 # Cel to biblioteka analogwidgets
+RESOURCES += analogwidgets.qrc 
 
 HEADERS += ../analogwidgets/chart/chartdecorator.h \
            ../analogwidgets/chart/channeldata.h \
@@ -22,7 +23,9 @@ HEADERS += ../analogwidgets/chart/chartdecorator.h \
            ../analogwidgets/abstractmeter.h \
            ../analogwidgets/wallclock.h \
            ../analogwidgets/widgetwithbackground.h \
-           ../analogwidgets/bitmapbutton.h 
+           ../analogwidgets/bitmapbutton.h \
+	   ../analogwidgets/counter.h
+	   
 SOURCES += chart/scalegrid.cpp \
            chart/standard/labelsdecorator.cpp \
            chart/standard/glassdecorator.cpp \
@@ -39,9 +42,11 @@ SOURCES += chart/scalegrid.cpp \
            chart/chartdecorator.cpp \
            abstractmeter.cpp \
            widgetwithbackground.cpp \
-           bitmapbutton.cpp 
+           bitmapbutton.cpp \
+	   counter.cpp 
+	   
 # Plik utworzony przez menad?era projektów kdevelopa
-QT += xml
+QT += xml svg 
 INCLUDEPATH += ../analogwidgets
 include (../../Flags.pri )
 OBJECTS_DIR = ../objects

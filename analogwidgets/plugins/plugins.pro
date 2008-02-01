@@ -10,17 +10,20 @@ HEADERS += analogwidgets_plugin.h \
            manometer_plugin.h \
            thermometer_plugin.h \
            wallclock_plugin.h \
-           bitmapbutton_plugin.h 
+           bitmapbutton_plugin.h \
+	   counter_plugin.h
+	   
 SOURCES += analogwidgets_plugin.cpp \
            chart_plugin.cpp \
            led_plugin.cpp \
            manometer_plugin.cpp \
            thermometer_plugin.cpp \
            wallclock_plugin.cpp \
-	   bitmapbutton_plugin.cpp
+	   bitmapbutton_plugin.cpp \
+	   counter_plugin.cpp 
 	   
 include (../../Flags.pri)
-QT += xml designer
+QT += xml designer svg 
 
 win32-msvc.net {
  TARGETDEPS += ..\analogwidgets.lib

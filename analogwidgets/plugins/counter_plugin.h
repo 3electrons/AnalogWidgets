@@ -20,48 +20,30 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "analogwidgets_plugin.h"
-#include "defines.h"
+    #include <QtDesigner/QDesignerContainerExtension>
+    #include <QtDesigner/QDesignerCustomWidgetInterface>
+    #include <QtCore/qplugin.h>
+    #include <QtGui/QIcon>
+   
+    class CounterPlugin : public QObject, public QDesignerCustomWidgetInterface
+    {
+        Q_OBJECT
+        Q_INTERFACES(QDesignerCustomWidgetInterface)
+    public:
+        CounterPlugin(QObject *parent = 0);
+        bool isContainer() const;
+        bool isInitialized() const;
+        QIcon icon() const;
+        QString codeTemplate() const;
+        QString domXml() const;
+        QString group() const;
+        QString includeFile() const;
+        QString name() const;
+        QString toolTip() const;
+        QString whatsThis() const;
+        QWidget *createWidget(QWidget *parent);
+        void initialize(QDesignerFormEditorInterface *core);
 
-#include "wallclock_plugin.h"
-#include "manometer_plugin.h"
-#include "thermometer_plugin.h" 
-#include "chart_plugin.h" 
-#include "bitmapbutton_plugin.h" 
-//#include "wheel/wheel_plugin.h"
-//#include "mnemonicbox_plugin.h" 
-#include "led_plugin.h"
-#include "counter_plugin.h" 
-
-AnalogWidgetsPlugin::AnalogWidgetsPlugin()
-{
-  m_pluginList.push_back(new WallClockPlugin(NULL));
-  m_pluginList.push_back(new ManoMeterPlugin(NULL));
-  m_pluginList.push_back(new ThermoMeterPlugin(NULL));
-  m_pluginList.push_back(new ChartPlugin(NULL)); 
-  m_pluginList.push_back(new LedPlugin(NULL));
-  m_pluginList.push_back(new CounterPlugin(NULL));
-  m_pluginList.push_back(new BitmapButtonPlugin(NULL)); 
-  
- // m_pluginList.push_back(new WheelPlugin(NULL)); 
- // m_pluginList.push_back(new MnemonicBoxPlugin(NULL)); 
-  
-}
-
-AnalogWidgetsPlugin::~AnalogWidgetsPlugin()
-{
-  QList<QDesignerCustomWidgetInterface *>::Iterator i = m_pluginList.begin();
-  while (i != m_pluginList.end())
-  delete *i++;
-  m_pluginList.clear();
-}
-
-QList<QDesignerCustomWidgetInterface *>
-AnalogWidgetsPlugin:: customWidgets() const
-{
-  return m_pluginList;
-}
-
-#ifndef SINGLEPLUGINS
-Q_EXPORT_PLUGIN(AnalogWidgetsPlugin)
-#endif
+    private:
+        bool initialized;
+    };
