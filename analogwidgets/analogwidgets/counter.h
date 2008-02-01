@@ -3,7 +3,9 @@
 
 #include <QWidget> 
 #include <QString> 
-#include <QSvgRenderer> 
+
+
+class QSvgRenderer; 
 
 class Counter: public QWidget
 {
