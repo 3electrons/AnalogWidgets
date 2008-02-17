@@ -5,6 +5,7 @@
 TEMPLATE    = subdirs
 CONFIG     += ordered 
 SUBDIRS     = analogwidgets \
+              scripttool \
 	      test 
 
 

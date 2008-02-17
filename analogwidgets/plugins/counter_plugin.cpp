@@ -20,98 +20,114 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-    #include "counter.h" 
-    #include "counter_plugin.h"     
-    #include "defines.h"  
-    /*------------------------------------------------------------------------------------------------
-     *			     			LED
-     *------------------------------------------------------------------------------------------------*/
-    
-    
-    CounterPlugin::CounterPlugin(QObject *parent)
-        : QObject(parent)
-    {
-        initialized = false;
-    }
+#include "counter.h" 
+#include "counter_plugin.h"     
+#include "defines.h"
+#include "svgfile_taskmenu.h"
+/*------------------------------------------------------------------------------------------------
+                                            C O U N T E R
+*------------------------------------------------------------------------------------------------*/
 
-    void CounterPlugin::initialize(QDesignerFormEditorInterface * /*core*/)
-    {
-        if (initialized)
-            return;
+CounterPlugin::CounterPlugin(QObject *parent)
+    : QObject(parent)
+{
+    initialized = false;
+}
 
-        initialized = true;
-    }
 
-    bool CounterPlugin::isInitialized() const
-    {
-        return initialized;
-    }
+void CounterPlugin::initialize(QDesignerFormEditorInterface * core)
+{
+    if (initialized)
+        return;
+    QExtensionManager *manager = core->extensionManager();
+    Q_ASSERT(manager != 0);
 
-    QWidget *CounterPlugin::createWidget(QWidget *parent)
-    {
-        return new Counter(parent);
-    }
+    manager->registerExtensions(new SvgFileTaskMenuFactory(manager),
+                                Q_TYPEID(QDesignerTaskMenuExtension));
 
-    QString CounterPlugin::name() const
-    {
-        return QLatin1String("Counter");
-    }
+    initialized = true;
+}
 
-    QString CounterPlugin::group() const
-    {
-        return QLatin1String("Analog Widgets");
-    }
 
-    QIcon CounterPlugin::icon() const
-    {
-        return QIcon();
-    }
+bool CounterPlugin::isInitialized() const
+{
+    return initialized;
+}
 
-    QString CounterPlugin::toolTip() const
-    {
-        return QString();
-    }
 
-    QString CounterPlugin::whatsThis() const
-    {
-        return QString();
-    }
+QWidget *CounterPlugin::createWidget(QWidget *parent)
+{
+    return new Counter(parent);
+}
 
-    bool CounterPlugin::isContainer() const
-    {
-        return false;
-    }
 
-    QString CounterPlugin::domXml() const
-    {
-        return QLatin1String("<widget class=\"Counter\" name=\"counter\">\n"
-                             " <property name=\"geometry\">\n"
-                             "  <rect>\n"
-                             "   <x>0</x>\n"
-                             "   <y>0</y>\n"
-                             "   <width>100</width>\n"
-                             "   <height>40</height>\n"
-                             "  </rect>\n"
-                             " </property>\n"
-                             " <property name=\"toolTip\" >\n"
-                             "  <string></string>\n"
-                             " </property>\n"
-                             " <property name=\"whatsThis\" >\n"
-                             "  <string></string>\n"
-                             " </property>\n"
-                             "</widget>\n");
-    }
+QString CounterPlugin::name() const
+{
+    return QLatin1String("Counter");
+}
 
-    QString CounterPlugin::includeFile() const
-    {
-        return QLatin1String("analogwidgets/counter.h");
-    }
 
-    QString CounterPlugin::codeTemplate() const
-    {
-        return QString();
-    }
+QString CounterPlugin::group() const
+{
+    return QLatin1String("Analog Widgets");
+}
 
-#ifdef SINGLEPLUGINS     
+
+QIcon CounterPlugin::icon() const
+{
+    return QIcon();
+}
+
+
+QString CounterPlugin::toolTip() const
+{
+    return QString();
+}
+
+
+QString CounterPlugin::whatsThis() const
+{
+    return QString();
+}
+
+
+bool CounterPlugin::isContainer() const
+{
+    return false;
+}
+
+
+QString CounterPlugin::domXml() const
+{
+    return QLatin1String("<widget class=\"Counter\" name=\"counter\">\n"
+                        " <property name=\"geometry\">\n"
+                        "  <rect>\n"
+                        "   <x>0</x>\n"
+                        "   <y>0</y>\n"
+                        "   <width>100</width>\n"
+                        "   <height>40</height>\n"
+                        "  </rect>\n"
+                        " </property>\n"
+                        " <property name=\"toolTip\" >\n"
+                        "  <string></string>\n"
+                        " </property>\n"
+                        " <property name=\"whatsThis\" >\n"
+                        "  <string></string>\n"
+                        " </property>\n"
+                        "</widget>\n");
+}
+
+
+QString CounterPlugin::includeFile() const
+{
+    return QLatin1String("analogwidgets/counter.h");
+}
+
+QString CounterPlugin::codeTemplate() const
+{
+    return QString();
+}
+
+#ifdef SINGLEPLUGINS
     Q_EXPORT_PLUGIN(CounterPlugin)
 #endif 

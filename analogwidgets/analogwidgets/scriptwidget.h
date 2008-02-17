@@ -20,50 +20,68 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "analogwidgets_plugin.h"
-#include "defines.h"
+#ifndef SCRIPTWIDGET_H
+#define SCRIPTWIDGET_H
+#include <QGraphicsView> 
+#include <QVariant> 
+#include <QMap> 
+#include <QSet>
 
-#include "wallclock_plugin.h"
-#include "manometer_plugin.h"
-#include "thermometer_plugin.h" 
-#include "chart_plugin.h" 
-#include "bitmapbutton_plugin.h" 
-//#include "wheel/wheel_plugin.h"
-//#include "mnemonicbox_plugin.h" 
-#include "led_plugin.h"
-#include "counter_plugin.h" 
-#include "scriptwidget_plugin.h" 
+class QGraphicsScene;
+class QScriptEngine;
+class QSvgRenderer;
 
-AnalogWidgetsPlugin::AnalogWidgetsPlugin()
+class ScriptWidget: public QGraphicsView
 {
-  m_pluginList.push_back(new WallClockPlugin(NULL));
-  m_pluginList.push_back(new ManoMeterPlugin(NULL));
-  m_pluginList.push_back(new ThermoMeterPlugin(NULL));
-  m_pluginList.push_back(new ChartPlugin(NULL)); 
-  m_pluginList.push_back(new LedPlugin(NULL));
-  m_pluginList.push_back(new CounterPlugin(NULL));
-  m_pluginList.push_back(new BitmapButtonPlugin(NULL)); 
-  m_pluginList.push_back(new ScriptWidgetPlugin(NULL)); 
-  
- // m_pluginList.push_back(new WheelPlugin(NULL)); 
- // m_pluginList.push_back(new MnemonicBoxPlugin(NULL)); 
-  
-}
+  Q_OBJECT
+  Q_PROPERTY (QString script READ script WRITE setScript); 
+  Q_PROPERTY (QVariant PValue READ getPValue WRITE setPValue DESIGNABLE false STORED false)
+  Q_PROPERTY (QString  PName  READ getPName  WRITE setPName DESIGNABLE false STORED false)
+  public:
+    ScriptWidget(QWidget * parent = NULL);
+    ScriptWidget(const QString & objectName, QWidget * parent = NULL);
+    ~ScriptWidget();
+    QString script() const;
+    QString svgFile() const;
+    QVariant getPValue() const;
+    QString  getPName() const; 
+    QStringList PNames() const; 
+    
+  signals:
 
-AnalogWidgetsPlugin::~AnalogWidgetsPlugin()
-{
-  QList<QDesignerCustomWidgetInterface *>::Iterator i = m_pluginList.begin();
-  while (i != m_pluginList.end())
-  delete *i++;
-  m_pluginList.clear();
-}
+    void evaluate();
 
-QList<QDesignerCustomWidgetInterface *>
-AnalogWidgetsPlugin:: customWidgets() const
-{
-  return m_pluginList;
-}
+  public slots:
+    void setScript(const QString & s);
+    void setSvgFile(const QString & file); 
+    void addItem(const QString & name);
+    void resetItems(); 
+    void loadSvgFile(const QString & file);
 
-#ifndef SINGLEPLUGINS
-Q_EXPORT_PLUGIN(AnalogWidgetsPlugin)
-#endif
+    void setPName(const QString & name);
+
+    void setPValue(int);
+    void setPValue(double); 
+    void setPValue(const QString & );
+    void setPValue(const QVariant & );
+
+
+  protected slots:
+    
+  protected:
+    void init();
+    void clearSvgItems(); 
+    
+    QGraphicsScene * m_scene; 
+    static QScriptEngine  * m_engine;
+    QSvgRenderer   * m_renderer; 
+    QString  m_script;
+    QString  m_svgFile; 
+    QSet<QString> m_items;
+    QString m_currentProperty;
+    QMap <QString, QVariant> m_values; 
+  public:
+
+}; // class ScriptWidget 
+
+#endif // SCRIPTWIDGET_H 

@@ -3,6 +3,8 @@
 # Podkatalog wzgl?dem g?ównego katalogu projektu: ./analogwidgets/plugins
 # Cel to biblioteka analogwidgets_plugin
 
+#include(../../Flags.pri)
+
 HEADERS += analogwidgets_plugin.h \
            chart_plugin.h \
            defines.h \
@@ -11,8 +13,11 @@ HEADERS += analogwidgets_plugin.h \
            thermometer_plugin.h \
            wallclock_plugin.h \
            bitmapbutton_plugin.h \
-	   counter_plugin.h
-	   
+	   counter_plugin.h \
+	   svgfile_taskmenu.h \
+	   scriptwidget_plugin.h 
+
+
 SOURCES += analogwidgets_plugin.cpp \
            chart_plugin.cpp \
            led_plugin.cpp \
@@ -20,35 +25,23 @@ SOURCES += analogwidgets_plugin.cpp \
            thermometer_plugin.cpp \
            wallclock_plugin.cpp \
 	   bitmapbutton_plugin.cpp \
-	   counter_plugin.cpp 
-	   
-include (../../Flags.pri)
-QT += xml designer svg 
+	   counter_plugin.cpp \
+	   svgfile_taskmenu.cpp \
+	   scriptwidget_plugin.cpp 
 
-win32-msvc.net {
- TARGETDEPS += ..\analogwidgets.lib
- LIBS += ..\analogwidgets.lib
-} 
+TARGETDEPS += ../libanalogwidgets.a
+LIBS += ../libanalogwidgets.a
 
-win32-g++ {
- TARGETDEPS += ../libanalogwidgets.a
- LIBS += ../libanalogwidgets.a
-}
+QT += designer xml svg script 
 
-
-unix {
- TARGETDEPS += ../libanalogwidgets.a
-  LIBS += ../libanalogwidgets.a
-}
-
-
-
-INCLUDEPATH += ../analogwidgets
-MOC_DIR = ..\objects
+INCLUDEPATH += ../analogwidgets \
+               ..
+	       
+MOC_DIR =     ..\objects
 OBJECTS_DIR = ..\objects
-TARGET = analogwidgets_plugin
-DESTDIR = ../
+TARGET =       analogwidgets_plugin
+DESTDIR =      ../
 CONFIG += release \
-warn_on \
-plugin
+          warn_on \
+          plugin
 TEMPLATE = lib

@@ -190,7 +190,7 @@ void ManoMeter::paintEvent(QPaintEvent * )
 	painter.rotate(60.0);
 	painter.setPen(Qt::NoPen);
 	painter.setBrush(QBrush(Qt::black));
-   	painter.rotate(  (  (fabs(m_min)+value()) * 240.0) / static_cast<double> (m_max - m_min) );
+   	painter.rotate(  ((  value()-m_min) * 240.0) / static_cast<double> (m_max - m_min) );
 
 	painter.drawPath(hand_path);
 

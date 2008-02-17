@@ -10,8 +10,7 @@ class QSvgRenderer;
 class Counter: public QWidget
 {
  Q_PROPERTY (int value READ value WRITE setValue) 
- Q_PROPERTY (int digits READ digits WRITE setDigits) 
- Q_PROPERTY (QString digitsFile READ digitsFile WRITE setDigitsFile) 
+ Q_PROPERTY (int digits READ digits WRITE setDigits)
 
  Q_OBJECT
   public:
@@ -19,7 +18,7 @@ class Counter: public QWidget
 
   int digits() const;
   int value() const;
-  QString digitsFile() const; 
+  const QString digitsFile() const; 
   public slots: 
 
   void setValue(int);
@@ -27,10 +26,10 @@ class Counter: public QWidget
   void setDigitsFile(const QString & ); 
 
   protected:
-   void paintEvent (QPaintEvent *); 
+   void paintEvent (QPaintEvent *);
    void init();
-   
-   int m_digits; 
+
+   int m_digits;
    int m_value;
    QString m_digitsFile;
    QSvgRenderer * m_svg;

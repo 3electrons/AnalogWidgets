@@ -19,7 +19,7 @@ int Counter::value() const
   return m_value; 
 }
 
-QString Counter::digitsFile() const
+const QString Counter::digitsFile() const
 {
   return m_digitsFile; 
 }
@@ -42,10 +42,13 @@ void Counter::setDigits(int i)
 void Counter::setDigitsFile(const QString & i )
 {
    m_digitsFile = i;
+   delete m_svg; 
+   m_svg = new QSvgRenderer(this); 
    if (!m_svg->load(i)) 
    {
-     m_svg->load(QString(":/default/resources/train_digits.svg")); 
-     m_digitsFile = ""; 
+     m_digitsFile = ":/default/resources/train_digits.svg"; 
+     m_svg->load(m_digitsFile);
+     update(); 
    }
 }
 

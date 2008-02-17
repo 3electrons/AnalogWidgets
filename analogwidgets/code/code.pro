@@ -24,7 +24,9 @@ HEADERS += ../analogwidgets/chart/chartdecorator.h \
            ../analogwidgets/wallclock.h \
            ../analogwidgets/widgetwithbackground.h \
            ../analogwidgets/bitmapbutton.h \
-	   ../analogwidgets/counter.h
+	   ../analogwidgets/counter.h \
+	   ../analogwidgets/scriptwidget.h \
+	   item.h 
 	   
 SOURCES += chart/scalegrid.cpp \
            chart/standard/labelsdecorator.cpp \
@@ -43,10 +45,11 @@ SOURCES += chart/scalegrid.cpp \
            abstractmeter.cpp \
            widgetwithbackground.cpp \
            bitmapbutton.cpp \
-	   counter.cpp 
+	   counter.cpp \
+	   scriptwidget.cpp 
 	   
 # Plik utworzony przez menad?era projektów kdevelopa
-QT += xml svg 
+#QT += xml svg script designer 
 INCLUDEPATH += ../analogwidgets
 include (../../Flags.pri )
 OBJECTS_DIR = ../objects
