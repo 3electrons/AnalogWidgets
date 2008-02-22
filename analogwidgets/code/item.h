@@ -20,26 +20,30 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include <QObject> 
-class QGraphicsItem ; 
+#include <QObject>
+#include <QRectF> 
+class QGraphicsItem;
 
 class Item: public QObject
 {
-  Q_OBJECT 
+  Q_OBJECT
+  Q_PROPERTY( QRectF boundingRect READ boundingRect ); 
   public:
-    Item(QGraphicsItem * i,QObject * parent); 
+    Item(QGraphicsItem * i,QObject * parent);
     ~Item();
+    QRectF boundingRect() const; 
+    
   public slots:
-    void scale(qreal sx, qreal sy); 
-    void scale(qreal x); 
+    void scale(qreal sx, qreal sy);
+    void scale(qreal x);
     void rotate(qreal angle);
-    void translate(qreal dx, qreal dy); 
-    void setPos(qreal dx,qreal dy); 
-    void moveBy(qreal dx, qreal dy); 
-    void resetTransform(); 
-    void setVisible(bool v); 
-    void hide(); 
-    void show(); 
+    void translate(qreal dx, qreal dy);
+    void setPos(qreal dx,qreal dy);
+    void moveBy(qreal dx, qreal dy);
+    void resetTransform();
+    void setVisible(bool v);
+    void hide();
+    void show();
   protected: 
-    QGraphicsItem *item; 
-}; // class Item 
+    QGraphicsItem *item;
+}; // class Item

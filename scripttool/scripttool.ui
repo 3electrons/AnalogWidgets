@@ -41,15 +41,58 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>211</width>
+          <width>221</width>
           <height>131</height>
          </rect>
         </property>
         <property name="sizePolicy" >
-         <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+         <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="minimumSize" >
+         <size>
+          <width>150</width>
+          <height>100</height>
+         </size>
+        </property>
+        <property name="palette" >
+         <palette>
+          <active>
+           <colorrole role="Base" >
+            <brush brushstyle="SolidPattern" >
+             <color alpha="0" >
+              <red>255</red>
+              <green>255</green>
+              <blue>255</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </active>
+          <inactive>
+           <colorrole role="Base" >
+            <brush brushstyle="SolidPattern" >
+             <color alpha="0" >
+              <red>255</red>
+              <green>255</green>
+              <blue>255</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </inactive>
+          <disabled>
+           <colorrole role="Base" >
+            <brush brushstyle="SolidPattern" >
+             <color alpha="255" >
+              <red>244</red>
+              <green>244</green>
+              <blue>244</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </disabled>
+         </palette>
         </property>
         <property name="toolTip" >
          <string/>
@@ -57,16 +100,8 @@
         <property name="whatsThis" >
          <string/>
         </property>
-        <property name="interactive" >
-         <bool>false</bool>
-        </property>
-        <property name="sceneRect" >
-         <rectf>
-          <x>0.000000000000000</x>
-          <y>0.000000000000000</y>
-          <width>0.000000000000000</width>
-          <height>0.000000000000000</height>
-         </rectf>
+        <property name="frameShape" >
+         <enum>QFrame::NoFrame</enum>
         </property>
         <property name="renderHints" >
          <set>QPainter::Antialiasing|QPainter::HighQualityAntialiasing|QPainter::SmoothPixmapTransform|QPainter::TextAntialiasing</set>

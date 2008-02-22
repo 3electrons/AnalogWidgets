@@ -99,7 +99,7 @@
   </kdevfilecreate>
   <kdevtrollproject>
     <general>
-      <activedir>scripttool</activedir>
+      <activedir>test</activedir>
     </general>
     <run>
       <directoryradio>executable</directoryradio>

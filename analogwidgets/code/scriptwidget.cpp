@@ -8,9 +8,8 @@
 #include "scriptwidget.h" 
 #include "item.h" 
 
-
 Item::Item(QGraphicsItem * i,QObject * parent):QObject(parent), item(i) { ; }
-
+QRectF Item::boundingRect() const         { return item->boundingRect(); } 
 void Item::scale(qreal sx, qreal sy)      { item->scale(sx,sy); } 
 void Item::scale(qreal x)                 { item->scale(x,x);  }
 void Item::rotate(qreal angle)            { item->rotate(angle);}
@@ -115,13 +114,11 @@ void ScriptWidget::resetItems()
 void ScriptWidget::addItem(const QString & item) 
 {
   m_items.insert(item);
-  qDebug("Inserting item %s"); 
 }
 
 void ScriptWidget::loadSvgFile(const QString & file) 
 {
-
-
+  clearSvgItems();
   qDebug("Loading file %s",qPrintable(file)); 
   m_renderer = new QSvgRenderer(file);
   int zBuffer = 0; 
@@ -177,11 +174,22 @@ void ScriptWidget::init()
 {
   if (!m_engine) 
     m_engine = new QScriptEngine(QCoreApplication::instance());
-  
+
   m_scene = new QGraphicsScene(this); 
-  m_renderer = NULL;  
+  m_renderer = NULL;
   setScene(m_scene);
+
   qDebug("ScriptWidget::init()");
+
+  /* Setting default settings */
+  setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff); 
+  setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff); 
+  setInteractive(false);
+  setFrameShape(QFrame::NoFrame);
+
+  QPalette p(palette());
+  p.setBrush( QPalette::Base, Qt::NoBrush );
+  setPalette(p); 
 }
 
 void ScriptWidget::clearSvgItems()
@@ -196,3 +204,12 @@ void ScriptWidget::clearSvgItems()
   if (m_renderer) 
    delete m_renderer; 
 }
+
+
+void ScriptWidget::resizeEvent ( QResizeEvent * )
+{
+  if (sceneRect().width() > 0 && sceneRect().height() > 0 ) 
+  fitInView(sceneRect()); 
+}
+
+

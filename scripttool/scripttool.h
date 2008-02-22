@@ -1,28 +1,28 @@
 #ifndef SCRIPTTOOL_H
-#define SCRIPTTOOL_H 
+#define SCRIPTTOOL_H
 
-#include "ui_scripttool.h" 
+#include "ui_scripttool.h"
 
 class ScriptTool: public QWidget, public Ui::ScriptForm
 {
-  Q_OBJECT 
+  Q_OBJECT
   public:
       ScriptTool(QWidget * parent = NULL);
 
-      void setPath(const QString & path); 
-  protected slots: 
-    void setScript(); 
-    void setPath(); 
-    void updatePValue(); 
-    void updatePValue(const QString & ); 
+      void setPath(const QString & path);
+  protected slots:
+    void setScript();
+    void setPath();
+    void updatePValue();
+    void updatePValue(const QString & );
 
-    void rescale(); 
-    void resize(); 
+    void rescale();
+    void resize();
 
   protected:
-     void init(); 
-     void resizeEvent(QResizeEvent * event); 
+     void init();
+     void resizeEvent(QResizeEvent * event);
 
-}; // class ScriptTool 
+}; // class ScriptTool
 
-#endif // SCRIPTTOOL_H 
+#endif // SCRIPTTOOL_H

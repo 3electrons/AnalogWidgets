@@ -17,7 +17,7 @@ function update()
   var min = getValue("min");
   var val = getValue("val");
   scriptWidget.setPName(n);
-  
+
   var angle = (115 / (max - min) ) * ( val - min) ;
   print("Max:" + max + " Min:" + min + " Val:" + val + " Angle:" + angle);
   scriptWidget.pointer.resetTransform();
@@ -27,7 +27,7 @@ function update()
      angle = -5; 
 
   scriptWidget.pointer.rotate(125+angle);
-  scriptWidget.pointer.translate(-2.5,-2.5);
+  scriptWidget.pointer.translate(-2.55,-2.55);
 }
 
 
@@ -39,10 +39,13 @@ function init()
   scriptWidget.loadSvgFile("/home/coder/temp_gauge.svg");
   scriptWidget.glass.setPos(9.365,9.365);
   scriptWidget.pointer.setPos(64.0,86.0);
-  setValue("min",0.0); 
+  scriptWidget.sceneRect = scriptWidget.widget.boundingRect;
+  
+  setValue("min",-100.0); 
   setValue("max",100.0); 
   setValue("val",0.0); 
   scriptWidget["evaluate()"].connect(update);
+
   update();
 }
 
