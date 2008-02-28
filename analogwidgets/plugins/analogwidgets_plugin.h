@@ -23,8 +23,8 @@
 #ifndef ANALOGWIDGETS_PLUGIN_H
 #define ANALOGWIDGETS_PLUGIN_H
 
-#include <QtDesigner/QDesignerCustomWidgetCollectionInterface>
-#include <QtCore/QList>
+#include <QDesignerCustomWidgetCollectionInterface>
+#include <QList>
 
 class AnalogWidgetsPlugin : public QObject, public QDesignerCustomWidgetCollectionInterface
 {

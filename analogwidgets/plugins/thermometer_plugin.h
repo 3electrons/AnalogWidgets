@@ -20,10 +20,9 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-    #include <QtDesigner/QDesignerContainerExtension>
-    #include <QtDesigner/QDesignerCustomWidgetInterface>
-    #include <QtCore/qplugin.h>
-    #include <QtGui/QIcon>
+    #include <QDesignerContainerExtension>
+    #include <QDesignerCustomWidgetInterface>
+    
 
     class ThermoMeterPlugin : public QObject, public QDesignerCustomWidgetInterface
     {

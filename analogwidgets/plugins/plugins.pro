@@ -32,7 +32,7 @@ SOURCES += analogwidgets_plugin.cpp \
 TARGETDEPS += ../libanalogwidgets.a
 LIBS += ../libanalogwidgets.a
 
-QT += designer xml svg script 
+QT += xml svg script 
 
 INCLUDEPATH += ../analogwidgets \
                ..
@@ -43,5 +43,6 @@ TARGET =       analogwidgets_plugin
 DESTDIR =      ../
 CONFIG += release \
           warn_on \
+	  designer \ 
           plugin
 TEMPLATE = lib

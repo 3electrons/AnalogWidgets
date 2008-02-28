@@ -1,9 +1,9 @@
 #ifndef SVGFILETASKMENU_H
 #define SVGFILETASKMENU_H
 
-#include <QtDesigner/QtDesigner> 
-#include <QtDesigner/QDesignerTaskMenuExtension>
-#include <QtDesigner/QExtensionFactory>
+#include <QtDesigner> 
+#include <QDesignerTaskMenuExtension>
+#include <QExtensionFactory>
 
 class QAction;
 
