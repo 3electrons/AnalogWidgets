@@ -18,16 +18,8 @@ void ScriptTool::setScript()
   qDebug("ScriptTool::loadScript()");
   QString fileName = fileEdit->text();
   if (!fileName.isEmpty())
-  {
-    QFile file(fileName);
-    if (file.open(QIODevice::ReadOnly))
-    {
-      QTextStream stream(&file);
-      scriptWidget->setScript(stream.readAll());
-    }
-    else
-      QMessageBox::critical(this,trUtf8("Error"),QString(trUtf8("Cannot load file %1")).arg(fileName));
-  }
+      scriptWidget->setScript(fileName  );
+
 
   PCombo->clear();
   PCombo->addItems(scriptWidget->PNames());

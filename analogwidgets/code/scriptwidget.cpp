@@ -5,6 +5,7 @@
 #include <QScriptEngine> 
 #include <QSvgRenderer> 
 #include <QCoreApplication> 
+#include <QFile>
 #include "scriptwidget.h" 
 #include "item.h" 
 
@@ -84,20 +85,27 @@ QStringList ScriptWidget::PNames() const
 void ScriptWidget::setScript(const QString & s)
 {
   m_script = s;
-  try {  
-  QScriptValue widget  = m_engine->newQObject(this);
-  m_engine->globalObject().setProperty(objectName(),widget);
-  m_engine->evaluate(m_script);
-  QScriptValue v = m_engine->uncaughtException(); 
-  if (v.isValid()) 
-    qDebug("Error %s",qPrintable(v.toString()));
+  qDebug("ScriptWidget::setScript() %s",qPrintable(m_script)); 
+  try 
+  {
+   QFile file(m_script); 
+   if (file.open( QIODevice::ReadOnly ))
+   {
+      QString src = QString(file.readAll());
+      QScriptValue widget  = m_engine->newQObject(this);
+      m_engine->globalObject().setProperty(objectName(),widget);
+      m_engine->evaluate(src);
+      QScriptValue v = m_engine->uncaughtException(); 
+
+      if (v.isValid()) 
+      qDebug("Error %s",qPrintable(v.toString()));
+   }
   }
-  
   catch (std::exception & e) 
   {
      qDebug("Wyjatek %s",e.what()); 
-  } 
-}
+  }
+}// setScript 
 
 void ScriptWidget::setSvgFile(const QString & file)
 {
@@ -118,22 +126,26 @@ void ScriptWidget::addItem(const QString & item)
 
 void ScriptWidget::loadSvgFile(const QString & file) 
 {
-  clearSvgItems();
-  qDebug("Loading file %s",qPrintable(file)); 
-  m_renderer = new QSvgRenderer(file);
-  int zBuffer = 0; 
-  foreach (QString itemName, m_items)
+  
+  if (!file.isEmpty())
   {
-    QGraphicsSvgItem * g = new QGraphicsSvgItem();
-    Item * item = new Item(g,this);  
-    item->setObjectName(itemName); 
-    g->setElementId(itemName); 
-    g->setSharedRenderer(m_renderer); 
-    g->setZValue(zBuffer++); 
-    m_scene->addItem(g); 
-    qDebug("item %s",qPrintable(itemName));
+      clearSvgItems();
+      qDebug("Loading file %s",qPrintable(file)); 
+      m_renderer = new QSvgRenderer(file);
+      int zBuffer = 0; 
+      foreach (QString itemName, m_items)
+      {
+        QGraphicsSvgItem * g = new QGraphicsSvgItem();
+        Item * item = new Item(g,this);  
+        item->setObjectName(itemName); 
+        g->setElementId(itemName); 
+        g->setSharedRenderer(m_renderer); 
+        g->setZValue(zBuffer++); 
+        m_scene->addItem(g); 
+        qDebug("item %s",qPrintable(itemName));
+      }
+      update(); 
   }
-  update(); 
 }// loadSvgFile 
 
 
