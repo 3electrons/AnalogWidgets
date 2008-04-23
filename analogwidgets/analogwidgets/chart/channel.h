@@ -70,30 +70,36 @@ public:
    double minimum() const ;
    /** Set minimal scale value that have to beon chart */
    void setMinimum(double i);
-   
+
    /** set (normaly calculated from minimum and maximum ) min and max values on scale */
    void setCalcMinMax(double a,double b);
    /** Gets values min and maximum values on scale */
    void getCalcMinMax(double &a, double &b);
-   
+
    /** Is scale visible */
    bool showScale() const;
    /** Set scale visible */
    void setShowScale(bool i );
-   
+
    /** Is chanel visible */
    bool visible() const;
-   
+
    /** Set channel visible  @see visible */
    void setVisible(bool i); 
 
+   /** Is channel legend visible */
+   bool showLegend() const; 
+
+   /** set channel Legend visible */
+   void setShowLegend(bool i);
+
    /** Type of Channel Channel::Line lub Channel::Dots  used by decorators @see ChannelDecorator */ 
    unsigned int type(); 
-   
+
    /** Set type of Channel Channel::Line or Channel::Dots 
     * allowed are also any arbitary types as long as custom ChannelDecorator recognize them 
     */
-    
+
    void setType(unsigned int); 
    protected: 
   
@@ -118,10 +124,8 @@ public:
 
   
    bool m_showScale;
-
-
-  
    bool m_visible; 
+   bool m_showLegend; 
 
   public: 
 

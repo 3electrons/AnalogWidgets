@@ -67,10 +67,12 @@ void LegendDecorator::paintLegendFrame(QPainter & painter, Chart * chart)
     {
       size = painter.fontMetrics().size(Qt::TextSingleLine, i->name());
       width = max(width,size.width());
-     if (i->visible()) 
+     if (i->visible() && i->showLegend()) 
       height += size.height();
     } // while
-
+    
+    if (0 == height) // nic nie ma do pokazania 
+      return; 
     // Utworzenie gradientu oraz innych niezbednych pedzli i szczotek :)
     QLinearGradient gradient(0,0,0,(height+2*XOFFSET+TOPOFFSET)/2);
     gradient.setSpread(QGradient::ReflectSpread);
@@ -92,7 +94,7 @@ void LegendDecorator::paintLegendFrame(QPainter & painter, Chart * chart)
     y = TOPOFFSET + YOFFSET*2;
     while (i!=channels.end())
     {
-      if (i->visible())
+      if (i->visible() && i->showLegend())
       {
         size = painter.fontMetrics().size(Qt::TextSingleLine, i->name());
         painter.setPen(i->pen());

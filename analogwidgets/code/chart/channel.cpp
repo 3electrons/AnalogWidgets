@@ -30,6 +30,7 @@ Channel::Channel()
    m_max= m_calc_max= 450;
    m_showScale=true;
    m_visible = true; 
+   m_showLegend = true;
    m_pen.setColor(Qt::white);
    m_data = NULL;
    m_type = Line; 
@@ -45,6 +46,7 @@ Channel::Channel(double min,double max, ChannelData * data,QString name,QPen pen
   this->m_pen = pen;
   m_showScale = true;
   m_visible = true;
+  m_showLegend =true; 
   m_type = Line;  
 }
 
@@ -138,6 +140,16 @@ bool Channel::visible() const
 void Channel::setVisible(bool i)
 {
   m_visible = i; 
+}
+
+bool Channel::showLegend() const 
+{
+  return m_showLegend;  
+}
+
+void Channel::setShowLegend(bool i) 
+{
+  m_showLegend = i;  
 }
 
 void Channel::setType(unsigned int i)
