@@ -90,20 +90,14 @@ typedef  vector<chart::Channel> Channels;
  	//////////// E V E N T S /////////////
         void paintEvent(QPaintEvent *event); 	 // inherited from QMyWidgetWithBackgroun
       	void contextMenuEvent ( QContextMenuEvent * e );
-      	void mouseMoveEvent ( QMouseEvent * e ); 
-	
-	
+      	void mouseMoveEvent ( QMouseEvent * e );
+        
 	//////////////// H E L P E R S ////////////////
-	
-	
-	
 	
           /** This method build decorators chain if you like you may substitute it and 
            * write your on decorators and init them here 
            */
 	virtual void InitDecorators();
-	
-	
         /** Init coordinates of drawing area*/
         void initCoordinateSystem(QPainter & painter);
 	// accesors and getters

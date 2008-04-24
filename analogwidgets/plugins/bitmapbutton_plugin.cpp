@@ -78,7 +78,7 @@
 
     bool BitmapButtonPlugin::isContainer() const
     {
-        return false;
+        return true;
     }
 
     QString BitmapButtonPlugin::domXml() const
