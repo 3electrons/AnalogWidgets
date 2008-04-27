@@ -23,6 +23,7 @@
 #ifndef DATACONTAINERS_H
 #define DATACONTAINERS_H
 #include <cmath> 
+#include <algorithm>
 #include "channeldata.h"
 
 using namespace chart;
@@ -34,6 +35,8 @@ using namespace std;
 * dla komponentu typu Chart.
 * @see ChannelData
 */
+
+
 template <typename type>
 class PairDataContainer : public ChannelData
 {
@@ -68,6 +71,31 @@ class PairDataContainer : public ChannelData
   {
    // @TODO Ta funkcja musi zostaæ napisana ...  return pair<double,double>(0,0); 
     return pair<double,double>(0,0); 
+  }
+  
+  
+  bool maxX(double &) 
+  {
+    // @TODO Ta funkcja musi zostaæ napisana ...  return pair<double,double>(0,0); 
+     return false; 
+  }
+  
+  bool minX(double &) 
+  {
+    // @TODO Ta funkcja musi zostaæ napisana ...  return pair<double,double>(0,0); 
+         return false; 
+  }
+  
+  bool maxY(double &)
+  {
+    // @TODO Ta funkcja musi zostaæ napisana ...  return pair<double,double>(0,0); 
+         return false; 
+  }
+  
+  bool minY(double &)
+  {
+    // @TODO Ta funkcja musi zostaæ napisana ...  return pair<double,double>(0,0); 
+         return false; 
   }
 
   int size()
@@ -136,12 +164,56 @@ class DoubleDataContainer : public ChannelData
 
    return true;
   }
-  
+
   int size()
   {
 	return m_xcontainer.size(); 
   }
 
+  bool maxX(double & x) 
+  {
+    typename type1::iterator i = max_element(m_xcontainer.begin(),m_xcontainer.end());
+    if (i!=m_xcontainer.end()) 
+    {
+      x = *i; 
+      return true;
+    }
+    return false;
+  }
+
+  bool minX(double & x) 
+  {
+    typename type1::iterator i = min_element(m_xcontainer.begin(),m_xcontainer.end());
+    if (i!=m_xcontainer.end()) 
+    { 
+      x = *i; 
+      return true; 
+    }
+    return false; 
+  }
+
+  bool maxY(double & y) 
+  {
+    typename type2::iterator i = max_element(m_ycontainer.begin(),m_ycontainer.end());
+    if (i!=m_ycontainer.end()) 
+    { 
+      y = *i; 
+      return true; 
+    }
+    return false;
+  }
+
+  bool minY(double & y)
+  {
+    typename type2::iterator i = min_element(m_ycontainer.begin(),m_ycontainer.end());
+    if (i!=m_ycontainer.end()) 
+    { 
+      y = *i; 
+      return true; 
+    }
+    return false;
+  }
+  
   std::pair<double,double> findX (double x)
   {
     typedef typename type1::value_type just_type; 

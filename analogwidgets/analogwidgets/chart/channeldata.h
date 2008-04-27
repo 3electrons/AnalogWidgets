@@ -41,6 +41,14 @@ namespace chart
     */
     virtual bool next(double & x, double & y) = 0;
     
+    
+    virtual bool maxX(double &) = 0;  
+    virtual bool minX(double &) = 0; 
+    
+    virtual bool maxY(double &) = 0; 
+    virtual bool minY(double &) = 0; 
+    
+        
     /** Number of elements/point in data channel */
     virtual int size() = 0;
     /** Virtual destructor */

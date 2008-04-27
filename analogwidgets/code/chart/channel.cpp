@@ -144,7 +144,7 @@ void Channel::setVisible(bool i)
 
 bool Channel::showLegend() const 
 {
-  return m_showLegend;  
+  return m_showLegend;
 }
 
 void Channel::setShowLegend(bool i) 
