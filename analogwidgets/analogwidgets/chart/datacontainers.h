@@ -218,18 +218,38 @@ class DoubleDataContainer : public ChannelData
   {
     typedef typename type1::value_type just_type; 
     typename type1::iterator b,xi = adjacent_find(m_xcontainer.begin(),m_xcontainer.end(),between<just_type>((just_type)x)); 
-    if (xi==m_xcontainer.end()) return pair<double,double>(0.0,0.0); 
+    if (xi==m_xcontainer.end()) 
+      return pair<double,double>(0.0,0.0); 
+    
     
     typename type2::iterator yi = m_ycontainer.begin();   
     
+    //// Experiment     
+ 
+    b=xi; b++; 
+    if (fabs(x-*xi) > fabs(x-*b)) 
+    { 
+      xi++; 
+      yi--;
+    }
+    b = xi; 
+    while (xi!=m_xcontainer.begin())
+    { xi --; yi++; } 
+    
+    // for (int i=0;i<s;i++,yi++);
+   return pair<double,double>(*b,*yi); 
+ 
+    
+    /*
     b=xi; b++; 
     if (fabs(x-*xi) > fabs(x-*b)) xi++; 
     b = xi; 
     int s=0; 
     while (xi!=m_xcontainer.begin())
     { xi --; s++; } 
-     for (int i=0;i<s;i++,yi++); 
+     for (int i=0;i<s;i++,yi++);
    return pair<double,double>(*b,*yi); 
+    */
   }
 
 
