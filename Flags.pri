@@ -15,7 +15,7 @@ win32-g++ {
  # Pentium-Pro -- becouse of Intel and AMD fork 
  
  #QMAKE_CXXFLAGS_RELEASE  = -g3 -Wall
- #QMAKE_CXXFLAGS_RELEASE  = -march=i686 -Os -Wall 
+ QMAKE_CXXFLAGS_RELEASE  = -march=pentium3 -Os -Wall -pipe -mfpmath=sse 
  #QMAKE_LFLAGS_RELEASE    = 
 }
 
