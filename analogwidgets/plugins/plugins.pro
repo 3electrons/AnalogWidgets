@@ -29,8 +29,16 @@ SOURCES += analogwidgets_plugin.cpp \
 	   svgfile_taskmenu.cpp \
 	   scriptwidget_plugin.cpp 
 
-TARGETDEPS += ../libanalogwidgets.a
-LIBS += ../libanalogwidgets.a
+
+unix,win32-g++:{             
+TARGETDEPS += ../libanalogwidgets.a 
+LIBS += ../libanalogwidgets.a  
+}
+
+wince*:{
+ TARGETDEPS += ../analogwidgets.lib
+ LIBS += ../analogwidgets.lib
+}
 
 QT += xml svg script 
 

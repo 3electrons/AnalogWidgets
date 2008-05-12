@@ -256,10 +256,8 @@
 	 f+=file.toLocal8Bit().data() ;
 	fstream filein(f.data());
         if (!filein.good())
-         {
-            cout<<"Nie udane otwarcie pliku:"<<f<<endl;
-            return;
-         }
+          qDebug("Nie udane otwarcie pliku: %s",qPrintable(file)); 
+         
 
 /*	for (int i=0;i<11;i++)
         {
