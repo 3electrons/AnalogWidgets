@@ -7,7 +7,12 @@
 
 include (../Flags.pri)  
 
-unix,win32-g++:{             
+unix{
+TARGETDEPS += ../analogwidgets/libanalogwidgets.a 
+LIBS += ../analogwidgets/libanalogwidgets.a  
+}
+
+win32-g++:{
 TARGETDEPS += ../analogwidgets/libanalogwidgets.a 
 LIBS += ../analogwidgets/libanalogwidgets.a  
 }
@@ -16,10 +21,11 @@ wince*:{
  TARGETDEPS += ../analogwidgets/analogwidgets.lib
  LIBS += ../analogwidgets/analogwidgets.lib
 }
-              
 
 
-INCLUDEPATH += ../analogwidgets/analogwidgets
+
+INCLUDEPATH += ../analogwidgets/analogwidgets \
+               ../analogwidgets 
 MOC_DIR = objects 
 UI_DIR = . 
 OBJECTS_DIR = ../objects 

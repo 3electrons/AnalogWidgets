@@ -30,10 +30,16 @@ SOURCES += analogwidgets_plugin.cpp \
 	   scriptwidget_plugin.cpp 
 
 
-unix,win32-g++:{             
+unix:{             
 TARGETDEPS += ../libanalogwidgets.a 
 LIBS += ../libanalogwidgets.a  
 }
+
+win32-g++:{             
+TARGETDEPS += ../libanalogwidgets.a 
+LIBS += ../libanalogwidgets.a  
+}
+
 
 wince*:{
  TARGETDEPS += ../analogwidgets.lib

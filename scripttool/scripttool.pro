@@ -7,7 +7,12 @@
 
 include (../Flags.pri)  
 
-unix,win32-g++:{             
+unix:{             
+TARGETDEPS += ../analogwidgets/libanalogwidgets.a 
+LIBS += ../analogwidgets/libanalogwidgets.a  
+}
+
+win32-g++:{             
 TARGETDEPS += ../analogwidgets/libanalogwidgets.a 
 LIBS += ../analogwidgets/libanalogwidgets.a  
 }

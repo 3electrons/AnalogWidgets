@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>277</width>
-    <height>347</height>
+    <width>305</width>
+    <height>414</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -17,257 +17,125 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>277</width>
-     <height>347</height>
+     <width>305</width>
+     <height>414</height>
     </rect>
    </property>
-   <layout class="QGridLayout" >
-    <property name="margin" >
-     <number>8</number>
-    </property>
-    <property name="spacing" >
-     <number>6</number>
-    </property>
-    <item row="0" column="0" >
+   <layout class="QGridLayout" name="gridLayout_2" >
+    <item rowspan="2" row="0" column="0" colspan="2" >
      <widget class="QSplitter" name="splitter" >
       <property name="orientation" >
        <enum>Qt::Horizontal</enum>
       </property>
-      <widget class="QListWidget" name="listWidget" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Expanding" hsizetype="Minimum" >
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+     </widget>
+    </item>
+    <item row="1" column="1" >
+     <widget class="QTabWidget" name="tabWidget" >
+      <property name="currentIndex" >
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab_3" >
+       <property name="geometry" >
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>277</width>
+         <height>361</height>
+        </rect>
        </property>
-       <property name="maximumSize" >
-        <size>
-         <width>60</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <item>
-        <property name="text" >
-         <string>Zegar</string>
-        </property>
-       </item>
-       <item>
-        <property name="text" >
-         <string>Manometr</string>
-        </property>
-       </item>
-       <item>
-        <property name="text" >
-         <string>Termometr</string>
-        </property>
-       </item>
-       <item>
-        <property name="text" >
-         <string>Wykres</string>
-        </property>
-       </item>
-      </widget>
-      <widget class="QWidget" name="widget" >
-       <layout class="QVBoxLayout" >
-        <property name="spacing" >
-         <number>6</number>
-        </property>
-        <property name="margin" >
-         <number>0</number>
-        </property>
+       <attribute name="title" >
+        <string>Widgety</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout" >
         <item>
-         <widget class="QStackedWidget" name="stackedWidget" >
-          <property name="currentIndex" >
-           <number>3</number>
+         <widget class="QTabWidget" name="stackedWidget" >
+          <property name="tabShape" >
+           <enum>QTabWidget::Rounded</enum>
           </property>
-          <widget class="QWidget" name="page" >
+          <property name="currentIndex" >
+           <number>0</number>
+          </property>
+          <widget class="QWidget" name="tab_5" >
            <property name="geometry" >
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>194</width>
+             <width>255</width>
              <height>220</height>
             </rect>
            </property>
-           <widget class="QLabel" name="clock_lab" >
-            <property name="geometry" >
-             <rect>
-              <x>40</x>
-              <y>140</y>
-              <width>191</width>
-              <height>101</height>
-             </rect>
-            </property>
-            <property name="text" >
-             <string>Tutaj będzie zegar</string>
-            </property>
-           </widget>
+           <attribute name="title" >
+            <string>Zegar</string>
+           </attribute>
           </widget>
-          <widget class="QWidget" name="page" >
+          <widget class="QWidget" name="tab_6" >
            <property name="geometry" >
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>194</width>
+             <width>255</width>
              <height>220</height>
             </rect>
            </property>
-           <widget class="QLabel" name="bar_label" >
-            <property name="geometry" >
-             <rect>
-              <x>40</x>
-              <y>80</y>
-              <width>231</width>
-              <height>31</height>
-             </rect>
-            </property>
-            <property name="text" >
-             <string>Tutaj będzie manometr</string>
-            </property>
-           </widget>
+           <attribute name="title" >
+            <string>Manometr</string>
+           </attribute>
           </widget>
-          <widget class="QWidget" name="page" >
-           <property name="geometry" >
-            <rect>
-             <x>0</x>
-             <y>0</y>
-             <width>194</width>
-             <height>220</height>
-            </rect>
-           </property>
-           <widget class="QLabel" name="thermo_lab" >
-            <property name="geometry" >
-             <rect>
-              <x>30</x>
-              <y>30</y>
-              <width>115</width>
-              <height>16</height>
-             </rect>
-            </property>
-            <property name="text" >
-             <string>Tutaj będzie termometr</string>
-            </property>
-           </widget>
+          <widget class="QWidget" name="tab_7" >
+           <attribute name="title" >
+            <string>Termometr</string>
+           </attribute>
           </widget>
-          <widget class="QWidget" name="page" >
-           <property name="geometry" >
-            <rect>
-             <x>0</x>
-             <y>0</y>
-             <width>194</width>
-             <height>251</height>
-            </rect>
-           </property>
-           <widget class="QLabel" name="chart_lab" >
-            <property name="geometry" >
-             <rect>
-              <x>20</x>
-              <y>30</y>
-              <width>98</width>
-              <height>16</height>
-             </rect>
-            </property>
-            <property name="sizePolicy" >
-             <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text" >
-             <string>Tutaj będzie wykres</string>
-            </property>
-           </widget>
-           <widget class="QComboBox" name="injCombo" >
-            <property name="geometry" >
-             <rect>
-              <x>20</x>
-              <y>280</y>
-              <width>191</width>
-              <height>22</height>
-             </rect>
-            </property>
-           </widget>
-           <widget class="QSlider" name="sizeSlider" >
-            <property name="geometry" >
-             <rect>
-              <x>10</x>
-              <y>260</y>
-              <width>160</width>
-              <height>16</height>
-             </rect>
-            </property>
-            <property name="sizePolicy" >
-             <sizepolicy vsizetype="Minimum" hsizetype="Expanding" >
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="maximum" >
-             <number>2000</number>
-            </property>
-            <property name="value" >
-             <number>1000</number>
-            </property>
-            <property name="orientation" >
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-           <widget class="QScrollBar" name="chartPosition" >
-            <property name="geometry" >
-             <rect>
-              <x>10</x>
-              <y>240</y>
-              <width>160</width>
-              <height>16</height>
-             </rect>
-            </property>
-            <property name="sizePolicy" >
-             <sizepolicy vsizetype="Minimum" hsizetype="Expanding" >
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="maximum" >
-             <number>5000</number>
-            </property>
-            <property name="orientation" >
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-           <widget class="QDoubleSpinBox" name="zoomBox" >
-            <property name="geometry" >
-             <rect>
-              <x>180</x>
-              <y>250</y>
-              <width>100</width>
-              <height>23</height>
-             </rect>
-            </property>
-            <property name="minimumSize" >
-             <size>
-              <width>100</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="maximumSize" >
-             <size>
-              <width>100</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="prefix" >
-             <string>zoom </string>
-            </property>
-            <property name="minimum" >
-             <double>0.010000000000000</double>
-            </property>
-            <property name="singleStep" >
-             <double>0.010000000000000</double>
-            </property>
-            <property name="value" >
-             <double>1.000000000000000</double>
-            </property>
-           </widget>
+          <widget class="QWidget" name="tab_8" >
+           <attribute name="title" >
+            <string>Licznik</string>
+           </attribute>
+           <layout class="QGridLayout" name="gridLayout" >
+            <item row="0" column="0" colspan="2" >
+             <widget class="Counter" name="counter" >
+              <property name="toolTip" >
+               <string/>
+              </property>
+              <property name="whatsThis" >
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0" >
+             <widget class="QSlider" name="horizontalSlider_2" >
+              <property name="maximum" >
+               <number>8</number>
+              </property>
+              <property name="orientation" >
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1" >
+             <widget class="QSpinBox" name="spinBox_2" >
+              <property name="maximum" >
+               <number>8</number>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0" >
+             <widget class="QSlider" name="horizontalSlider" >
+              <property name="maximum" >
+               <number>9999</number>
+              </property>
+              <property name="orientation" >
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1" >
+             <widget class="QSpinBox" name="spinBox_3" >
+              <property name="maximum" >
+               <number>9999</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </widget>
         </item>
@@ -380,42 +248,124 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tab_4" >
+       <property name="geometry" >
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>277</width>
+         <height>361</height>
+        </rect>
+       </property>
+       <attribute name="title" >
+        <string>Wykres</string>
+       </attribute>
+       <widget class="QScrollBar" name="chartPosition" >
+        <property name="geometry" >
+         <rect>
+          <x>20</x>
+          <y>260</y>
+          <width>160</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Minimum" hsizetype="Expanding" >
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximum" >
+         <number>5000</number>
+        </property>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+       <widget class="QSlider" name="sizeSlider" >
+        <property name="geometry" >
+         <rect>
+          <x>10</x>
+          <y>290</y>
+          <width>160</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Minimum" hsizetype="Expanding" >
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximum" >
+         <number>2000</number>
+        </property>
+        <property name="value" >
+         <number>1000</number>
+        </property>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="zoomBox" >
+        <property name="geometry" >
+         <rect>
+          <x>180</x>
+          <y>290</y>
+          <width>100</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="minimumSize" >
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize" >
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="prefix" >
+         <string>zoom </string>
+        </property>
+        <property name="minimum" >
+         <double>0.010000000000000</double>
+        </property>
+        <property name="singleStep" >
+         <double>0.010000000000000</double>
+        </property>
+        <property name="value" >
+         <double>1.000000000000000</double>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="injCombo" >
+        <property name="geometry" >
+         <rect>
+          <x>10</x>
+          <y>330</y>
+          <width>191</width>
+          <height>22</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
      </widget>
     </item>
    </layout>
-   <widget class="QSplitter" name="splitter_2" >
-    <property name="geometry" >
-     <rect>
-      <x>9</x>
-      <y>9</y>
-      <width>544</width>
-      <height>479</height>
-     </rect>
-    </property>
-    <property name="orientation" >
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Counter</class>
+   <extends>QWidget</extends>
+   <header>analogwidgets/counter.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
-  <connection>
-   <sender>listWidget</sender>
-   <signal>currentRowChanged(int)</signal>
-   <receiver>stackedWidget</receiver>
-   <slot>setCurrentIndex(int)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>73</x>
-     <y>167</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>209</x>
-     <y>133</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>HSlider</sender>
    <signal>valueChanged(int)</signal>
@@ -423,12 +373,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>223</x>
-     <y>534</y>
+     <x>676</x>
+     <y>443</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>420</x>
-     <y>518</y>
+     <x>742</x>
+     <y>443</y>
     </hint>
    </hints>
   </connection>
@@ -439,12 +389,108 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>405</x>
-     <y>523</y>
+     <x>742</x>
+     <y>443</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>319</x>
-     <y>529</y>
+     <x>681</x>
+     <y>443</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSlider_2</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox_2</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>573</x>
+     <y>276</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>665</x>
+     <y>272</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSlider_2</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>counter</receiver>
+   <slot>setDigits(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>548</x>
+     <y>271</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>546</x>
+     <y>168</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_2</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>horizontalSlider_2</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>658</x>
+     <y>271</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>605</x>
+     <y>277</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>counter</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>605</x>
+     <y>309</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>611</x>
+     <y>170</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox_3</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>608</x>
+     <y>311</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>670</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_3</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>horizontalSlider</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>644</x>
+     <y>311</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>613</x>
+     <y>311</y>
     </hint>
    </hints>
   </connection>

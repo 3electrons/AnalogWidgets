@@ -1,5 +1,5 @@
 
-QT+= designer xml svg script 
+QT+= xml svg script 
 
 linux-g++ {
  # Development machine 

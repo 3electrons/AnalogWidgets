@@ -31,7 +31,7 @@
         QApplication app(argc, argv);
         TestWidget widget;
         widget.show();
-	widget.resize(700,600);
+        widget.resize(240,300);
        // app.connect( &app, SIGNAL( lastWindowClosed() ), &app, SLOT( quit() ) );
         return app.exec();
     }

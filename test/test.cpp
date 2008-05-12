@@ -81,7 +81,6 @@
         // Layout of stack 0 widget
 	WallClock * clock = new WallClock();
         QVBoxLayout *v_layout = new QVBoxLayout;
-        v_layout->addWidget(clock_lab);
         v_layout->addWidget(clock);
 	widget->setLayout(v_layout);
 
@@ -91,7 +90,6 @@
 	bar = new ManoMeter(widget);
 	bar->resize(120,120);
 	QLayout * layout = new QVBoxLayout();
-	layout->addWidget(bar_label);
         layout->addWidget(bar);
  	widget->setLayout(layout);
 
@@ -101,15 +99,13 @@
 	thermo = new ThermoMeter();
 	thermo->resize(10,100);
 	QLayout * layout2 = new QVBoxLayout();
-	layout2->addWidget(thermo_lab);
 	layout2->addWidget(thermo);
 	widget->setLayout(layout2);
 
-	// Layout of stack 3 widget - chart
-	widget = stackedWidget->widget(3);
+	// Layout of - chart
+	widget = tabWidget->widget(1);
 	chart = new Chart();
 	QLayout * layout3 = new QVBoxLayout();
-	layout3->addWidget(chart_lab);
 	layout3->addWidget(chart);
         QLayout * wert = new QHBoxLayout(); 
         wert->addWidget(chartPosition); 
@@ -144,6 +140,7 @@
 	spinBox->setMaximum(1000);
 	spinBox->setMinimum(-1000);
 	ComboBoxChoiceChanged(comboBox->currentIndex());
+
     }
     
     void TestWidget::initCharts()
