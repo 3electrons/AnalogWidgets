@@ -192,8 +192,8 @@ void ChannelDecorator::paintChannel(QPainter & painter, Chart * /*chart*/, Chann
       //  painter.setMatrixEnabled(true); 
         //cout<<"Paint lines"<<line.size()<<" Channel:"<<qPrintable(channel.name())<<endl; 
       }
-      else
-     cout<<"Channel:"<<qPrintable(channel.name())<<" has no data"<<endl;
+      //else
+    // cout<<"Channel:"<<qPrintable(channel.name())<<" has no data"<<endl;
 
   //painter.setRenderHint(QPainter::RenderHint(0x0));
 }
