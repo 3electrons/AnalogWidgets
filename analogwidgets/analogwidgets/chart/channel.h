@@ -52,7 +52,7 @@ public:
   * @param pen  - pen type 
   */
   Channel(double min,double max, ChannelData * data,QString name,QPen pen );
-
+  
    void setPen(QPen & pen);
    QPen pen() const; 
    
