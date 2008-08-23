@@ -1,3 +1,4 @@
+Some other things I thought it would be nice to implement. 
 
 - Make widgetwithbackground transparent it means suitable to use it as a
 seftstanding window for desktop widgets with non standard size 

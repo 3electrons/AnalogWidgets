@@ -1,3 +1,7 @@
+Those are some ideas some of them are already done some not. It is a place where 
+I put my free toughts. 
+
+
 - Create few groups of widgets:
   AbstractMeter
   AbstractCheck 
