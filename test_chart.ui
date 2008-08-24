@@ -1,7 +1,4 @@
 <ui version="4.0" >
- <author></author>
- <comment></comment>
- <exportmacro></exportmacro>
  <class>Form</class>
  <widget class="QWidget" name="Form" >
   <property name="geometry" >
@@ -21,270 +18,474 @@
   <property name="palette" >
    <palette>
     <active>
-     <color>
-      <red>234</red>
-      <green>234</green>
-      <blue>234</blue>
-     </color>
-     <color>
-      <red>221</red>
-      <green>223</green>
-      <blue>228</blue>
-     </color>
-     <color>
-      <red>255</red>
-      <green>255</green>
-      <blue>255</blue>
-     </color>
-     <color>
-      <red>255</red>
-      <green>255</green>
-      <blue>255</blue>
-     </color>
-     <color>
-      <red>85</red>
-      <green>85</green>
-      <blue>85</blue>
-     </color>
-     <color>
-      <red>199</red>
-      <green>199</green>
-      <blue>199</blue>
-     </color>
-     <color>
-      <red>209</red>
-      <green>209</green>
-      <blue>209</blue>
-     </color>
-     <color>
-      <red>255</red>
-      <green>255</green>
-      <blue>255</blue>
-     </color>
-     <color>
-      <red>30</red>
-      <green>30</green>
-      <blue>30</blue>
-     </color>
-     <color>
-      <red>255</red>
-      <green>255</green>
-      <blue>255</blue>
-     </color>
-     <color>
-      <red>0</red>
-      <green>0</green>
-      <blue>0</blue>
-     </color>
-     <color>
-      <red>0</red>
-      <green>0</green>
-      <blue>0</blue>
-     </color>
-     <color>
-      <red>103</red>
-      <green>141</green>
-      <blue>178</blue>
-     </color>
-     <color>
-      <red>255</red>
-      <green>255</green>
-      <blue>255</blue>
-     </color>
-     <color>
-      <red>0</red>
-      <green>0</green>
-      <blue>238</blue>
-     </color>
-     <color>
-      <red>82</red>
-      <green>24</green>
-      <blue>139</blue>
-     </color>
-     <color>
-      <red>232</red>
-      <green>232</green>
-      <blue>232</blue>
-     </color>
+     <colorrole role="WindowText" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>234</red>
+        <green>234</green>
+        <blue>234</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Button" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>221</red>
+        <green>223</green>
+        <blue>228</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Light" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Midlight" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Dark" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>85</red>
+        <green>85</green>
+        <blue>85</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Mid" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>199</red>
+        <green>199</green>
+        <blue>199</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Text" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>209</red>
+        <green>209</green>
+        <blue>209</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="BrightText" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="ButtonText" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>30</red>
+        <green>30</green>
+        <blue>30</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Base" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Shadow" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Highlight" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>103</red>
+        <green>141</green>
+        <blue>178</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="HighlightedText" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Link" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>0</red>
+        <green>0</green>
+        <blue>238</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="LinkVisited" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>82</red>
+        <green>24</green>
+        <blue>139</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="AlternateBase" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>232</red>
+        <green>232</green>
+        <blue>232</blue>
+       </color>
+      </brush>
+     </colorrole>
     </active>
     <inactive>
-     <color>
-      <red>234</red>
-      <green>234</green>
-      <blue>234</blue>
-     </color>
-     <color>
-      <red>221</red>
-      <green>223</green>
-      <blue>228</blue>
-     </color>
-     <color>
-      <red>255</red>
-      <green>255</green>
-      <blue>255</blue>
-     </color>
-     <color>
-      <red>255</red>
-      <green>255</green>
-      <blue>255</blue>
-     </color>
-     <color>
-      <red>85</red>
-      <green>85</green>
-      <blue>85</blue>
-     </color>
-     <color>
-      <red>199</red>
-      <green>199</green>
-      <blue>199</blue>
-     </color>
-     <color>
-      <red>209</red>
-      <green>209</green>
-      <blue>209</blue>
-     </color>
-     <color>
-      <red>255</red>
-      <green>255</green>
-      <blue>255</blue>
-     </color>
-     <color>
-      <red>30</red>
-      <green>30</green>
-      <blue>30</blue>
-     </color>
-     <color>
-      <red>255</red>
-      <green>255</green>
-      <blue>255</blue>
-     </color>
-     <color>
-      <red>0</red>
-      <green>0</green>
-      <blue>0</blue>
-     </color>
-     <color>
-      <red>0</red>
-      <green>0</green>
-      <blue>0</blue>
-     </color>
-     <color>
-      <red>103</red>
-      <green>141</green>
-      <blue>178</blue>
-     </color>
-     <color>
-      <red>255</red>
-      <green>255</green>
-      <blue>255</blue>
-     </color>
-     <color>
-      <red>0</red>
-      <green>0</green>
-      <blue>238</blue>
-     </color>
-     <color>
-      <red>82</red>
-      <green>24</green>
-      <blue>139</blue>
-     </color>
-     <color>
-      <red>232</red>
-      <green>232</green>
-      <blue>232</blue>
-     </color>
+     <colorrole role="WindowText" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>234</red>
+        <green>234</green>
+        <blue>234</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Button" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>221</red>
+        <green>223</green>
+        <blue>228</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Light" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Midlight" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Dark" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>85</red>
+        <green>85</green>
+        <blue>85</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Mid" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>199</red>
+        <green>199</green>
+        <blue>199</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Text" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>209</red>
+        <green>209</green>
+        <blue>209</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="BrightText" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="ButtonText" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>30</red>
+        <green>30</green>
+        <blue>30</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Base" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Shadow" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Highlight" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>103</red>
+        <green>141</green>
+        <blue>178</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="HighlightedText" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Link" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>0</red>
+        <green>0</green>
+        <blue>238</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="LinkVisited" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>82</red>
+        <green>24</green>
+        <blue>139</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="AlternateBase" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>232</red>
+        <green>232</green>
+        <blue>232</blue>
+       </color>
+      </brush>
+     </colorrole>
     </inactive>
     <disabled>
-     <color>
-      <red>128</red>
-      <green>128</green>
-      <blue>128</blue>
-     </color>
-     <color>
-      <red>221</red>
-      <green>223</green>
-      <blue>228</blue>
-     </color>
-     <color>
-      <red>255</red>
-      <green>255</green>
-      <blue>255</blue>
-     </color>
-     <color>
-      <red>255</red>
-      <green>255</green>
-      <blue>255</blue>
-     </color>
-     <color>
-      <red>85</red>
-      <green>85</green>
-      <blue>85</blue>
-     </color>
-     <color>
-      <red>199</red>
-      <green>199</green>
-      <blue>199</blue>
-     </color>
-     <color>
-      <red>199</red>
-      <green>199</green>
-      <blue>199</blue>
-     </color>
-     <color>
-      <red>255</red>
-      <green>255</green>
-      <blue>255</blue>
-     </color>
-     <color>
-      <red>128</red>
-      <green>128</green>
-      <blue>128</blue>
-     </color>
-     <color>
-      <red>0</red>
-      <green>0</green>
-      <blue>0</blue>
-     </color>
-     <color>
-      <red>0</red>
-      <green>0</green>
-      <blue>0</blue>
-     </color>
-     <color>
-      <red>0</red>
-      <green>0</green>
-      <blue>0</blue>
-     </color>
-     <color>
-      <red>86</red>
-      <green>117</green>
-      <blue>148</blue>
-     </color>
-     <color>
-      <red>255</red>
-      <green>255</green>
-      <blue>255</blue>
-     </color>
-     <color>
-      <red>0</red>
-      <green>0</green>
-      <blue>238</blue>
-     </color>
-     <color>
-      <red>82</red>
-      <green>24</green>
-      <blue>139</blue>
-     </color>
-     <color>
-      <red>232</red>
-      <green>232</green>
-      <blue>232</blue>
-     </color>
+     <colorrole role="WindowText" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>128</red>
+        <green>128</green>
+        <blue>128</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Button" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>221</red>
+        <green>223</green>
+        <blue>228</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Light" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Midlight" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Dark" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>85</red>
+        <green>85</green>
+        <blue>85</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Mid" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>199</red>
+        <green>199</green>
+        <blue>199</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Text" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>199</red>
+        <green>199</green>
+        <blue>199</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="BrightText" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="ButtonText" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>128</red>
+        <green>128</green>
+        <blue>128</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Base" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Shadow" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Highlight" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>86</red>
+        <green>117</green>
+        <blue>148</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="HighlightedText" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Link" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>0</red>
+        <green>0</green>
+        <blue>238</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="LinkVisited" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>82</red>
+        <green>24</green>
+        <blue>139</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="AlternateBase" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>232</red>
+        <green>232</green>
+        <blue>232</blue>
+       </color>
+      </brush>
+     </colorrole>
     </disabled>
    </palette>
   </property>
   <property name="windowTitle" >
-   <string>Form</string>
+   <string>AnalogWidgets Chart</string>
   </property>
   <layout class="QGridLayout" >
    <property name="margin" >
@@ -296,9 +497,7 @@
    <item row="3" column="0" colspan="3" >
     <widget class="QGroupBox" name="groupBox_2" >
      <property name="sizePolicy" >
-      <sizepolicy>
-       <hsizetype>1</hsizetype>
-       <vsizetype>5</vsizetype>
+      <sizepolicy vsizetype="Preferred" hsizetype="Minimum" >
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -310,7 +509,7 @@
       </size>
      </property>
      <property name="title" >
-      <string>Kanały</string>
+      <string>Channels</string>
      </property>
      <layout class="QGridLayout" >
       <property name="margin" >
@@ -322,7 +521,7 @@
       <item row="0" column="6" >
        <widget class="QLabel" name="label_6" >
         <property name="text" >
-         <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;/head>&lt;body style=" white-space: pre-wrap; font-family:Sans Serif; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Opis kanału&lt;/p>&lt;/body>&lt;/html></string>
+         <string>Channel description</string>
         </property>
        </widget>
       </item>
@@ -332,7 +531,7 @@
       <item row="0" column="1" colspan="2" >
        <widget class="QLabel" name="label_5" >
         <property name="text" >
-         <string>Numer kanału</string>
+         <string>Channel no</string>
         </property>
        </widget>
       </item>
@@ -349,14 +548,14 @@
       <item row="1" column="5" colspan="2" >
        <widget class="QLabel" name="label_8" >
         <property name="text" >
-         <string>Maximum kanału</string>
+         <string>Channel maximum</string>
         </property>
        </widget>
       </item>
       <item row="1" column="2" colspan="2" >
        <widget class="QLabel" name="label_7" >
         <property name="text" >
-         <string>Minimum kanału</string>
+         <string>Channel minimum</string>
         </property>
        </widget>
       </item>
@@ -368,14 +567,14 @@
           <height>16777215</height>
          </size>
         </property>
-        <property name="maximum" >
-         <double>10000</double>
-        </property>
         <property name="minimum" >
-         <double>-10000</double>
+         <double>-10000.000000000000000</double>
+        </property>
+        <property name="maximum" >
+         <double>10000.000000000000000</double>
         </property>
         <property name="singleStep" >
-         <double>10</double>
+         <double>10.000000000000000</double>
         </property>
        </widget>
       </item>
@@ -387,21 +586,30 @@
           <height>16777215</height>
          </size>
         </property>
-        <property name="maximum" >
-         <double>10000</double>
-        </property>
         <property name="minimum" >
-         <double>-10000</double>
+         <double>-10000.000000000000000</double>
+        </property>
+        <property name="maximum" >
+         <double>10000.000000000000000</double>
         </property>
         <property name="singleStep" >
-         <double>10</double>
+         <double>10.000000000000000</double>
         </property>
         <property name="value" >
-         <double>450</double>
+         <double>450.000000000000000</double>
         </property>
        </widget>
       </item>
      </layout>
+     <zorder>label_6</zorder>
+     <zorder>lineEdit</zorder>
+     <zorder>label_5</zorder>
+     <zorder>spinBox_5</zorder>
+     <zorder>label_8</zorder>
+     <zorder>label_7</zorder>
+     <zorder>doubleSpinBox_2</zorder>
+     <zorder>doubleSpinBox_3</zorder>
+     <zorder>label</zorder>
     </widget>
    </item>
    <item row="1" column="0" >
@@ -415,17 +623,17 @@
      <property name="decimals" >
       <number>5</number>
      </property>
-     <property name="maximum" >
-      <double>10000</double>
-     </property>
      <property name="minimum" >
-      <double>-100</double>
+      <double>-100.000000000000000</double>
+     </property>
+     <property name="maximum" >
+      <double>10000.000000000000000</double>
      </property>
      <property name="singleStep" >
-      <double>0.001</double>
+      <double>0.001000000000000</double>
      </property>
      <property name="value" >
-      <double>1000</double>
+      <double>1000.000000000000000</double>
      </property>
     </widget>
    </item>
@@ -448,13 +656,13 @@
       </size>
      </property>
      <property name="minimum" >
-      <double>0.05</double>
+      <double>0.050000000000000</double>
      </property>
      <property name="singleStep" >
-      <double>0.05</double>
+      <double>0.050000000000000</double>
      </property>
      <property name="value" >
-      <double>1</double>
+      <double>1.000000000000000</double>
      </property>
     </widget>
    </item>
@@ -481,7 +689,7 @@ dla wybranego kanału danych.</string>
    <item row="2" column="0" colspan="3" >
     <widget class="QGroupBox" name="groupBox" >
      <property name="title" >
-      <string>Inne parametry</string>
+      <string>Other parameters</string>
      </property>
      <layout class="QGridLayout" >
       <property name="margin" >
@@ -492,11 +700,11 @@ dla wybranego kanału danych.</string>
       </property>
       <item row="4" column="0" colspan="4" >
        <layout class="QHBoxLayout" >
-        <property name="margin" >
-         <number>0</number>
-        </property>
         <property name="spacing" >
          <number>6</number>
+        </property>
+        <property name="margin" >
+         <number>0</number>
         </property>
         <item>
          <widget class="QDoubleSpinBox" name="doubleSpinBox_4" >
@@ -504,17 +712,17 @@ dla wybranego kanału danych.</string>
            <number>3</number>
           </property>
           <property name="maximum" >
-           <double>10000</double>
+           <double>10000.000000000000000</double>
           </property>
           <property name="value" >
-           <double>1000</double>
+           <double>1000.000000000000000</double>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QLabel" name="label_9" >
           <property name="text" >
-           <string>Szerokość skali x</string>
+           <string>x scale</string>
           </property>
          </widget>
         </item>
@@ -523,7 +731,7 @@ dla wybranego kanału danych.</string>
       <item row="0" column="0" colspan="2" >
        <widget class="QCheckBox" name="checkBox" >
         <property name="text" >
-         <string>Pokaz siatkę </string>
+         <string>Show grid</string>
         </property>
         <property name="checked" >
          <bool>true</bool>
@@ -533,7 +741,7 @@ dla wybranego kanału danych.</string>
       <item row="0" column="2" colspan="2" >
        <widget class="QCheckBox" name="checkBox_3" >
         <property name="text" >
-         <string>Pokaz skalę x</string>
+         <string>Show scale</string>
         </property>
         <property name="checked" >
          <bool>true</bool>
@@ -543,7 +751,7 @@ dla wybranego kanału danych.</string>
       <item row="1" column="2" colspan="2" >
        <widget class="QCheckBox" name="checkBox_4" >
         <property name="text" >
-         <string>Pokaż skalę y dla wybraneg kanału</string>
+         <string>Show scale for choosen channel</string>
         </property>
         <property name="checked" >
          <bool>true</bool>
@@ -567,20 +775,10 @@ dla wybranego kanału danych.</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="1" >
-       <widget class="QLabel" name="label" >
-        <property name="text" >
-         <string>Siatka x</string>
-        </property>
-        <property name="buddy" >
-         <cstring>spinBox</cstring>
-        </property>
-       </widget>
-      </item>
       <item row="3" column="1" >
        <widget class="QLabel" name="label_2" >
         <property name="text" >
-         <string>Podsiatka x</string>
+         <string>x subgrid</string>
         </property>
         <property name="buddy" >
          <cstring>spinBox_2</cstring>
@@ -600,7 +798,7 @@ dla wybranego kanału danych.</string>
       <item row="2" column="3" >
        <widget class="QLabel" name="label_3" >
         <property name="text" >
-         <string>Siatka y</string>
+         <string>y grid</string>
         </property>
         <property name="buddy" >
          <cstring>spinBox_3</cstring>
@@ -617,7 +815,7 @@ dla wybranego kanału danych.</string>
       <item row="3" column="3" >
        <widget class="QLabel" name="label_4" >
         <property name="text" >
-         <string>Podsiatka y</string>
+         <string>y subgrid</string>
         </property>
         <property name="buddy" >
          <cstring>spinBox_4</cstring>
@@ -627,10 +825,20 @@ dla wybranego kanału danych.</string>
       <item row="1" column="0" colspan="2" >
        <widget class="QCheckBox" name="checkBox_2" >
         <property name="text" >
-         <string>Pokaż Legendę</string>
+         <string>Show legend</string>
         </property>
         <property name="checked" >
          <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" >
+       <widget class="QLabel" name="label" >
+        <property name="text" >
+         <string>x grid</string>
+        </property>
+        <property name="buddy" >
+         <cstring>spinBox</cstring>
         </property>
        </widget>
       </item>
@@ -639,14 +847,11 @@ dla wybranego kanału danych.</string>
    </item>
   </layout>
  </widget>
- <pixmapfunction></pixmapfunction>
  <customwidgets>
   <customwidget>
    <class>Chart</class>
-   <extends></extends>
+   <extends>QWidget</extends>
    <header>analogwidgets/chart.h</header>
-   <container>0</container>
-   <pixmap></pixmap>
   </customwidget>
  </customwidgets>
  <resources/>
