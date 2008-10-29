@@ -51,6 +51,12 @@ Channel::Channel(double min,double max, ChannelData * data,QString name,QPen pen
 }
 
 
+Channel::~Channel()
+{
+ ;// if (m_data) 
+ ; //   delete m_data;  
+}
+
 void Channel::setPen(QPen & pen) 
 {
   m_pen = pen;

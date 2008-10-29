@@ -3,7 +3,6 @@
 # Podkatalog wzgl?dem g?ównego katalogu projektu: ./analogwidgets/plugins
 # Cel to biblioteka analogwidgets_plugin
 
-#include(../../Flags.pri)
 
 HEADERS += analogwidgets_plugin.h \
            chart_plugin.h \
@@ -60,3 +59,5 @@ CONFIG += release \
 	  designer \ 
           plugin
 TEMPLATE = lib
+
+include (../../Flags.pri )

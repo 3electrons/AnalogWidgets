@@ -53,6 +53,8 @@ public:
   */
   Channel(double min,double max, ChannelData * data,QString name,QPen pen );
   
+  ~Channel(); 
+  
    void setPen(QPen & pen);
    QPen pen() const; 
    

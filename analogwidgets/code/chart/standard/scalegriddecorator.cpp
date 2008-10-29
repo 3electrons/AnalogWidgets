@@ -123,43 +123,45 @@ void ScalesGridDecorator::paintYScale(QPainter & painter, Chart * chart)
 
   Channels & channels = chart->channels();
   Channels::iterator i=channels.end();
-
-  while (i--!=channels.begin())
-  {
-   // @TODO - sprawdziæ czy warto¶ci przystaj± do skali  && if yMesh > 10 to sie dziwne rzeczy dzieja 
-   int maxTextWidth=0; // maksymalna szeroko¶æ napisu skali
-   
-   m_channelsScale |=i->showScale(); // czy który kolwiek kana³ ma mlowan± skalê 
   
-   // To musi byæ wiloczone bez wzgêdu czy jest rysowana skala czy nie 
-   // bo jest to potrzebne do rysowania samych wykresów 
-   double m_min,m_max;
-   range(i->minimum(),i->maximum(),m_min,m_max,yMesh,true,minimalStep(i->maximum()-i->minimum(),yMesh));  // wyznaczenie ca³ej rangi ...
-   double scaleStep = (m_max-m_min)/ yMesh;
-   i->setCalcMinMax(m_min, m_max+scaleStep); //  ustawianie wymiarów dla kana³ów
-   
-   if (i->showScale())
-   {
-     painter.setPen(i->pen());
-     double scalePos=m_max;
-     double posStep = yScaleHeight /( yMesh+1), posText=posStep;
-     // malowanie literek skali
-     while ( scalePos + ACCURACY >  m_min )
-     {
-      if (fabs(scalePos)<ACCURACY ) scalePos = 0.0; // brzydki hack ale pownien dzia³aæ.
-      if (fabs(scalePos) <  0.000000000001 ) scalePos = 0.0; 		
-      QString Str = QString().setNum(scalePos,'G',12); // "%1").arg(scalePos,6);
-      int tw = painter.fontMetrics().size(Qt::TextSingleLine, Str ).width();
-      if (tw>maxTextWidth) maxTextWidth=tw;
-      painter.drawText(QPointF(yScaleWidth,posText-YFONT_DISTANCE),Str);
-      posText+=posStep;
-      scalePos-=scaleStep;
-     }
-     
-     yScaleWidth+=XFONT_DISTANCE+maxTextWidth;
-   }// if showScale
-
-  }// while i!=channels.end()
+  i--; 
+  if( !channels.empty() )
+    while (i!=channels.begin())
+    {
+    // @TODO - sprawdziæ czy warto¶ci przystaj± do skali  && if yMesh > 10 to sie dziwne rzeczy dzieja 
+    int maxTextWidth=0; // maksymalna szeroko¶æ napisu skali
+    
+    m_channelsScale |=i->showScale(); // czy który kolwiek kana³ ma mlowan± skalê 
+    
+    // To musi byæ wiloczone bez wzgêdu czy jest rysowana skala czy nie 
+    // bo jest to potrzebne do rysowania samych wykresów 
+    double m_min,m_max;
+    range(i->minimum(),i->maximum(),m_min,m_max,yMesh,true,minimalStep(i->maximum()-i->minimum(),yMesh));  // wyznaczenie ca³ej rangi ...
+    double scaleStep = (m_max-m_min)/ yMesh;
+    i->setCalcMinMax(m_min, m_max+scaleStep); //  ustawianie wymiarów dla kana³ów
+    
+    if (i->showScale())
+    {
+      painter.setPen(i->pen());
+      double scalePos=m_max;
+      double posStep = yScaleHeight /( yMesh+1), posText=posStep;
+      // malowanie literek skali
+      while ( scalePos + ACCURACY >  m_min )
+      {
+        if (fabs(scalePos)<ACCURACY ) scalePos = 0.0; // brzydki hack ale pownien dzia³aæ.
+        if (fabs(scalePos) <  0.000000000001 ) scalePos = 0.0; 		
+        QString Str = QString().setNum(scalePos,'G',12); // "%1").arg(scalePos,6);
+        int tw = painter.fontMetrics().size(Qt::TextSingleLine, Str ).width();
+        if (tw>maxTextWidth) maxTextWidth=tw;
+        painter.drawText(QPointF(yScaleWidth,posText-YFONT_DISTANCE),Str);
+        posText+=posStep;
+        scalePos-=scaleStep;
+      }
+      
+      yScaleWidth+=XFONT_DISTANCE+maxTextWidth;
+    }// if showScale
+      i--; 
+    }// while i!=channels.end()
   
    
  
