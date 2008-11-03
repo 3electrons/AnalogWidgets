@@ -1,3 +1,7 @@
-2008-11-29 rev. 214 
+2008-10-29 rev. 214 
 Fixed ScaleGridDecorator::paintYScale() MsVisual crash. 
 Thanks Valentin ;). 
+
+2008-11-03 rev 215. 
+Fixed last error in poprper way - shame to say but I screw up 
+Valentin fix. 
