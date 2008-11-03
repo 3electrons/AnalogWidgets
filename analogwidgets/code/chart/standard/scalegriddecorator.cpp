@@ -122,11 +122,11 @@ void ScalesGridDecorator::paintYScale(QPainter & painter, Chart * chart)
   else yScaleWidth=0.0;
 
   Channels & channels = chart->channels();
-  Channels::iterator i=channels.end();
+  Channels::iterator i=channels.begin();
   
-  i--; 
+  
   if( !channels.empty() )
-    while (i!=channels.begin())
+    while (i!=channels.end())
     {
     // @TODO - sprawdziæ czy warto¶ci przystaj± do skali  && if yMesh > 10 to sie dziwne rzeczy dzieja 
     int maxTextWidth=0; // maksymalna szeroko¶æ napisu skali
@@ -160,11 +160,8 @@ void ScalesGridDecorator::paintYScale(QPainter & painter, Chart * chart)
       
       yScaleWidth+=XFONT_DISTANCE+maxTextWidth;
     }// if showScale
-      i--; 
+      i++; 
     }// while i!=channels.end()
-  
-   
- 
 }
 
 
