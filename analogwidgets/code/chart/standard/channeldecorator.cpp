@@ -47,9 +47,9 @@ void ChannelDecorator::paint ( QPainter & painter, Chart * chart )
     if ( chart->isPaintOver() && chart->antialiasing() )  painter.setRenderHint ( QPainter::Antialiasing ); // w³aczenie antialiasingu
 
     Channels & channels = chart->channels();
-    Channels::iterator i=channels.end();
+    Channels::iterator i=channels.begin();
 
-    while ( i--!=channels.begin() )
+    while ( i!=channels.end() )
     {
       if ( i->visible() )
       {
@@ -59,6 +59,7 @@ void ChannelDecorator::paint ( QPainter & painter, Chart * chart )
         paintChannel ( painter,chart,*i );
         painter.restore();
       }
+      i++; 
     } // while
 
     painter.setRenderHint ( QPainter::RenderHint ( rh ) ); // wylaczenie antialiasingu

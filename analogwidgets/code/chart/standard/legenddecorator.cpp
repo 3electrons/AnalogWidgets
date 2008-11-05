@@ -58,17 +58,18 @@ void LegendDecorator::paintLegendFrame(QPainter & painter, Chart * chart)
 {
 
     Channels & channels = chart->channels();
-    Channels::iterator i=channels.end();
+    Channels::iterator i=channels.begin();
     int width=0,height=0;
     QSize size;
     // Wyliczenie rozmiarów maksymalnych ramki
     painter.setFont(chart->font());
-    while (i--!=channels.begin())
+    while (i!=channels.end())
     {
       size = painter.fontMetrics().size(Qt::TextSingleLine, i->name());
       width = max(width,size.width());
      if (i->visible() && i->showLegend()) 
       height += size.height();
+     i++; 
     } // while
     
     if (0 == height) // nic nie ma do pokazania 
