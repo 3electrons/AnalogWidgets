@@ -61,6 +61,17 @@ CONFIG += release \
 warn_on \
 staticlib
 TEMPLATE = lib
+
+
+headers.files += ../analogwidgets/*.h
+headers_chart.files += ../analogwidgets/chart/*.h
+headers_standard.files += ../analogwidgets/chart/standard/*.h 
+headers.path += $$INSTALL_INCLUDEPATH/analogwidgets
+headers_chart.path += $$INSTALL_INCLUDEPATH/analogwidgets/chart
+headers_standard.path += $$INSTALL_INCLUDEPATH/analogwidgets/chart/standard 
+INSTALLS += headers headers_chart headers_standard  
+
+
 WIN32{
   DEFINES+= WIN32
 }
