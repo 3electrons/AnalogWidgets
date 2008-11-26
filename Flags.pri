@@ -4,10 +4,14 @@ QT+= xml svg script
 linux-g++ {
  # Development machine 
  
- QMAKE_CXX = distcc  
+ #QMAKE_CXX = distcc  
  QMAKE_CXXFLAGS_RELEASE  = -g3 -Wall -pg 
  #QMAKE_CXXFLAGS_RELEASE = -march=core2 -O3 -pipe -mfpmath=sse -Wall
- QMAKE_LFLAGS_RELEASE    = 
+ QMAKE_LFLAGS_RELEASE    =
+ 
+ INSTALL_INCLUDEDIR = /usr/include
+ INSTALL_LIBDIR     = /usr/lib 
+ 
 }
 
 win32-g++ {
@@ -16,7 +20,11 @@ win32-g++ {
  
  #QMAKE_CXXFLAGS_RELEASE  = -g3 -Wall
  QMAKE_CXXFLAGS_RELEASE  = -march=pentium3 -Os -Wall -pipe -mfpmath=sse 
- #QMAKE_LFLAGS_RELEASE    = 
+ #QMAKE_LFLAGS_RELEASE    =
+ 
+ INSTALL_DIR        = C:/analogwidgets 
+ INSTALL_INCLUDEDIR = $$INSTALL_DIR/include 
+ INSTALL_LIBDIR     = $$INSTALL_DIR/lib
 }
 
 

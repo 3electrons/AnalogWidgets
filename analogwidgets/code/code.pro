@@ -66,10 +66,15 @@ TEMPLATE = lib
 headers.files += ../analogwidgets/*.h
 headers_chart.files += ../analogwidgets/chart/*.h
 headers_standard.files += ../analogwidgets/chart/standard/*.h 
-headers.path += $$INSTALL_INCLUDEPATH/analogwidgets
-headers_chart.path += $$INSTALL_INCLUDEPATH/analogwidgets/chart
-headers_standard.path += $$INSTALL_INCLUDEPATH/analogwidgets/chart/standard 
-INSTALLS += headers headers_chart headers_standard  
+headers.path += $$INSTALL_INCLUDEDIR/analogwidgets
+headers_chart.path += $$INSTALL_INCLUDEDIR/analogwidgets/chart
+headers_standard.path += $$INSTALL_INCLUDEDIR/analogwidgets/chart/standard 
+
+staticlib.files += ../libanalogwidgets.a 
+staticlib.path += $$INSTALL_LIBDIR/ 
+
+
+INSTALLS += headers headers_chart headers_standard staticlib 
 
 
 WIN32{

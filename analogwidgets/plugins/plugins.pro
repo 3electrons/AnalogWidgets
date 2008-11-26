@@ -50,7 +50,7 @@ wince*:{
 QT += xml svg script 
 
 INCLUDEPATH += ../analogwidgets \
-               ..
+..
 	       
 MOC_DIR =     ..\objects
 OBJECTS_DIR = ..\objects
@@ -63,3 +63,6 @@ CONFIG += release \
 TEMPLATE = lib
 
 include (../../Flags.pri )
+
+target.path += $$[QT_INSTALL_PLUGINS]/designer
+INSTALLS += target
