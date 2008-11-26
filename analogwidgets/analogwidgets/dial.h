@@ -25,6 +25,14 @@
 #include <QAbstractSlider> 
 #include <QSvgRenderer> 
 
+/**
+  Dial is input widget designed to be used with touchscreens. It delivers 4 predefined themes 
+  - Harman Kardon Potentiometer - dial1.svg
+  - Matt steel Potentiometer    - dial2.svg
+  - Plastic 1 Potentiometer     - dial3.svg
+  - Plastic 2 Potentiometer     - dial4.svg 
+  Feel free to add your own themes. To do that please follow id names in the svg files. 
+*/ 
 class Dial: public QAbstractSlider
 {
    Q_OBJECT 

@@ -28,6 +28,10 @@
 
 
 class QSvgRenderer; 
+/**
+  Counter shows counter with digits taken from input svg file. 
+  Feel free to add your own themes. To do that please follow id names int svg file.
+*/
 
 class Counter: public QWidget
 {
