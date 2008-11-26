@@ -25,31 +25,31 @@
 #include <QPointF> 
 
 
-#include "dial.h" 
+#include "potentiometer.h" 
 
-Dial::Dial(QWidget * parent):QAbstractSlider(parent)
+PotentioMeter::PotentioMeter(QWidget * parent):QAbstractSlider(parent)
 {
  init();
 }
 
-int Dial::rotationRange() const
+int PotentioMeter::rotationRange() const
 {
   return m_rotationRange; 
 }
 
-QString Dial::svgResourceFile() const
+QString PotentioMeter::svgResourceFile() const
 {
   return m_filePath; 
 }
 /*---------------------------------------------------------------------------
 				PUBLIC SLOTS 
 ---------------------------------------------------------------------------*/
-void Dial::setRotationRange(int rotationRange)
+void PotentioMeter::setRotationRange(int rotationRange)
 {
    m_rotationRange = rotationRange; 
 }
 
-void Dial::setSvgResourceFile( const QString & filePath )
+void PotentioMeter::setSvgResourceFile( const QString & filePath )
 {
    m_filePath = filePath; 
    if (m_renderer) 
@@ -59,22 +59,22 @@ void Dial::setSvgResourceFile( const QString & filePath )
 
    if (!m_renderer->load(filePath)) 
    { 
-     qDebug("Dial::setSvgResourceFile can't load file %s",qPrintable(m_filePath));    
+     qDebug("PotentioMeter::setSvgResourceFile can't load file %s",qPrintable(m_filePath));    
      m_filePath = ":/default/resources/dial1.svg"; 
      m_renderer->load(m_filePath);
    }
    else 
-      qDebug("Dial::setSvgResourceFile %s loaded",qPrintable(m_filePath));    
+      qDebug("PotentioMeter::setSvgResourceFile %s loaded",qPrintable(m_filePath));    
   
    update(); 
 }
 /*---------------------------------------------------------------------------
 				PROTECTED
 ---------------------------------------------------------------------------*/
-void Dial::paintEvent(QPaintEvent *)
+void PotentioMeter::paintEvent(QPaintEvent *)
 { 
    
-    //qDebug("Dial::paintEvent() value %d",value());
+    //qDebug("PotentioMeter::paintEvent() value %d",value());
     QPainter painter(this);
     int side = qMin(width(), height());
     painter.setRenderHint(QPainter::Antialiasing);
@@ -89,7 +89,7 @@ void Dial::paintEvent(QPaintEvent *)
 
     painter.setPen(Qt::NoPen);
     painter.setBrush(Qt::black);
-    QRectF frame(QPointF(-120,-120),QPointF(120,120));
+    QRectF frame(QPointF(-115,-115),QPointF(115,115));
 
     m_renderer->render(&painter,QString("background"),frame); 
     painter.save();
@@ -104,7 +104,7 @@ void Dial::paintEvent(QPaintEvent *)
 
 }// paintEvent 
 
-void Dial::mouseMoveEvent(QMouseEvent * event)
+void PotentioMeter::mouseMoveEvent(QMouseEvent * event)
 {
   if (event->buttons() & Qt::LeftButton) 
   {
@@ -161,6 +161,11 @@ void Dial::mouseMoveEvent(QMouseEvent * event)
             if (m_value > maximum() - minimum()) 
                  m_value = maximum() - minimum(); 
             }
+            if ( -1 == v )
+                emit valueDec(); 
+            if ( 1 == v ) 
+                emit valueInc(); 
+
             setValue(m_value + minimum() );
        }
         m_prevAngle2 = angle2;
@@ -169,7 +174,7 @@ void Dial::mouseMoveEvent(QMouseEvent * event)
 }// mouseMoveEvent 
 
 
-void Dial::init()
+void PotentioMeter::init()
 {
     Q_INIT_RESOURCE(analogwidgets);
     m_renderer= NULL;

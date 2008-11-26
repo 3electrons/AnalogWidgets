@@ -20,20 +20,20 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-    #include "dial.h" 
-    #include "dial_plugin.h"
+    #include "potentiometer.h" 
+    #include "potentiometer_plugin.h"
     #include "defines.h"
     /*------------------------------------------------------------------------------------------------
      *			     			DIAL PLUGIN 
      *------------------------------------------------------------------------------------------------*/
 
-    DialPlugin::DialPlugin(QObject *parent)
+    PotentioMeterPlugin::PotentioMeterPlugin(QObject *parent)
         : QObject(parent)
     {
         initialized = false;
     }
 
-    void DialPlugin::initialize(QDesignerFormEditorInterface * /*core*/)
+    void PotentioMeterPlugin::initialize(QDesignerFormEditorInterface * /*core*/)
     {
         if (initialized)
             return;
@@ -41,55 +41,55 @@
         initialized = true;
     }
 
-    bool DialPlugin::isInitialized() const
+    bool PotentioMeterPlugin::isInitialized() const
     {
         return initialized;
     }
 
-    QWidget *DialPlugin::createWidget(QWidget *parent)
+    QWidget *PotentioMeterPlugin::createWidget(QWidget *parent)
     {
-        return new Dial(parent);
+        return new PotentioMeter(parent);
     }
 
-    QString DialPlugin::name() const
+    QString PotentioMeterPlugin::name() const
     {
-        return QLatin1String("Dial");
+        return QLatin1String("PotentioMeter");
     }
 
-    QString DialPlugin::group() const
+    QString PotentioMeterPlugin::group() const
     {
         return QLatin1String("Analog Widgets");
     }
 
-    QIcon DialPlugin::icon() const
+    QIcon PotentioMeterPlugin::icon() const
     {
         return QIcon();
     }
 
-    QString DialPlugin::toolTip() const
+    QString PotentioMeterPlugin::toolTip() const
     {
         return QString();
     }
 
-    QString DialPlugin::whatsThis() const
+    QString PotentioMeterPlugin::whatsThis() const
     {
         return QString();
     }
 
-    bool DialPlugin::isContainer() const
+    bool PotentioMeterPlugin::isContainer() const
     {
         return false;
     }
 
-    QString DialPlugin::domXml() const
+    QString PotentioMeterPlugin::domXml() const
     {
-       return QLatin1String("<widget class=\"Dial\" name=\"dial\">\n"
+       return QLatin1String("<widget class=\"PotentioMeter\" name=\"dial\">\n"
                         " <property name=\"geometry\">\n"
                         "  <rect>\n"
                         "   <x>0</x>\n"
                         "   <y>0</y>\n"
                         "   <width>100</width>\n"
-                        "   <height>40</height>\n"
+                        "   <height>100</height>\n"
                         "  </rect>\n"
                         " </property>\n"
                         " <property name=\"toolTip\" >\n"
@@ -101,16 +101,16 @@
                         "</widget>\n");
     }
 
-    QString DialPlugin::includeFile() const
+    QString PotentioMeterPlugin::includeFile() const
     {
-        return QLatin1String("analogwidgets/dial.h");
+        return QLatin1String("analogwidgets/potentiometer.h");
     }
 
-    QString DialPlugin::codeTemplate() const
+    QString PotentioMeterPlugin::codeTemplate() const
     {
         return QString();
     }
 
 #ifdef SINGLEPLUGINS     
-    Q_EXPORT_PLUGIN(DialPlugin)
+    Q_EXPORT_PLUGIN(PotentioMeterPlugin)
 #endif 

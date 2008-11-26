@@ -33,7 +33,7 @@
 #include "led_plugin.h"
 #include "counter_plugin.h" 
 #include "scriptwidget_plugin.h" 
-#include "dial_plugin.h" 
+#include "potentiometer_plugin.h" 
 
 AnalogWidgetsPlugin::AnalogWidgetsPlugin()
 {
@@ -42,7 +42,7 @@ AnalogWidgetsPlugin::AnalogWidgetsPlugin()
   m_pluginList.push_back(new ThermoMeterPlugin(NULL));
   m_pluginList.push_back(new ChartPlugin(NULL)); 
   m_pluginList.push_back(new LedPlugin(NULL));
-  m_pluginList.push_back(new DialPlugin(NULL));   
+  m_pluginList.push_back(new PotentioMeterPlugin(NULL));   
   m_pluginList.push_back(new CounterPlugin(NULL));
   m_pluginList.push_back(new BitmapButtonPlugin(NULL)); 
   m_pluginList.push_back(new ScriptWidgetPlugin(NULL));

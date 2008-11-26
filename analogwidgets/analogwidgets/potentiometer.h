@@ -26,26 +26,26 @@
 #include <QSvgRenderer> 
 
 /**
-  Dial is input widget designed to be used with touchscreens. It delivers 4 predefined themes 
+  PotentioMeter is input widget designed to be used with touchscreens. It delivers 4 predefined themes 
   - Harman Kardon Potentiometer - dial1.svg
   - Matt steel Potentiometer    - dial2.svg
   - Plastic 1 Potentiometer     - dial3.svg
   - Plastic 2 Potentiometer     - dial4.svg 
   Feel free to add your own themes. To do that please follow id names in the svg files. 
 */ 
-class Dial: public QAbstractSlider
+class PotentioMeter: public QAbstractSlider
 {
    Q_OBJECT 
    Q_PROPERTY( int rotationRange READ rotationRange WRITE setRotationRange )
  public:
-  Dial(QWidget * parent = NULL);
+  PotentioMeter(QWidget * parent = NULL);
 
   int rotationRange() const;
   QString svgResourceFile() const;
 
   signals:
-   void valueIncreased();
-   void valueDecreased();
+   void valueInc();
+   void valueDec();
   public slots:
     /** 
         Sets ticks to rotation  if rotationRange is equal to maximum()- minimum() , widget
@@ -66,5 +66,5 @@ class Dial: public QAbstractSlider
   int m_rotationRange; 
   QString m_filePath; 
   QSvgRenderer * m_renderer;
-};// Dial 
+};// PotentioMeter 
 #endif // DIAL_H 

@@ -32,7 +32,7 @@
     #include "thermometer.h"
     #include "chart.h"
     #include "chart/datacontainers.h"
-    #include "dial.h" 
+    #include "potentiometer.h" 
 
 
     #include "widgettester.h"
@@ -118,7 +118,7 @@
 
         
         layout = new QVBoxLayout(); 
-        Dial * m_dial = new Dial();
+        PotentioMeter * m_dial = new PotentioMeter();
         QComboBox * dialCombo = new QComboBox(); 
         layout->addWidget(m_dial);
         layout->addWidget(dialCombo); 
@@ -131,7 +131,7 @@
         connect(dialCombo,SIGNAL(activated ( const QString & )),m_dial,SLOT(setSvgResourceFile( const QString & ))); 
          
         connect(HSlider,SIGNAL(valueChanged(int)),m_dial,SLOT(setValue(int))); 
-        dial_tab->setLayout(layout); 
+        potentiometer_tab->setLayout(layout); 
  // za³adowanie listy wtrysków do CobmboBox'a
         QDir dir("wtr");
         dir.setFilter(QDir::Files);

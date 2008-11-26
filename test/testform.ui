@@ -37,7 +37,7 @@
            <enum>QTabWidget::Rounded</enum>
           </property>
           <property name="currentIndex" >
-           <number>3</number>
+           <number>4</number>
           </property>
           <widget class="QWidget" name="wallclock_tab" >
            <attribute name="title" >
@@ -119,9 +119,9 @@
             </item>
            </layout>
           </widget>
-          <widget class="QWidget" name="dial_tab" >
+          <widget class="QWidget" name="potentiometer_tab" >
            <attribute name="title" >
-            <string>Dial</string>
+            <string>Potentiometer</string>
            </attribute>
           </widget>
          </widget>

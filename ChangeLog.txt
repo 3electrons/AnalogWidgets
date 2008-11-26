@@ -1,9 +1,9 @@
-2008-11-26 rev. 220 
+2008-11-26 rev. 221
 Few minor fixes. 
-Added Dial with 4 predefined svg themes. 
-Dial is still expermimental so use it with caution.
+Added PotentioMeter with 4 predefined svg themes. 
+PotentioMeter is still expermimental so use it with caution.
 Added alternative theme for Counter in test program. 
-More info about themes in dial.h and counter.h 
+More info about themes in potentiometer.h and counter.h 
 
 2008-10-29 rev. 214 
 Fixed ScaleGridDecorator::paintYScale() MsVisual crash. 

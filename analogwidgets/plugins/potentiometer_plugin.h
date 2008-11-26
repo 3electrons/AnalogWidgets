@@ -23,12 +23,12 @@
     #include <QDesignerContainerExtension>
     #include <QDesignerCustomWidgetInterface>
    
-    class DialPlugin : public QObject, public QDesignerCustomWidgetInterface
+    class PotentioMeterPlugin : public QObject, public QDesignerCustomWidgetInterface
     {
         Q_OBJECT
         Q_INTERFACES(QDesignerCustomWidgetInterface)
     public:
-        DialPlugin(QObject *parent = 0);
+        PotentioMeterPlugin(QObject *parent = 0);
         bool isContainer() const;
         bool isInitialized() const;
         QIcon icon() const;
