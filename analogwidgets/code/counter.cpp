@@ -1,3 +1,25 @@
+/***************************************************************************
+ *   Copyright (C) 2006-2008 by Tomasz Ziobrowski                          *
+ *   http://www.3electrons.com                                             *
+ *   e-mail: t.ziobrowski@3electrons.com                                   *
+ *                                                                         *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ ***************************************************************************/
+
 #include <QPainter> 
 #include <QPen>
 #include <QSvgRenderer> 
@@ -42,14 +64,20 @@ void Counter::setDigits(int i)
 void Counter::setDigitsFile(const QString & i )
 {
    m_digitsFile = i;
-   delete m_svg; 
+   if (m_svg) 
+     delete m_svg; 
    m_svg = new QSvgRenderer(this); 
-   if (!m_svg->load(i)) 
-   {
+   if (!m_svg->load(m_digitsFile)) 
+   { 
+     qDebug("Counter::setDigitsFile can't load file %s",qPrintable(m_digitsFile)); 
      m_digitsFile = ":/default/resources/train_digits.svg"; 
      m_svg->load(m_digitsFile);
-     update(); 
+     
    }
+   else 
+    qDebug("Counter::setDigitsFile %s loaded",qPrintable(m_digitsFile));
+
+  update(); 
 }
 
 /*--------------------------------------------------------------------------------------------
@@ -102,6 +130,6 @@ void Counter::init()
    Q_INIT_RESOURCE(analogwidgets); 
    m_digits = 4; 
    m_value = 0; 
-   m_svg = new QSvgRenderer(this);
-   setDigitsFile("");
+   m_svg = NULL; 
+   setDigitsFile(":/default/resources/train_digits.svg");
 }

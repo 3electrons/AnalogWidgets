@@ -20,43 +20,28 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef COUNTER_H
-#define COUNTER_H 
+    #include <QDesignerContainerExtension>
+    #include <QDesignerCustomWidgetInterface>
+   
+    class DialPlugin : public QObject, public QDesignerCustomWidgetInterface
+    {
+        Q_OBJECT
+        Q_INTERFACES(QDesignerCustomWidgetInterface)
+    public:
+        DialPlugin(QObject *parent = 0);
+        bool isContainer() const;
+        bool isInitialized() const;
+        QIcon icon() const;
+        QString codeTemplate() const;
+        QString domXml() const;
+        QString group() const;
+        QString includeFile() const;
+        QString name() const;
+        QString toolTip() const;
+        QString whatsThis() const;
+        QWidget *createWidget(QWidget *parent);
+        void initialize(QDesignerFormEditorInterface *core);
 
-#include <QWidget> 
-#include <QString> 
-
-
-class QSvgRenderer; 
-
-class Counter: public QWidget
-{
- Q_PROPERTY (int value READ value WRITE setValue) 
- Q_PROPERTY (int digits READ digits WRITE setDigits)
-
- Q_OBJECT
-  public:
-  Counter (QWidget * parent = NULL); 
-
-  int digits() const;
-  int value() const;
-  const QString digitsFile() const; 
-  public slots: 
-
-  void setValue(int);
-  void setDigits(int);
-
-  /** Sets filepath to svg file with digits */ 
-  void setDigitsFile(const QString & ); 
-
-  protected:
-   void paintEvent (QPaintEvent *);
-   void init();
-
-   int m_digits;
-   int m_value;
-   QString m_digitsFile;
-   QSvgRenderer * m_svg;
-
-}; // class Counter 
-#endif // COUNTER_H 
+    private:
+        bool initialized;
+    };

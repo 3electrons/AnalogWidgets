@@ -26,6 +26,7 @@ HEADERS += ../analogwidgets/chart/chartdecorator.h \
            ../analogwidgets/bitmapbutton.h \
 	   ../analogwidgets/counter.h \
 	   ../analogwidgets/scriptwidget.h \
+	   ../analogwidgets/dial.h \
 	   item.h 
 	   
 SOURCES += chart/scalegrid.cpp \
@@ -46,7 +47,8 @@ SOURCES += chart/scalegrid.cpp \
            widgetwithbackground.cpp \
            bitmapbutton.cpp \
 	   counter.cpp \
-	   scriptwidget.cpp 
+	   scriptwidget.cpp \
+	   dial.cpp 
 	   
 # Plik utworzony przez menad?era projektów kdevelopa
 #QT += xml svg script designer 

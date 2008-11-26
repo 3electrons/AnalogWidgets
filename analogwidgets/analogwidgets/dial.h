@@ -20,43 +20,43 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef COUNTER_H
-#define COUNTER_H 
+#ifndef DIAL_H
+#define DIAL_H 
+#include <QAbstractSlider> 
+#include <QSvgRenderer> 
 
-#include <QWidget> 
-#include <QString> 
-
-
-class QSvgRenderer; 
-
-class Counter: public QWidget
+class Dial: public QAbstractSlider
 {
- Q_PROPERTY (int value READ value WRITE setValue) 
- Q_PROPERTY (int digits READ digits WRITE setDigits)
+   Q_OBJECT 
+   Q_PROPERTY( int rotationRange READ rotationRange WRITE setRotationRange )
+ public:
+  Dial(QWidget * parent = NULL);
 
- Q_OBJECT
-  public:
-  Counter (QWidget * parent = NULL); 
+  int rotationRange() const;
+  QString svgResourceFile() const;
 
-  int digits() const;
-  int value() const;
-  const QString digitsFile() const; 
-  public slots: 
+  signals:
+   void valueIncreased();
+   void valueDecreased();
+  public slots:
+    /** 
+        Sets ticks to rotation  if rotationRange is equal to maximum()- minimum() , widget
+        is wraped. That allows to rotate dial many times 
+     */
+    void setRotationRange(int rotationRange); 
 
-  void setValue(int);
-  void setDigits(int);
+    /** Set resource file to alternative dial svg file */ 
+    void setSvgResourceFile( const QString & filePath );
 
-  /** Sets filepath to svg file with digits */ 
-  void setDigitsFile(const QString & ); 
+  protected: 
+  void init(); 
+  void paintEvent(QPaintEvent *);
+  void mouseMoveEvent(QMouseEvent * event);
 
-  protected:
-   void paintEvent (QPaintEvent *);
-   void init();
-
-   int m_digits;
-   int m_value;
-   QString m_digitsFile;
-   QSvgRenderer * m_svg;
-
-}; // class Counter 
-#endif // COUNTER_H 
+  qreal m_prevAngle,m_prevAngle2;
+  int m_value;
+  int m_rotationRange; 
+  QString m_filePath; 
+  QSvgRenderer * m_renderer;
+};// Dial 
+#endif // DIAL_H 

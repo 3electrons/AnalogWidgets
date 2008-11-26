@@ -33,7 +33,7 @@ OBJECTS_DIR = ../objects
 CONFIG += release \
           warn_on 
 TEMPLATE = app 
-
+RESOURCES += test.qrc 
 FORMS += testform.ui
 DESTDIR=../test 
 HEADERS += test.h \

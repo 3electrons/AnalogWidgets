@@ -32,6 +32,7 @@
     #include "thermometer.h"
     #include "chart.h"
     #include "chart/datacontainers.h"
+    #include "dial.h" 
 
 
     #include "widgettester.h"
@@ -72,7 +73,7 @@
     void TestWidget::initialize()
     {
 	setupUi(this);
-	setWindowTitle(QString("Program testowy dla AnalogWidgets"));
+	//setWindowTitle(QString("Program testowy dla AnalogWidgets"));
 	setWindowFlags(Qt::Window);
   	setGeometry(50,50,400, 320);
 
@@ -115,6 +116,22 @@
 	layout3->addWidget(injCombo);
 	widget->setLayout(layout3);
 
+        
+        layout = new QVBoxLayout(); 
+        Dial * m_dial = new Dial();
+        QComboBox * dialCombo = new QComboBox(); 
+        layout->addWidget(m_dial);
+        layout->addWidget(dialCombo); 
+        dialCombo->addItem(":/default/resources/dial1.svg"); 
+        dialCombo->addItem(":/default/resources/dial2.svg"); 
+        dialCombo->addItem(":/default/resources/dial3.svg"); 
+        dialCombo->addItem(":/default/resources/dial4.svg"); 
+        dialCombo->addItem(":/test/resources/volume.svg"); 
+
+        connect(dialCombo,SIGNAL(activated ( const QString & )),m_dial,SLOT(setSvgResourceFile( const QString & ))); 
+         
+        connect(HSlider,SIGNAL(valueChanged(int)),m_dial,SLOT(setValue(int))); 
+        dial_tab->setLayout(layout); 
  // za³adowanie listy wtrysków do CobmboBox'a
         QDir dir("wtr");
         dir.setFilter(QDir::Files);
@@ -122,7 +139,7 @@
         dir.setNameFilters ( QStringList(QString("*.wtr")) );
 	injCombo->addItems(dir.entryList());
 
-
+        
 
 
 //

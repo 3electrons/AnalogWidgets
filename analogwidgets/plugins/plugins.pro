@@ -14,7 +14,8 @@ HEADERS += analogwidgets_plugin.h \
            bitmapbutton_plugin.h \
 	   counter_plugin.h \
 	   svgfile_taskmenu.h \
-	   scriptwidget_plugin.h 
+	   scriptwidget_plugin.h \
+	   dial_plugin.h 
 
 
 SOURCES += analogwidgets_plugin.cpp \
@@ -26,7 +27,8 @@ SOURCES += analogwidgets_plugin.cpp \
 	   bitmapbutton_plugin.cpp \
 	   counter_plugin.cpp \
 	   svgfile_taskmenu.cpp \
-	   scriptwidget_plugin.cpp 
+	   scriptwidget_plugin.cpp \
+	   dial_plugin.cpp 
 
 
 unix:{             
