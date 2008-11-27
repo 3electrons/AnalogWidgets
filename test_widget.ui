@@ -454,6 +454,55 @@
     </item>
    </layout>
   </widget>
+  <widget class="QGroupBox" name="groupBox_8" >
+   <property name="geometry" >
+    <rect>
+     <x>470</x>
+     <y>420</y>
+     <width>241</width>
+     <height>211</height>
+    </rect>
+   </property>
+   <property name="title" >
+    <string>PotentioMeter</string>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout" >
+    <item>
+     <widget class="PotentioMeter" name="dial" >
+      <property name="toolTip" >
+       <string/>
+      </property>
+      <property name="whatsThis" >
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QComboBox" name="comboBox_2" >
+      <item>
+       <property name="text" >
+        <string>:/default/resources/dial1.svg</string>
+       </property>
+      </item>
+      <item>
+       <property name="text" >
+        <string>:/default/resources/dial2.svg</string>
+       </property>
+      </item>
+      <item>
+       <property name="text" >
+        <string>:/default/resources/dial3.svg</string>
+       </property>
+      </item>
+      <item>
+       <property name="text" >
+        <string>:/default/resources/dial4.svg</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+   </layout>
+  </widget>
  </widget>
  <customwidgets>
   <customwidget>
@@ -477,6 +526,11 @@
    <header>analogwidgets/led.h</header>
   </customwidget>
   <customwidget>
+   <class>PotentioMeter</class>
+   <extends>QWidget</extends>
+   <header>analogwidgets/potentiometer.h</header>
+  </customwidget>
+  <customwidget>
    <class>Counter</class>
    <extends>QWidget</extends>
    <header>analogwidgets/counter.h</header>
@@ -485,6 +539,7 @@
    <class>BitmapButton</class>
    <extends>QWidget</extends>
    <header>analogwidgets/bitmapbutton.h</header>
+   <container>1</container>
   </customwidget>
   <customwidget>
    <class>ScriptWidget</class>
@@ -573,6 +628,54 @@
     <hint type="destinationlabel" >
      <x>226</x>
      <y>495</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>comboBox_2</sender>
+   <signal>currentIndexChanged(QString)</signal>
+   <receiver>dial</receiver>
+   <slot>setSvgResourceFile(QString)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>491</x>
+     <y>604</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>522</x>
+     <y>557</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dial</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>horizontalSlider</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>485</x>
+     <y>482</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>387</x>
+     <y>441</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>dial</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>362</x>
+     <y>439</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>472</x>
+     <y>440</y>
     </hint>
    </hints>
   </connection>
