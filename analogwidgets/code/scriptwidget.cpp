@@ -6,6 +6,7 @@
 #include <QSvgRenderer> 
 #include <QCoreApplication> 
 #include <QFile>
+#include <QTransform> 
 #include "scriptwidget.h" 
 #include "item.h" 
 
@@ -13,8 +14,22 @@ Item::Item(QGraphicsItem * i,QObject * parent):QObject(parent), item(i) { ; }
 QRectF Item::boundingRect() const         { return item->boundingRect(); } 
 void Item::scale(qreal sx, qreal sy)      { item->scale(sx,sy); } 
 void Item::scale(qreal x)                 { item->scale(x,x);  }
-void Item::rotate(qreal angle)            { item->rotate(angle);}
-void Item::translate(qreal dx, qreal dy)  { item->translate(dx,dy);}
+
+void Item::rotate(qreal angle)
+{
+  QTransform trans = item->transform(); 
+  trans.rotate(angle); 
+//item->rotate(angle);
+  item->setTransform(trans,true); 
+}
+void Item::translate(qreal dx, qreal dy)  
+{ 
+ //item->translate(dx,dy);
+  QTransform trans = item->transform(); 
+  trans.translate(dx,dy); 
+  item->setTransform(trans,true);
+}
+
 void Item::setPos(qreal x,qreal y)        { item->setPos(x,y);  }
 void Item::moveBy(qreal dx, qreal dy)     { item->moveBy(dx,dy);}
 void Item::resetTransform()               { item->resetTransform();}
