@@ -13,8 +13,8 @@ Some messages and comments are in my native language (Polish) and may
 or may not change in the future. 
 
 
-This program is licensed under version 2 of the GNU GPL License, or     
-(at your option) any later version.
+This program and all included resources are licensed under version 2 of the GNU GPL License, 
+or (at your option) any later version. 
 
 
 t.ziobrowski@3electrons.com
