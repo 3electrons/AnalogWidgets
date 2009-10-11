@@ -99,7 +99,7 @@ Chart::Chart(QWidget *parent)
    m_topBackgroundColor = QColor(0,0,150); 
    m_bottomBackgroundColor = Qt::black; 
    m_gridColor = QColor(40,40,180);
-   m_penColor = Qt::white; 
+
 }
 
 Chart::~Chart()
@@ -156,7 +156,6 @@ void Chart::paintEvent(QPaintEvent * /*event */)
    drawBackground();
    QPainter painter(this);
    //initCoordinateSystem(painter);
-   painter.setPen(m_penColor); 
  
    if (m_painterDecorator.get()) m_painterDecorator->paint(painter,this); 
    
@@ -432,11 +431,6 @@ QColor Chart::gridColor() const
 }
 
 
-QColor Chart::penColor() const 
-{
-  return m_penColor; 
-}
-
 
 void Chart::setAntialiasing(bool i)
 {
@@ -492,12 +486,6 @@ void Chart::setBottomBackgrounColor( const QColor & c)
 void Chart::setGridColor( const QColor & c) 
 {
   m_gridColor=c; 
-  updateWithBackground(); 
-}
-
-void Chart::setPenColor( const QColor & c) 
-{
-  m_penColor = c;    
   updateWithBackground(); 
 }
 
