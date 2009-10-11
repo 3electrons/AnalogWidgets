@@ -72,49 +72,49 @@
 
     void TestWidget::initialize()
     {
-	setupUi(this);
-	//setWindowTitle(QString("Program testowy dla AnalogWidgets"));
-	setWindowFlags(Qt::Window);
-  	setGeometry(50,50,400, 320);
+      setupUi(this);
+      //setWindowTitle(QString("Program testowy dla AnalogWidgets"));
+      setWindowFlags(Qt::Window);
+      setGeometry(50,50,400, 320);
 
         // Ustawianie LayOut'ów
-	QWidget * widget = stackedWidget->widget(0);
+        QWidget * widget = stackedWidget->widget(0);
         // Layout of stack 0 widget
-	WallClock * clock = new WallClock();
+        WallClock * clock = new WallClock();
         QVBoxLayout *v_layout = new QVBoxLayout;
         v_layout->addWidget(clock);
-	widget->setLayout(v_layout);
+        widget->setLayout(v_layout);
 
          // Layout of stack 1 widget - manometer
 
-	widget = stackedWidget->widget(1);
-	bar = new ManoMeter(widget);
-	bar->resize(120,120);
-	QLayout * layout = new QVBoxLayout();
+        widget = stackedWidget->widget(1);
+        bar = new ManoMeter(widget);
+        bar->resize(120,120);
+        QLayout * layout = new QVBoxLayout();
         layout->addWidget(bar);
- 	widget->setLayout(layout);
+        widget->setLayout(layout);
 
-	// Layout if stack 2 widget - thermometer
+        // Layout if stack 2 widget - thermometer
 
-	widget = stackedWidget->widget(2);
-	thermo = new ThermoMeter();
-	thermo->resize(10,100);
-	QLayout * layout2 = new QVBoxLayout();
-	layout2->addWidget(thermo);
-	widget->setLayout(layout2);
+        widget = stackedWidget->widget(2);
+        thermo = new ThermoMeter();
+        thermo->resize(10,100);
+        QLayout * layout2 = new QVBoxLayout();
+        layout2->addWidget(thermo);
+        widget->setLayout(layout2);
 
-	// Layout of - chart
-	widget = tabWidget->widget(1);
-	chart = new Chart();
-	QLayout * layout3 = new QVBoxLayout();
-	layout3->addWidget(chart);
+        // Layout of - chart
+        widget = tabWidget->widget(1);
+        chart = new Chart();
+        QLayout * layout3 = new QVBoxLayout();
+        layout3->addWidget(chart);
         QLayout * wert = new QHBoxLayout(); 
         wert->addWidget(chartPosition); 
         wert->addWidget(zoomBox); 
-	layout3->addItem(wert);
-	layout3->addWidget(sizeSlider);
-	layout3->addWidget(injCombo);
-	widget->setLayout(layout3);
+        layout3->addItem(wert);
+        layout3->addWidget(sizeSlider);
+        layout3->addWidget(injCombo);
+        widget->setLayout(layout3);
 
         
         layout = new QVBoxLayout(); 
@@ -132,31 +132,27 @@
          
         connect(HSlider,SIGNAL(valueChanged(int)),m_dial,SLOT(setValue(int))); 
         potentiometer_tab->setLayout(layout); 
- // za³adowanie listy wtrysków do CobmboBox'a
+        // za³adowanie listy wtrysków do CobmboBox'a
         QDir dir("wtr");
         dir.setFilter(QDir::Files);
-	dir.setSorting(QDir::Name);
+        dir.setSorting(QDir::Name);
         dir.setNameFilters ( QStringList(QString("*.wtr")) );
-	injCombo->addItems(dir.entryList());
-
+        injCombo->addItems(dir.entryList());
         
-
-
-//
- 	//connect(HSlider,SIGNAL(valueChanged(int)),bar,SLOT(setValue(int)));
+        //connect(HSlider,SIGNAL(valueChanged(int)),bar,SLOT(setValue(int)));
         //connect(spinBox,SIGNAL(valueChanged(int)),bar,SLOT(setValue(int)));
-	connect(spinBox,SIGNAL(valueChanged(int)),this,SLOT(SpinBoxValueChanged(int)));
-	connect(comboBox,SIGNAL(activated(int)),this,SLOT(ComboBoxChoiceChanged(int)));
-	connect(pushButton,SIGNAL(clicked(void)),this,SLOT(WidgetTest(void)));
-	connect(chartPosition,SIGNAL(valueChanged(int)),this,SLOT(movePosition(int)));
-	connect(sizeSlider,SIGNAL(sliderMoved(int)),this,SLOT(setSize(int)));
-	connect(injCombo, SIGNAL(activated( const QString & )), this,SLOT(loadInjection(const QString& ))) ;
-	connect(zoomBox,SIGNAL(valueChanged(double)),chart,SLOT(setZoom(double))); 
-	HSlider->setMaximum(1000);
-	HSlider->setMinimum(-1000);
-	spinBox->setMaximum(1000);
-	spinBox->setMinimum(-1000);
-	ComboBoxChoiceChanged(comboBox->currentIndex());
+        connect(spinBox,SIGNAL(valueChanged(int)),this,SLOT(SpinBoxValueChanged(int)));
+        connect(comboBox,SIGNAL(activated(int)),this,SLOT(ComboBoxChoiceChanged(int)));
+        connect(pushButton,SIGNAL(clicked(void)),this,SLOT(WidgetTest(void)));
+        connect(chartPosition,SIGNAL(valueChanged(int)),this,SLOT(movePosition(int)));
+        connect(sizeSlider,SIGNAL(sliderMoved(int)),this,SLOT(setSize(int)));
+        connect(injCombo, SIGNAL(activated( const QString & )), this,SLOT(loadInjection(const QString& ))) ;
+        connect(zoomBox,SIGNAL(valueChanged(double)),chart,SLOT(setZoom(double))); 
+        HSlider->setMaximum(1000);
+        HSlider->setMinimum(-1000);
+        spinBox->setMaximum(1000);
+        spinBox->setMinimum(-1000);
+        ComboBoxChoiceChanged(comboBox->currentIndex());
 
     }
     

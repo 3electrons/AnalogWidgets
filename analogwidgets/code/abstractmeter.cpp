@@ -37,7 +37,7 @@ AbstractMeter::AbstractMeter(QWidget * parent )
 
 bool AbstractMeter::calcMaxMin()
 {
- return range(m_minimum,m_maximum,m_min,m_max,8); 
+ return range(m_minimum,m_maximum,m_min,m_max,8,true); 
 }
 
 void AbstractMeter::setValue( double val )

@@ -3682,6 +3682,16 @@
      id="layer1"
      transform="translate(1092.694,601.24773)">
     <rect
+       style="opacity:1;fill:#808080;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.38996887;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0"
+       id="rect8032"
+       width="1334.855"
+       height="1105.6953"
+       x="-1141.256"
+       y="-650.80939"
+       inkscape:export-filename="/home/coder/Projekty/3electorns/AnalogWidgets/resources/dials.png"
+       inkscape:export-xdpi="53.641476"
+       inkscape:export-ydpi="53.641476" />
+    <rect
        style="fill:none;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.71964025;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect4456"
        width="394.28574"
@@ -3728,7 +3738,10 @@
        style="fill:none;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.71964025;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     <g
        id="g7359"
-       transform="translate(1895.4439,1174.0863)">
+       transform="translate(1895.4439,1174.0863)"
+       inkscape:export-filename="/home/coder/Projekty/3electorns/AnalogWidgets/resources/dials.png"
+       inkscape:export-xdpi="53.641476"
+       inkscape:export-ydpi="53.641476">
       <g
          id="g7202"
          transform="matrix(0.8598167,0,0,0.8598167,428.32231,-379.91446)">
@@ -3868,9 +3881,9 @@
     <g
        id="g18470"
        transform="matrix(1.2000017,0,0,1.2000017,-476.09047,-1155.472)"
-       inkscape:export-filename="/home/coder/Zegary/g18390.png"
-       inkscape:export-xdpi="88.235336"
-       inkscape:export-ydpi="88.235336">
+       inkscape:export-filename="/home/coder/Projekty/3electorns/AnalogWidgets/resources/dials.png"
+       inkscape:export-xdpi="53.641476"
+       inkscape:export-ydpi="53.641476">
       <path
          transform="matrix(-0.171346,-0.463115,0.463115,-0.171346,289.9836,838.7661)"
          d="M 651.42856,385.21933 A 250,250 0 1 1 151.42856,385.21933 A 250,250 0 1 1 651.42856,385.21933 z"
@@ -3940,7 +3953,10 @@
     </g>
     <g
        id="g7829"
-       transform="translate(-209.28574,-94.331419)">
+       transform="translate(-209.28574,-94.331419)"
+       inkscape:export-filename="/home/coder/Projekty/3electorns/AnalogWidgets/resources/dials.png"
+       inkscape:export-xdpi="53.641476"
+       inkscape:export-ydpi="53.641476">
       <path
          transform="matrix(0,2.6417233,-2.6417233,0,1707.9556,-344.58262)"
          d="M 287.51073,566.00861 A 56.781116,56.781116 0 1 1 173.9485,566.00861 A 56.781116,56.781116 0 1 1 287.51073,566.00861 z"
@@ -4289,7 +4305,10 @@
     </g>
     <g
        id="g7008"
-       transform="matrix(0.9015801,0,0,0.9015801,1455.0342,794.19027)">
+       transform="matrix(0.9015801,0,0,0.9015801,1455.0342,794.19027)"
+       inkscape:export-filename="/home/coder/Projekty/3electorns/AnalogWidgets/resources/dials.png"
+       inkscape:export-xdpi="53.641476"
+       inkscape:export-ydpi="53.641476">
       <g
          transform="translate(-2432.6699,-529.67832)"
          id="g6039">
@@ -4367,7 +4386,10 @@
     </g>
     <g
        id="g6547"
-       transform="matrix(0.8598167,0,0,0.8598167,1378.1943,484.69459)">
+       transform="matrix(0.8598167,0,0,0.8598167,1378.1943,484.69459)"
+       inkscape:export-filename="/home/coder/Projekty/3electorns/AnalogWidgets/resources/dials.png"
+       inkscape:export-xdpi="53.641476"
+       inkscape:export-ydpi="53.641476">
       <g
          transform="translate(-0.6441188,0)"
          id="g6526">
@@ -4510,9 +4532,9 @@
     <g
        id="g2337"
        transform="matrix(1.3288641,0,0,1.3288641,-265.55668,-433.41769)"
-       inkscape:export-filename="/home/coder/Zegary/g18390.png"
-       inkscape:export-xdpi="88.235336"
-       inkscape:export-ydpi="88.235336">
+       inkscape:export-filename="/home/coder/Projekty/3electorns/AnalogWidgets/resources/dials.png"
+       inkscape:export-xdpi="53.641476"
+       inkscape:export-ydpi="53.641476">
       <path
          transform="matrix(-0.15473,-0.418206,0.418206,-0.15473,-608.549,682.029)"
          d="M 651.42856,385.21933 A 250,250 0 1 1 151.42856,385.21933 A 250,250 0 1 1 651.42856,385.21933 z"
@@ -4757,7 +4779,10 @@
     </g>
     <g
        id="g5630"
-       transform="matrix(0.9015801,0,0,0.9015801,248.11689,267.82209)">
+       transform="matrix(0.9015801,0,0,0.9015801,248.11689,267.82209)"
+       inkscape:export-filename="/home/coder/Projekty/3electorns/AnalogWidgets/resources/dials.png"
+       inkscape:export-xdpi="53.641476"
+       inkscape:export-ydpi="53.641476">
       <g
          transform="translate(-762.78324,-798.09596)"
          id="g5500">
@@ -5003,7 +5028,10 @@
     </g>
     <g
        id="g6878"
-       transform="matrix(0.9015801,0,0,0.9015801,1737.9603,140.30708)">
+       transform="matrix(0.9015801,0,0,0.9015801,1737.9603,140.30708)"
+       inkscape:export-filename="/home/coder/Projekty/3electorns/AnalogWidgets/resources/dials.png"
+       inkscape:export-xdpi="53.641476"
+       inkscape:export-ydpi="53.641476">
       <g
          transform="translate(-357.59399,-36.365555)"
          id="g6684">
@@ -5319,9 +5347,9 @@
     <g
        id="g18180"
        transform="matrix(1.2000017,0,0,1.2000017,-479.96286,-539.97763)"
-       inkscape:export-filename="/home/coder/Zegary/g18390.png"
-       inkscape:export-xdpi="88.235336"
-       inkscape:export-ydpi="88.235336">
+       inkscape:export-filename="/home/coder/Projekty/3electorns/AnalogWidgets/resources/dials.png"
+       inkscape:export-xdpi="53.641476"
+       inkscape:export-ydpi="53.641476">
       <path
          transform="matrix(-0.171346,-0.463115,0.463115,-0.171346,29.20776,844.0687)"
          d="M 651.42856,385.21933 A 250,250 0 1 1 151.42856,385.21933 A 250,250 0 1 1 651.42856,385.21933 z"
@@ -5565,7 +5593,10 @@
     </g>
     <g
        id="g7378"
-       transform="translate(2068.4816,1167.6409)">
+       transform="translate(2068.4816,1167.6409)"
+       inkscape:export-filename="/home/coder/Projekty/3electorns/AnalogWidgets/resources/dials.png"
+       inkscape:export-xdpi="53.641476"
+       inkscape:export-ydpi="53.641476">
       <g
          transform="translate(7.2505839,45.053834)"
          id="g7045">
@@ -5635,7 +5666,10 @@
     </g>
     <g
        id="g7389"
-       transform="translate(1710.3378,868.82758)">
+       transform="translate(1710.3378,868.82758)"
+       inkscape:export-filename="/home/coder/Projekty/3electorns/AnalogWidgets/resources/dials.png"
+       inkscape:export-xdpi="53.641476"
+       inkscape:export-ydpi="53.641476">
       <g
          transform="translate(-4.6057013,23.272434)"
          id="g7051">
@@ -5706,8 +5740,9 @@
     <g
        id="g18390"
        transform="matrix(1.2000017,0,0,1.2000017,-502.23612,-207.2906)"
-       inkscape:export-xdpi="88.235336"
-       inkscape:export-ydpi="88.235336">
+       inkscape:export-xdpi="53.641476"
+       inkscape:export-ydpi="53.641476"
+       inkscape:export-filename="/home/coder/Projekty/3electorns/AnalogWidgets/resources/dials.png">
       <path
          transform="matrix(-0.171346,-0.463115,0.463115,-0.171346,-214.4483,566.8299)"
          d="M 651.42856,385.21933 A 250,250 0 1 1 151.42856,385.21933 A 250,250 0 1 1 651.42856,385.21933 z"
@@ -5775,5 +5810,18 @@
            sodipodi:type="arc" />
       </g>
     </g>
+    <text
+       xml:space="preserve"
+       style="font-size:75.79698944px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="-946.79285"
+       y="409.63852"
+       id="text8028"
+       inkscape:export-filename="/home/coder/Projekty/3electorns/AnalogWidgets/resources/dials.png"
+       inkscape:export-xdpi="53.641476"
+       inkscape:export-ydpi="53.641476"><tspan
+         sodipodi:role="line"
+         id="tspan8030"
+         x="-946.79285"
+         y="409.63852">Those are resources only</tspan></text>
   </g>
 </svg>

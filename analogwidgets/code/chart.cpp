@@ -112,6 +112,18 @@ void Chart::addChannel(Channel & channel)
   updateWithBackground();
 }
 
+void Chart::paintOn(QPainter & painter)
+{
+  if (m_painterDecorator.get()) 
+  {
+     m_modified = true; 
+     m_isPaintOver = true; 
+     m_painterDecorator->paint(painter,this); 
+     m_modified = false; 
+     m_painterDecorator->paint(painter,this); 
+  }
+}
+
 
 //
 //      private
@@ -143,7 +155,9 @@ void Chart::paintEvent(QPaintEvent * /*event */)
    drawBackground();
    QPainter painter(this);
    //initCoordinateSystem(painter);
-   if (m_painterDecorator.get()) m_painterDecorator->paint(painter,this);
+   
+   if (m_painterDecorator.get()) m_painterDecorator->paint(painter,this); 
+   
    if (!m_isPaintOver) timer->start();
    m_isPaintOver = false;
    paintCursorPosition(painter); 

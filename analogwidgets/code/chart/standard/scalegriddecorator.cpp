@@ -75,7 +75,7 @@ void ScalesGridDecorator::paint (QPainter & painter, Chart * chart)
   }
   //  painter.restore(); 
   ChartDecorator::paint(painter,chart);
- 
+ // painter.restore();
 }
 
 void ScalesGridDecorator::absPosition(QPoint & pos, QPolygonF & absPoints, Chart * chart,QRect & clip)
@@ -100,7 +100,6 @@ void ScalesGridDecorator::paintBackground(QPainter &painter, Chart * chart)
   painter.drawRect(0,0,chart->width(),chart->height());
 }
 
-
 #define XFONT_DISTANCE 7
 #define YFONT_DISTANCE 2.5
 void ScalesGridDecorator::paintYScale(QPainter & painter, Chart * chart)
@@ -123,8 +122,7 @@ void ScalesGridDecorator::paintYScale(QPainter & painter, Chart * chart)
 
   Channels & channels = chart->channels();
   Channels::iterator i=channels.begin();
-  
-  
+    
   if( !channels.empty() )
     while (i!=channels.end())
     {
