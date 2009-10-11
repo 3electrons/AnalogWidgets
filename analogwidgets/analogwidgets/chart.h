@@ -135,7 +135,7 @@ typedef  vector<chart::Channel> Channels;
         QColor topBackgroundColor() const; 
         QColor bottomBackgroundColor() const; 
         QColor gridColor() const; 
-        
+        QColor penColor() const; 
 
      	  /** Build context menu */ 
       	QMenu * contextMenu(); 
@@ -172,8 +172,9 @@ typedef  vector<chart::Channel> Channels;
         
         void setTopBackgroundColor(const QColor &c);
         void setBottomBackgrounColor(const QColor &c);
-        void setGridColor(const QColor & c); 
-      	void setZoom(double factor);
+        void setGridColor(const QColor & c);
+	void setPenColor(const QColor & c); 
+     	void setZoom(double factor);
 
       signals: 
         void sizeChanged(int i); 
@@ -225,7 +226,8 @@ typedef  vector<chart::Channel> Channels;
 
         QColor m_topBackgroundColor; 
         QColor m_bottomBackgroundColor; 
-        QColor m_gridColor; 
+        QColor m_gridColor;
+	QColor m_penColor; 
     };// class Chart 
 
 
