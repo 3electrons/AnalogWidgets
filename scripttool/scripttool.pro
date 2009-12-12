@@ -17,6 +17,12 @@ TARGETDEPS += ../analogwidgets/libanalogwidgets.a
 LIBS += ../analogwidgets/libanalogwidgets.a  
 }
 
+
+win32-msvc*:{
+ TARGETDEPS += ../analogwidgets/analogwidgets.lib
+ LIBS += ../analogwidgets/analogwidgets.lib
+}
+
 wince*:{
  TARGETDEPS += ../analogwidgets/analogwidgets.lib
  LIBS += ../analogwidgets/analogwidgets.lib

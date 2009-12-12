@@ -28,21 +28,12 @@ win32-g++ {
 }
 
 
-win32-msvc.net {
+win32-msvc2008 {
  # Target platform - Windows VISUAL STUDIO 2003 .NET
  # Pentium-Pro / PII / PIII - Windows Application optimalization
  QMAKE_CXXFLAGS_RELEASE  += /G6 /GA /arch:SSE 
- QMAKE_LFLAGS_RELEASE    += /LIBPATH:"C:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\lib"  \
-                            /LIBPATH:"C:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\PlatformSDK\Lib"
- INCLUDEPATH+= "C:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\include" 
+ QMAKE_LFLAGS_RELEASE    += 
+ INCLUDEPATH+=
 }
 
 
-win32-cross-g++ {
-  QMAKE_CXXFLAGS_RELEASE = -march=i686 -Os -Wall
-}
-
-
-win32-wine-g++ {
-  QMAKE_CXXFLAGS_RELEASE = -march=i686 -Os -Wall 
-}
