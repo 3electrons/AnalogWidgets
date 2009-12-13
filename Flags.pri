@@ -31,7 +31,7 @@ win32-g++ {
 win32-msvc2008 {
  # Target platform - Windows VISUAL STUDIO 2003 .NET
  # Pentium-Pro / PII / PIII - Windows Application optimalization
- QMAKE_CXXFLAGS_RELEASE  += /G6 /GA /arch:SSE 
+ QMAKE_CXXFLAGS_RELEASE  += /O2 /Ot /GA /arch:SSE2 
  QMAKE_LFLAGS_RELEASE    += 
  INCLUDEPATH+=
 }
