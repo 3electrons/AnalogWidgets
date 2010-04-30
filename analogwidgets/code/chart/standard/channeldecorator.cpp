@@ -150,7 +150,7 @@ void ChannelDecorator::paintChannel ( QPainter & painter, Chart * /*chart*/, Cha
 
         bool xvector = anyVector ( old_x,current_x );
         bool yvector = anyVector ( old_y,current_y );
-        bool vector = xvector||yvector;
+        //bool vector = xvector||yvector;
         bool oldInWindow = painter.window().contains ( old_x,old_y );
         bool newInWindow = painter.window().contains ( current_x,current_y );
         if ( channel.type() == Channel::Line )

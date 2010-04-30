@@ -38,7 +38,7 @@ void BitmapButton::setDownIcon(const QIcon & icon)
   m_downIcon = icon; 
 }
 
-void BitmapButton::paintEvent ( QPaintEvent * event )
+void BitmapButton::paintEvent ( QPaintEvent *  )
 {
   QPainter painter(this);
    QIcon * p_icon = NULL;  

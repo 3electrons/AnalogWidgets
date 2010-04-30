@@ -275,7 +275,7 @@
            //cout<<buffer<<endl;
          }
  */
-	double pos,vel,p1,p2,p3;
+        double /*pos, vel,*/p1,p2,p3;
 	times.clear(); // vint
 //	velocity.clear(); // vint
  	press1.clear(); // vint;
