@@ -49,9 +49,11 @@
     	void ComboBoxChoiceChanged(int index );
         void SpinBoxValueChanged(int val);
 	void WidgetTest();
+        void tabChange(int i);
 	void movePosition(int val);
 	void setSize(int val);
 	void loadInjection(const QString &  file );
+
 
     private:
 	/** Gdy zamykane jest okno */

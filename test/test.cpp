@@ -26,6 +26,9 @@
     #include <QSlider>
     #include <QString>
     #include <QTimer>
+#include <QFile>
+#include <QTextStream>
+
 
     #include "manometer.h"
     #include "wallclock.h"
@@ -89,6 +92,7 @@
 
         widget = stackedWidget->widget(1);
         bar = new ManoMeter(widget);
+        bar->setValueFont(font()); // bar->digitFont());
         bar->resize(120,120);
         QLayout * layout = new QVBoxLayout();
         layout->addWidget(bar);
@@ -104,7 +108,7 @@
         widget->setLayout(layout2);
 
         // Layout of - chart
-        widget = tabWidget->widget(1);
+        widget = stackedWidget->widget(5);
         chart = new Chart();
         QLayout * layout3 = new QVBoxLayout();
         layout3->addWidget(chart);
@@ -133,7 +137,7 @@
         connect(HSlider,SIGNAL(valueChanged(int)),m_dial,SLOT(setValue(int))); 
         potentiometer_tab->setLayout(layout); 
         // za³adowanie listy wtrysków do CobmboBox'a
-        QDir dir("wtr");
+        QDir dir(":/test/wtr");
         dir.setFilter(QDir::Files);
         dir.setSorting(QDir::Name);
         dir.setNameFilters ( QStringList(QString("*.wtr")) );
@@ -153,6 +157,8 @@
         spinBox->setMaximum(1000);
         spinBox->setMinimum(-1000);
         ComboBoxChoiceChanged(comboBox->currentIndex());
+
+        connect(stackedWidget,SIGNAL(currentChanged(int)),this,SLOT(tabChange(int)));
 
     }
     
@@ -251,6 +257,11 @@
 	tester->start();
     }
 
+    void TestWidget::tabChange(int i)
+    {
+        frame->setVisible(i!=5);
+    }
+
     void TestWidget::connections()
     {
 
@@ -259,13 +270,13 @@
 
   void TestWidget::loadInjection(const QString &  file )
     {
-        
-      
-        char buffer[1024];
-	std::string f("wtr/");
-	 f+=file.toLocal8Bit().data() ;
-	fstream filein(f.data());
-        if (!filein.good())
+
+
+        QString f(":/test/wtr/");
+
+         f+=file;
+        QFile filein(f);
+        if (!filein.open(QFile::ReadOnly))
           qDebug("Nie udane otwarcie pliku: %s",qPrintable(file)); 
          
 
@@ -283,16 +294,20 @@
 	press3.clear();
 //	position.clear(); //lpair
         int time = 0;
-        while (!filein.eof())
+
+        QTextStream stream(&filein);
+
+        while (!filein.atEnd())
         {
-  //        filein>>pos;
-          filein>>p3;
-          filein>>p1;
-          filein>>p2;
-	  filein.getline(buffer,1023,'\n'); // eat rest of the line 
+          ///stream>>pos;
+          stream>>p3;
+          stream>>p1;
+          stream>>p2;
+          //qDebug("Strem %f,%f,%f",p1,p2,p3);
+          stream.readLine() ; // getline(buffer,1023,'\n'); // eat rest of the line
     //      filein>>vel;
           times.push_back(time);
-      //    position.push_back( pair<double,double>(time,pos));
+         // position.push_back( pair<double,double>(time,pos));
 	//  velocity.push_back((int)vel);
 	  press1.push_back((int)p1);
 	  press2.push_back((int)p2);
