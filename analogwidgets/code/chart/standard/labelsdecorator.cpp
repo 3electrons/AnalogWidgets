@@ -25,7 +25,7 @@
 **************************************************************************/
 
 #include "chart/standard/labelsdecorator.h"
-#include "chart.h"
+#include "chart/chart.h"
 
 using namespace Standard;
 

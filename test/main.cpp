@@ -33,16 +33,15 @@
 
 
     #ifdef Q_WS_S60
-        //QFont f = window.font();
-        f.setPixelSize(12);
-        widget.setFont(f);
+       // QFont f = window.font();
+       // f.setPixelSize(12);
+        //widget.setFont(f);
         widget.showFullScreen();
         //widget.showMaximized();
     #else 
         widget.resize(240,300);
         widget.show();
     #endif
-
 
        // app.connect( &app, SIGNAL( lastWindowClosed() ), &app, SLOT( quit() ) );
         return app.exec();

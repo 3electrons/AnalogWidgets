@@ -7,6 +7,12 @@
 
 include (../Flags.pri)  
 
+symbia{
+TARGETDEPS += ../analogwidgets/libanalogwidgets.a 
+LIBS += ../analogwidgets/libanalogwidgets.a  
+}
+
+
 unix{
 TARGETDEPS += ../analogwidgets/libanalogwidgets.a 
 LIBS += ../analogwidgets/libanalogwidgets.a  

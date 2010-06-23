@@ -26,7 +26,7 @@
 #include <QtGui>
 // #include <iostream>
 #include "chart/standard/scalegriddecorator.h"
-#include "chart.h"
+#include "chart/chart.h"
 #include "functions.h"
 
 #define ACCURACY 0.000001 
