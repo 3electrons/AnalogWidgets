@@ -52,7 +52,10 @@ SOURCES += chart/scalegrid.cpp \
 	   
 # Plik utworzony przez menad?era projektów kdevelopa
 #QT += xml svg script designer 
-INCLUDEPATH += ../analogwidgets
+INCLUDEPATH += .. \ 
+               ../analogwidgets 
+
+	       
 include (../../Flags.pri )
 OBJECTS_DIR = ../objects
 TARGET = analogwidgets

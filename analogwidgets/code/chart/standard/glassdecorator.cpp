@@ -25,7 +25,7 @@
 **************************************************************************/
 #include <QtGui>
 #include "chart/standard/glassdecorator.h"
-#include "chart/chart.h"
+#include "chart.h"
 
 using namespace Standard;
 
