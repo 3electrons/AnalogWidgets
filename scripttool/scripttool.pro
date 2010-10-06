@@ -8,23 +8,23 @@
 include (../Flags.pri)  
 
 unix:{             
-TARGETDEPS += ../analogwidgets/libanalogwidgets.a 
+POST_TARGETDEPS += ../analogwidgets/libanalogwidgets.a 
 LIBS += ../analogwidgets/libanalogwidgets.a  
 }
 
 win32-g++:{             
-TARGETDEPS += ../analogwidgets/libanalogwidgets.a 
+POST_TARGETDEPS += ../analogwidgets/libanalogwidgets.a 
 LIBS += ../analogwidgets/libanalogwidgets.a  
 }
 
 
 win32-msvc*:{
- TARGETDEPS += ../analogwidgets/analogwidgets.lib
+ POST_TARGETDEPS += ../analogwidgets/analogwidgets.lib
  LIBS += ../analogwidgets/analogwidgets.lib
 }
 
 wince*:{
- TARGETDEPS += ../analogwidgets/analogwidgets.lib
+ POST_TARGETDEPS += ../analogwidgets/analogwidgets.lib
  LIBS += ../analogwidgets/analogwidgets.lib
 }
              

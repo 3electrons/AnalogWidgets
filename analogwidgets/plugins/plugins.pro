@@ -32,23 +32,23 @@ SOURCES += analogwidgets_plugin.cpp \
 
 
 unix:{             
-TARGETDEPS += ../libanalogwidgets.a 
+POST_TARGETDEPS += ../libanalogwidgets.a 
 LIBS += ../libanalogwidgets.a  
 }
 
 win32-g++:{             
-TARGETDEPS += ../libanalogwidgets.a 
+POST_TARGETDEPS += ../libanalogwidgets.a 
 LIBS += ../libanalogwidgets.a  
 }
 
 
 win32-msvc*:{
- TARGETDEPS += ../analogwidgets.lib
+ POST_TARGETDEPS += ../analogwidgets.lib
  LIBS += ../analogwidgets.lib
 }
 
 wince*:{
- TARGETDEPS += ../analogwidgets.lib
+ POST_TARGETDEPS += ../analogwidgets.lib
  LIBS += ../analogwidgets.lib
 }
 
