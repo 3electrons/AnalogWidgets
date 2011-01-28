@@ -226,9 +226,10 @@ class DoubleDataContainer : public ChannelData
     
     typename type2::iterator yi = m_ycontainer.begin();   
 
-    while (xi!=m_xcontainer.begin())
-    { xi--; yi++; } 
-    yi++; 
+    while (xi!=m_xcontainer.begin() && yi!=m_ycontainer.end())
+    { xi--; yi++; }
+    if (yi!=m_ycontainer.end())
+     yi++;
     Q_ASSERT(yi!=m_ycontainer.end());
     return pair<double,double>(*xi,*yi); 
   }
