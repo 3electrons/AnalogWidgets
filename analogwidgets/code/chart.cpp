@@ -107,6 +107,7 @@ Chart::~Chart()
   if (timer) delete timer;
   timer = NULL;
 }
+
 void Chart::addChannel(Channel & channel)
 {
   m_channels.push_back(channel);

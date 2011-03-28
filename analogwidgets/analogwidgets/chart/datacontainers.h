@@ -74,28 +74,60 @@ class PairDataContainer : public ChannelData
   }
   
   
-  bool maxX(double &) 
+  bool maxX(double & max)
   {
-    // @TODO Ta funkcja musi zostaæ napisana ...  return pair<double,double>(0,0); 
-     return false; 
+      init();
+      double x,y;
+      next(x,y);
+      max=x;
+      while (next(x,y))
+      {
+          if (x > max)
+               max = x;
+      }
+     return true;
   }
   
-  bool minX(double &) 
+  bool minX(double & min)
   {
-    // @TODO Ta funkcja musi zostaæ napisana ...  return pair<double,double>(0,0); 
-         return false; 
+      init();
+      double x,y;
+      next(x,y);
+      min=x;
+      while (next(x,y))
+      {
+          if (x < min)
+               min = x;
+      }
+      return true;
   }
   
-  bool maxY(double &)
+  bool maxY(double &max )
   {
-    // @TODO Ta funkcja musi zostaæ napisana ...  return pair<double,double>(0,0); 
-         return false; 
+      init();
+      double x,y;
+      next(x,y);
+      max=y;
+      while (next(x,y))
+      {
+          if (y > max)
+               max = y;
+      }
+      return true;
   }
   
-  bool minY(double &)
+  bool minY(double & min)
   {
-    // @TODO Ta funkcja musi zostaæ napisana ...  return pair<double,double>(0,0); 
-         return false; 
+      init();
+      double x,y;
+      next(x,y);
+      min=y;
+      while (next(x,y))
+      {
+          if (y < min)
+               min = y;
+      }
+      return true;
   }
 
   int size()
