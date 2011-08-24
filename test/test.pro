@@ -44,7 +44,9 @@ OBJECTS_DIR = ../objects
 
 CONFIG += release \
           warn_on 
-TEMPLATE = app 
+TEMPLATE = app
+TARGET = test
+
 RESOURCES += test.qrc 
 FORMS += testform.ui
 DESTDIR=../test 

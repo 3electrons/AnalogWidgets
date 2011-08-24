@@ -5,8 +5,8 @@ linux-g++ {
  # Development machine 
  
  #QMAKE_CXX = distcc  
- QMAKE_CXXFLAGS_RELEASE  = -g3 -Wall -pg 
- #QMAKE_CXXFLAGS_RELEASE = -march=core2 -O3 -pipe -mfpmath=sse -Wall
+ #QMAKE_CXXFLAGS_RELEASE  = -g3 -Wall -pg 
+ QMAKE_CXXFLAGS_RELEASE = -march=core2 -O3 -pipe -mfpmath=sse -Wall
  QMAKE_LFLAGS_RELEASE    =
  
  INSTALL_INCLUDEDIR = /usr/include
