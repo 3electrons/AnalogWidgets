@@ -3,11 +3,9 @@
 # Podkatalog wzgl?dem g?ównego katalogu projektu: ./test
 # Cel to program:  
 
-
-
 include (../Flags.pri)  
 
-symbia{
+symbian{
 POST_TARGETDEPS += ../analogwidgets/libanalogwidgets.a 
 LIBS += ../analogwidgets/libanalogwidgets.a  
 }

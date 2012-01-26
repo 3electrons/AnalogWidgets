@@ -1,5 +1,5 @@
 
-QT+= xml svg script 
+QT+= xml svg script gui # widgets Qt5 
 
 linux-g++ {
  # Development machine 
@@ -11,7 +11,7 @@ linux-g++ {
  
  INSTALL_INCLUDEDIR = /usr/include
  INSTALL_LIBDIR     = /usr/lib 
- 
+
 }
 
 win32-g++ {

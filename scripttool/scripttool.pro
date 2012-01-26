@@ -4,7 +4,6 @@
 # Cel to program:  
 
 
-
 include (../Flags.pri)  
 
 unix:{             

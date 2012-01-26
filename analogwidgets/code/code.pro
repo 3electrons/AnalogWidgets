@@ -51,7 +51,9 @@ SOURCES += chart/scalegrid.cpp \
 	   potentiometer.cpp 
 	   
 # Plik utworzony przez menad?era projektów kdevelopa
-#QT += xml svg script designer 
+
+
+
 INCLUDEPATH += .. \ 
                ../analogwidgets 
 

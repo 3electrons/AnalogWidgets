@@ -4,6 +4,6 @@
 
 TEMPLATE    = subdirs
 CONFIG     += ordered 
-SUBDIRS     =  #code
-               #plugins
+SUBDIRS     =  code
+#               plugins
 
