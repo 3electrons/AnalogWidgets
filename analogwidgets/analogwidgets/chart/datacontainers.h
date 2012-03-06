@@ -228,12 +228,14 @@ class DoubleDataContainer : public ChannelData
 
   bool maxY(double & y) 
   {
+
     typename type2::iterator i = max_element(m_ycontainer.begin(),m_ycontainer.end());
-    if (i!=m_ycontainer.end()) 
-    { 
-      y = *i; 
-      return true; 
+    if (i!=m_ycontainer.end())
+    {
+        y = *i;
+        return true;
     }
+
     return false;
   }
 
