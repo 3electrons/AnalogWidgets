@@ -79,6 +79,9 @@ class Chart :  public WidgetWithBackground
     
     /** Add channel with data */
     void addChannel(Channel & channel);
+
+    /** Delete all object from Channels */
+    void deleteChannelsData();
     
     void paintOn(QPainter & painter); 
     

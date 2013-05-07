@@ -114,6 +114,14 @@ void Chart::addChannel(Channel & channel)
   updateWithBackground();
 }
 
+
+void Chart::deleteChannelsData()
+{
+    for (unsigned int i = 0 ; i < m_channels.size() ; i++)
+        delete m_channels[i].data();
+}
+
+
 void Chart::paintOn(QPainter & painter)
 {
   if (m_painterDecorator.get()) 
