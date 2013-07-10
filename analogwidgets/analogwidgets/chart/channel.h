@@ -55,10 +55,10 @@ public:
   
   ~Channel(); 
   
-   void setPen(QPen & pen);
+   void setPen(const QPen & pen);
    QPen pen() const; 
    
-   void setName(QString & name); 
+   void setName(const QString & name);
    QString name() const; 
   
    /** Zwraca wska¼nik do "pojemnika" z danymi */ 

@@ -57,7 +57,7 @@ Channel::~Channel()
  ; //   delete m_data;  
 }
 
-void Channel::setPen(QPen & pen) 
+void Channel::setPen(const QPen & pen)
 {
   m_pen = pen;
 }
@@ -67,7 +67,7 @@ QPen Channel::pen() const
   return m_pen; 
 }
    
-void Channel::setName(QString & name)
+void Channel::setName(const QString & name)
 {
   m_name = name;  
 }
