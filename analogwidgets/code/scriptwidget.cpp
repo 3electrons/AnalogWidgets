@@ -12,8 +12,8 @@
 
 Item::Item(QGraphicsItem * i,QObject * parent):QObject(parent), item(i) { ; }
 QRectF Item::boundingRect() const         { return item->boundingRect(); } 
-void Item::scale(qreal sx, qreal sy)      { item->scale(sx,sy); } 
-void Item::scale(qreal x)                 { item->scale(x,x);  }
+//void Item::scale(qreal sx, qreal sy)      { item->setScale(sx,sy); } 
+void Item::scale(qreal x)                 { item->setScale(x);  }
 
 void Item::rotate(qreal angle)
 {

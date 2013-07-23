@@ -34,7 +34,7 @@ class Item: public QObject
     QRectF boundingRect() const; 
     
   public slots:
-    void scale(qreal sx, qreal sy);
+    //void scale(qreal sx, qreal sy);
     void scale(qreal x);
     void rotate(qreal angle);
     void translate(qreal dx, qreal dy);
