@@ -281,7 +281,7 @@ void ScalesGridDecorator::paintYGrid(QPainter & painter, Chart * chart)
   unsigned int ySubSteps = 1;
   double       length    = yScaleWidth;
 
-  if ( chart->scaleGrid().showGrid & ySubSteps)
+  if ( chart->scaleGrid().showGrid && ySubSteps)
    {
       length = chart->width();
       ySubSteps = chart->scaleGrid().m_ySubMesh + 1;
