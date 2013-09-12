@@ -28,6 +28,12 @@ BitmapButton::BitmapButton(QWidget * parent):QAbstractButton(parent)
 {
 }
 
+BitmapButton::~BitmapButton()
+{
+   ;
+}
+
+
 QIcon BitmapButton::downIcon() const 
 {
   return m_downIcon; 

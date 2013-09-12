@@ -35,7 +35,8 @@ class BitmapButton: public QAbstractButton
   Q_PROPERTY (QIcon downIcon READ downIcon WRITE setDownIcon)    
 
   public:
-      BitmapButton(QWidget * parent = 0); 
+      BitmapButton(QWidget * parent = 0);
+      ~BitmapButton(); 
       QIcon downIcon() const ;
       void setDownIcon(const QIcon & icon);
 
