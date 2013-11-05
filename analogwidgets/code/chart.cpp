@@ -574,7 +574,7 @@ QMenu * Chart::contextMenu()
   a->setCheckable(true);
   a->setChecked(antialiasing());
   connect(a,SIGNAL(toggled(bool)),this,SLOT(setAntialiasing(bool))); 
-  
+  menu->addActions(actions());
   return menu; 
 }
 
