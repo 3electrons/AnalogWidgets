@@ -53,8 +53,12 @@ class Chart :  public WidgetWithBackground
   Q_PROPERTY ( int yMesh        READ yMesh        WRITE setYMesh         )
   Q_PROPERTY ( int xSubMesh     READ xSubMesh     WRITE setXSubMesh      )
   Q_PROPERTY ( int ySubMesh     READ ySubMesh     WRITE setYSubMesh      )
-  
-  
+
+  Q_PROPERTY ( QColor topBackgroundColor READ topBackgroundColor WRITE setTopBackgroundColor )
+  Q_PROPERTY ( QColor bottomBackgroundColor READ bottomBackgroundColor WRITE setBottomBackgrounColor )
+  Q_PROPERTY ( QColor gridColor READ gridColor WRITE setGridColor )
+
+    
   
   Q_PROPERTY (double channelMinimum    READ channelMinimum   WRITE setChannelMinimum    )
   Q_PROPERTY (double channelMaximum    READ channelMaximum   WRITE setChannelMaximum    )
