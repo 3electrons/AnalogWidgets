@@ -45,7 +45,7 @@ class Chart :  public WidgetWithBackground
 {
   Q_OBJECT
   Q_PROPERTY (int channel     	 	READ channel      WRITE setChannel   )
-  Q_PROPERTY (int position  		READ position     WRITE setPosition  )
+  Q_PROPERTY (double position  		READ position     WRITE setPosition  )
   Q_PROPERTY (double size     		READ size         WRITE setSize      )
   Q_PROPERTY (double zoom			READ zoom         WRITE setZoom      ) 
   
@@ -115,7 +115,7 @@ class Chart :  public WidgetWithBackground
     
   public:
     
-    int position()          const; 	
+    double position()          const;
     double size()           const;	
     double channelMinimum() const;   
     double channelMaximum() const;   

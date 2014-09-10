@@ -191,9 +191,9 @@ void Chart::initCoordinateSystem(QPainter & /*painter*/)
 //***************************
 
 // position 
-int Chart::position()          const 	
+double Chart::position()          const
 { 
-  return static_cast<int>( m_scalegrid.pos );   
+  return ( m_scalegrid.pos );
 }
 
 void Chart::setPosition(double i)
