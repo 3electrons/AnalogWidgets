@@ -110,6 +110,7 @@
         // Layout of - chart
         widget = stackedWidget->widget(5);
         chart = new Chart();
+        chart->setMouseTracking(true);
         QLayout * layout3 = new QVBoxLayout();
         layout3->addWidget(chart);
         QLayout * wert = new QHBoxLayout(); 

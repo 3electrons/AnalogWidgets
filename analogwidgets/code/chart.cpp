@@ -473,6 +473,41 @@ void Chart::setZoom(double factor)
   }
 }
 
+void Chart::setWidgetCursorPosition(const QPoint & pos, bool drawRect )
+{
+    m_currentCurPoint = pos;
+    m_clip = QRect (0,0,width(),height());
+
+    m_currentCurPositions.clear();
+
+    if (m_painterDecorator.get())
+       m_painterDecorator->absPosition(m_currentCurPoint,m_currentCurPositions,this,m_clip);
+
+    m_currentCurPoint.rx()+=m_clip.x();
+    m_currentCurPoint.ry()+=m_clip.y();
+
+    if (m_clip.contains(m_currentCurPoint))
+    {
+
+       emit curPosChanged(m_currentCurPositions);
+
+
+       if (drawRect) // e->buttons()&&Qt::LeftButton)
+       {
+          // po prostu bêdzie ramka ...
+          emit curRangeChanged(m_currentCurPositions,m_lastCurPositions);
+       }
+       else
+       {
+          m_lastCurPoint = m_currentCurPoint;
+          m_lastCurPositions = m_currentCurPositions;
+       }
+     update();
+    }
+}
+
+
+
 // Zas³ania setFont QWidget by mo¿na by³o od¶wie¿yæ ca³y komponent 
 void Chart::setFont(QFont i) 
 { 
@@ -600,9 +635,16 @@ void Chart::contextMenuActionTriggered(QAction * a)
 void Chart::mouseMoveEvent ( QMouseEvent * e )
 {
   if (!hasMouseTracking()) return; 
-   
+
+  bool drawRect = e->buttons()&&Qt::LeftButton;
+
+  setWidgetCursorPosition(e->pos(), drawRect);
+
+  /*
+
+  m_currentCurPoint = e->pos();
   m_clip = QRect (0,0,width(),height()); 
-  m_currentCurPoint = e->pos(); 
+
   m_currentCurPositions.clear();
   
   if (m_painterDecorator.get()) 
@@ -616,7 +658,6 @@ void Chart::mouseMoveEvent ( QMouseEvent * e )
   
      emit curPosChanged(m_currentCurPositions); 
     
-    
      if (e->buttons()&&Qt::LeftButton)
      {
         // po prostu bêdzie ramka ... 
@@ -629,6 +670,7 @@ void Chart::mouseMoveEvent ( QMouseEvent * e )
      }
    update(); 
   }
+  */
 }
 
 /** Maluje pozycjê kursora na obiekcie danych */  	 	

@@ -181,6 +181,10 @@ class Chart :  public WidgetWithBackground
     void setBottomBackgrounColor(const QColor &c);
     void setGridColor(const QColor & c);
     void setZoom(double factor);
+
+    void setWidgetCursorPosition(const QPoint & , bool drawRect = false);
+    //void setCursorPosition(const QPointF & );
+
     
   signals: 
     void sizeChanged(int i); 
