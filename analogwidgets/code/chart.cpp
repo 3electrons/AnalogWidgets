@@ -99,7 +99,8 @@ Chart::Chart(QWidget *parent)
    m_topBackgroundColor = QColor(0,0,150); 
    m_bottomBackgroundColor = Qt::black; 
    m_gridColor = QColor(40,40,180);
-
+   m_showVerticalCur = true;
+   m_showHorizontalCur = true;
 }
 
 Chart::~Chart()
@@ -507,6 +508,16 @@ void Chart::setWidgetCursorPosition(const QPoint & pos, bool drawRect )
 }
 
 
+void Chart::setShowVerticalCursor( bool i)
+{
+    m_showVerticalCur = i;
+}
+
+void Chart::setShowHorizontalCursor(bool i)
+{
+    m_showHorizontalCur = i;
+}
+
 
 // Zas³ania setFont QWidget by mo¿na by³o od¶wie¿yæ ca³y komponent 
 void Chart::setFont(QFont i) 
@@ -613,6 +624,17 @@ QMenu * Chart::contextMenu()
   return menu; 
 }
 
+bool Chart::showVerticalCursor() const
+{
+    return m_showVerticalCur;
+}
+
+bool Chart::showHorizontalCursor() const
+{
+    return m_showHorizontalCur;
+}
+
+
 /** Wywo³anie menu kontekstowego */ 
 void Chart::contextMenuActionTriggered(QAction * a)
 {
@@ -682,10 +704,12 @@ void Chart::paintCursorPosition(QPainter & painter)
   if (m_lastCurPoint==m_currentCurPoint) 	 	// tylko linia do namalowania 
   {
 
+    if (m_showVerticalCur)
     painter.drawLine(
                        QPoint(m_currentCurPoint.x(),m_clip.y()),
                        QPoint(m_currentCurPoint.x(),m_clip.y()+m_clip.height())
                      );
+    if (m_showHorizontalCur)
     painter.drawLine( QPoint(m_clip.x(),m_currentCurPoint.y()),
                       QPoint(m_clip.x()+m_clip.width(),m_currentCurPoint.y())
                     );  	 	

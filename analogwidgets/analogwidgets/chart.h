@@ -58,6 +58,9 @@ class Chart :  public WidgetWithBackground
   Q_PROPERTY ( QColor bottomBackgroundColor READ bottomBackgroundColor WRITE setBottomBackgrounColor )
   Q_PROPERTY ( QColor gridColor READ gridColor WRITE setGridColor )
 
+  Q_PROPERTY ( bool showVerticalCursor READ showVerticalCursor WRITE setShowVerticalCursor)
+  Q_PROPERTY ( bool showHorizontalCursor READ showHorizontalCursor WRITE setShowHorizontalCursor)
+
     
   
   Q_PROPERTY (double channelMinimum    READ channelMinimum   WRITE setChannelMinimum    )
@@ -146,6 +149,9 @@ class Chart :  public WidgetWithBackground
     
     /** Build context menu */ 
     QMenu * contextMenu(); 
+
+    bool showVerticalCursor() const;
+    bool showHorizontalCursor() const;
     
   public slots:
     
@@ -185,7 +191,9 @@ class Chart :  public WidgetWithBackground
     void setWidgetCursorPosition(const QPoint & , bool drawRect = false);
     //void setCursorPosition(const QPointF & );
 
-    
+    void setShowVerticalCursor( bool i);
+    void setShowHorizontalCursor(bool i);
+
   signals: 
     void sizeChanged(int i); 
     void sizeChanged(double i); 
@@ -237,6 +245,10 @@ class Chart :  public WidgetWithBackground
     QColor m_topBackgroundColor; 
     QColor m_bottomBackgroundColor; 
     QColor m_gridColor;
+
+    bool m_showVerticalCur;
+    bool m_showHorizontalCur;
+
     
 };// class Chart 
 
