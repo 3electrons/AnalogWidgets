@@ -474,6 +474,7 @@ void Chart::setZoom(double factor)
   }
 }
 
+
 void Chart::setWidgetCursorPosition(const QPoint & pos, bool drawRect )
 {
     m_currentCurPoint = pos;
@@ -491,7 +492,6 @@ void Chart::setWidgetCursorPosition(const QPoint & pos, bool drawRect )
     {
 
        emit curPosChanged(m_currentCurPositions);
-
 
        if (drawRect) // e->buttons()&&Qt::LeftButton)
        {

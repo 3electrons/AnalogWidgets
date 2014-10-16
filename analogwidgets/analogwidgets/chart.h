@@ -188,8 +188,9 @@ class Chart :  public WidgetWithBackground
     void setGridColor(const QColor & c);
     void setZoom(double factor);
 
+
     void setWidgetCursorPosition(const QPoint & , bool drawRect = false);
-    //void setCursorPosition(const QPointF & );
+
 
     void setShowVerticalCursor( bool i);
     void setShowHorizontalCursor(bool i);
