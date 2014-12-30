@@ -659,7 +659,13 @@ void Chart::wheelEvent(QWheelEvent *e)
 {
     qreal factor = 1.05;
     qreal zoom = 1.0;
-    qreal delta = e->angleDelta().y();
+
+#if QT_VERSION >= 0x050000
+    qreal delta =  e->angleDelta().y();
+#else
+    qreal delta =  e->delta();
+#endif
+
     if (delta > 0)
         zoom = delta * factor / delta ;
     else
