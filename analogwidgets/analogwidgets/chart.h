@@ -103,7 +103,7 @@ class Chart :  public WidgetWithBackground
     void paintEvent(QPaintEvent *event); 	 // inherited from QMyWidgetWithBackgroun
     void contextMenuEvent ( QContextMenuEvent * e );
     void mouseMoveEvent ( QMouseEvent * e );
-    
+    void wheelEvent(QWheelEvent *e);
     //////////////// H E L P E R S ////////////////
     
     /** This method build decorators chain if you like you may substitute it and 
@@ -124,7 +124,7 @@ class Chart :  public WidgetWithBackground
     double channelMaximum() const;   
     QColor channelColor()   const; 
     QString channelName()   const; 
-    
+
     
     double zoom()		const; 
     
@@ -152,6 +152,7 @@ class Chart :  public WidgetWithBackground
 
     bool showVerticalCursor() const;
     bool showHorizontalCursor() const;
+
     
   public slots:
     
@@ -159,7 +160,7 @@ class Chart :  public WidgetWithBackground
     void setPosition      (int i); 
     void setSize          (double i);
     void setSize 	      (int i); 
-    
+
     void setChannelMinimum(double i); 
     void setChannelMaximum(double i); 
     void setChannelColor  (QColor i);
@@ -213,6 +214,7 @@ class Chart :  public WidgetWithBackground
     void contextMenuActionTriggered(QAction * a);
     
   protected:
+
     
     /** ScaleGrid structure */
     ScaleGrid m_scalegrid;

@@ -1,7 +1,3 @@
-# Plik utworzony przez mened?era projektów kdevelopa
-# ------------------------------------------- 
-# Podkatalog wzgl?dem g?ównego katalogu projektu: ./analogwidgets/plugins
-# Cel to biblioteka analogwidgets_plugin
 
 
 HEADERS += analogwidgets_plugin.h \
@@ -52,7 +48,7 @@ wince*:{
  LIBS += ../analogwidgets.lib
 }
 
-QT += xml svg script 
+QT += xml svg script designer
 
 INCLUDEPATH += ../analogwidgets \
 ..
@@ -63,7 +59,6 @@ TARGET =       analogwidgets_plugin
 DESTDIR =      ../
 CONFIG += release \
           warn_on \
-	  designer \ 
           plugin
 TEMPLATE = lib
 
